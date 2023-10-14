@@ -1,0 +1,28 @@
+<table class="user-profile-table">
+  <tr>
+    <th>Name:</th>
+    <td>{{ profile.name }}</td>
+  </tr>
+  <tr>
+    <th>Surname:</th>
+    <td>{{ profile.surname }}</td>
+  </tr>
+  <tr>
+    <th>Profile Image:</th>
+    <td>
+      <img [src]="profile.profileImage" alt="Profile Image">
+    </td>
+  </tr>
+  <tr>
+    <th>Biography:</th>
+    <td>
+      <p>{{ profile.biography }}</p>
+    </td>
+  </tr>
+  <tr>
+    <th>Quote:</th>
+    <td>
+      <p>{{ profile.quote }}</p>
+    </td>
+  </tr>
+</table>
