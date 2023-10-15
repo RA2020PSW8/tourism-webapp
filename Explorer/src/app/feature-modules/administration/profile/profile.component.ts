@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Profile } from '../model/profile.model';
-
+import { FormsModule } from '@angular/forms';
 import { ProfileService } from '../profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 
 
@@ -14,6 +15,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class ProfileComponent implements OnInit{
 
+    
+
     profile : Profile = {
       name: '',
       surname: '',
@@ -21,40 +24,32 @@ export class ProfileComponent implements OnInit{
       biography: '',
       quote: '',
     }
-    constructor(private service: ProfileService){}
+    constructor(private service: ProfileService, private auth:AuthService){}
 
     ngOnInit(): void {
-          //alert(JSON.stringify(this.profile));
-          const userId = 1
-      
-
-          /*
-          this.service.getProfile(userId).subscribe(
-            (data) => {
-              //alert(JSON.stringify(data))
-              this.profile.name = data.results[0].name;
-              console.log(data)
-              this.profile.surname = data.results[0].surname;
-              this.profile.biography = data.results[0].biography;
-              this.profile.profileImage = data.results[0].profileImage;
-              this.profile.quote = data.results[0].quote;
+      this.auth.user$.subscribe((user) => {
+        if (user.username) {
+          // If a user is authenticated, get the user's ID
+          const userId = user.id-6;
+  
+          // Fetch the user's profile using the ID
+          this.service.getProfile(userId).subscribe({
+            next: (data: Profile) => {
+              this.profile.name = data.name;
+              this.profile.surname = data.surname;
+              this.profile.profileImage = data.profileImage;
+              this.profile.biography = data.biography;
+              this.profile.quote = data.quote;
+            },
+            error: (err: any) => {
+              console.log(err);
             }
-          )
-          */
-         this.service.getProfile(userId).subscribe({
-          next: (data:Profile) => {
-            this.profile.name = data.name;
-            this.profile.surname = data.surname
-            this.profile.profileImage = data.profileImage;
-            this.profile.biography = data.biography;
-            this.profile.quote = data.quote;
-            
-          },
-          error: (err: any) => {
-            console.log(err)
-          }
-         })
-          //alert(JSON.stringify(this.profile))
-        
+          });
+        }
+      });
+     
     }
+          
+          
+   
 }
