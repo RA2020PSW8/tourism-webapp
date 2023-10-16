@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Profile } from '../model/profile.model';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ProfileService } from '../profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 
 
@@ -15,7 +17,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 })
 export class ProfileComponent implements OnInit{
 
-    
+  personUpdateForm: FormGroup;
 
     profile : Profile = {
       name: '',
@@ -23,16 +25,35 @@ export class ProfileComponent implements OnInit{
       profileImage: '',
       biography: '',
       quote: '',
+      username: '',
+      password: '',
+      email: ''
     }
-    constructor(private service: ProfileService, private auth:AuthService){}
+    constructor(private cd:ChangeDetectorRef,private service: ProfileService, private auth:AuthService, private formBuilder :FormBuilder){
+      this.personUpdateForm = this.formBuilder.group({
+        newName: '',
+        newSurname: '',
+        newProfileImage: '',
+        newBiography: '',
+        newQuote: '',
+        username:'', 
+        password:'',
+        email:''
+      });
+    }
 
     ngOnInit(): void {
+      this.loadProfileData();
+    }
+
+   
+    loadProfileData(){
       this.auth.user$.subscribe((user) => {
         if (user.username) {
-          // If a user is authenticated, get the user's ID
+         
           const userId = user.id-6;
   
-          // Fetch the user's profile using the ID
+          
           this.service.getProfile(userId).subscribe({
             next: (data: Profile) => {
               this.profile.name = data.name;
@@ -49,7 +70,42 @@ export class ProfileComponent implements OnInit{
       });
      
     }
-          
+    onSubmit() {
+      if (this.personUpdateForm.valid) {
+       
+        this.auth.user$.subscribe((user) => {
+          if (user.username) {
+            
+            const userId = user.id - 6;
+    
+            alert(JSON.stringify(userId))
+            const updatedProfile: Profile = {
+              name: this.personUpdateForm.value.newName,
+              surname: this.personUpdateForm.value.newSurname,
+              profileImage: this.personUpdateForm.value.newProfileImage,
+              biography: this.personUpdateForm.value.newBiography,
+              quote: this.personUpdateForm.value.newQuote,
+              username: this.profile.username,
+              password: this.profile.password,
+              email: this.profile.email
+              
+            };
+    
+           
+            this.service.updateProfile(userId, updatedProfile).subscribe({
+              next: (data: Profile) => {
+                this.personUpdateForm.reset();
+                this.loadProfileData();
+                this.cd.detectChanges();
+              },
+              error: (err: any) => {
+                console.log(err);
+              }
+            });
+          }
+        });
+      }
+    }
           
    
 }

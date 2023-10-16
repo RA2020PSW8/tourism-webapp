@@ -4,5 +4,9 @@ export interface Profile{
     surname: string,
     profileImage: string, 
     biography: string
-    quote : string
+    quote : string, 
+    username: string, 
+    password: string, 
+    email: string,
+    
 }

@@ -18,4 +18,9 @@ export class ProfileService {
     const apiUrl = `https://localhost:44333/api/users/profile?userId=${userId}`;
     return this.http.get<Profile>(apiUrl);
   }
+
+  updateProfile(userId: number, updatedProfile: Profile): Observable<Profile> {
+    const apiUrl = `https://localhost:44333/api/users/${userId}`;
+    return this.http.put<Profile>(apiUrl, updatedProfile);
+  }
 }

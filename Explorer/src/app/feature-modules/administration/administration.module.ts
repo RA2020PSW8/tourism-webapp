@@ -8,11 +8,13 @@ import { ProfileComponent } from './profile/profile.component';
 
 
 
+
 @NgModule({
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
-    ProfileComponent
+    ProfileComponent,
+    
   ],
   imports: [
     CommonModule,
