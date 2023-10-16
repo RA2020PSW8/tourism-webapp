@@ -27,7 +27,8 @@ export class ProfileComponent implements OnInit{
       quote: '',
       username: '',
       password: '',
-      email: ''
+      email: '',
+      userId:0
     }
     constructor(private cd:ChangeDetectorRef,private service: ProfileService, private auth:AuthService, private formBuilder :FormBuilder){
       this.personUpdateForm = this.formBuilder.group({
@@ -85,9 +86,10 @@ export class ProfileComponent implements OnInit{
               profileImage: this.personUpdateForm.value.newProfileImage,
               biography: this.personUpdateForm.value.newBiography,
               quote: this.personUpdateForm.value.newQuote,
-              username: this.profile.username,
-              password: this.profile.password,
-              email: this.profile.email
+              username: this.personUpdateForm.value.username,
+              password: this.personUpdateForm.value.password,
+              email: this.personUpdateForm.value.email,
+              userId: user.id
               
             };
     

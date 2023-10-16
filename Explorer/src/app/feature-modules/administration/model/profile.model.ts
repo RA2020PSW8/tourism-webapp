@@ -1,5 +1,6 @@
 export interface Profile{
     id?: number,
+    userId:number,
     name: string, 
     surname: string,
     profileImage: string, 
