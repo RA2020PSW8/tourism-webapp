@@ -1,0 +1,12 @@
+<div id="users">
+    <p>Users</p>
+    <hr>
+    <div id="users-details">
+        <div>
+            <div *ngFor="let user of users">
+                <p>Username: {{user.username}}</p>
+                <p>Password: {{user.password}}</p>
+            </div>
+        </div>
+    </div>
+</div>
