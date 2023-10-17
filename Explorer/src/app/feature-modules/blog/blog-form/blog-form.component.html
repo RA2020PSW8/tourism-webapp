@@ -1,0 +1,8 @@
+<form [formGroup]="blogForm">
+    <label>Title</label><input formControlName="title"><br>
+    <label>Description</label><input formControlName="description"><br>
+    <label>Creation date</label><input formControlName="creationDate"><br>
+    <label>Image links:</label><textarea formControlName="imageLinks"></textarea><br>
+    <label>Status</label><input formControlName="status"><br>
+    <button (click)="addBlog()">Submit</button>
+</form>

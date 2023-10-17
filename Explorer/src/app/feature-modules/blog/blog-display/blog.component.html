@@ -1,0 +1,12 @@
+<div *ngFor="let bl of blogs">
+    <h1>{{bl.title}}</h1>
+    <button (click)="onUpdateClicked(bl)">edit me</button>
+    <p>{{bl.description}}</p>
+    <p>{{bl.creationDate}}</p>
+    <ul *ngFor="let i of bl.imageLinks">
+        <li>{{i}}</li>
+    </ul>
+    <p>{{bl.status}}</p>
+</div>
+
+<xp-blog-form (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
