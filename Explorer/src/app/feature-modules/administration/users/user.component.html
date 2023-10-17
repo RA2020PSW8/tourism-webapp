@@ -1,11 +1,17 @@
 <div id="users">
-    <p>Users</p>
+    <p style="text-align: center; font-weight: bold; font-size: 45px;">Users</p>
     <hr>
     <div id="users-details">
-        <div>
+        <div id = "user-div">
             <div *ngFor="let user of users">
                 <p>Username: {{user.username}}</p>
                 <p>Password: {{user.password}}</p>
+                <p>Role: {{ user.role === 0 ? 'Administrator' : user.role === 1 ? 'Tourist' : 'Unknown' }}</p>
+                <p>Password: {{user.mail}}</p>
+                <button  class="unblock-button" *ngIf="user.isBlocked; else unblockButton" (click)="unblockUser(user)">Unblock</button>
+                <ng-template #unblockButton>
+                    <button class="block-button" (click)="blockUser(user)">Block</button>
+                </ng-template>
             </div>
         </div>
     </div>

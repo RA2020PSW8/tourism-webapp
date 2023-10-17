@@ -29,6 +29,9 @@ export class AdministrationService {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
   }
 
+  updateUser(user: User): Observable<User> {
+    return this.http.put<User>(environment.apiHost + 'administration/users/' + user.id, user);
+  }
   getUsers(): Observable<PagedResults<User>> {
     return this.http.get<PagedResults<User>>(environment.apiHost + 'administration/users');
   }

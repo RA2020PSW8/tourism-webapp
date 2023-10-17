@@ -1,50 +1,110 @@
+/* styles.css */
+body {
+    background-color: #f0f0f0; /* Light gray background for the entire page */
+    font-family: Arial, sans-serif; /* Specify a font */
+    text-align: center; /* Center-align the page content */
+}
+
 #users {
-    margin-top: 20px;
-    margin-left: 20px;
+    border: 2px solid #3498db; /* Blue border */
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+    background-color: #ecf0f1; /* Light blue background */
+}
+.block-button {
+    background-color: #e74c3c; /* Red background color for the button */
+    color: #fff; /* White text color for the button */
+    border: none;
+    padding: 10px 20px; /* Add some padding to the button */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer;
+    float: right; /* Float the button to the right */
+    margin-top: -35px; /* Add some top margin for spacing */
+}
+#users-title {
+    font-size: 28px; /* Larger font size for the title */
+    font-weight: bold; /* Make the title bold */
+    color: #3498db; /* Blue text color */
+    margin: 0; /* Remove default margin to center the title */
+}
+#users p {
+    font-size: 24px; /* Larger font size */
+    margin: 0;
+    color: #3498db; /* Blue text color */
+}
+
+#users hr {
+    margin: 10px 0;
+    border: none;
+    border-top: 2px solid #ccc; /* Light gray horizontal line */
 }
 
 #users-details {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
+    margin-top: 20px;
 }
 
-p {
-    font-size: 20px;
+#users-details p {
+    font-size: 20px; /* Larger font size */
+    margin: 0;
+    margin-bottom: 10px;
+    color: #555; /* Slightly darker text color */
 }
 
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+/* Make the username paragraph stand out */
+/* styles.css */
+/* ... (previous styles) ... */
+
+/* Make the username paragraph stand out */
+#users-details p:nth-child(odd):first-child {
+    color: #3498db; /* Blue text color for the first odd-numbered paragraph (username) */
+    font-weight: bold; /* Make the username bold */
 }
 
-thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
-    text-align: left;
+/* ... (remaining styles) ... */
+
+
+#users-details div {
+    border: 2px solid #3498db; /* Blue border */
+    padding: 15px;
+    margin: 15px 0;
+    border-radius: 10px;
+    background-color: #ffffff; /* White background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a slight box shadow */
 }
 
-th, td {
-    padding: 12px 15px;
+/* Different colors for alternating users */
+#users-details div:nth-child(even) {
+    background-color: #e4e4e4; /* Light gray background for even users */
 }
 
-tbody tr {
-    border-bottom: 1px solid #dddddd;
+#users-details div:nth-child(odd) {
+    background-color: #e4e4e4; /* Slightly darker gray background for odd users */
+}
+#user-div div:hover {
+    background-color: #f4f4f4; /* Light gray background when hovering over the user div */
+}
+.block-button:hover {
+    /* Button background color when hovering over it */
+    background-color: lightcoral; /* Blue background color for the hover effect */
 }
 
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+.unblock-button {
+    background-color: green; /* Green background color for the "Unblock" button */
+    color: #fff; /* White text color for the button */
+    border: none;
+    padding: 10px 20px; /* Add some padding to the button */
+    border-radius: 5px; /* Rounded corners for the button */
+    cursor: pointer;
+    float: right; /* Float the button to the right */
+    margin-top: -35px; /* Add some top margin for spacing */
 }
 
-tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
+.unblock-button:hover {
+    background-color: lightgreen; /* Green background color for the "Unblock" button on hover */
 }
 
-tbody tr.active-row {
-    font-weight: bold;
-    color: #3f51b5;
-}
+
+
+
+
