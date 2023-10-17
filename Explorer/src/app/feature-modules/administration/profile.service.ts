@@ -15,12 +15,12 @@ export class ProfileService {
    }
 
   getProfile(userId: number): Observable<Profile> {
-    const apiUrl = `https://localhost:44333/api/users/profile?userId=${userId}`;
+    const apiUrl = `https://localhost:44333/api/profile/${userId}`;
     return this.http.get<Profile>(apiUrl);
   }
 
   updateProfile(userId: number, updatedProfile: Profile): Observable<Profile> {
-    const apiUrl = `https://localhost:44333/api/users/${userId}`;
+    const apiUrl = `https://localhost:44333/api/profile/${userId}`;
     return this.http.put<Profile>(apiUrl, updatedProfile);
   }
 }

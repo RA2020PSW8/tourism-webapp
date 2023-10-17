@@ -39,7 +39,9 @@ export class ProfileComponent implements OnInit{
         newQuote: '',
         username:'', 
         password:'',
-        email:''
+        email:'',
+        userId: 0
+      
       });
     }
 
@@ -52,7 +54,8 @@ export class ProfileComponent implements OnInit{
       this.auth.user$.subscribe((user) => {
         if (user.username) {
          
-          const userId = user.id-6;
+          //const userId = user.id-6;
+          const userId = user.id;
   
           
           this.service.getProfile(userId).subscribe({
@@ -77,8 +80,9 @@ export class ProfileComponent implements OnInit{
         this.auth.user$.subscribe((user) => {
           if (user.username) {
             
-            const userId = user.id - 6;
+            //const userId = user.id - 6;
     
+            const userId = user.id;
             alert(JSON.stringify(userId))
             const updatedProfile: Profile = {
               name: this.personUpdateForm.value.newName,
