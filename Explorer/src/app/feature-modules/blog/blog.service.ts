@@ -18,4 +18,12 @@ export class BlogService {
   addBlog(blog: Blog): Observable<Blog> {
     return this.http.post<Blog>('https://localhost:44333/api/blog',blog);
   }
+
+  updateBlog(blog: Blog): Observable<Blog> {
+    return this.http.put<Blog>('https://localhost:44333/api/blog/'+blog.id,blog);
+  }
+
+  deleteBlog(blog: Blog): Observable<Blog> {
+    return this.http.delete<Blog>('https://localhost:44333/api/blog/'+blog.id);
+  }
 }

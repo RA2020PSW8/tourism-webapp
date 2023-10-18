@@ -42,8 +42,15 @@ export class BlogComponent implements OnInit {
     this.selectedBlog = blog;
   }
 
-  /*blogs: Blog[] = [
-    {id: 0, title: 'Interesting visit to Portugal', description: 'Angular test', creationdate: '01-01-2023', imagelinks:['test','test1'], status:0},
-    {id: 0, title: 'Interesting visit to Singapore', description: 'Angular test2', creationdate: '02-02-2023', imagelinks:['test2','test3'], status:1},
-  ]*/
+  onDeleteClicked(blog: Blog): void
+  {
+    this.service.deleteBlog(blog).subscribe({
+      next: (_) => {
+        this.getBlogs();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    })
+  }
 }

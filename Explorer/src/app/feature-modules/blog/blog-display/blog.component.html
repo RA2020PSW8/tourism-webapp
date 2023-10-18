@@ -1,11 +1,10 @@
 <div *ngFor="let bl of blogs">
     <h1>{{bl.title}}</h1>
     <button (click)="onUpdateClicked(bl)">edit me</button>
+    <button (click)="onDeleteClicked(bl)">delete me</button>
     <p>{{bl.description}}</p>
     <p>{{bl.creationDate}}</p>
-    <ul *ngFor="let i of bl.imageLinks">
-        <li>{{i}}</li>
-    </ul>
+    <p>{{bl.imageLinks}}</p>
     <p>{{bl.status}}</p>
 </div>
 

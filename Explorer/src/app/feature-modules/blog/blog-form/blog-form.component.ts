@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
 import { Blog } from '../model/blog.model';
 import { toArray } from 'rxjs';
+import { BlogString } from '../model/blogform.model';
 
 @Component({
   selector: 'xp-blog-form',
@@ -26,24 +27,45 @@ export class BlogFormComponent implements OnChanges {
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-    //this.blogForm.patchValue(this.selectedBlog);
-      /*console.log("aa");
-      this.blogForm.value.title = this.selectedBlog.title;
-      this.blogForm.value.imageLinks = this.selectedBlog.imageLinks.toString();*/
+    const blogForm: BlogString = {
+      id: this.selectedBlog.id,
+      title: this.selectedBlog.title,
+      description: this.selectedBlog.description,
+      creationDate : this.selectedBlog.creationDate,
+      imageLinks : this.selectedBlog.imageLinks,
+      status : this.selectedBlog.status.toString()
+    };
+
+    this.blogForm.patchValue(blogForm);
   }
 
   addBlog(): void{
-    console.log(this.blogForm.value);
-
     const blog: Blog = {
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
       creationDate: this.blogForm.value.creationDate as string,
-      imageLinks: [this.blogForm.value.imageLinks as string],
-      status: this.blogForm.value.status as string
+      imageLinks: this.blogForm.value.imageLinks as string,
+      status: Number(this.blogForm.value.status)
     }
 
     this.service.addBlog(blog).subscribe({
+      next: (_) => {
+        this.blogUpdated.emit();
+      }
+    });
+  }
+
+  updateBlog(): void{
+    const blog: Blog = {
+      id: this.selectedBlog.id,
+      title: this.blogForm.value.title || "",
+      description: this.blogForm.value.description || "",
+      creationDate: this.blogForm.value.creationDate as string,
+      imageLinks: this.blogForm.value.imageLinks as string,
+      status: Number(this.blogForm.value.status)
+    }
+
+    this.service.updateBlog(blog).subscribe({
       next: (_) => {
         this.blogUpdated.emit();
       }
