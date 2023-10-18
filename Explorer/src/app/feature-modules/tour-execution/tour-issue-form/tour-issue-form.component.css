@@ -1,0 +1,38 @@
+div {
+    width: 400px;
+    display:flex;
+    gap: 10px;
+    flex-direction: column;
+}
+
+label {
+    font-size: 16px;
+    font-family: sans-serif;
+}
+
+input {
+    width: 400px;
+    height: 30px;
+    background-color: #f3f3f3;
+    border-style: hidden;
+    border-radius: 3px;
+}
+
+button {
+    width: 215px;
+    height: 35px;
+    background-color: #3f51b5;
+    color: #ffffff;
+    border-style: hidden;
+    border-radius: 3px;
+    font-size: 16px;
+}
+
+#buttons {
+    display:flex;
+    flex-direction: row;
+}
+
+.mat-icon {
+    vertical-align: middle;
+}
