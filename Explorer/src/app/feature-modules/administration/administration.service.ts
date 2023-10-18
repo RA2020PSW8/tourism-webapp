@@ -24,6 +24,9 @@ export class AdministrationService {
   addEquipment(equipment: Equipment): Observable<Equipment> {
     return this.http.post<Equipment>(environment.apiHost + 'administration/equipment', equipment);
   }
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(environment.apiHost + 'administration/users', user);
+  }
 
   updateEquipment(equipment: Equipment): Observable<Equipment> {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
@@ -34,6 +37,10 @@ export class AdministrationService {
   }
   getUsers(): Observable<PagedResults<User>> {
     return this.http.get<PagedResults<User>>(environment.apiHost + 'administration/users');
+  }
+
+  deleteUser(id: number): Observable<User> {
+    return this.http.delete<User>(environment.apiHost + 'administration/users/' + id);
   }
 
 }

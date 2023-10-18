@@ -1,18 +1,75 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <div id="users">
-    <p style="text-align: center; font-weight: bold; font-size: 45px;">Users</p>
-    <hr>
-    <div id="users-details">
-        <div id = "user-div">
-            <div *ngFor="let user of users">
-                <p>Username: {{user.username}}</p>
-                <p>Password: {{user.password}}</p>
-                <p>Role: {{ user.role === 0 ? 'Administrator' : user.role === 1 ? 'Tourist' : 'Unknown' }}</p>
-                <p>Password: {{user.mail}}</p>
-                <button  class="unblock-button" *ngIf="user.isBlocked; else unblockButton" (click)="unblockUser(user)">Unblock</button>
-                <ng-template #unblockButton>
-                    <button class="block-button" (click)="blockUser(user)">Block</button>
-                </ng-template>
-            </div>
-        </div>
-    </div>
+  <p style="text-align: center; font-weight: bold; font-size: 45px;">Users</p>
+  <hr>
+
+  <!-- Form to add a new user (initially hidden) -->
+  <div *ngIf="showAddUser" class="add-user-form">
+    <button class="close-button" (click)="closeAddUserForm()">
+      <i class="fas fa-times"></i>
+    </button>
+      <h3>Add New User</h3>
+        
+    
+      <label for="new-username">Username:</label>
+      <input id="new-username" [(ngModel)]="newUser.username" placeholder="Username">
+      <label for="new-password">Password:</label>
+      <input id="new-password" [(ngModel)]="newUser.password" placeholder="Password">
+      <label for="new-role">Role:</label>
+      <select id="new-role" [(ngModel)]="newUser.role">
+          <option value="0">Administrator</option>
+          <option value="1">Tourist</option>
+          <option value="2">Unknown</option>
+      </select>
+      <label for="new-email">Email:</label>
+      <input id="new-email" [(ngModel)]="newUser.mail" placeholder="Email">
+      <button class="create-button" (click)="addUser()">Create User</button>
+  </div>
+
+  <div id="users-details">
+      <!-- Add a button to create a new user -->
+      <button class="create-button1" *ngIf="!showAddUser" (click)="showAddUserForm()">Add User</button>
+
+      <div id="user-div">
+          <div *ngFor="let user of users">
+              <div *ngIf="!user.isEditing; else editFields">
+                  <!-- Display user details -->
+                  <p><strong>Username:</strong> {{user.username}}</p>
+                  <p><strong>Password:</strong> {{user.password}}</p>
+                  <p><strong>Role:</strong> {{ user.role === 0 ? 'Administrator' : user.role === 1 ? 'Tourist' : 'Unknown' }}</p>
+                  <p><strong>Email:</strong> {{user.mail}}</p>
+                  <button class="delete-button" (click)="deleteUser(user.id || 0)">Delete</button>
+                  <button class="edit-button" (click)="enableEditing(user)">Edit</button>
+                  <button class="unblock-button" *ngIf="user.isBlocked; else unblockButton" (click)="unblockUser(user)">Unblock</button>
+                  <ng-template #unblockButton>
+                      <button class="block-button" (click)="blockUser(user)">Block</button>
+                  </ng-template>
+              </div>
+              <ng-template #editFields>
+                  <!-- Input fields for editing -->
+                  <p>
+                      <label for="edit-username">Username:</label>
+                      <input id="edit-username" [(ngModel)]="user.username" placeholder="Username">
+                  </p>
+                  <p>
+                      <label for="edit-password">Password:</label>
+                      <input id="edit-password" [(ngModel)]="user.password" placeholder="Password">
+                  </p>
+                  <p>
+                      <label for="edit-role">Role:</label>
+                      <select id="edit-role" [(ngModel)]="user.role">
+                          <option value="0">Administrator</option>
+                          <option value="1">Tourist</option>
+                          <option value="2">Unknown</option>
+                      </select>
+                  </p>
+                  <p>
+                      <label for="edit-email">Email:</label>
+                      <input id="edit-email" [(ngModel)]="user.mail" placeholder="Email">
+                  </p>
+                  <button class="update-button" (click)="updateUser(user)">Update</button>
+              </ng-template>
+          </div>
+      </div>
+  </div>
 </div>

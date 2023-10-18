@@ -7,6 +7,7 @@ import { UserComponent } from 'src/app/feature-modules/administration/users/user
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -20,7 +21,7 @@ const routes: Routes = [
   declarations: [
     UserComponent
   ],
-  imports: [RouterModule.forRoot(routes), CommonModule],
+  imports: [RouterModule.forRoot(routes), CommonModule, FormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

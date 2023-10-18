@@ -11,4 +11,5 @@ export interface User {
     role: number;
     mail: string;
     isBlocked: boolean;
+    isEditing: boolean;
 }
