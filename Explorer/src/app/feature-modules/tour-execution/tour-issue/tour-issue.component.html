@@ -1,0 +1,23 @@
+<br>
+<table border="1px">
+    <tr>
+        <th>ID</th>
+        <th>Category</th>
+        <th>Priority</th>
+        <th>Description</th>
+        <th>Date and time</th>
+        <th>Update tour issue</th>
+        <th>Delete tour issue</th>
+    </tr>
+    <tr *ngFor = "let ti of tourIssues" align="center">
+        <td>{{ti.id}}</td>
+        <td>{{ti.category}}</td>
+        <td>{{ti.priority}}</td>
+        <td>{{ti.description}}</td>
+        <td>{{ti.dateTime}}</td>
+        <td><button (click)="onUpdateClicked(ti)">Update</button></td>
+        <td><button (click)="onDeleteClicked(ti)">Delete</button></td>
+    </tr>
+</table><br><br>
+
+<xp-tour-issue-form (tourIssueUpdated)="getTourIssues()" [selectedTourIssue]="selectedTourIssue"></xp-tour-issue-form>

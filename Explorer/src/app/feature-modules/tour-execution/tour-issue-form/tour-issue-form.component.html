@@ -1,0 +1,8 @@
+<form [formGroup]="tourIssueForm">
+    <label>Category: </label><input formControlName="category"><br>
+    <label>Priority: </label><input formControlName="priority"><br>
+    <label>Description: </label><input formControlName="description"><br>
+    <label>Date and time: </label><input formControlName="dateTime"><br>
+    <button (click)="addTourIssue()">Create</button>
+    <button (click)="updateTourIssue()">Update</button>
+</form>
