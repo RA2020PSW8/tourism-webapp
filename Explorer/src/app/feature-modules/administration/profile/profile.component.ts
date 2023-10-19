@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Profile } from '../model/profile.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ProfileService } from '../profile.service';
 import { ActivatedRoute } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -32,14 +32,14 @@ export class ProfileComponent implements OnInit{
     }
     constructor(private cd:ChangeDetectorRef,private service: ProfileService, private auth:AuthService, private formBuilder :FormBuilder){
       this.personUpdateForm = this.formBuilder.group({
-        newName: '',
-        newSurname: '',
-        newProfileImage: '',
-        newBiography: '',
-        newQuote: '',
-        username:'', 
-        password:'',
-        email:'',
+        newName: new FormControl('', Validators.required),
+        newSurname: new FormControl('', Validators.required),
+        newProfileImage: new FormControl('', Validators.required),
+        newBiography: new FormControl('', Validators.required),
+        newQuote: new FormControl('', Validators.required),
+        username:new FormControl('', Validators.required),
+        password:new FormControl('', Validators.required),
+        email:new FormControl('', Validators.required),
         userId: 0
       
       });
@@ -54,7 +54,7 @@ export class ProfileComponent implements OnInit{
       this.auth.user$.subscribe((user) => {
         if (user.username) {
          
-          //const userId = user.id-6;
+          
           const userId = user.id;
   
           
@@ -80,10 +80,10 @@ export class ProfileComponent implements OnInit{
         this.auth.user$.subscribe((user) => {
           if (user.username) {
             
-            //const userId = user.id - 6;
+            
     
             const userId = user.id;
-            alert(JSON.stringify(userId))
+            
             const updatedProfile: Profile = {
               name: this.personUpdateForm.value.newName,
               surname: this.personUpdateForm.value.newSurname,

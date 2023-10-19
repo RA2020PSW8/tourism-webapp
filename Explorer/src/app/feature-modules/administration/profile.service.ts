@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Profile } from './model/profile.model';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/env/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,13 @@ export class ProfileService {
    }
 
   getProfile(userId: number): Observable<Profile> {
-    const apiUrl = `https://localhost:44333/api/profile/${userId}`;
-    return this.http.get<Profile>(apiUrl);
+    
+    return this.http.get<Profile>(`${environment.apiHost}profile/${userId}`);
+
   }
 
   updateProfile(userId: number, updatedProfile: Profile): Observable<Profile> {
-    const apiUrl = `https://localhost:44333/api/profile/${userId}`;
-    return this.http.put<Profile>(apiUrl, updatedProfile);
+    
+    return this.http.put<Profile>(`${environment.apiHost}profile/${userId}`, updatedProfile);
   }
 }
