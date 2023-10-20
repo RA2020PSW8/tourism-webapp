@@ -9,13 +9,22 @@ import { RegistrationComponent } from '../auth/registration/registration.compone
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
+
+import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
+
+
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
+  {path:'', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'users', component: UserComponent}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
+  {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
+  {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
 ];
+
 
 @NgModule({
   declarations: [
