@@ -3,8 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from 'src/app/feature-modules/layout/home/home.component';
 import { LoginComponent } from '../auth/login/login.component';
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
+import { UserComponent } from 'src/app/feature-modules/administration/users/user.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
@@ -16,18 +19,18 @@ const routes: Routes = [
   {path:'', redirectTo: 'home', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],}
-
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
+  {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
- 
-
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  declarations: [
+    UserComponent
+  ],
+  imports: [RouterModule.forRoot(routes), CommonModule, FormsModule],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
