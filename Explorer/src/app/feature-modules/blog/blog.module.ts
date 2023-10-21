@@ -4,6 +4,7 @@ import { BlogComponent } from './blog-display/blog.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
+import { MarkdownModule } from 'ngx-markdown';
 
 
 
@@ -15,7 +16,8 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MarkdownModule
   ],
   exports: [
     BlogComponent

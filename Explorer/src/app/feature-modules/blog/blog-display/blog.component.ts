@@ -15,26 +15,32 @@ export class BlogComponent implements OnInit {
   selectedBlog: Blog;
 
   ngOnInit(): void {
-      this.service.getBlogs().subscribe({
-        next: (result: PagedResult<Blog>) => {
-          this.blogs = result.results;
-        },
-        error: (err: any) => {
-          console.log(err);
-        }
-      })
+      this.getBlogs();
   }
 
   getBlogs(): void
   {
+    this.blogs = [];
     this.service.getBlogs().subscribe({
       next: (result: PagedResult<Blog>) => {
-        this.blogs = result.results;
+        for(let b of result.results)
+        {
+          this.prepareBlogForDisplay(b);
+          this.blogs.push(b);
+          console.log(b)
+        }
       },
       error: (err: any) => {
         console.log(err);
       }
     })
+  }
+
+  private prepareBlogForDisplay(b: Blog) {
+    b.creationDate = b.creationDate.slice(0, 10);
+    b.description = b.description.replaceAll('\n', '<br>');
+    //todo enum u str, i metoda koja radi kontra
+    //kasnije iz razloga da ne pokvari CRUD
   }
 
   onUpdateClicked(blog: Blog): void

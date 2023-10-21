@@ -1,11 +1,24 @@
-<div *ngFor="let bl of blogs">
-    <h1>{{bl.title}}</h1>
-    <button (click)="onUpdateClicked(bl)">edit me</button>
-    <button (click)="onDeleteClicked(bl)">delete me</button>
-    <p>{{bl.description}}</p>
-    <p>{{bl.creationDate}}</p>
-    <p>{{bl.imageLinks}}</p>
-    <p>{{bl.status}}</p>
-</div>
+<div id="blog">
+    <div id="all-blogs">
+    <div *ngFor="let bl of blogs" class="single-blog-details">
+        <div class="single-blog-title-row">
+            <p class="single-blog-title">{{bl.title}}</p>
+            <button (click)="onUpdateClicked(bl)" mat-icon-button>
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+        <p class="blog-date">Created: {{bl.creationDate}}</p>
+        <p>Status: {{bl.status}}</p>
+        <p>Description:</p>
+        <markdown ngPreserveWhitespaces >
+            {{bl.description}}
+        </markdown>
+        <img src="{{bl.imageLinks}}" height="100" width="100">
+    </div>
+    </div>
+    <xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
 
-<xp-blog-form (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
+</div>

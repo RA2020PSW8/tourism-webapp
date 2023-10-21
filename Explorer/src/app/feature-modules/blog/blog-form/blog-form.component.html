@@ -1,9 +1,37 @@
-<form [formGroup]="blogForm">
-    <label>Title</label><input formControlName="title"><br>
-    <label>Description</label><input formControlName="description"><br>
-    <label>Creation date</label><input formControlName="creationDate"><br>
-    <label>Image links:</label><textarea formControlName="imageLinks"></textarea><br>
-    <label>Status</label><input formControlName="status"><br>
-    <button (click)="addBlog()">Create</button>
-    <button (click)="updateBlog()">Update</button>
+<form [formGroup]="blogForm" id="blog-form">
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput type="text" formControlName="title">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        formControlName="description"
+        cdkAutosizeMaxRows="5"
+        formControlName="description">
+        </textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+        <label>Creation date</label>
+        <input matInput formControlName="creationDate">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Image links:</mat-label>
+        <textarea matInput cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        formControlName="imageLinks"
+        cdkAutosizeMaxRows="5"></textarea>
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Status</mat-label>
+        <input matInput formControlName="status">        
+    </mat-form-field>
+
+    <button color="primary" type="submit" (click)="addBlog()" mat-raised-button>Create</button>
+    <button color="primary" type="submit" (click)="updateBlog()" mat-raised-button>Update</button>
 </form>
