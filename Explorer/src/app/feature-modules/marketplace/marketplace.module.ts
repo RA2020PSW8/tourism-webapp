@@ -4,10 +4,12 @@ import { TourPreferenceComponent } from './tour-preference/tour-preference.compo
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { MatRadioModule } from '@angular/material/radio';
+import { TourPreferenceFormComponent } from './tour-preference-form/tour-preference-form.component';
 
 @NgModule({
   declarations: [
-    TourPreferenceComponent
+    TourPreferenceComponent,
+    TourPreferenceFormComponent
   ],
   imports: [
     CommonModule,

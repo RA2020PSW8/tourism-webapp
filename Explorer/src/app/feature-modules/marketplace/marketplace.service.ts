@@ -9,21 +9,23 @@ import { Observable } from 'rxjs';
 })
 export class MarketplaceService {
 
+  private readonly apiUrl = `${environment.apiHost}tourist`;
+
   constructor(private http: HttpClient) { }
 
-  getTourPreference(id: number): Observable<TourPreference> {
-    return this.http.get<TourPreference>(environment.apiHost + 'tourist/tourPreference/' + id)
+  getTourPreference(): Observable<TourPreference> {
+    return this.http.get<TourPreference>(`${this.apiUrl}/tourPreference`)
   }
 
-  deleteTourPreference(id: number): Observable<TourPreference> {
-    return this.http.delete<TourPreference>(environment.apiHost + 'tourist/tourPreference/' + id);
+  deleteTourPreference(): Observable<TourPreference> {
+    return this.http.delete<TourPreference>(`${this.apiUrl}/tourPreference`);
   }
 
   addTourPreference(tourPreference: TourPreference): Observable<TourPreference> {
-    return this.http.post<TourPreference>(environment.apiHost + 'tourist/tourPreference', tourPreference);
+    return this.http.post<TourPreference>(`${this.apiUrl}/tourPreference`, tourPreference);
   }
 
-  updateTourPreference(id: number, tourPreference: TourPreference): Observable<TourPreference> {
-    return this.http.put<TourPreference>(environment.apiHost + 'tourist/tourPreference/' + id, tourPreference);
+  updateTourPreference(tourPreference: TourPreference): Observable<TourPreference> {
+    return this.http.put<TourPreference>(`${this.apiUrl}/tourPreference`, tourPreference);
   }
 }
