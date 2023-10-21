@@ -18,8 +18,7 @@ export class BlogComponent implements OnInit {
       this.getBlogs();
   }
 
-  getBlogs(): void
-  {
+  getBlogs(): void {
     this.blogs = [];
     this.service.getBlogs().subscribe({
       next: (result: PagedResult<Blog>) => {

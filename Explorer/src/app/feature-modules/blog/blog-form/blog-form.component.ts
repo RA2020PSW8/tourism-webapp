@@ -39,7 +39,7 @@ export class BlogFormComponent implements OnChanges {
     this.blogForm.patchValue(blogForm);
   }
 
-  addBlog(): void{
+  addBlog(): void {
     const blog: Blog = {
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
@@ -55,7 +55,7 @@ export class BlogFormComponent implements OnChanges {
     });
   }
 
-  updateBlog(): void{
+  updateBlog(): void {
     const blog: Blog = {
       id: this.selectedBlog.id,
       title: this.blogForm.value.title || "",
