@@ -18,7 +18,6 @@ export class TourIssueComponent implements OnInit {
     this.service.getTourIssues().subscribe({
       next: (result: PagedResult<TourIssue>) => {
         this.tourIssues = result.results;
-        console.log(this.tourIssues);
       },
       error: (err: any) => {
         console.log(err);
