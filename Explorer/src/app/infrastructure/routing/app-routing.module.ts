@@ -6,13 +6,11 @@ import { EquipmentComponent } from 'src/app/feature-modules/administration/equip
 import { UserComponent } from 'src/app/feature-modules/administration/users/user.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+import { BlogComponent } from 'src/app/feature-modules/blog/blog-display/blog.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
-
 import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
-
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -20,6 +18,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'blog', component:BlogComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
