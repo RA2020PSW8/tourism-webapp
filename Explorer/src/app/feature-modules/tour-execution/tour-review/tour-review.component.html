@@ -1,0 +1,22 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Visit date</th>
+                <th>Rating date</th>
+                <th>Images</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rev of tourReview">
+                <td>{{rev.rating}}</td>
+                <td>{{rev.comment}}</td>
+                <td>{{rev.visitDate}}</td>
+                <td>{{rev.ratingDate}}</td>
+                <td>{{rev.imageLinks}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
