@@ -1,5 +1,5 @@
 export interface TourReview {
-    id: number,
+    id?: number,
     rating: number,
     comment: string,
     visitDate: Date,

@@ -11,10 +11,16 @@ import { TourReview } from '../model/tour-review.model';
 export class TourReviewComponent implements OnInit {
 
   tourReview: TourReview[] = [];
+  selectedTourReview: TourReview;
+  shouldEdit: boolean;
 
   constructor(private service: TourExecutionService) {}
 
   ngOnInit(): void {
+    this.getTourReviews();
+  }
+
+  getTourReviews(): void {
     this.service.getTourReviews().subscribe({
       next: (result: PagedResults<TourReview>) => {
         this.tourReview = result.results;
@@ -23,5 +29,11 @@ export class TourReviewComponent implements OnInit {
         console.log(err)
       }
     })
+  }
+
+  onEditClicked(tourReview: TourReview): void {
+    this.shouldEdit = true;
+    this.selectedTourReview = tourReview;
+    console.log(tourReview);
   }
 }

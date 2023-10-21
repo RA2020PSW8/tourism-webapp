@@ -7,6 +7,8 @@
                 <th>Visit date</th>
                 <th>Rating date</th>
                 <th>Images</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -16,7 +18,21 @@
                 <td>{{rev.visitDate}}</td>
                 <td>{{rev.ratingDate}}</td>
                 <td>{{rev.imageLinks}}</td>
+                <td>
+                    <button color="accent" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+                <td>
+                    <button (click)="onEditClicked(rev)" color="primary" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
+</div>
+<br><br>
+<div>
+    <xp-tour-review-form (tourReviewUpdated)="getTourReviews()" [tourReview]="selectedTourReview" [shouldEdit]="shouldEdit"></xp-tour-review-form>
 </div>
