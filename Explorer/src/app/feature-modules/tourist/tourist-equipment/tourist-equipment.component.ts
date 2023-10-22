@@ -9,14 +9,18 @@ import { TouristEquipment } from '../model/tourist-equipment.model';
   styleUrls: ['./tourist-equipment.component.css']
 })
 export class TouristEquipmentComponent {
-
   equipment: EquipmentForSelection[] = [];
-  constructor(private service: TouristService) { }
+  constructor(private service: TouristService) {
+
+   }
 
   ngOnInit(): void {
     this.getEquipment();
   }
   getEquipment(): void {
+    if(localStorage.getItem('loggedId') === null){
+      return;
+    }
     this.service.getEquipmentForSelection().subscribe({
       next: (result: EquipmentForSelection[]) => {
         this.equipment = result;
@@ -26,15 +30,24 @@ export class TouristEquipmentComponent {
     })
   }
 
-  selectEquipment(equipmentId: any): void{
+  selectEquipment(equipmentId: any, equipmentSelected: boolean): void{
+    if(localStorage.getItem('loggedId') === null){
+      return;
+    }
     const data: TouristEquipment = {
-      touristId : 1,
-      equipmentId : equipmentId
+      touristId: parseInt(localStorage.getItem('loggedId')!),
+      equipmentId : equipmentId,
+    }
+    if(equipmentSelected === false){
+      this.service.createSelectionEquipment(data).subscribe({
+        next: () => {  }
+      });
+    }else{
+      this.service.deleteSelectionEquipment(data).subscribe({
+        next: () => {  }
+      });
     }
     
-    this.service.addSelectionEquipment(data).subscribe({
-      next: () => {  }
-    });
 
   }
 }

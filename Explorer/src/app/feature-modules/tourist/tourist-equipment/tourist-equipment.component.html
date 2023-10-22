@@ -16,7 +16,7 @@
                     <td>{{eq.name}}</td>
                     <td>{{eq.description}}</td>
                     <td>
-                        <input type="checkbox"  [checked]="eq.isSelected" (change)="selectEquipment(eq.id)">
+                        <input type="checkbox"  [checked]="eq.isSelected" (change)="selectEquipment(eq.id, eq.isSelected)">
                     </td>
                 </tr>
             </tbody>
