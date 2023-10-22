@@ -8,12 +8,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './infrastructure/material/material.module';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
 import { BlogModule } from './feature-modules/blog/blog.module';
+import { TouristModule } from './feature-modules/tourist/tourist.module';
 import { MarketplaceModule } from './feature-modules/marketplace/marketplace.module';
 import { TourAuthoringModule } from './feature-modules/tour-authoring/tour-authoring.module';
 import { TourExecutionModule } from './feature-modules/tour-execution/tour-execution.module';
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
     TourAuthoringModule,
     TourExecutionModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    TouristModule
   ],
   providers: [
     {
