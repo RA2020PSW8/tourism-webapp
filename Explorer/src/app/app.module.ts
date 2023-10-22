@@ -34,6 +34,7 @@ import { FormsModule } from '@angular/forms';
     MarketplaceModule,
     TourAuthoringModule,
     TourExecutionModule,
+    TouristModule,
     AuthModule,
     HttpClientModule, 
     TouristModule

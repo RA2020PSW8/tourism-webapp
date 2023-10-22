@@ -6,12 +6,14 @@ import { EquipmentComponent } from 'src/app/feature-modules/administration/equip
 import { UserComponent } from 'src/app/feature-modules/administration/users/user.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+import { TourPreferenceComponent } from 'src/app/feature-modules/marketplace/tour-preference/tour-preference.component';
 import { BlogComponent } from 'src/app/feature-modules/blog/blog-display/blog.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
 import { ClubsComponent } from 'src/app/feature-modules/tourist/clubs/clubs.component';
+import { ClubInvitationComponent } from '../../feature-modules/tourist/club-invitation/club-invitation.component';
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
 
 const routes: Routes = [
@@ -26,6 +28,8 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
+  {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
+  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], }
 ];
 
 
