@@ -6,6 +6,7 @@ import { EquipmentComponent } from 'src/app/feature-modules/administration/equip
 import { UserComponent } from 'src/app/feature-modules/administration/users/user.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+import { TourPreferenceComponent } from 'src/app/feature-modules/marketplace/tour-preference/tour-preference.component';
 import { BlogComponent } from 'src/app/feature-modules/blog/blog-display/blog.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -25,8 +26,8 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
-  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
-
+  {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
+  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], }
 ];
 
 
