@@ -1,0 +1,95 @@
+<div>
+  <div class="user-profile-container">
+    <table class="user-profile-table">
+      <tr>
+        <th>Name:</th>
+        <td>{{ profile.name }}</td>
+      </tr>
+      <tr>
+        <th>Surname:</th>
+        <td>{{ profile.surname }}</td>
+      </tr>
+      <tr>
+        <th>Profile Image:</th>
+        <td>
+          <img [src]="profile.profileImage" alt="Profile Image">
+        </td>
+      </tr>
+      <tr>
+        <th>Biography:</th>
+        <td>
+          <p>{{ profile.biography }}</p>
+        </td>
+      </tr>
+      <tr>
+        <th>Quote:</th>
+        <td>
+          <p>{{ profile.quote }}</p>
+        </td>
+      </tr>
+    </table>
+    </div>
+    <div>
+      <form [formGroup]="personUpdateForm" (ngSubmit)="onSubmit()">
+        <div>
+            <mat-form-field >
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="newName" type="text"/>
+                <br>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Surname</mat-label>
+                <input matInput formControlName="newSurname" type="text"/>
+                <br>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Profile Image</mat-label>
+                <input matInput formControlName="newProfileImage" type="text"/>
+                <br>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Biography</mat-label>
+                <input matInput formControlName="newBiography" type="text"/>
+                <br>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+                <mat-label>Quote</mat-label>
+                <input matInput formControlName="newQuote" type="text"/>
+                <br>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <mat-label>Username</mat-label>
+              <input matInput formControlName="username" type="text"/>
+              <br>
+            </mat-form-field>
+            <br>
+            <mat-form-field>
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="text"/>
+              <br>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="password"/>
+              <br>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>UserId</mat-label>
+            <input matInput formControlName="userId" type="number"/>
+            <br>
+        </mat-form-field>
+        <br>
+            <button mat-raised-button type="submit" >Update Profile</button>
+        </div>
+      </form>
+            
+            
+    </div>
+</div>

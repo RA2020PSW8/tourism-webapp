@@ -15,6 +15,8 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { TouristModule } from './feature-modules/tourist/tourist.module';
+import { MarkdownModule, MarkdownService } from 'ngx-markdown';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,9 @@ import { TouristModule } from './feature-modules/tourist/tourist.module';
     TourExecutionModule,
     TouristModule,
     AuthModule,
-    HttpClientModule
+    HttpClientModule,
+    MarkdownModule.forRoot({ loader: HttpClientModule }),
+    FormsModule
   ],
   providers: [
     {
