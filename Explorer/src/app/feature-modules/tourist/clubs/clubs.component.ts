@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Club} from '../model/clubs.model'
 import { TouristService } from '../tourist.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-clubs',
@@ -12,8 +13,12 @@ export class ClubsComponent implements OnInit{
 
   
   clubs: Club[] =  []; 
+  selectedClub : Club; 
+  shouldEdit = false; 
+  shouldRenderClubForm = false; 
+  loggedId: number; 
 
-  constructor(private service: TouristService) {
+  constructor(private service: TouristService, private authService: AuthService) {
 
 
   
@@ -21,8 +26,9 @@ export class ClubsComponent implements OnInit{
   ngOnInit(): void {
 
     this.getClubs(); 
-    
+    this.loggedId = this.authService.user$.value.id; 
   }
+  
   getClubs(): void{
 
     this.service.getClubs().subscribe({
@@ -35,6 +41,16 @@ export class ClubsComponent implements OnInit{
       }
     })
   }
+
+  onEditClicked(club: Club): void {
+    this.selectedClub = club; 
+    this.shouldRenderClubForm = true;
+    this.shouldEdit = true;
+  }
    
+  onAddClicked(): void {
+    this.shouldEdit = false;
+    this.shouldRenderClubForm = true;
+  }
 
 }

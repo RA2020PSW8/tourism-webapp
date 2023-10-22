@@ -6,6 +6,11 @@
         </mat-form-field>
 
         <mat-form-field>
+            <mat-label>Image</mat-label>
+            <input matInput type = "text" formControlName = "image">
+        </mat-form-field>
+
+        <mat-form-field>
             <mat-label>Description</mat-label>
             <textarea matInput
             cdkTextareaAutosize
@@ -13,7 +18,8 @@
             formControlName="description"
             cdkAutosizeMaxRows="5"></textarea>
           </mat-form-field>
-          <button mat-raised-button type="submit" color ="primary" (click)="addClub()">Done</button>
+          <button *ngIf="!shouldEdit" mat-raised-button type="submit" color ="primary" (click)="addClub()">Done</button>
+          <button *ngIf="shouldEdit"  mat-raised-button type="submit" color="primary"  (click)="updateClub()">Done</button>
     </div>
 
 </form>

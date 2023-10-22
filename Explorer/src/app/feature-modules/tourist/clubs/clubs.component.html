@@ -11,6 +11,8 @@
                     <th>Id</th>
                     <th>Name</th>
                     <th>Description</th>
+                    <th>Image</th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -19,16 +21,28 @@
                     <td>{{c.id}}</td>
                     <td>{{c.name}}</td>
                     <td>{{c.description}}</td>
+                    <td>
+                        <img src="{{c.image}}" alt="{{c.name}} Image" width="50" height="50">
+                    </td>
+                    <td>
+                        <button *ngIf="c.userId === loggedId"(click) = "onEditClicked(c)" color="primary" mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                
                 
 
                 </tr>
+                <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button></tr>
                 
             </tbody>
         </table>
 
     </div>
     <div>
-        <xp-club-form (clubUpdated) = "getClubs()"></xp-club-form>
+        <xp-club-form *ngIf="shouldRenderClubForm" [shouldEdit]="shouldEdit" [club]="selectedClub"  (clubUpdated) = "getClubs()"></xp-club-form>
     </div>
     </div>
 

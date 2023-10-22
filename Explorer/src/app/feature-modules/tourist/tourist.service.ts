@@ -23,5 +23,7 @@ export class TouristService {
   addClub(club: Club): Observable<Club>{
     return this.http.post<Club>(environment.apiHost+'tourist/clubs',club)
   }
-  
+  updateClub(club: Club): Observable<Club>{
+    return this.http.put<Club>(environment.apiHost+'tourist/clubs/'+club.id, club)
+  }
 }
