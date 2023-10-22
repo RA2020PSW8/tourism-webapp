@@ -23,4 +23,8 @@ export class TourExecutionService {
   updateTourReview(tourreview: TourReview): Observable<TourReview> {
     return this.http.put<TourReview>('https://localhost:44333/api/tourexecution/tourreview/' + tourreview.id, tourreview);
   }
+
+  deleteTourReview(tourreview: TourReview): Observable<TourReview> {
+    return this.http.delete<TourReview>('https://localhost:44333/api/tourexecution/tourreview/' + tourreview.id);
+  }
 }

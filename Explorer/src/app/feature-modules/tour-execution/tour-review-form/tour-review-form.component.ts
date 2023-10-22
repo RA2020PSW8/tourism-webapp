@@ -41,8 +41,7 @@ export class TourReviewFormComponent implements OnChanges {
   })
 
   addTourReview(): void {
-    //console.log(this.tourReviewForm.value)
-
+  
     const tourReview: TourReview = {
       rating: Number(this.tourReviewForm.value.rating),
       comment: this.tourReviewForm.value.comment || "",
@@ -50,6 +49,8 @@ export class TourReviewFormComponent implements OnChanges {
       ratingDate: new Date(this.tourReviewForm.value.ratingDate as string),
       imageLinks: this.tourReviewForm.value.imageLinks || ""
     }
+    
+    console.log(tourReview);
 
     this.service.addTourReview(tourReview).subscribe({
       next: (_) => {

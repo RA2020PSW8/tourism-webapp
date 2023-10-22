@@ -1,4 +1,4 @@
-<div>
+<div id="tourReviewPage">
     <table>
         <thead>
             <tr>
@@ -19,7 +19,7 @@
                 <td>{{rev.ratingDate}}</td>
                 <td>{{rev.imageLinks}}</td>
                 <td>
-                    <button color="accent" mat-icon-button>
+                    <button (click)="deleteTourReview(rev)" color="accent" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
@@ -29,10 +29,13 @@
                     </button>
                 </td>
             </tr>
+            <tr>
+                <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </tr>
         </tbody>
     </table>
+    <xp-tour-review-form *ngIf="shouldRenderTourReviewForm" (tourReviewUpdated)="getTourReviews()" [tourReview]="selectedTourReview" [shouldEdit]="shouldEdit"></xp-tour-review-form>
 </div>
-<br><br>
-<div>
-    <xp-tour-review-form (tourReviewUpdated)="getTourReviews()" [tourReview]="selectedTourReview" [shouldEdit]="shouldEdit"></xp-tour-review-form>
-</div>
+    

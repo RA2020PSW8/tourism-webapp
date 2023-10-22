@@ -13,6 +13,7 @@ export class TourReviewComponent implements OnInit {
   tourReview: TourReview[] = [];
   selectedTourReview: TourReview;
   shouldEdit: boolean;
+  shouldRenderTourReviewForm: boolean = false;
 
   constructor(private service: TourExecutionService) {}
 
@@ -35,5 +36,18 @@ export class TourReviewComponent implements OnInit {
     this.shouldEdit = true;
     this.selectedTourReview = tourReview;
     console.log(tourReview);
+  }
+
+  onAddClicked(): void {
+    this.shouldRenderTourReviewForm = true;
+    this.shouldEdit = false;
+  }
+
+  deleteTourReview(tourReview: TourReview): void {
+    this.service.deleteTourReview(tourReview).subscribe({
+      next: (_) => {
+        this.getTourReviews();
+      }
+    })
   }
 }
