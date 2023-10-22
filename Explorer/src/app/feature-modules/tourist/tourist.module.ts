@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ClubJoinRequestFormComponent } from './club-join-request-form/club-join-request-form.component';
 import { ClubJoinRequestsComponent } from './club-join-requests/club-join-requests.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
+import { ClubInvitationComponent } from './club-invitation/club-invitation.component';
+import { ClubInvitationFormComponent } from './club-invitation-form/club-invitation-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 
@@ -12,13 +14,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     ClubJoinRequestFormComponent,
-    ClubJoinRequestsComponent
+    ClubJoinRequestsComponent,
+    ClubInvitationComponent,
+    ClubInvitationFormComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    MatButtonModule
+    MatButtonModule,
+    ReactiveFormsModule
   ]
 })
 export class TouristModule { }

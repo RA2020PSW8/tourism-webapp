@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './infrastructure/routing/app-routing.module';
 import { AppComponent } from './app.component';
 import { LayoutModule } from './feature-modules/layout/layout.module';
@@ -15,6 +14,8 @@ import { TourExecutionModule } from './feature-modules/tour-execution/tour-execu
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
+import { MarkdownModule, MarkdownService } from 'ngx-markdown';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -32,9 +33,12 @@ import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
     MarketplaceModule,
     TourAuthoringModule,
     TourExecutionModule,
+    TouristModule,
     AuthModule,
     HttpClientModule,
-    TouristModule
+    MarkdownModule.forRoot({ loader: HttpClientModule }),
+    TouristModule,
+    FormsModule
   ],
   providers: [
     {
