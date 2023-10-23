@@ -12,6 +12,7 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
 import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
+import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 
 
 const routes: Routes = [
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
+  {path: 'tours', component: TourComponent, canActivate: [AuthGuard]},
 ];
 
 
