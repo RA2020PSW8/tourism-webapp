@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnChanges } from '@angular/core';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { TouristService } from '../tourist.service';
-import { Club } from '../model/clubs.model';
+import { Club } from '../model/club.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Output,Input } from '@angular/core';
 
@@ -38,10 +38,12 @@ export class ClubFormComponent implements OnChanges {
   addClub(): void{
    
     const club: Club = { 
+      id: 0, 
       name: this.clubForm.value.name || "", 
       description: this.clubForm.value.description || "",  
       image: this.clubForm.value.image ||"", 
-      userId: this.authService.user$.value.id
+      userId: this.authService.user$.value.id, 
+      memberIds: [] 
     } 
     
     this.service.addClub(club).subscribe({
@@ -55,13 +57,15 @@ export class ClubFormComponent implements OnChanges {
   updateClub():void{
 
       const club: Club = {
+        id: this.club.id, 
         name: this.clubForm.value.name || "", 
         description: this.clubForm.value.description || "",  
         image: this.clubForm.value.image ||"", 
-        userId: this.club.userId
+        userId: this.club.userId, 
+        memberIds: this.club.memberIds
         
       }
-      club.id = this.club.id; 
+   
       
       this.service.updateClub(club).subscribe({
           next: (_) => {

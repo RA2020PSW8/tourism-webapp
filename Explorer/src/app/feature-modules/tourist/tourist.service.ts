@@ -11,7 +11,7 @@ import { Club } from './model/club.model';
 })
 export class TouristService {
 
-  getClubs():Observable<PagedResults<Club>>{
+  getAllClubs():Observable<PagedResults<Club>>{
     return this.http.get<PagedResults<Club>>(environment.apiHost+'tourist/clubs');
   }
 
