@@ -37,7 +37,7 @@ import { FormsModule } from '@angular/forms';
     TouristModule,
     AuthModule,
     HttpClientModule, 
-    TouristModule
+    TouristModule,
     MarkdownModule.forRoot({ loader: HttpClientModule }),
     FormsModule
   ],

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Club} from '../model/clubs.model'
+import {Club} from '../model/club.model'
 import { TouristService } from '../tourist.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
@@ -31,7 +31,7 @@ export class ClubsComponent implements OnInit{
   
   getClubs(): void{
 
-    this.service.getClubs().subscribe({
+    this.service.getAllClubs().subscribe({
       next: (result:PagedResults<Club>) => {
         this.clubs = result.results;
          
