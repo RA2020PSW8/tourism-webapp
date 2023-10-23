@@ -17,10 +17,11 @@ import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { TouristModule } from './feature-modules/tourist/tourist.module';
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
+import { MapComponent } from './shared/map/map.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

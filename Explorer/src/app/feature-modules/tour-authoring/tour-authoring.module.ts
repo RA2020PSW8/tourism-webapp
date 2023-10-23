@@ -5,18 +5,20 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { KeypointFormComponent } from './keypoint-form/keypoint-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { ToursTestModuleComponent } from './tours-test-module/tours-test-module.component';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @NgModule({
   declarations: [
     KeypointComponent,
-    KeypointFormComponent
+    KeypointFormComponent,
+    ToursTestModuleComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MapComponent
   ]
 })
 export class TourAuthoringModule { }
