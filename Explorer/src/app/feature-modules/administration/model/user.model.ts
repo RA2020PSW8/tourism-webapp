@@ -9,7 +9,7 @@ export interface User {
     password: string;
     isActive: boolean;
     role: number;
-    mail: string;
+    email: string;
     isBlocked: boolean;
     isEditing: boolean;
 }
