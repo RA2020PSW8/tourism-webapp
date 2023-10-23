@@ -8,6 +8,7 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ClubInvitationComponent } from './club-invitation/club-invitation.component';
 import { ClubInvitationFormComponent } from './club-invitation-form/club-invitation-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClubOwnerRequestsComponent } from './club-owner-requests/club-owner-requests.component';
 
 
 
@@ -16,7 +17,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     ClubJoinRequestFormComponent,
     ClubJoinRequestsComponent,
     ClubInvitationComponent,
-    ClubInvitationFormComponent
+    ClubInvitationFormComponent,
+    ClubOwnerRequestsComponent
   ],
   imports: [
     CommonModule,

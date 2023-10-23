@@ -16,8 +16,11 @@ export class TouristService {
 
   constructor(private http: HttpClient) { }
 
-  getRequests(): Observable<PagedResults<ClubJoinRequest>>{
+  getTouristRequests(): Observable<PagedResults<ClubJoinRequest>>{
     return this.http.get<PagedResults<ClubJoinRequest>>(`${this.apiUrl}/clubJoinRequest`);
+  }
+  getClubRequests(clubId: number): Observable<PagedResults<ClubJoinRequest>>{
+    return this.http.get<PagedResults<ClubJoinRequest>>(`${this.apiUrl}/clubJoinRequest/${clubId}`);
   }
   updateRequest(request: ClubJoinRequest): Observable<ClubJoinRequest> {
     return this.http.put<ClubJoinRequest>(`${this.apiUrl}/clubJoinRequest`, request);

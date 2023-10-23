@@ -29,7 +29,8 @@ const routes: Routes = [
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
-  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], }
+  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
+  {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], }
 ];
 
 

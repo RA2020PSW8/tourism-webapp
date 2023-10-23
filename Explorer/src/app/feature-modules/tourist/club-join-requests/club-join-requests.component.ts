@@ -17,7 +17,7 @@ export class ClubJoinRequestsComponent implements OnInit {
     this.getRequests(); 
   }
   getRequests(): void{
-    this.touristService.getRequests().subscribe({
+    this.touristService.getTouristRequests().subscribe({
       next: (response: PagedResults<ClubJoinRequest>) => {
         this.joinRequests = response.results;
       },

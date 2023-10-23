@@ -1,27 +1,30 @@
 <div class="cont">
     <div>
-        <h2 *ngIf="joinRequests.length !== 0">Join Requests</h2>
-        <h2 *ngIf="joinRequests.length === 0">You don't have join requests</h2>
+        <h2>All Requests</h2>
         <table>
             <thead>
-                <th>ClubId</th>
+                <th>UserId</th>
                 <th>Status</th>
                 <th></th>
             </thead>
             <tbody>
                 <tr *ngFor="let jr of joinRequests">
-                    <td>{{jr.clubId}}</td>
+                    <td>{{jr.userId}}</td>
                     <td *ngIf="jr.status==0">Accepted</td>
                     <td *ngIf="jr.status==1">Rejected</td>
                     <td *ngIf="jr.status==2">Pending</td>
                     <td *ngIf="jr.status==3">Canceled</td>
                     <td>
-                        <button *ngIf="jr.status==2" aria-label="Cancel Request" type="submit" 
-                        (click)="cancelRequest(jr)" color="primary" mat-raised-button>cancel</button>
+                        <button *ngIf="jr.status==2" aria-label="Accept Request" type="submit" 
+                        (click)="acceptRequest(jr)" color="primary" mat-raised-button>accept</button>
+                    </td>
+                    <td>
+                        <button *ngIf="jr.status==2" aria-label="Reject Request" type="submit" 
+                        (click)="rejectRequest(jr)" color="primary" mat-raised-button>reject</button>
                     </td>
                 </tr>
             </tbody>
         </table>
-        <xp-club-join-request-form (requestAdded)="getRequests()"></xp-club-join-request-form>
     </div>
 </div>
+

@@ -1,7 +1,8 @@
 <div id="clubInvitations">
   <div id="clubInvitations-details">
     <div>
-      <p>Clubs Info</p>
+      <p *ngIf="clubs.length !== 0">Clubs Info</p>
+      <p *ngIf="clubs.length === 0">You don't have club</p>
       <table>
         <thead>
           <tr>
@@ -35,15 +36,18 @@
             </td>
 
             <td><button color="primary" mat-raised-button (click)="onAddClicked(c)">Add new member</button></td>
+            <td><button color="primary" mat-raised-button (click)="showRequests(c)">Show requests</button></td>
           </tr>
 
         </tbody>
       </table>
     </div>
-
-    <div>
-      <xp-club-invitation-form *ngIf="shouldRenderClubInvitationForm" (clubInvitationsUpdated)="getAllInvitations()" [club]="selectedClub"></xp-club-invitation-form>
-    </div>
+  </div>
+  <div>
+    <xp-club-invitation-form *ngIf="shouldRenderClubInvitationForm" (clubInvitationsUpdated)="getAllInvitations()" [club]="selectedClub"></xp-club-invitation-form>
+  </div>
+  <div>
+    <xp-club-owner-requests *ngIf="shouldRenderClubRequestView" [club]="selectedClub"></xp-club-owner-requests>
   </div>
   <br>
 </div>
