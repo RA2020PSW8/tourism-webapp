@@ -1,0 +1,41 @@
+<div id="tourReviewPage">
+    <table>
+        <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Comment</th>
+                <th>Visit date</th>
+                <th>Rating date</th>
+                <th>Images</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let rev of tourReview">
+                <td>{{rev.rating}}</td>
+                <td>{{rev.comment}}</td>
+                <td>{{rev.visitDate}}</td>
+                <td>{{rev.ratingDate}}</td>
+                <td>{{rev.imageLinks}}</td>
+                <td>
+                    <button (click)="deleteTourReview(rev)" color="accent" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+                <td>
+                    <button (click)="onEditClicked(rev)" color="primary" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button>
+            </tr>
+        </tbody>
+    </table>
+    <xp-tour-review-form *ngIf="shouldRenderTourReviewForm" (tourReviewUpdated)="getTourReviews()" [tourReview]="selectedTourReview" [shouldEdit]="shouldEdit"></xp-tour-review-form>
+</div>
+    
