@@ -9,6 +9,8 @@ import { ClubInvitationComponent } from './club-invitation/club-invitation.compo
 import { ClubInvitationFormComponent } from './club-invitation-form/club-invitation-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ClubOwnerRequestsComponent } from './club-owner-requests/club-owner-requests.component';
+import { ClubsComponent } from './clubs/clubs.component';
+import { ClubFormComponent } from './club-form/club-form.component';
 
 
 
@@ -16,6 +18,8 @@ import { ClubOwnerRequestsComponent } from './club-owner-requests/club-owner-req
   declarations: [
     ClubJoinRequestFormComponent,
     ClubJoinRequestsComponent,
+    ClubsComponent,
+    ClubFormComponent,
     ClubInvitationComponent,
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent
@@ -25,7 +29,11 @@ import { ClubOwnerRequestsComponent } from './club-owner-requests/club-owner-req
     MaterialModule,
     ReactiveFormsModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MaterialModule
+  ], 
+  exports:[
+    ClubsComponent
   ]
 })
 export class TouristModule { }

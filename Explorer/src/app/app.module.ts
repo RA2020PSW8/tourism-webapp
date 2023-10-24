@@ -35,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     TourExecutionModule,
     TouristModule,
     AuthModule,
-    HttpClientModule,
+    HttpClientModule, 
+    TouristModule,
     MarkdownModule.forRoot({ loader: HttpClientModule }),
     TouristModule,
     FormsModule

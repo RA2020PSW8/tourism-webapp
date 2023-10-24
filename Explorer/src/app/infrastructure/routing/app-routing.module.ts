@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
 import { ClubJoinRequestsComponent } from 'src/app/feature-modules/tourist/club-join-requests/club-join-requests.component';
+import { ClubsComponent } from 'src/app/feature-modules/tourist/clubs/clubs.component';
 import { ClubInvitationComponent } from '../../feature-modules/tourist/club-invitation/club-invitation.component';
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
 
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'joinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard],},
+  {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]}, 
   {path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard]},
   {path: 'blog', component:BlogComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},

@@ -18,6 +18,11 @@ export class ClubOwnerRequestsComponent {
   acceptRequest(request: ClubJoinRequest): void {
     request.status = 0;
     this.touristService.updateRequest(request).subscribe({
+      next: () => {
+        this.club.memberIds.push(request.userId);
+        this.touristService.updateClub(this.club).subscribe({});
+      },
+      error: () => { }
     });
   }
   rejectRequest(request: ClubJoinRequest): void {
