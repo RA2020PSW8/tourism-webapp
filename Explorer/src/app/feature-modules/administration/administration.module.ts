@@ -29,7 +29,8 @@ import { AppRatingFormComponent } from './app-rating-form/app-rating-form.compon
     EquipmentComponent,
     EquipmentFormComponent,
     AppRatingComponent,
-    ProfileComponent
+    ProfileComponent,
+    AppRatingFormComponent
   ]
 })
 export class AdministrationModule { }

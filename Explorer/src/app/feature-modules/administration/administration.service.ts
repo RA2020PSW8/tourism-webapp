@@ -49,4 +49,8 @@ export class AdministrationService {
     return this.http.get<PagedResult<AppRating>>(environment.apiHost + 'administrator/appRating?page=0&pagesize=0');
   }
 
+  addAppRating(appRating: AppRating): Observable<AppRating> {
+    return this.http.post<AppRating>(environment.apiHost + ('tourist/' || 'author/'), appRating);
+  }
+
 }
