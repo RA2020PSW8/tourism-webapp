@@ -50,7 +50,16 @@ export class AdministrationService {
   }
 
   addAppRating(appRating: AppRating): Observable<AppRating> {
-    return this.http.post<AppRating>(environment.apiHost + ('tourist/' || 'author/'), appRating);
+    return this.http.post<AppRating>(environment.apiHost + 'tourist/appRating', appRating);
   }
 
+  addAppRatingAuthor(appRating: AppRating): Observable<AppRating> {
+    return this.http.post<AppRating>(environment.apiHost + 'author/appRating', appRating);
+  }
+
+  /*getAppRating(id: number): Observable<AppRating> {
+    return this.http.get<AppRating>(`${environment.apiHost}tourist/appRating/${id}`);
+  }*/
+
+    
 }

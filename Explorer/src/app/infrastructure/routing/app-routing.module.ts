@@ -14,6 +14,10 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
 import { ClubInvitationComponent } from '../../feature-modules/tourist/club-invitation/club-invitation.component';
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
+import { AppRatingComponent } from 'src/app/feature-modules/administration/app-rating/app-rating.component';
+import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
+import { AppRatingHomeComponent } from 'src/app/feature-modules/administration/app-rating-home/app-rating-home.component';
+import { AppRatingFormAuthorComponent } from 'src/app/feature-modules/administration/app-rating-form-author/app-rating-form-author.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -27,7 +31,11 @@ const routes: Routes = [
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
-  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], }
+  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
+  {path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard]},
+  {path: 'appRating', component: AppRatingFormComponent, canActivate: [AuthGuard]},
+  {path: 'appRatingHome', component: AppRatingHomeComponent, canActivate: [AuthGuard]},
+  {path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]}
 ];
 
 

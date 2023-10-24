@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { AppRating } from '../model/app-rating.model';
 import { AdministrationService } from '../administration.service';
 import { PagedResult } from '../../tour-execution/shared/model/paged-result.model';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { generate } from 'rxjs';
 
 function ratingValidator(control: AbstractControl){
   const rating = control.value;
@@ -17,12 +18,26 @@ function ratingValidator(control: AbstractControl){
 })
 export class AppRatingFormComponent {
 
+  successMessage: string = '';
+  showForm: boolean = true;
+
+  constructor(private service: AdministrationService) { }
+
   appRatingForm = new FormGroup({
-    rating: new FormControl('5', [Validators.required, ratingValidator]),
-    comment: new FormControl('' )
+    rating: new FormControl(5, [Validators.required, ratingValidator]),
+    comment: new FormControl(''),
+    id: new FormControl()
   })
 
   addAppRating(): void{
-    console.log(this.appRatingForm.value)
+    const appRating: AppRating = {
+      rating: this.appRatingForm.value.rating || 5,
+      comment: this.appRatingForm.value.comment || "Najbolja app ikad!",
+      id: this.appRatingForm.value.id || 22,
+      lastModified: new Date()
+    };
+    this.service.addAppRating(appRating).subscribe();
   }
+
+  
 }

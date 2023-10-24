@@ -7,6 +7,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRatingComponent } from './app-rating/app-rating.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AppRatingFormComponent } from './app-rating-form/app-rating-form.component';
+import { AppRatingHomeComponent } from './app-rating-home/app-rating-home.component';
+import { AppRatingFormAuthorComponent } from './app-rating-form-author/app-rating-form-author.component';
 
 
 
@@ -17,7 +19,9 @@ import { AppRatingFormComponent } from './app-rating-form/app-rating-form.compon
     EquipmentComponent,
     AppRatingComponent,
     ProfileComponent,
-    AppRatingFormComponent
+    AppRatingFormComponent,
+    AppRatingHomeComponent,
+    AppRatingFormAuthorComponent
     
   ],
   imports: [
@@ -30,7 +34,9 @@ import { AppRatingFormComponent } from './app-rating-form/app-rating-form.compon
     EquipmentFormComponent,
     AppRatingComponent,
     ProfileComponent,
-    AppRatingFormComponent
+    AppRatingFormComponent,
+    AppRatingHomeComponent,
+    AppRatingFormAuthorComponent
   ]
 })
 export class AdministrationModule { }
