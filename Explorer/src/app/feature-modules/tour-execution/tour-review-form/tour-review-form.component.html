@@ -1,0 +1,31 @@
+<form [formGroup]="tourReviewForm">
+    <div>
+        <mat-form-field>
+            <mat-label>Rating</mat-label>
+            <input matInput formControlName="rating" type="number"/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Comment</mat-label>
+            <textarea matInput
+            cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="comment"
+            cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Visit date</mat-label>
+            <input matInput formControlName="visitDate" type="text"/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Rating date</mat-label>
+            <input matInput formControlName="ratingDate" type="text"/>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Images</mat-label>
+            <input matInput formControlName="imageLinks" type="text"/>
+        </mat-form-field>
+
+        <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTourReview()"> Create tour review</button>
+        <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourReview()"> Update tour review</button>
+    </div>
+</form>
