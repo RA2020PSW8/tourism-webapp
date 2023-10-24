@@ -5,6 +5,8 @@ import { User } from './model/user.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { PagedResult } from '../tour-execution/shared/model/paged-result.model';
+import { AppRating } from './model/app-rating.model';
 
 @Injectable({
   providedIn: 'root'
@@ -41,6 +43,10 @@ export class AdministrationService {
 
   deleteUser(id: number): Observable<User> {
     return this.http.delete<User>(environment.apiHost + 'administration/users/' + id);
+  }
+
+  getAppRatings(): Observable<PagedResult<AppRating>> {
+    return this.http.get<PagedResult<AppRating>>(environment.apiHost + 'administrator/appRating?page=0&pagesize=0');
   }
 
 }

@@ -4,12 +4,10 @@ import { EquipmentFormComponent } from './equipment-form/equipment-form.componen
 import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-<<<<<<< HEAD
 import { AppRatingComponent } from './app-rating/app-rating.component';
-=======
 import { ProfileComponent } from './profile/profile.component';
+import { AppRatingFormComponent } from './app-rating-form/app-rating-form.component';
 
->>>>>>> develop
 
 
 
@@ -17,12 +15,10 @@ import { ProfileComponent } from './profile/profile.component';
   declarations: [
     EquipmentFormComponent,
     EquipmentComponent,
-<<<<<<< HEAD
-    AppRatingComponent
-=======
+    AppRatingComponent,
     ProfileComponent,
+    AppRatingFormComponent
     
->>>>>>> develop
   ],
   imports: [
     CommonModule,
@@ -32,11 +28,8 @@ import { ProfileComponent } from './profile/profile.component';
   exports: [
     EquipmentComponent,
     EquipmentFormComponent,
-<<<<<<< HEAD
-    AppRatingComponent
-=======
+    AppRatingComponent,
     ProfileComponent
->>>>>>> develop
   ]
 })
 export class AdministrationModule { }
