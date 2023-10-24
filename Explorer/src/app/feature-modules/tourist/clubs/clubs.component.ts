@@ -52,5 +52,16 @@ export class ClubsComponent implements OnInit{
     this.shouldEdit = false;
     this.shouldRenderClubForm = true;
   }
+  onJoinClicked(club: Club): void {
+    this.service.joinClub(club).subscribe({
+      next: () => {
+      },
+      error:(err: any) => {
+        if(confirm("Request for this user already exists or user is member")) {
+        }
+      }
+    })
+
+  }
 
 }

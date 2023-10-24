@@ -15,6 +15,7 @@ export class ClubInvitationComponent implements OnInit {
   clubs: Club[] = [];
   selectedClub: Club;
   shouldRenderClubInvitationForm: boolean = false;
+  shouldRenderClubRequestView: boolean = false;
 
   constructor(private service: TouristService) { }
 
@@ -52,6 +53,7 @@ export class ClubInvitationComponent implements OnInit {
   onAddClicked(club: Club): void {
     this.selectedClub = club;
     this.shouldRenderClubInvitationForm = true;
+    this.shouldRenderClubRequestView = false;
   }
 
   removeMember(club: Club, memberId: number): void {
@@ -63,5 +65,10 @@ export class ClubInvitationComponent implements OnInit {
     }
 
     this.service.updateClub(club).subscribe({});
+  }
+  showRequests(club: Club): void {
+    this.selectedClub = club;
+    this.shouldRenderClubRequestView = true;
+    this.shouldRenderClubInvitationForm = false;
   }
 }
