@@ -16,7 +16,8 @@
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['appRatingList']">App ratings listing</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['appRating']">Rate App</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['appRatingAuthor']">Rate App</button>
-
+            <button *ngIf="user && user.role === 'tourist'" color="primary" mat-raised-button [routerLink]="['clubJoinRequests']">My join requests</button>
+            <button *ngIf="user && user.role === 'tourist'" color="primary" mat-raised-button [routerLink]="['clubInvitations']">Manage club memberships</button>
         </div>
     </div>
 </mat-toolbar>

@@ -12,6 +12,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
+import { ClubJoinRequestsComponent } from 'src/app/feature-modules/tourist/club-join-requests/club-join-requests.component';
 import { TourReviewComponent } from 'src/app/feature-modules/tour-execution/tour-review/tour-review.component';
 import { ClubsComponent } from 'src/app/feature-modules/tourist/clubs/clubs.component';
 import { ClubInvitationComponent } from '../../feature-modules/tourist/club-invitation/club-invitation.component';
@@ -27,6 +28,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
+  {path: 'joinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard],},
   {path: 'tour-review', component: TourReviewComponent},
   {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]}, 
   {path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard]},
@@ -36,10 +38,14 @@ const routes: Routes = [
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
+<<<<<<< HEAD
   {path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard]},
   {path: 'appRating', component: AppRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'appRatingHome', component: AppRatingHomeComponent, canActivate: [AuthGuard]},
   {path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]}
+=======
+  {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], }
+>>>>>>> develop
 ];
 
 

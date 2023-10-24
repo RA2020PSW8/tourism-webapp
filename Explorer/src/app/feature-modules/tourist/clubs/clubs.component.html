@@ -13,6 +13,7 @@
                     <th>Description</th>
                     <th>Image</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -29,9 +30,10 @@
                                 <mat-icon>edit</mat-icon>
                         </button>
                     </td>
-                
-                
-
+                    <td>
+                        <button *ngIf="c.userId !== loggedId"(click) = "onJoinClicked(c)" color="primary" aria-label="Join Request" type="submit" 
+                         mat-raised-button>join</button>
+                    </td>
                 </tr>
                 <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
                     <mat-icon>add</mat-icon>
