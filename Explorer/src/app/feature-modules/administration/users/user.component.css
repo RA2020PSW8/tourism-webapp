@@ -1,45 +1,44 @@
-/* styles.css */
 body {
-    background-color: #f0f0f0; /* Light gray background for the entire page */
-    font-family: Arial, sans-serif; /* Specify a font */
-    text-align: center; /* Center-align the page content */
+    background-color: #f0f0f0; 
+    font-family: Arial, sans-serif; 
+    text-align: center; 
 }
 
 #users {
-    border: 2px solid #3498db; /* Blue border */
+    border: 2px solid #3498db; 
     padding: 20px;
     margin: 20px;
     border-radius: 10px;
-    background-color: #ecf0f1; /* Light blue background */
+    background-color: #ecf0f1; 
 }
 .block-button {
     height: 25px;
     width: 60px;
-    background-color: #e74c3c; /* Red background color for the button */
-    color: #fff; /* White text color for the button */
+    background-color: #e74c3c; 
+    color: #fff; 
     border: none;
-    padding: 5px 15px; /* Add some padding to the button */
-    border-radius: 5px; /* Rounded corners for the button */
+    padding: 5px 15px; 
+    border-radius: 5px; 
     cursor: pointer;
-    float: right; /* Float the button to the right */
-    margin-top: -27px; /* Add some top margin for spacing */
+    float: right; 
+    margin-top: -26px; 
 }
 #users-title {
-    font-size: 28px; /* Larger font size for the title */
-    font-weight: bold; /* Make the title bold */
-    color: #3498db; /* Blue text color */
-    margin: 0; /* Remove default margin to center the title */
+    font-size: 28px; 
+    font-weight: bold; 
+    color: #3498db; 
+    margin: 0; 
 }
 #users p {
-    font-size: 24px; /* Larger font size */
+    font-size: 24px; 
     margin: 0;
-    color: #3498db; /* Blue text color */
+    color: #3498db; 
 }
 
 #users hr {
     margin: 10px 0;
     border: none;
-    border-top: 2px solid #ccc; /* Light gray horizontal line */
+    border-top: 2px solid #ccc; 
 }
 
 #users-details {
@@ -47,192 +46,194 @@ body {
 }
 
 #users-details p {
-    font-size: 20px; /* Larger font size */
+    font-size: 20px; 
     margin: 0;
     margin-bottom: 10px;
-    color: #555; /* Slightly darker text color */
+    color: #555; 
 }
 
-/* Make the username paragraph stand out */
-/* styles.css */
-/* ... (previous styles) ... */
 
-/* Make the username paragraph stand out */
+
+
+
+
 #users-details p:nth-child(odd):first-child {
-    color: #3498db; /* Blue text color for the first odd-numbered paragraph (username) */
-    font-weight: bold; /* Make the username bold */
+    color: #3498db; 
+    font-weight: bold; 
 }
 
-/* ... (remaining styles) ... */
+
 
 
 #users-details div {
-    border: 2px solid #3498db; /* Blue border */
+    border: 2px solid #3498db; 
     padding: 15px;
     margin: 15px 0;
     border-radius: 10px;
-    background-color: #ffffff; /* White background */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a slight box shadow */
+    background-color: #ffffff; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
 }
 
-/* Different colors for alternating users */
+
 #users-details div:nth-child(even) {
-    background-color: #e4e4e4; /* Light gray background for even users */
+    background-color: #e4e4e4; 
 }
 
 #users-details div:nth-child(odd) {
-    background-color: #e4e4e4; /* Slightly darker gray background for odd users */
+    background-color: #e4e4e4; 
 }
 #user-div div:hover {
-    background-color: #f4f4f4; /* Light gray background when hovering over the user div */
+    background-color: #f4f4f4; 
 }
 .block-button:hover {
-    /* Button background color when hovering over it */
-    background-color: lightcoral; /* Blue background color for the hover effect */
+    
+    background-color: lightcoral; 
 }
-
+.edit-role-select {
+    margin-left: 100px; 
+  }
 .unblock-button {
     height: 25px;
     width: 60px;
-    background-color: #e74c3c; /* Green background color for the "Unblock" button */
-    color: #fff; /* White text color for the button */
+    background-color: #e74c3c; 
+    color: #fff; 
     border: none;
-    padding: 5px 5px; /* Add some padding to the button */
-    border-radius: 5px; /* Rounded corners for the button */
+    padding: 5px 5px; 
+    border-radius: 5px; 
     cursor: pointer;
-    float: right; /* Float the button to the right */
-    margin-top: -27px; /* Add some top margin for spacing */
+    float: right; 
+    margin-top: -26px; 
 }
 .delete-button {
     height: 25px;
     width: 60px;
-    background-color: #3498db; /* Green background color for the "Unblock" button */
-    color: #fff; /* White text color for the button */
+    background-color: #3498db; 
+    color: #fff; 
     border: none;
-    padding: 5px 5px; /* Add some padding to the button */
-    border-radius: 5px; /* Rounded corners for the button */
+    padding: 5px 5px; 
+    border-radius: 5px; 
     cursor: pointer;
-    float: right; /* Float the button to the right */
-    margin-top: -103px; /* Add some top margin for spacing */
+    float: right; 
+    margin-top: -90px; 
 }
-/* Add New User Form Styles */
+
 .add-user-form {
-    border: 2px solid #3498db; /* Blue border */
+    border: 2px solid #3498db; 
     padding: 15px;
     margin: 15px 0;
     border-radius: 10px;
-    background-color: #ffffff; /* White background */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a slight box shadow */
-    text-align: left; /* Align form elements to the left */
+    background-color: #ffffff; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    text-align: left; 
 }
 
 .add-user-form h3 {
-    font-size: 24px; /* Larger font size for the form title */
-    color: #3498db; /* Blue text color */
-    margin: 0 0 15px; /* Add margin to separate the title from the form elements */
+    font-size: 24px; 
+    color: #3498db; 
+    margin: 0 0 15px; 
 }
 
 .add-user-form label {
-    display: block; /* Display labels as block elements for proper spacing */
-    font-weight: bold; /* Make labels bold */
-    color: #555; /* Slightly darker text color for labels */
-    margin: 10px 0; /* Add margin to separate labels from input fields */
+    display: block; 
+    font-weight: bold; 
+    color: #555; 
+    margin: 10px 0; 
 }
 
 .add-user-form input {
-    width: 97.8%; /* Make input fields and selects 100% width of the container */
-    background-color: #fff; /* White background color for input fields and selects */
-    border: 2px solid #3498db; /* Blue border for input fields and selects */
-    border-radius: 5px; /* Rounded corners for input fields and selects */
-    padding: 10px; /* Add some padding to input fields and selects */
-    margin: 5px 0; /* Add margin to separate input fields and selects */
+    width: 99%; 
+    background-color: #fff; 
+    border: 2px solid #3498db; 
+    border-radius: 5px; 
+    padding: 10px; 
+    margin: 5px 0; 
 }
 .close-button{
     position: absolute;
-    margin-left: 985px;
+    margin-left: 2135px;
     background-color: #3498db;
-    color: #fff; /* White text color for the button */
+    color: #fff; 
     border: none;
     border-radius: 5px;
     padding: 10px 10px;
 }
 .add-user-form select {
-    width: 100%; /* Make input fields and selects 100% width of the container */
-    background-color: #fff; /* White background color for input fields and selects */
-    border: 2px solid #3498db; /* Blue border for input fields and selects */
-    border-radius: 5px; /* Rounded corners for input fields and selects */
-    padding: 10px; /* Add some padding to input fields and selects */
-    margin: 5px 0; /* Add margin to separate input fields and selects */
+    width: 100%; 
+    background-color: #fff; 
+    border: 2px solid #3498db; 
+    border-radius: 5px; 
+    padding: 10px; 
+    margin: 5px 0; 
 }
 
 .add-user-form button.create-button {
-    background-color: #3498db; /* Blue background color for the "Create User" button */
-    color: #fff; /* White text color for the button */
+    background-color: #3498db; 
+    color: #fff; 
     border: none;
-    padding: 10px; /* Add some padding to the button */
-    border-radius: 5px; /* Rounded corners for the button */
+    padding: 10px; 
+    border-radius: 5px; 
     cursor: pointer;
-    margin-top: 15px; /* Add margin to separate the button from other elements */
+    margin-top: 15px; 
 }
 
 .add-user-form button.create-button:hover {
-    background-color: #1d72b8; /* Darker blue background color for the button on hover */
+    background-color: #1d72b8; 
 }
 
-/* Adjust hover color for buttons */
+
 .add-user-form button.create-button:hover,
 .add-user-form button.block-button:hover {
-    background-color: #1d72b8; /* Darker blue background color for the button on hover */
+    background-color: #1d72b8; 
 }
 
 .edit-button {
     height: 25px;
     width: 60px;
-    background-color: #3498db; /* Green background color for the "Unblock" button */
-    color: #fff; /* White text color for the button */
+    background-color: #3498db; 
+    color: #fff; 
     border: none;
-    padding: 5px 5px; /* Add some padding to the button */
-    border-radius: 5px; /* Rounded corners for the button */
+    padding: 5px 5px; 
+    border-radius: 5px; 
     cursor: pointer;
-    float: right; /* Float the button to the right */
-    margin-top: -65px; /* Add some top margin for spacing */
+    float: right; 
+    margin-top: -58px; 
 }
 .create-button1 {
-    background-color: #3498db; /* Green background color for the "Unblock" button */
-    color: #fff; /* White text color for the button */
+    background-color: #3498db; 
+    color: #fff; 
     border: none;
-    padding: 10px 20px; /* Add some padding to the button */
-    border-radius: 5px; /* Rounded corners for the button */
+    padding: 10px 20px; 
+    border-radius: 5px; 
     margin-left: 14px;
 }
 .update-button {
     height: 25px;
     width: 60px;
-    background-color: #3498db; /* Green background color for the "Unblock" button */
-    color: #fff; /* White text color for the button */
+    background-color: #3498db; 
+    color: #fff; 
     border: none;
-    padding: 5px 5px; /* Add some padding to the button */
-    border-radius: 5px; /* Rounded corners for the button */
-    cursor: pointer; /* Add some top margin for spacing */
+    padding: 5px 5px; 
+    border-radius: 5px; 
+    cursor: pointer; 
 }
 .unblock-button:hover {
-    background-color: lightgreen; /* Green background color for the "Unblock" button on hover */
+    background-color: lightgreen; 
 }
 
 #user-div input {
-    background-color: #fff; /* White background color for input fields */
-    border: 2px solid #3498db; /* Blue border for input fields */
-    border-radius: 5px; /* Rounded corners for input fields */
-    padding: 5px; /* Add some padding to input fields */
-    margin: 5px 0; /* Add margin to separate input fields */
+    background-color: #fff; 
+    border: 2px solid #3498db; 
+    border-radius: 5px; 
+    padding: 5px; 
+    margin: 5px 0; 
 }
 
 #user-div select {
-    background-color: #fff; /* White background color for select element */
-    border: 2px solid #3498db; /* Blue border for select element */
-    border-radius: 5px; /* Rounded corners for select element */
-    padding: 5px; /* Add some padding to select element */
-    margin: 5px 0; /* Add margin to separate select element */
+    background-color: #fff; 
+    border: 2px solid #3498db; 
+    border-radius: 5px; 
+    padding: 5px; 
+    margin: 5px 0; 
 }
 
 

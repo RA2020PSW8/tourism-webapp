@@ -18,9 +18,10 @@ import { TouristModule } from './feature-modules/tourist/tourist.module';
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
 
+
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,7 +36,8 @@ import { FormsModule } from '@angular/forms';
     TourExecutionModule,
     TouristModule,
     AuthModule,
-    HttpClientModule,
+    HttpClientModule, 
+    TouristModule,
     MarkdownModule.forRoot({ loader: HttpClientModule }),
     FormsModule
   ],
