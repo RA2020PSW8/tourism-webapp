@@ -1,0 +1,51 @@
+<div id = "clubs">
+    <p>Clubs</p>
+    <hr>
+
+    <div id = "clubs-details">
+        <div>
+        <table>
+
+            <thead> 
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Image</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr *ngFor ="let c of clubs">
+                    <td>{{c.id}}</td>
+                    <td>{{c.name}}</td>
+                    <td>{{c.description}}</td>
+                    <td>
+                        <img src="{{c.image}}" alt="{{c.name}} Image" width="50" height="50">
+                    </td>
+                    <td>
+                        <button *ngIf="c.userId === loggedId"(click) = "onEditClicked(c)" color="primary" mat-icon-button>
+                                <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button *ngIf="c.userId !== loggedId"(click) = "onJoinClicked(c)" color="primary" aria-label="Join Request" type="submit" 
+                         mat-raised-button>join</button>
+                    </td>
+                </tr>
+                <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button></tr>
+                
+            </tbody>
+        </table>
+
+    </div>
+    <div>
+        <xp-club-form *ngIf="shouldRenderClubForm" [shouldEdit]="shouldEdit" [club]="selectedClub"  (clubUpdated) = "getClubs()"></xp-club-form>
+    </div>
+    </div>
+
+</div>

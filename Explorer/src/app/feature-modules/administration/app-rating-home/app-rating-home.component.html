@@ -1,0 +1,25 @@
+<p>app-rating-home works!</p>
+<div>
+
+    <div *ngIf="!exist">
+        <!--app-rating-form (ratingAdded)="sendId($event.id)"></app-rating-form-->
+        <form [formGroup]="appRatingIdForm">
+            <div>
+                <mat-form-field>
+                    <mat-label>Enter Id of the rating</mat-label>
+                    <input matInput formControlName="id" type="number">
+                </mat-form-field>
+                
+                <!--button mat-raised-button type="submit" color="primary" (click)="sendId()">Send id</button-->
+            </div>
+        </form>
+    </div>
+    <!--div *ngIf="exist">
+        <p>App Rating ID: {{ appRating.id }}</p>
+        <p>Rating: {{ appRating.rating }}</p>
+        <p>Comment: {{ appRating.comment }}</p>
+        <p>Last Modified: {{ appRating.lastModified | date }}</p>
+    </div-->
+</div>
+  
+
