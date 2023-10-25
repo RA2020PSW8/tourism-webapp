@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { AppRating } from '../model/app-rating.model';
 import { AdministrationService } from '../administration.service';
-import { PagedResult } from '../../tour-execution/shared/model/paged-result.model';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { generate } from 'rxjs';
 
 function ratingValidator(control: AbstractControl){
   const rating = control.value;

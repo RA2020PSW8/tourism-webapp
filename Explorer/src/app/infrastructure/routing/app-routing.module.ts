@@ -38,14 +38,11 @@ const routes: Routes = [
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
-<<<<<<< HEAD
   {path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard]},
   {path: 'appRating', component: AppRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'appRatingHome', component: AppRatingHomeComponent, canActivate: [AuthGuard]},
-  {path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]}
-=======
+  {path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]},
   {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], }
->>>>>>> develop
 ];
 
 
