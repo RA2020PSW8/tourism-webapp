@@ -26,6 +26,7 @@ export class AuthService {
       .pipe(
         tap((authenticationResponse) => {
           this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
+          localStorage.setItem('loggedId', authenticationResponse.id.toString());
           this.setUser();
         })
       );

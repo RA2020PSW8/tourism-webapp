@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { EquipmentForSelection } from './model/eqipment-for-selection.model';
+import { TouristEquipment } from './model/tourist-equipment.model';
 import { Observable } from 'rxjs';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { ClubJoinRequest } from './model/club-join-request.model';
-import { environment } from 'src/env/environment';
+import { PagedResults } from '../../shared/model/paged-results.model';
 import { ClubInvitation } from './model/club-invitation.model';
+import { environment } from '../../../env/environment';
 import { Club } from './model/club.model';
 
 @Injectable({
@@ -12,35 +13,26 @@ import { Club } from './model/club.model';
 })
 export class TouristService {
 
-  private readonly apiUrl = `${environment.apiHost}tourist`;
-
-  getAllClubs():Observable<PagedResults<Club>>{
-    return this.http.get<PagedResults<Club>>(environment.apiHost+'tourist/clubs');
-  }
-
-  addClub(club: Club): Observable<Club>{
-    return this.http.post<Club>(environment.apiHost+'tourist/clubs',club)
-  }
-  updateClub(club: Club): Observable<Club>{
-    return this.http.put<Club>(environment.apiHost+'tourist/clubs/'+club.id, club)
-  }
   constructor(private http: HttpClient) { }
 
-  getTouristRequests(): Observable<PagedResults<ClubJoinRequest>>{
-    return this.http.get<PagedResults<ClubJoinRequest>>(`${this.apiUrl}/clubJoinRequest`);
-  }
-  getClubRequests(clubId: number): Observable<PagedResults<ClubJoinRequest>>{
-    return this.http.get<PagedResults<ClubJoinRequest>>(`${this.apiUrl}/clubJoinRequest/${clubId}`);
-  }
-  updateRequest(request: ClubJoinRequest): Observable<ClubJoinRequest> {
-    return this.http.put<ClubJoinRequest>(`${this.apiUrl}/clubJoinRequest`, request);
-  }
-  joinClub(club: Club): Observable<Club>{
-    return this.http.post<Club>(`${this.apiUrl}/clubJoinRequest`, club);
+  getEquipmentForSelection(): Observable<EquipmentForSelection[]> {
+    return this.http.get<EquipmentForSelection[]>(environment.apiHost + 'tourist/touristEquipment/forSelected/' + parseInt(localStorage.getItem('loggedId')!))
   }
 
+  createSelectionEquipment(touristEquipment : TouristEquipment): Observable<TouristEquipment> {
+    return this.http.post<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment', touristEquipment) 
+  }
+  
+  deleteSelectionEquipment(touristEquipment : TouristEquipment): Observable<TouristEquipment> {
+    return this.http.post<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/deleteByTouristAndEquipmentId', touristEquipment) 
+  }
+  
   getClubs(): Observable<PagedResults<Club>> {
     return this.http.get<PagedResults<Club>>(environment.apiHost + 'tourist/clubs/byUser');
+  }
+
+  updateClub(club: Club): Observable<Club> {
+    return this.http.put<Club>(environment.apiHost + 'tourist/clubs/' + club.id, club);
   }
 
   getClubInvitations(): Observable<PagedResults<ClubInvitation>> {
@@ -50,4 +42,5 @@ export class TouristService {
   addClubInvitation(clubInvitation: ClubInvitation): Observable<ClubInvitation> {
     return this.http.post<ClubInvitation>(environment.apiHost + 'tourist/clubInvitation', clubInvitation)
   }
+
 }
