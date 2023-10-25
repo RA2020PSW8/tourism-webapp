@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Keypoint } from './model/keypoint.model';
 import { environment } from 'src/env/environment';
+import { Equipment } from '../administration/model/equipment.model';
+import { TourEquipment } from './model/tour_equipment';
 import { Tour } from './model/tour.model'
 
 @Injectable({
@@ -31,6 +33,22 @@ export class TourAuthoringService {
     return this.http.put<Keypoint>(`${this.apiUrl}/keypoints/${updatedKeypoint.id}`, updatedKeypoint);
   }
 
+  getEquipment(): Observable<PagedResults<Equipment>> {
+    return this.http.get<PagedResults<Equipment>>(environment.apiHost + 'administration/equipment')
+  }
+
+  addEquipmentToTour(tourEquipment: TourEquipment): Observable<TourEquipment> {
+    return this.http.post<TourEquipment>(`${this.apiUrl}/tour-equipment/add`, tourEquipment);
+  }
+
+  getEquipmentForTour(tourId: number): Observable<Array<Equipment>> {
+    return this.http.get<Array<Equipment>>(`${this.apiUrl}/tour-equipment/${tourId}`);
+  }
+
+  removeEquipmentFromTour(tourEquipment: TourEquipment): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/tour-equipment/remove`, tourEquipment);
+  }
+  
   getTours() : Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours`);
   }
@@ -46,5 +64,4 @@ export class TourAuthoringService {
   updateTour(updatedTour: Tour): Observable<Tour>{
     return this.http.put<Tour>(`${this.apiUrl}/tours/${updatedTour.id}`, updatedTour);
   }
-
 }
