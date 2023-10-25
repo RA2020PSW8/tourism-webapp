@@ -1,4 +1,7 @@
-
-<p><b>Welcome!!</b></p>
-
-
+<div>
+    <mat-grid-list>
+        <mat-grid-tile *ngFor="let i of images">
+            <img src="{{i.url}}" alt="{{i.alt}}">
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

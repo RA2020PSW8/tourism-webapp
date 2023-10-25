@@ -6,7 +6,7 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from '../administration/profile/profile.component';
 import { AdministrationModule } from '../administration/administration.module';
-
+import {MatGridListModule} from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -18,12 +18,14 @@ import { AdministrationModule } from '../administration/administration.module';
     CommonModule,
     MaterialModule,
     RouterModule,
-    AdministrationModule
+    AdministrationModule,
+    MatGridListModule
   ],
   exports: [
     NavbarComponent,
     HomeComponent, 
-    AdministrationModule
+    AdministrationModule,
+    MatGridListModule
   ]
 })
 export class LayoutModule { }
