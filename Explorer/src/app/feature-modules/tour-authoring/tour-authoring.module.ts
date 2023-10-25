@@ -12,7 +12,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
   declarations: [
     KeypointComponent,
     KeypointFormComponent,
-    ToursTestModuleComponent,
+    ToursTestModuleComponent
   ],
   imports: [
     CommonModule,
