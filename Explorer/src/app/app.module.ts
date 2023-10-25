@@ -16,6 +16,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
+import { MapComponent } from './shared/map/map.component';
 
 
 @NgModule({

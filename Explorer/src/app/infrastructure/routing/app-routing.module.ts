@@ -15,6 +15,7 @@ import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoi
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { ClubInvitationComponent } from '../../feature-modules/tourist/club-invitation/club-invitation.component';
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
+import { ToursTestModuleComponent } from 'src/app/feature-modules/tour-authoring/tours-test-module/tours-test-module.component';
 import { ToursPreviewComponent } from 'src/app/feature-modules/tour-authoring/tours-preview/tours-preview.component';
 
 const routes: Routes = [
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path: 'tours-equipment', component: ToursPreviewComponent, canActivate: [AuthGuard],},
   {path: 'tours', component: TourComponent, canActivate: [AuthGuard]},
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
+  {path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
 ];
 
 
