@@ -52,9 +52,6 @@ export class KeypointFormComponent implements OnChanges{
   }
 
   fillCoords(event: number[]): void {
-    console.log("GOT IT, ty child");
-    console.log(event);
-
     this.keypointForm.patchValue({
       latitude: event[0],
       longitude: event[1]
