@@ -16,7 +16,7 @@ import { TourFormComponent } from './tour-form/tour-form.component';
   declarations: [
     KeypointComponent,
     KeypointFormComponent,
-    ToursTestModuleComponent
+    ToursTestModuleComponent,
     ToursEquipmentComponent,
     ToursPreviewComponent,
     TourComponent,
