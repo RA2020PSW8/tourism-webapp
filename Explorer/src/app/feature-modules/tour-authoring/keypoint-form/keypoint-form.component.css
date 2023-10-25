@@ -8,3 +8,7 @@ div {
 .mat-icon {
     vertical-align: middle;
 }
+
+.map-container {
+    width: 100%;
+}
