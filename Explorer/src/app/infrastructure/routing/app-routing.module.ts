@@ -25,7 +25,7 @@ const routes: Routes = [
   {path: 'blog', component:BlogComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
-  {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
+  {path: 'keypoints', component: KeypointComponent, /*canActivate: [AuthGuard],*/},
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
   {path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
 

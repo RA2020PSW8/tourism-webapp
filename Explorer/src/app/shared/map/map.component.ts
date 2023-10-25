@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnChanges, Input } from '@angular/core';
+import { Component, AfterViewInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -17,6 +17,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   private routeControl: L.Routing.Control;
   @Input() selectedTour: TestTour;
   @Input() enableClicks: boolean;
+  @Output() clickEvent = new EventEmitter<number[]>();
 
   constructor(private mapService: MapService) {
     this.enableClicks = false;
@@ -81,8 +82,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
-      alert(mp.getLatLng());
+      // alert(mp.getLatLng());
       new L.Marker([lat, lng]).addTo(this.map);
+
+      this.clickEvent.emit([lat, lng]);
     });
   }
 

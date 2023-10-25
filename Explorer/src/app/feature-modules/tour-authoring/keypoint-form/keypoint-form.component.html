@@ -30,3 +30,6 @@
         </button>
     </div>
 </form>
+<div class="map-container">
+    <app-map [enableClicks]="true" (clickEvent)="fillCoords($event)"></app-map>
+</div>
