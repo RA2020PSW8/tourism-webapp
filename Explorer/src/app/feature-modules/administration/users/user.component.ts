@@ -22,7 +22,7 @@ export class UserComponent implements OnInit {
     password: '',
     isActive: true,
     role: 0,
-    mail: '',
+    email: '',
     isBlocked: false,
     isEditing: false,
   };
@@ -44,15 +44,12 @@ export class UserComponent implements OnInit {
   }
 
   enableEditing(user: User): void {
-    // Disable editing for all other users
     this.users.forEach((u) => (u.isEditing = false));
     
-    // Enable editing for the selected user
     user.isEditing = true;
   }
 
   updateUser(user: User): void {
-    // Save user changes, update the user on the server, and disable edit mode
     user.isEditing = false;
 
     this.service.updateUser(user).subscribe({
@@ -74,10 +71,8 @@ export class UserComponent implements OnInit {
     this.showAddUser = true;
     
   }
-  // Inside your component class
 closeAddUserForm() {
   this.showAddUser = false;
-  // You can also reset any form fields or data if needed
 }
 
 
@@ -86,18 +81,16 @@ closeAddUserForm() {
     this.service.addUser(this.newUser).subscribe({
       next: () => { this.userUpdated.emit() }
     });
-    // Reset the new user object
     this.newUser = {
       username: '',
       password: '',
       isActive: true,
       role: 0,
-      mail: '',
+      email: '',
       isBlocked: false,
       isEditing: false,
     };
 
-    // Hide the add user form
     this.showAddUser = false;
   }
 

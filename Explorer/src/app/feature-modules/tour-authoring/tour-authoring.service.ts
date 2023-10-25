@@ -6,6 +6,7 @@ import { Keypoint } from './model/keypoint.model';
 import { environment } from 'src/env/environment';
 import { Equipment } from '../administration/model/equipment.model';
 import { TourEquipment } from './model/tour_equipment';
+import { Tour } from './model/tour.model'
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,21 @@ export class TourAuthoringService {
 
   removeEquipmentFromTour(tourEquipment: TourEquipment): Observable<void> {
     return this.http.post<void>(`${this.apiUrl}/tour-equipment/remove`, tourEquipment);
+  }
+  
+  getTours() : Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours`);
+  }
+
+  deleteTour(id: number): Observable<Tour>{
+    return this.http.delete<Tour>(`${this.apiUrl}/tours/${id}`);
+  }
+
+  addTour(newTour: Tour): Observable<Tour>{
+    return this.http.post<Tour>(`${this.apiUrl}/tours/`, newTour);
+  }
+
+  updateTour(updatedTour: Tour): Observable<Tour>{
+    return this.http.put<Tour>(`${this.apiUrl}/tours/${updatedTour.id}`, updatedTour);
   }
 }

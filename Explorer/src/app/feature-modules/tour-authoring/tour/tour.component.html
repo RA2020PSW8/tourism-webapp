@@ -1,0 +1,41 @@
+<div class="cont">
+    <div>
+        <h2>Tours</h2>
+        <table>
+            <thead>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Description</th>
+                <th></th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of tours">
+                    <td>{{t.id}}</td>
+                    <td>{{t.name}}</td>
+                    <td>{{t.description}}</td>
+                    <td>{{t.price}}</td>
+                    <td>{{t.difficulty}}</td>
+                    <td>{{t.transportType}}</td>
+                    <td>{{t.status}}</td>
+                    
+                    <td>
+                        <button color="accent" mat-icon-button (click)="deleteTour(t.id || 0)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button color="primary" mat-icon-button (click)="onEditClicked(t)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <button color="primary" mat-icon-button (click)="onAddClicked()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <xp-tour-form *ngIf="renderTour" [mode]="mode" [tour]="selectedTour" (tourUpdated)="getTours()"></xp-tour-form>
+</div>

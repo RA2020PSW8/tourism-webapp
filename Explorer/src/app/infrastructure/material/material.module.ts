@@ -7,7 +7,8 @@ import {MatInput, MatInputModule} from '@angular/material/input';
 import {MatTable, MatTableModule} from '@angular/material/table';
 import {MatIcon, MatIconModule} from '@angular/material/icon';
 import {MatList, MatListModule} from '@angular/material/list';
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [],
@@ -19,7 +20,9 @@ import {MatList, MatListModule} from '@angular/material/list';
     MatInputModule,
     MatTableModule,
     MatIconModule,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    MatOptionModule
   ],
   exports: [
     MatToolbar,
@@ -30,7 +33,9 @@ import {MatList, MatListModule} from '@angular/material/list';
     MatTable,
     MatIconButton,
     MatIcon,
-    MatListModule
+    MatListModule,
+    MatSelectModule,
+    MatOptionModule
   ]
 })
 export class MaterialModule { }

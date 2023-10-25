@@ -7,6 +7,8 @@ import { KeypointFormComponent } from './keypoint-form/keypoint-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ToursEquipmentComponent } from './tours-equipment/tours-equipment.component';
 import { ToursPreviewComponent } from './tours-preview/tours-preview.component';
+import { TourComponent } from './tour/tour.component';
+import { TourFormComponent } from './tour-form/tour-form.component';
 
 
 
@@ -15,7 +17,9 @@ import { ToursPreviewComponent } from './tours-preview/tours-preview.component';
     KeypointComponent,
     KeypointFormComponent,
     ToursEquipmentComponent,
-    ToursPreviewComponent
+    ToursPreviewComponent,
+    TourComponent,
+    TourFormComponent
   ],
   imports: [
     CommonModule,
