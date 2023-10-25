@@ -5,6 +5,7 @@ import { ClubInvitationComponent } from './club-invitation/club-invitation.compo
 import { ClubInvitationFormComponent } from './club-invitation-form/club-invitation-form.component';
 import { MaterialModule } from '../../infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ClubOwnerRequestsComponent } from './club-owner-requests/club-owner-requests.component';
 
 
 
@@ -12,7 +13,8 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     TouristEquipmentComponent,
     ClubInvitationComponent,
-    ClubInvitationFormComponent
+    ClubInvitationFormComponent,
+    ClubOwnerRequestsComponent
   ],
   imports: [
     CommonModule,

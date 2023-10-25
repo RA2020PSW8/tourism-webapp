@@ -7,11 +7,14 @@ import { PagedResults } from '../../shared/model/paged-results.model';
 import { ClubInvitation } from './model/club-invitation.model';
 import { environment } from '../../../env/environment';
 import { Club } from './model/club.model';
+import { ClubJoinRequest } from './model/club-join-request.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TouristService {
+
+  private readonly apiUrl = `${environment.apiHost}tourist`;
 
   constructor(private http: HttpClient) { }
 
@@ -41,6 +44,19 @@ export class TouristService {
 
   addClubInvitation(clubInvitation: ClubInvitation): Observable<ClubInvitation> {
     return this.http.post<ClubInvitation>(environment.apiHost + 'tourist/clubInvitation', clubInvitation)
+  }
+
+  getTouristRequests(): Observable<PagedResults<ClubJoinRequest>>{
+    return this.http.get<PagedResults<ClubJoinRequest>>(`${this.apiUrl}/clubJoinRequest`);
+  }
+  getClubRequests(clubId: number): Observable<PagedResults<ClubJoinRequest>>{
+    return this.http.get<PagedResults<ClubJoinRequest>>(`${this.apiUrl}/clubJoinRequest/${clubId}`);
+  }
+  updateRequest(request: ClubJoinRequest): Observable<ClubJoinRequest> {
+    return this.http.put<ClubJoinRequest>(`${this.apiUrl}/clubJoinRequest`, request);
+  }
+  joinClub(club: Club): Observable<Club>{
+    return this.http.post<Club>(`${this.apiUrl}/clubJoinRequest`, club);
   }
 
 }
