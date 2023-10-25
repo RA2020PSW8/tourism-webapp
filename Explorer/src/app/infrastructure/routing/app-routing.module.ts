@@ -15,6 +15,7 @@ import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoi
 import { ClubsComponent } from 'src/app/feature-modules/tourist/clubs/clubs.component';
 import { ClubInvitationComponent } from '../../feature-modules/tourist/club-invitation/club-invitation.component';
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
+import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object/object.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -29,7 +30,8 @@ const routes: Routes = [
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'keypoints', component: KeypointComponent, canActivate: [AuthGuard],},
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
-  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], }
+  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
+  {path: 'objects',  component: ObjectComponent, canActivate: [AuthGuard]}
 ];
 
 
