@@ -32,12 +32,12 @@ export class ToursEquipmentComponent implements OnInit {
     this.tourAuthoringService.getEquipment().subscribe(pagedResults => {
       this.allEquipment = pagedResults.results;
       if (this.tour && this.tour.id) {
-      this.tourAuthoringService.getEquipmentForTour(this.tour.id).subscribe(pagedResults => {
-        this.selectedEquipment = pagedResults;
-        console.log(this.selectedEquipment);
-        this.availableEquipment = this.allEquipment.filter(e => !this.selectedEquipment.some(se => se.id === e.id));
-        }
-      });
+        this.tourAuthoringService.getEquipmentForTour(this.tour.id).subscribe(pagedResults => {
+          this.selectedEquipment = pagedResults;
+          console.log(this.selectedEquipment);
+          this.availableEquipment = this.allEquipment.filter(e => !this.selectedEquipment.some(se => se.id === e.id));
+        });
+      }
       console.log(this.allEquipment);
     });
   }
