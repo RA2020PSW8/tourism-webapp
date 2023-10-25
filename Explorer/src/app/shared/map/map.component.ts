@@ -4,6 +4,7 @@ import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { environment } from 'src/env/environment';
 import { TestTour } from '../model/testtour.model';
+import { timeout } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -18,9 +19,16 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() selectedTour: TestTour;
   @Input() enableClicks: boolean;
   @Output() clickEvent = new EventEmitter<number[]>();
+  @Input() markType: string;
 
   constructor(private mapService: MapService) {
-    this.enableClicks = false;
+    this.enableClicks = true;
+    this.markType = 'Key point';
+  }
+
+  public handleButtonClick(): void {
+    this.markType = this.markType === 'Key point' ? 'Object' : 'Key point';
+    alert(this.markType);
   }
 
   private initMap(): void {
@@ -41,6 +49,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     tiles.addTo(this.map);
     if(this.enableClicks){
       this.registerOnClick();
+
     }
   }
 
@@ -48,6 +57,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
     });
+
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
@@ -80,13 +90,23 @@ export class MapComponent implements AfterViewInit, OnChanges {
       });
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
-      );
-      const mp = new L.Marker([lat, lng]).addTo(this.map);
-      // alert(mp.getLatLng());
-      new L.Marker([lat, lng]).addTo(this.map);
-
-      this.clickEvent.emit([lat, lng]);
-    });
+      );   
+      let mp = null;
+      if(this.markType == 'Object') {
+        const customIcon = L.icon({
+          iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
+          iconSize: [32, 32], 
+          iconAnchor: [16, 16], 
+        });
+        mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.map);
+        alert(mp.getLatLng());
+        new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map);
+      } else {
+        mp = new L.Marker([lat, lng]).addTo(this.map);
+        new L.Marker([lat, lng]).addTo(this.map);
+        this.clickEvent.emit([lat, lng]);
+      }
+    }); 
   }
 
   setRoute(): void {
@@ -110,4 +130,6 @@ export class MapComponent implements AfterViewInit, OnChanges {
       alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
     });
   }
+
+
 }
