@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, OnChanges, Input } from '@angular/core';
+import { Component, AfterViewInit, OnChanges, Input, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
@@ -18,8 +18,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
   private routeControl: L.Routing.Control;
   @Input() selectedTour: TestTour;
   @Input() enableClicks: boolean;
+  @Output() clickEvent = new EventEmitter<number[]>();
   @Input() markType: string;
-
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
@@ -60,7 +60,6 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
 
     L.Marker.prototype.options.icon = DefaultIcon;
-    //L.Marker.prototype.options.icon = ObjectIcon;
     this.initMap();
   }
 
@@ -91,8 +90,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
       });
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
-      );
-      
+      );   
       let mp = null;
       if(this.markType == 'Object') {
         const customIcon = L.icon({
@@ -105,15 +103,11 @@ export class MapComponent implements AfterViewInit, OnChanges {
         new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map);
       } else {
         mp = new L.Marker([lat, lng]).addTo(this.map);
-        alert(mp.getLatLng());
         new L.Marker([lat, lng]).addTo(this.map);
+        this.clickEvent.emit([lat, lng]);
       }
-    });
-    
-    
+    }); 
   }
-
-
 
   setRoute(): void {
     if(this.routeControl){
