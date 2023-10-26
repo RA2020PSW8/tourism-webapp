@@ -1,0 +1,11 @@
+<form [formGroup]="commentForm">
+    <div>
+        <mat-form-field>
+            <mat-label>Comment</mat-label>
+            <input matInput formControlName="comment" type="text">
+        </mat-form-field>
+
+        <button *ngIf="!editMode" mat-raised-button type="submit" color="primary" (click)="createComment()">Create</button>
+        <button *ngIf="editMode" mat-raised-button type="submit" color="primary" (click)="updateComment()">Update</button>
+    </div>
+</form>
