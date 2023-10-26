@@ -30,8 +30,16 @@ export class TouristService {
     return this.http.post<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/deleteByTouristAndEquipmentId', touristEquipment) 
   }
   
+  getAllClubs():Observable<PagedResults<Club>>{
+    return this.http.get<PagedResults<Club>>(environment.apiHost+'tourist/clubs');
+  }
+
   getClubs(): Observable<PagedResults<Club>> {
     return this.http.get<PagedResults<Club>>(environment.apiHost + 'tourist/clubs/byUser');
+  }
+
+  addClub(club: Club): Observable<Club>{
+    return this.http.post<Club>(environment.apiHost+'tourist/clubs',club)
   }
 
   updateClub(club: Club): Observable<Club> {
