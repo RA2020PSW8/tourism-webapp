@@ -13,6 +13,7 @@ import { ToursEquipmentComponent } from './tours-equipment/tours-equipment.compo
 import { ToursPreviewComponent } from './tours-preview/tours-preview.component';
 import { TourComponent } from './tour/tour.component';
 import { TourFormComponent } from './tour-form/tour-form.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { TourFormComponent } from './tour-form/tour-form.component';
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    MapComponent
+    MapComponent,
+    RouterModule
   ]
 })
 export class TourAuthoringModule { }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tour } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -16,7 +17,7 @@ export class TourComponent implements OnInit{
   public mode : string = 'add';
   public renderTour: boolean = false;
 
-  constructor(private tourAuthoringService: TourAuthoringService){}
+  constructor(private tourAuthoringService: TourAuthoringService, private router: Router){}
 
   ngOnInit(): void {
     this.getTours(); 
@@ -56,6 +57,12 @@ export class TourComponent implements OnInit{
         
       }
     });
+  }
+
+  navigateToTourManagement(id: number): void{
+    this.router.navigate(
+      ['/tour-management', id]
+    );
   }
 
 }
