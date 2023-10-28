@@ -27,26 +27,19 @@ export class BlogFormComponent implements OnChanges {
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-    const blogForm: BlogString = {
-      id: this.selectedBlog.id,
-      title: this.selectedBlog.title,
-      description: this.selectedBlog.description,
-      creationDate : this.selectedBlog.creationDate,
-      imageLinks : this.selectedBlog.imageLinks,
-      status : this.selectedBlog.status.toString()
-    };
-
-    this.blogForm.patchValue(blogForm);
+    this.blogForm.patchValue(this.selectedBlog);
   }
 
   addBlog(): void {
-    const blog: Blog = {
+    const blog: BlogString = {
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
       creationDate: this.blogForm.value.creationDate as string,
-      imageLinks: this.blogForm.value.imageLinks as string,
-      status: Number(this.blogForm.value.status)
+      imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
+      status: Number(this.string2enum(this.blogForm.value.status as string))
     }
+
+    this.prepareBlogForSending(blog);
 
     this.service.addBlog(blog).subscribe({
       next: (_) => {
@@ -56,14 +49,16 @@ export class BlogFormComponent implements OnChanges {
   }
 
   updateBlog(): void {
-    const blog: Blog = {
+    const blog: BlogString = {
       id: this.selectedBlog.id,
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
       creationDate: this.blogForm.value.creationDate as string,
-      imageLinks: this.blogForm.value.imageLinks as string,
-      status: Number(this.blogForm.value.status)
+      imageLinks: this.blogForm.value.imageLinks as unknown as string[],
+      status: Number(this.string2enum(this.blogForm.value.status as string))
     }
+
+    this.prepareBlogForSending(blog);
 
     this.service.updateBlog(blog).subscribe({
       next: (_) => {
@@ -71,4 +66,19 @@ export class BlogFormComponent implements OnChanges {
       }
     });
   }
+
+  private prepareBlogForSending(b: BlogString) {
+    b.description = b.description.replaceAll('\n', '<br>');
+  }
+
+  private string2enum(s: string): string 
+  {
+    if(s.toLowerCase() == "draft")
+      return "0";
+    else if(s.toLowerCase() == "published")
+      return "1";
+    else
+      return "2";
+  }
+
 }

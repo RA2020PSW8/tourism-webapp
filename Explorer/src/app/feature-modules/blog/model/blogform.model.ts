@@ -3,6 +3,6 @@ export interface BlogString {
     title : string,
     description : string,
     creationDate : string,
-    imageLinks : string,
-    status : string;
+    imageLinks : string[],
+    status : number;
 }

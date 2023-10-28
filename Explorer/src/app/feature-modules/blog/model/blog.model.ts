@@ -4,5 +4,5 @@ export interface Blog {
     description : string,
     creationDate : string,
     imageLinks : string,
-    status : number;
+    status : string;
 }
