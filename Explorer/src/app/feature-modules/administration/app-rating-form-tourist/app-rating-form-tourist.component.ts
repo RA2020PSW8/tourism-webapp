@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { AdministrationService } from '../administration.service';
 import { AppRating } from '../model/app-rating.model';
+import { AdministrationService } from '../administration.service';
+import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
 
 function ratingValidator(control: AbstractControl){
   const rating = control.value;
@@ -10,11 +10,13 @@ function ratingValidator(control: AbstractControl){
 }
 
 @Component({
-  selector: 'xp-app-rating-form-author',
-  templateUrl: './app-rating-form-author.component.html',
-  styleUrls: ['./app-rating-form-author.component.css']
+  selector: 'xp-app-rating-form-tourist',
+  templateUrl: './app-rating-form-tourist.component.html',
+  styleUrls: ['./app-rating-form-tourist.component.css']
 })
-export class AppRatingFormAuthorComponent implements OnChanges {
+
+
+export class AppRatingFormTouristComponent implements OnChanges{
 
   @Output() appRatingUpdated = new EventEmitter<null>();
   @Input() appRating: AppRating;
@@ -22,7 +24,6 @@ export class AppRatingFormAuthorComponent implements OnChanges {
 
   constructor(private service: AdministrationService) { }
 
-  
   ngOnChanges(): void{
     this.appRatingForm.reset();
     if(this.mode == 'edit'){
@@ -43,16 +44,23 @@ export class AppRatingFormAuthorComponent implements OnChanges {
     }
 
     if(this.mode == 'edit'){
-      this.service.updateAppRatingForAuthor(this.appRating).subscribe({
+      this.service.updateAppRatingForTourist(this.appRating).subscribe({
         next: () => { this.appRatingUpdated.emit() }
       });
     }
     else if(this.mode == 'add'){
-      this.service.addAppRatingForAuthor(this.appRating).subscribe({
+      this.service.addAppRatingForTourist(this.appRating).subscribe({
         next: () => {  this.appRatingUpdated.emit() }
       });
     }
   }
 
+  /*addAppRating(): void{
+    const appRating: AppRating = {
+      rating: this.appRatingForm.value.rating || 5,
+      comment: this.appRatingForm.value.comment || "",
+      lastModified: new Date()
+    };
+    this.service.addAppRatingForTourist(appRating).subscribe();
+  }*/
 }
-
