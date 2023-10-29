@@ -18,3 +18,16 @@
 .mat-icon {
     vertical-align: middle;
 }
+
+.tag-list {
+    display: flex;
+    gap: 10px;
+}
+
+.tag {
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 2px;
+    min-width: 50px;
+    text-align: center;
+}

@@ -22,16 +22,14 @@ export class TourFormComponent implements OnChanges, OnInit{
   public mode: string = 'add';
   public routeQuery: RouteQuery;
 
-  //temp
-  public routeInfo: RouteInfo;
-
   constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
     this.tourForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
-      price: new FormControl(0, [Validators.required, Validators.min(1)]),
+      price: new FormControl(1, Validators.min(1)),
       difficulty: new FormControl(''),
       transportType: new FormControl(''),
+      newTag: new FormControl('')
     });
   }
 
@@ -64,10 +62,12 @@ export class TourFormComponent implements OnChanges, OnInit{
       difficulty: this.tourForm.value.difficulty || "",
       transportType: this.tourForm.value.transportType || "",
       status: currentStatus,
-      tags: []
+      tags: this.tour.tags,
+      statusUpdateTime: new Date()
     };
 
     if(this.tourId === 0){
+      tour.price = 0;
       this.tourAuthoringService.addTour(tour).subscribe({
         next: (newTour) => { 
           window.alert("You have successfuly saved your tour");
@@ -107,7 +107,27 @@ export class TourFormComponent implements OnChanges, OnInit{
   }
 
   setTourRoute(event: RouteInfo){
-    this.routeInfo = event;
+    if(this.tour.duration !== event.duration || this.tour.distance !== event.distance){
+      this.tour.duration = event.duration;
+      this.tour.distance = event.distance;
+
+      this.tourAuthoringService.updateTour(this.tour).subscribe({
+        next: (updatedTour) => { 
+          this.tour = updatedTour;
+        }
+      });
+     }
+  }
+
+  addTag(): void {
+    if(!this.tourForm.value.newTag) return;
+
+    this.tour.tags?.push(this.tourForm.value.newTag);
+    this.tourForm.patchValue({newTag: ''});
+  }
+
+  removeTag(tag: string): void {
+    this.tour.tags?.splice(this.tour.tags?.indexOf(tag), 1);
   }
 }
 

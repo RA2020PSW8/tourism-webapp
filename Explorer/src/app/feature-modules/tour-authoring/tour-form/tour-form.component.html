@@ -6,10 +6,10 @@
         <p><strong>Price:</strong> {{tour.price}} &euro;</p>
         <p><strong>Type:</strong> {{tour.transportType}}</p>
         <p><strong>Difficulty:</strong> {{tour.difficulty}}</p>
-        <p><strong>Status:</strong> {{tour.status}}</p>
+        <p><strong>Status:</strong> {{tour.status}} (Last updated: {{tour.statusUpdateTime | date:'long'}})</p>
         
-        <p *ngIf="routeInfo"><strong>Travel distance:</strong> {{routeInfo.distance | number:'1.2-2'}} km</p>
-        <p *ngIf="routeInfo"><strong>Tour duration:</strong> {{routeInfo.duration | time}}</p>
+        <p *ngIf="tour.distance"><strong>Travel distance:</strong> {{tour.distance | number:'1.2-2'}} km</p>
+        <p *ngIf="tour.duration"><strong>Tour duration:</strong> {{tour.duration | time}}</p>
     </div>  
     <div>
         <h1>Keypoints information</h1>
@@ -36,7 +36,7 @@
                   cdkAutosizeMaxRows="5"></textarea>
                 </mat-form-field>
 
-                <mat-form-field>
+                <mat-form-field *ngIf="tourId !== 0">
                     <mat-label>Price</mat-label>
                     <input matInput formControlName="price" type="number" min="0"/>
                 </mat-form-field>
@@ -61,6 +61,21 @@
                     </mat-select>
                 </mat-form-field>
         
+                <div *ngIf="tourId !== 0">
+                    <div>
+                        <mat-form-field>
+                            <mat-label>Tags</mat-label>
+                            <input matInput type="text" formControlName="newTag"/>
+                        </mat-form-field>
+                        <button color="primary" type="submit" mat-raised-button (click)="addTag()">Add Tag</button>
+                    </div>
+                    <p>Selected tags:</p>
+                    <div class="tag-list">
+                        <div class="tag" *ngFor="let tag of tour.tags">{{ tag }}
+                            <button (click)="removeTag(tag)">X</button>
+                        </div>
+                    </div>
+                </div>
         
                 <button color="primary" type="submit" (click)="saveTour()" mat-raised-button [disabled]="!tourForm.valid">
                     <span>Save</span> <span *ngIf="tourId === 0 || tour.status === 'DRAFT'">(DRAFT)</span>
