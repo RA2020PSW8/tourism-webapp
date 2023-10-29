@@ -83,7 +83,7 @@
                 <button color="primary" type="submit" (click)="saveTour()" mat-raised-button [disabled]="!tourForm.valid">
                     <span>Save</span> <span *ngIf="tourId === 0 || tour.status === 'DRAFT'">(DRAFT)</span>
                 </button>
-                <button *ngIf="tour.status !== 'PUBLISHED'" class="btn green" color="primary" type="submit" (click)="saveTour('publish')" mat-raised-button
+                <button *ngIf="tour.id !== 0 && tour.status !== 'PUBLISHED'" class="btn green" color="primary" type="submit" (click)="saveTour('publish')" mat-raised-button
                     [disabled]="!tourForm.valid || keypoints.length < 2">
                     <span>Publish tour</span>
                 </button>

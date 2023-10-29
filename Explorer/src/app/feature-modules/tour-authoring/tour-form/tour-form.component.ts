@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Status, Tour } from '../model/tour.model';
+import { Status, Tour, TourDifficulty, TransportType } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Keypoint } from '../model/keypoint.model';
@@ -23,6 +23,7 @@ export class TourFormComponent implements OnChanges, OnInit{
   public routeQuery: RouteQuery;
 
   constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
+    this.tour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
     this.tourForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
