@@ -51,7 +51,7 @@ export class TourFormComponent implements OnChanges, OnInit{
   ngOnChanges(): void {
   }
 
-  saveTour(): void {
+  saveTour(statusChange: string = ''): void {
     let currentStatus = this.tourId === 0 ? Status.DRAFT : this.tour.status;
     let tour: Tour = {
       id: this.tourId,
@@ -63,11 +63,11 @@ export class TourFormComponent implements OnChanges, OnInit{
       transportType: this.tourForm.value.transportType || "",
       status: currentStatus,
       tags: this.tour.tags,
-      statusUpdateTime: new Date()
     };
 
     if(this.tourId === 0){
       tour.price = 0;
+      tour.statusUpdateTime = new Date();
       this.tourAuthoringService.addTour(tour).subscribe({
         next: (newTour) => { 
           window.alert("You have successfuly saved your tour");
@@ -77,6 +77,15 @@ export class TourFormComponent implements OnChanges, OnInit{
         }
       });
     }else{
+      if(statusChange){
+        if(!window.confirm(`Are you sure that you want to ${statusChange} this tour?`) || this.keypoints.length < 2){
+          return;
+        }
+        tour.statusUpdateTime = new Date();
+        tour.status = statusChange === 'publish' ? Status.PUBLISHED : Status.ARCHIVED;
+      }
+      tour.distance = this.tour.distance;
+      tour.duration = this.tour.duration;
       this.tourAuthoringService.updateTour(tour).subscribe({
         next: (updatedTour) => { 
           window.alert("You have successfuly saved your tour");

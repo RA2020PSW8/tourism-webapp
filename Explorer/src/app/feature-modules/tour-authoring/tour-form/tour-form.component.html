@@ -10,6 +10,9 @@
         
         <p *ngIf="tour.distance"><strong>Travel distance:</strong> {{tour.distance | number:'1.2-2'}} km</p>
         <p *ngIf="tour.duration"><strong>Tour duration:</strong> {{tour.duration | time}}</p>
+        <div class="tag-list">
+            <strong>Tour tags: :</strong><div class="tag" *ngFor="let tag of tour.tags">{{ tag }}</div>
+        </div>
     </div>  
     <div>
         <h1>Keypoints information</h1>
@@ -79,6 +82,13 @@
         
                 <button color="primary" type="submit" (click)="saveTour()" mat-raised-button [disabled]="!tourForm.valid">
                     <span>Save</span> <span *ngIf="tourId === 0 || tour.status === 'DRAFT'">(DRAFT)</span>
+                </button>
+                <button *ngIf="tour.status !== 'PUBLISHED'" class="btn green" color="primary" type="submit" (click)="saveTour('publish')" mat-raised-button
+                    [disabled]="!tourForm.valid || keypoints.length < 2">
+                    <span>Publish tour</span>
+                </button>
+                <button *ngIf="tour.status === 'PUBLISHED'" class="btn yellow" color="primary" type="submit" (click)="saveTour('archive')" mat-raised-button>
+                    <span>Archive tour</span>
                 </button>
             </div>
         </form>
