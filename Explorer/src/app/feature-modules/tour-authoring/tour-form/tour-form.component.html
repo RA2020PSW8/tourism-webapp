@@ -10,7 +10,7 @@
     </div>  
     <div>
         <h1>Keypoints information</h1>
-        <xp-keypoint [keypoints]="keypoints"></xp-keypoint>
+        <xp-keypoint [keypoints]="keypoints" (keypointDeleted)="getTourKeypoints()"></xp-keypoint>
     </div>  
 </div>
 <hr>

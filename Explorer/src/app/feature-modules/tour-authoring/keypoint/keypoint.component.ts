@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Keypoint } from '../model/keypoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 
@@ -9,6 +9,7 @@ import { TourAuthoringService } from '../tour-authoring.service';
 })
 export class KeypointComponent implements OnInit{
 
+  @Output() keypointDeleted = new EventEmitter<null>();
   @Input() keypoints : Keypoint[];
   public selectedKeypoint: Keypoint;
 
@@ -20,14 +21,14 @@ export class KeypointComponent implements OnInit{
 
   deleteKeypoint(id: number): void{
     if(window.confirm('Are you sure that you want to delete this keypoint?')){
-      // this.tourAuthoringService.deleteKeypoint(id).subscribe({
-      //   next: () => {
-      //     this.getKeypoints();
-      //   },
-      //   error: () => {
+      this.tourAuthoringService.deleteKeypoint(id).subscribe({
+        next: () => {
+          this.keypointDeleted.emit();
+        },
+        error: () => {
           
-      //   }
-      // });
+        }
+      });
     }
   }
 
