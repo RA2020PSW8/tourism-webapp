@@ -1,8 +1,19 @@
 <div class="cont" *ngIf="tourId !== 0">
     <div>
         <h1>Tour information</h1>
-    </div>    
+        <p><strong>Name:</strong> {{tour.name}}</p>
+        <p><strong>Description:</strong> {{tour.description}}</p>
+        <p><strong>Price:</strong> {{tour.price}} &euro;</p>
+        <p><strong>Type:</strong> {{tour.transportType}}</p>
+        <p><strong>Difficulty:</strong> {{tour.difficulty}}</p>
+        <p><strong>Status:</strong> {{tour.status}}</p>
+    </div>  
+    <div>
+        <h1>Keypoints information</h1>
+        <xp-keypoint [keypoints]="keypoints"></xp-keypoint>
+    </div>  
 </div>
+<hr>
 <div class="cont">
     <div>
         <form [formGroup]="tourForm">

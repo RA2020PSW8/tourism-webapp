@@ -22,6 +22,10 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Keypoint>>(`${this.apiUrl}/keypoints`);
   }
 
+  getKeypointsByTour(tourId: number): Observable<PagedResults<Keypoint>>{
+    return this.http.get<PagedResults<Keypoint>>(`${this.apiUrl}/keypoints/tour/${tourId}`);
+  }
+
   deleteKeypoint(id: number): Observable<Keypoint>{
     return this.http.delete<Keypoint>(`${this.apiUrl}/keypoints/${id}`);
   }

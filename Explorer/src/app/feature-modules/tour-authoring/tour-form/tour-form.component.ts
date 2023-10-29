@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Status, Tour } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { Keypoint } from '../model/keypoint.model';
 
 @Component({
   selector: 'xp-tour-form',
@@ -10,9 +11,11 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
   styleUrls: ['./tour-form.component.css']
 })
 export class TourFormComponent implements OnChanges, OnInit{  
+  
   public tour: Tour;
   public tourForm: FormGroup;
   public tourId: number;
+  public keypoints: Keypoint[];
 
   constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
     this.tourForm = new FormGroup({
@@ -32,6 +35,10 @@ export class TourFormComponent implements OnChanges, OnInit{
           this.tourAuthoringService.getTourById(this.tourId).subscribe((res: Tour) => {
             this.tour = res;
             this.tourForm.patchValue(this.tour);
+          });
+
+          this.tourAuthoringService.getKeypointsByTour(this.tourId).subscribe(res => {
+            this.keypoints = res.results;
           });
         }
       });
@@ -67,6 +74,7 @@ export class TourFormComponent implements OnChanges, OnInit{
       this.tourAuthoringService.updateTour(tour).subscribe({
         next: (updatedTour) => { 
           window.alert("You have successfuly saved your tour");
+          this.tour = updatedTour;
         }
       });
     } 
