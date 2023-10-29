@@ -49,17 +49,38 @@ export class AdministrationService {
     return this.http.get<PagedResult<AppRating>>(environment.apiHost + 'administrator/appRating?page=0&pagesize=0');
   }
 
-  addAppRating(appRating: AppRating): Observable<AppRating> {
+  getAppRatingForTourist(): Observable<AppRating> {
+    return this.http.get<AppRating>(environment.apiHost + 'tourist/appRating');
+  }
+
+  getAppRatingForAuthor(): Observable<AppRating> {
+    return this.http.get<AppRating>(environment.apiHost + 'author/appRating');
+  }
+
+  addAppRatingForTourist(appRating: AppRating): Observable<AppRating> {
     return this.http.post<AppRating>(environment.apiHost + 'tourist/appRating', appRating);
   }
 
-  addAppRatingAuthor(appRating: AppRating): Observable<AppRating> {
+  addAppRatingForAuthor(appRating: AppRating): Observable<AppRating> {
     return this.http.post<AppRating>(environment.apiHost + 'author/appRating', appRating);
   }
 
-  /*getAppRating(id: number): Observable<AppRating> {
-    return this.http.get<AppRating>(`${environment.apiHost}tourist/appRating/${id}`);
-  }*/
+  updateAppRatingForTourist(appRating: AppRating): Observable<AppRating> {
+    return this.http.put<AppRating>(environment.apiHost + 'tourist/appRating', appRating);
+  }
+
+  updateAppRatingForAuthor(appRating: AppRating): Observable<AppRating> {
+    return this.http.put<AppRating>(environment.apiHost + 'author/appRating', appRating);
+  }
+
+  deleteAppRatingForTourist(): Observable<AppRating> {
+    return this.http.delete<AppRating>(environment.apiHost + 'tourist/appRating');
+  }
+
+  deleteAppRatingForAuthor(): Observable<AppRating> {
+    return this.http.delete<AppRating>(environment.apiHost + 'author/appRating');
+  }
+  
 
     
 }
