@@ -7,11 +7,14 @@
         <p><strong>Type:</strong> {{tour.transportType}}</p>
         <p><strong>Difficulty:</strong> {{tour.difficulty}}</p>
         <p><strong>Status:</strong> {{tour.status}}</p>
+        
+        <p *ngIf="routeInfo"><strong>Travel distance:</strong> {{routeInfo.distance | number:'1.2-2'}} km</p>
+        <p *ngIf="routeInfo"><strong>Tour duration:</strong> {{routeInfo.duration | time}}</p>
     </div>  
     <div>
         <h1>Keypoints information</h1>
         <xp-keypoint [keypoints]="keypoints" (keypointDeleted)="getTourKeypoints()" (keypointSelected)="selectKeypoint($event)"></xp-keypoint>
-    </div>  
+    </div> 
 </div>
 <hr>
 <div class="cont">
@@ -66,8 +69,8 @@
         </form>
     </div>
     <div *ngIf="tourId !== 0" style="width: 80%;">
-        <xp-keypoint-form [tourId]="tourId" [keypointsCount]="keypoints.length"
-        [mode]="mode" [selectedKeypoint]="selectedKeypoint" (keypointsUpdated)="getTourKeypoints()"></xp-keypoint-form>
+        <xp-keypoint-form [tourId]="tourId" [routeQuery]="routeQuery" [keypointsCount]="keypoints.length"
+        [mode]="mode" [selectedKeypoint]="selectedKeypoint" (keypointsUpdated)="getTourKeypoints()" (routeFound)="setTourRoute($event)"></xp-keypoint-form>
     </div>
 </div>
 

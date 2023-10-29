@@ -42,6 +42,7 @@
         </div>
     </form>
     <div class="map-container">
-        <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="fillCoords($event)"></app-map>
+        <app-map [enableClicks]="true" [toggleOff]="true" [routeQuery]="routeQuery" (clickEvent)="fillCoords($event)"
+        (routesFoundEvent)="routeFoundEmit($event)"></app-map>
     </div>
 </div>

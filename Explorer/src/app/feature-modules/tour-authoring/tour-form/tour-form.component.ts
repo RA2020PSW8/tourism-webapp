@@ -4,6 +4,8 @@ import { Status, Tour } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Keypoint } from '../model/keypoint.model';
+import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
+import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
 
 @Component({
   selector: 'xp-tour-form',
@@ -15,9 +17,13 @@ export class TourFormComponent implements OnChanges, OnInit{
   public tour: Tour;
   public tourForm: FormGroup;
   public tourId: number;
-  public keypoints: Keypoint[];
+  public keypoints: Keypoint[] = [];
   public selectedKeypoint: Keypoint;
   public mode: string = 'add';
+  public routeQuery: RouteQuery;
+
+  //temp
+  public routeInfo: RouteInfo;
 
   constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
     this.tourForm = new FormGroup({
@@ -37,9 +43,9 @@ export class TourFormComponent implements OnChanges, OnInit{
           this.tourAuthoringService.getTourById(this.tourId).subscribe((res: Tour) => {
             this.tour = res;
             this.tourForm.patchValue(this.tour);
+            
+            this.getTourKeypoints();
           });
-
-          this.getTourKeypoints();
         }
       });
   }
@@ -75,6 +81,10 @@ export class TourFormComponent implements OnChanges, OnInit{
         next: (updatedTour) => { 
           window.alert("You have successfuly saved your tour");
           this.tour = updatedTour;
+          this.routeQuery = {
+            keypoints: this.keypoints,
+            transportType: this.tour.transportType
+          }
         }
       });
     } 
@@ -83,6 +93,10 @@ export class TourFormComponent implements OnChanges, OnInit{
   getTourKeypoints(): void{
     this.tourAuthoringService.getKeypointsByTour(this.tourId).subscribe(res => {
       this.keypoints = res.results;
+      this.routeQuery = {
+        keypoints: this.keypoints,
+        transportType: this.tour.transportType
+      }
     });
     this.mode = 'add';
   }
@@ -90,6 +104,10 @@ export class TourFormComponent implements OnChanges, OnInit{
   selectKeypoint(event: Keypoint): void{
     this.selectedKeypoint = event;
     this.mode = 'edit';
+  }
+
+  setTourRoute(event: RouteInfo){
+    this.routeInfo = event;
   }
 }
 

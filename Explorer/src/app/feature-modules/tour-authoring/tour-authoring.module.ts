@@ -14,6 +14,7 @@ import { ToursPreviewComponent } from './tours-preview/tours-preview.component';
 import { TourComponent } from './tour/tour.component';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { RouterModule } from '@angular/router';
+import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { RouterModule } from '@angular/router';
     MaterialModule,
     ReactiveFormsModule,
     MapComponent,
-    RouterModule
+    RouterModule,
+    TimePipe
   ]
 })
 export class TourAuthoringModule { }

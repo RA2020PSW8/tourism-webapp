@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core
 import { Keypoint } from '../model/keypoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
+import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
 
 @Component({
   selector: 'xp-keypoint-form',
@@ -11,9 +13,12 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class KeypointFormComponent implements OnChanges{
 
   @Output() keypointsUpdated = new EventEmitter<Keypoint>();
+  @Output() routeFound = new EventEmitter<RouteInfo>();
+
   @Input() tourId: number;
-  @Input() keypointsCount: number;
+  @Input() routeQuery: RouteQuery;
   @Input() selectedKeypoint: Keypoint;
+  @Input() keypointsCount: number = 0;
   @Input() mode: string = 'add';
 
   public keypointForm: FormGroup;
@@ -80,5 +85,9 @@ export class KeypointFormComponent implements OnChanges{
       latitude: event[0],
       longitude: event[1]
     })
+  }
+
+  routeFoundEmit(routeInfo: RouteInfo){
+    this.routeFound.emit(routeInfo);
   }
 }
