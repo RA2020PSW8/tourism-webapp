@@ -70,6 +70,10 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours`);
   }
 
+  getTourById(tourId: number): Observable<Tour>{
+    return this.http.get<Tour>(`${this.apiUrl}/tours/${tourId}`);
+  }
+
   deleteTour(id: number): Observable<Tour>{
     return this.http.delete<Tour>(`${this.apiUrl}/tours/${id}`);
   }

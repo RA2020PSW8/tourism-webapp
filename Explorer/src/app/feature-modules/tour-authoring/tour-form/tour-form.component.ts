@@ -1,55 +1,73 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Status, Tour } from '../model/tour.model';
 import { TourAuthoringService } from '../tour-authoring.service';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-form',
   templateUrl: './tour-form.component.html',
   styleUrls: ['./tour-form.component.css']
 })
-export class TourFormComponent implements OnChanges{
-
-  @Output() tourUpdated = new EventEmitter<null>();
-  @Input() tour: Tour;
-  @Input() mode: string = 'add';
-
+export class TourFormComponent implements OnChanges, OnInit{  
+  public tour: Tour;
   public tourForm: FormGroup;
+  public tourId: number;
 
-  constructor(private tourAuthoringService: TourAuthoringService) {
+  constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
     this.tourForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
+      price: new FormControl(0, [Validators.required, Validators.min(1)]),
+      difficulty: new FormControl(''),
+      transportType: new FormControl(''),
     });
   }
 
+  ngOnInit(): void {
+      this.route.paramMap.subscribe((params: ParamMap) => {
+        this.tourId = Number(params.get('id'));
+
+        if(this.tourId !== 0){
+          this.tourAuthoringService.getTourById(this.tourId).subscribe((res: Tour) => {
+            this.tour = res;
+            this.tourForm.patchValue(this.tour);
+          });
+        }
+      });
+  }
+
   ngOnChanges(): void {
-    this.tourForm.reset();
-    if(this.mode === 'edit') {
-      this.tourForm.patchValue(this.tour);
-    }
   }
 
   saveTour(): void {
+    let currentStatus = this.tourId === 0 ? Status.DRAFT : this.tour.status;
     let tour: Tour = {
-      id: 0,
-      price: 0,
-      status: Status.DRAFT,
-      userId: 1,
+      id: this.tourId,
+      userId: -1,
       name: this.tourForm.value.name || "",
       description: this.tourForm.value.description || "",
+      price: this.tourForm.value.price,
       difficulty: this.tourForm.value.difficulty || "",
       transportType: this.tourForm.value.transportType || "",
+      status: currentStatus,
       tags: []
     };
-    if(this.mode === 'add'){
+
+    if(this.tourId === 0){
       this.tourAuthoringService.addTour(tour).subscribe({
-        next: () => { this.tourUpdated.emit() }
+        next: (newTour) => { 
+          window.alert("You have successfuly saved your tour");
+          this.router.navigate(
+            ['/tour-management', newTour.id]
+          );
+        }
       });
-    }else if( this.mode === 'edit'){
-      tour.id = this.tour.id;
+    }else{
       this.tourAuthoringService.updateTour(tour).subscribe({
-        next: () => { this.tourUpdated.emit() }
+        next: (updatedTour) => { 
+          window.alert("You have successfuly saved your tour");
+        }
       });
     } 
   }
