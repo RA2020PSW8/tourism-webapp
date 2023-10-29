@@ -22,6 +22,7 @@ export class KeypointFormComponent implements OnChanges{
       latitude: new FormControl(0, [Validators.min(-90), Validators.max(90)]),
       longitude: new FormControl(0, [Validators.min(-180), Validators.max(180)]),
       description: new FormControl(''),
+      image: new FormControl(''),
     });
   }
 
@@ -38,7 +39,9 @@ export class KeypointFormComponent implements OnChanges{
       latitude: this.keypointForm.value.latitude || 0,
       longitude: this.keypointForm.value.longitude || 0,
       description: this.keypointForm.value.description || "",
+      image: this.keypointForm.value.image || "",
     };
+    
     if(this.mode === 'add'){
       this.tourAuthoringService.addKeypoint(keypoint).subscribe({
         next: () => { this.keypointUpdated.emit() }
