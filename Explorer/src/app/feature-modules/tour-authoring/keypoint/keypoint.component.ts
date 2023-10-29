@@ -10,6 +10,7 @@ import { TourAuthoringService } from '../tour-authoring.service';
 export class KeypointComponent implements OnInit{
 
   @Output() keypointDeleted = new EventEmitter<null>();
+  @Output() keypointSelected = new EventEmitter<Keypoint>();
   @Input() keypoints : Keypoint[];
   public selectedKeypoint: Keypoint;
 
@@ -33,10 +34,6 @@ export class KeypointComponent implements OnInit{
   }
 
   onEditClicked(keypoint: Keypoint): void{
-
-  }
-
-  onAddClicked(): void{
-
+    this.keypointSelected.emit(keypoint);
   }
 }

@@ -16,6 +16,8 @@ export class TourFormComponent implements OnChanges, OnInit{
   public tourForm: FormGroup;
   public tourId: number;
   public keypoints: Keypoint[];
+  public selectedKeypoint: Keypoint;
+  public mode: string = 'add';
 
   constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
     this.tourForm = new FormGroup({
@@ -82,6 +84,12 @@ export class TourFormComponent implements OnChanges, OnInit{
     this.tourAuthoringService.getKeypointsByTour(this.tourId).subscribe(res => {
       this.keypoints = res.results;
     });
+    this.mode = 'add';
+  }
+
+  selectKeypoint(event: Keypoint): void{
+    this.selectedKeypoint = event;
+    this.mode = 'edit';
   }
 }
 

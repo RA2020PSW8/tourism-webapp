@@ -11,10 +11,10 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class KeypointFormComponent implements OnChanges{
 
   @Output() keypointsUpdated = new EventEmitter<Keypoint>();
-  @Input() keypoint: Keypoint;
-  @Input() mode: string = 'add';
   @Input() tourId: number;
   @Input() keypointsCount: number;
+  @Input() selectedKeypoint: Keypoint;
+  @Input() mode: string = 'add';
 
   public keypointForm: FormGroup;
 
@@ -33,7 +33,7 @@ export class KeypointFormComponent implements OnChanges{
     this.keypointForm.reset();
     this.keypointForm.patchValue({'position': this.keypointsCount + 1});
     if(this.mode === 'edit') {
-      this.keypointForm.patchValue(this.keypoint);
+      this.keypointForm.patchValue(this.selectedKeypoint);
     }
   }
 
@@ -62,9 +62,10 @@ export class KeypointFormComponent implements OnChanges{
           }
         });
       }else if( this.mode === 'edit'){
-        keypoint.id = this.keypoint.id;
+        keypoint.id = this.selectedKeypoint.id;
         this.tourAuthoringService.updateKeypoint(keypoint).subscribe({
           next: () => {
+            window.alert(`You have successfuly updated ${keypoint.name}`);
             this.keypointsUpdated.emit(); 
             this.keypointForm.reset();
             this.keypointForm.clearValidators();
