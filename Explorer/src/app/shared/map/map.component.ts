@@ -4,11 +4,12 @@ import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { environment } from 'src/env/environment';
 import { TestTour } from '../model/testtour.model';
-import { timeout } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   standalone: true,
   selector: 'app-map',
+  imports: [CommonModule],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
@@ -20,10 +21,12 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() enableClicks: boolean;
   @Output() clickEvent = new EventEmitter<number[]>();
   @Input() markType: string;
+  @Input() toggleOff: boolean;
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
     this.markType = 'Key point';
+    this.toggleOff = false;
   }
 
   public handleButtonClick(): void {
