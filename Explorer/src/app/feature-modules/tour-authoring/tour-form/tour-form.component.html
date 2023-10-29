@@ -16,6 +16,7 @@
 <hr>
 <div class="cont">
     <div>
+        <h1 *ngIf="tourId===0">1. step: create tour draft</h1>
         <form [formGroup]="tourForm">
             <div class="somediv">
                 <mat-form-field>
@@ -64,8 +65,8 @@
             </div>
         </form>
     </div>
-    <div style="width: 80%;">
-        <xp-keypoint-form></xp-keypoint-form>
+    <div *ngIf="tourId !== 0" style="width: 80%;">
+        <xp-keypoint-form [tourId]="tourId" [keypointsCount]="keypoints.length" (keypointsUpdated)="getTourKeypoints()"></xp-keypoint-form>
     </div>
 </div>
 

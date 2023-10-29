@@ -37,9 +37,7 @@ export class TourFormComponent implements OnChanges, OnInit{
             this.tourForm.patchValue(this.tour);
           });
 
-          this.tourAuthoringService.getKeypointsByTour(this.tourId).subscribe(res => {
-            this.keypoints = res.results;
-          });
+          this.getTourKeypoints();
         }
       });
   }
@@ -78,6 +76,12 @@ export class TourFormComponent implements OnChanges, OnInit{
         }
       });
     } 
+  }
+
+  getTourKeypoints(): void{
+    this.tourAuthoringService.getKeypointsByTour(this.tourId).subscribe(res => {
+      this.keypoints = res.results;
+    });
   }
 }
 

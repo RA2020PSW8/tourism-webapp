@@ -29,8 +29,13 @@
                 <mat-label>ImageUrl</mat-label>
                 <input matInput formControlName="image" type="text"/>
             </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Position</mat-label>
+                <input matInput formControlName="position" type="number" min="1"/>
+            </mat-form-field>
     
-            <button color="primary" type="submit" (click)="saveKeypoint()" mat-raised-button>
+            <button color="primary" type="submit" (click)="saveKeypoint()" mat-raised-button [disabled]="tourId===0 || !keypointForm.valid">
                 <span *ngIf="mode === 'add'">Add new keypoint</span>
                 <span *ngIf="mode === 'edit'">Update keypoint</span>
             </button>
