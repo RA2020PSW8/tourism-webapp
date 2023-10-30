@@ -13,7 +13,9 @@ export enum TransportType {
 }
 
 export enum Status {
-    DRAFT = 'DRAFT'
+    DRAFT = 'DRAFT',
+    PUBLISHED = 'PUBLISHED',
+    ARCHIVED = 'ARCHIVED'
 }
 
 export interface Tour {
@@ -21,9 +23,12 @@ export interface Tour {
     userId: number,
     name: string, 
     description: string,
+    duration?: number,
+    distance?: number,
     price: number,
     difficulty: TourDifficulty,
     transportType: TransportType,
     status: Status,
-    tags?: []
+    tags?: string[],
+    statusUpdateTime?: Date
 }

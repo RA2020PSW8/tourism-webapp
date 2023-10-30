@@ -4,10 +4,10 @@
         <div id="buttons">
             
             <!-- All -->
-            <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
-            <button *ngIf="user && user.username !== ''" color="primary" mat-raised-button [routerLink]="['profile']">Profile</button>
             <button *ngIf="user && user.username === ''" color="accent" mat-raised-button [routerLink]="['login']">Login</button>
             <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
+            <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
+            <button *ngIf="user && user.username !== ''" color="primary" mat-raised-button [routerLink]="['profile']">Profile</button>
             
             <!-- Tourists -->
             <button *ngIf="user && user.role === 'tourist'" color="primary" mat-raised-button [routerLink]="['touristSelectingEquipment']">Manage my equipment</button>

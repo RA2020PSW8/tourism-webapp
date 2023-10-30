@@ -4,11 +4,16 @@ import 'leaflet-routing-machine';
 import { MapService } from '../map.service';
 import { environment } from 'src/env/environment';
 import { TestTour } from '../model/testtour.model';
-import { timeout } from 'rxjs';
+import { CommonModule } from '@angular/common';
+import { Keypoint } from 'src/app/feature-modules/tour-authoring/model/keypoint.model';
+import { RouteQuery } from '../model/routeQuery.model';
+import { RouteInfo } from '../model/routeInfo.model';
+import { TransportType } from 'src/app/feature-modules/tour-authoring/model/tour.model';
 
 @Component({
   standalone: true,
   selector: 'app-map',
+  imports: [CommonModule],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css'],
 })
@@ -16,14 +21,18 @@ export class MapComponent implements AfterViewInit, OnChanges {
   
   private map: any;
   private routeControl: L.Routing.Control;
+  @Output() clickEvent = new EventEmitter<number[]>();
+  @Output() routesFoundEvent = new EventEmitter<RouteInfo>();
   @Input() selectedTour: TestTour;
   @Input() enableClicks: boolean;
-  @Output() clickEvent = new EventEmitter<number[]>();
   @Input() markType: string;
+  @Input() toggleOff: boolean;
+  @Input() routeQuery: RouteQuery;
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
     this.markType = 'Key point';
+    this.toggleOff = false;
   }
 
   public handleButtonClick(): void {
@@ -49,7 +58,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
     tiles.addTo(this.map);
     if(this.enableClicks){
       this.registerOnClick();
-
+    }
+    if(this.routeQuery){
+      this.setRoute();
     }
   }
 
@@ -58,13 +69,14 @@ export class MapComponent implements AfterViewInit, OnChanges {
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
     });
 
-
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
   }
 
   ngOnChanges(): void {
-    this.setRoute();
+    if(this.map){
+      this.setRoute();
+    }
   }
 
   search(): void {
@@ -110,25 +122,49 @@ export class MapComponent implements AfterViewInit, OnChanges {
   }
 
   setRoute(): void {
-    if(this.routeControl){
-      this.routeControl.remove(); //Removes previous legend 
-    }
-    
-    let lwaypoints = [];
-    for(let k of this.selectedTour.keypoints){
-      lwaypoints.push(L.latLng(k.latitude, k.longitude));
-    }
+    if(this.routeQuery && this.routeQuery.keypoints.length > 1){
+      var routesFoundEvent = this.routesFoundEvent;
+      
+      if(this.routeControl){
+        this.routeControl.remove(); //Removes previous legend 
+      }
+      
+      let lwaypoints = [];
+      for(let k of this.routeQuery.keypoints){
+        lwaypoints.push(L.latLng(k.latitude, k.longitude));
+      }
+  
+      let profile = '';
+      switch(this.routeQuery.transportType){
+        case TransportType.WALK:
+          profile = 'mapbox/walking';
+          break;
 
-    this.routeControl = L.Routing.control({
-      waypoints: lwaypoints,
-      router: L.routing.mapbox(environment.mapBoxApiKey, {profile: 'mapbox/walking'})
-    }).addTo(this.map);
+        case TransportType.CAR:
+          profile = 'mapbox/driving';
+          break;
 
-    this.routeControl.on('routesfound', function(e: any) {
-      var routes = e.routes;
-      var summary = routes[0].summary;
-      alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
-    });
+        default:
+          profile = 'mapbox/cycling';
+          break;
+      }
+
+      this.routeControl = L.Routing.control({
+        waypoints: lwaypoints,
+        router: L.routing.mapbox(environment.mapBoxApiKey, {profile: profile})
+      }).addTo(this.map);
+  
+      this.routeControl.on('routesfound', function(e: any) {
+        var routes = e.routes;
+        var summary = routes[0].summary;
+        // alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
+        let routeInfo: RouteInfo = {
+          distance: summary.totalDistance/1000,
+          duration: Math.ceil(summary.totalTime / 60)
+        }
+        routesFoundEvent.emit(routeInfo);
+      });
+    }
   }
 
 
