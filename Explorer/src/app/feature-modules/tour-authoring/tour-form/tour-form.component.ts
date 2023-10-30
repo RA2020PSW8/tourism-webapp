@@ -84,6 +84,8 @@ export class TourFormComponent implements OnChanges, OnInit{
         }
         tour.statusUpdateTime = new Date();
         tour.status = statusChange === 'publish' ? Status.PUBLISHED : Status.ARCHIVED;
+      }else{
+        tour.statusUpdateTime = this.tour.statusUpdateTime;
       }
       tour.distance = this.tour.distance;
       tour.duration = this.tour.duration;
