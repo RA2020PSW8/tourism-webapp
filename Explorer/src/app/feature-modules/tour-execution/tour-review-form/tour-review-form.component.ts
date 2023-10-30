@@ -20,15 +20,7 @@ export class TourReviewFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.tourReviewForm.reset();
     if(this.shouldEdit) {
-      const tourReviewString: TourReviewString = {
-        id: this.tourReview.id?.toString(),
-        rating: this.tourReview.rating.toString(),
-        comment: this.tourReview.comment,
-        visitDate: this.tourReview.visitDate.toString(),
-        ratingDate: this.tourReview.ratingDate.toString(),
-        imageLinks: this.tourReview.imageLinks
-      };
-      this.tourReviewForm.patchValue(tourReviewString);
+      this.tourReviewForm.patchValue(this.tourReview);
     }
   }
 
@@ -36,21 +28,20 @@ export class TourReviewFormComponent implements OnChanges {
     rating: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required]),
     visitDate: new FormControl('', [Validators.required]),
-    ratingDate: new FormControl('', [Validators.required]),
-    imageLinks: new FormControl('', [Validators.required]),
+    imageLinks: new FormControl('', [Validators.required])
   })
 
   addTourReview(): void {
   
-    const tourReview: TourReview = {
+    const tourReview: TourReviewString = {
       rating: Number(this.tourReviewForm.value.rating),
       comment: this.tourReviewForm.value.comment || "",
-      visitDate: new Date(this.tourReviewForm.value.visitDate as string),
-      ratingDate: new Date(this.tourReviewForm.value.ratingDate as string),
-      imageLinks: this.tourReviewForm.value.imageLinks || ""
+      visitDate: this.tourReviewForm.value.visitDate as string,
+      ratingDate: new Date().toISOString(),
+      imageLinks: this.tourReviewForm.value.imageLinks?.split('\n') as string[]
     }
     
-    console.log(tourReview);
+    this.clearFormFields();
 
     this.service.addTourReview(tourReview).subscribe({
       next: (_) => {
@@ -60,14 +51,16 @@ export class TourReviewFormComponent implements OnChanges {
   }
 
   updateTourReview(): void {
-    const tourReview: TourReview = {
+    const tourReview: TourReviewString = {
       rating: Number(this.tourReviewForm.value.rating),
       comment: this.tourReviewForm.value.comment || "",
-      visitDate: new Date(this.tourReviewForm.value.visitDate as string),
-      ratingDate: new Date(this.tourReviewForm.value.ratingDate as string),
-      imageLinks: this.tourReviewForm.value.imageLinks || ""
+      visitDate: this.tourReviewForm.value.visitDate as string,
+      ratingDate: new Date().toISOString(),
+      imageLinks: this.tourReviewForm.value.imageLinks as unknown as string[]
     }
+
     tourReview.id = this.tourReview.id;
+    this.clearFormFields();
 
     this.service.updateTourReview(tourReview).subscribe({
       next: (_) => {
@@ -75,4 +68,12 @@ export class TourReviewFormComponent implements OnChanges {
       }
     });
   }
+
+  clearFormFields(): void {
+    this.tourReviewForm.value.rating = "";
+    this.tourReviewForm.value.comment = "";
+    this.tourReviewForm.value.visitDate = "";
+    this.tourReviewForm.value.imageLinks = "";
+  }
+
 }

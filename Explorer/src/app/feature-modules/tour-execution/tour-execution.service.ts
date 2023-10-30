@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourReview } from './model/tour-review.model';
 import { environment } from 'src/env/environment';
+import { TourReviewString } from './model/tour-review-string.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,18 +14,18 @@ export class TourExecutionService {
   constructor(private http: HttpClient) { }
 
   getTourReviews(): Observable<PagedResults<TourReview>> {
-    return this.http.get<PagedResults<TourReview>>('https://localhost:44333/api/tourexecution/tourreview');
+    return this.http.get<PagedResults<TourReview>>(environment.apiHost + 'tourexecution/tourreview');
   }
 
-  addTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.post<TourReview>('https://localhost:44333/api/tourexecution/tourreview', tourreview);
+  addTourReview(tourreview: TourReviewString): Observable<TourReview> {
+    return this.http.post<TourReview>(environment.apiHost + 'tourexecution/tourreview', tourreview);
   }
 
-  updateTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.put<TourReview>('https://localhost:44333/api/tourexecution/tourreview/' + tourreview.id, tourreview);
+  updateTourReview(tourreview: TourReviewString): Observable<TourReview> {
+    return this.http.put<TourReview>(environment.apiHost + 'tourexecution/tourreview/' + tourreview.id, tourreview);
   }
 
   deleteTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.delete<TourReview>('https://localhost:44333/api/tourexecution/tourreview/' + tourreview.id);
+    return this.http.delete<TourReview>(environment.apiHost + 'tourexecution/tourreview/' + tourreview.id);
   }
 }
