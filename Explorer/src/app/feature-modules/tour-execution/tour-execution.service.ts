@@ -14,19 +14,19 @@ export class TourExecutionService {
   constructor(private http: HttpClient) { }
 
   getTourReviews(): Observable<PagedResults<TourReview>> {
-    return this.http.get<PagedResults<TourReview>>('https://localhost:44333/api/tourexecution/tourreview');
+    return this.http.get<PagedResults<TourReview>>(`${environment.apiHost}tourexecution/tourreview/`);
   }
 
   addTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.post<TourReview>('https://localhost:44333/api/tourexecution/tourreview', tourreview);
+    return this.http.post<TourReview>(`${environment.apiHost}tourexecution/tourreview/`, tourreview);
   }
 
   updateTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.put<TourReview>('https://localhost:44333/api/tourexecution/tourreview/' + tourreview.id, tourreview);
+    return this.http.put<TourReview>(`${environment.apiHost}tourexecution/tourreview/` + tourreview.id, tourreview);
   }
 
   deleteTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.delete<TourReview>('https://localhost:44333/api/tourexecution/tourreview/' + tourreview.id);
+    return this.http.delete<TourReview>(`${environment.apiHost}tourexecution/tourreview/` + tourreview.id);
   }
 
   getTouristPosition(): Observable<TouristPosition> {
