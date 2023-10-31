@@ -9,6 +9,7 @@ import { Keypoint } from 'src/app/feature-modules/tour-authoring/model/keypoint.
 import { RouteQuery } from '../model/routeQuery.model';
 import { RouteInfo } from '../model/routeInfo.model';
 import { TransportType } from 'src/app/feature-modules/tour-authoring/model/tour.model';
+import { Position } from '../model/position.model';
 
 @Component({
   standalone: true,
@@ -28,6 +29,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() markType: string;
   @Input() toggleOff: boolean;
   @Input() routeQuery: RouteQuery;
+  @Input() markerPosition: Position;
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
@@ -61,6 +63,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
     if(this.routeQuery){
       this.setRoute();
+    }
+    if(this.markerPosition) {
+      this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
     }
   }
 
@@ -167,5 +172,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-
+  setMarker(lat: number, lng: number): void {
+    new L.Marker([lat, lng]).addTo(this.map);
+  }
 }

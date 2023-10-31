@@ -28,6 +28,7 @@ import { AppRatingTouristComponent } from 'src/app/feature-modules/administratio
 import { AppRatingAuthorComponent } from 'src/app/feature-modules/administration/app-rating-author/app-rating-author.component';
 import { AppRatingFormTouristComponent } from 'src/app/feature-modules/administration/app-rating-form-tourist/app-rating-form-tourist.component';
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
+import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 
 
 const routes: Routes = [
@@ -41,7 +42,7 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
   
-  // Tourists
+  // Tourist
   {path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard]},
   {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]}, 
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
@@ -73,6 +74,9 @@ const routes: Routes = [
 
   // S2
   {path: 'tour-management/:id', component: TourFormComponent, canActivate: [AuthGuard] },
+
+  // Tourist
+  {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
 
 ];
 
