@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { TourPreference } from './model/tour-preference.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
+import { PagedResult } from '../tour-execution/shared/model/paged-result.model';
+import { Tour } from '../tour-authoring/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +12,7 @@ import { Observable } from 'rxjs';
 export class MarketplaceService {
 
   private readonly apiUrl = `${environment.apiHost}tourist`;
+  private readonly tourApiUrl = `${environment.apiHost}marketplace/tours`;
 
   constructor(private http: HttpClient) { }
 
@@ -27,5 +30,10 @@ export class MarketplaceService {
 
   updateTourPreference(tourPreference: TourPreference): Observable<TourPreference> {
     return this.http.put<TourPreference>(`${this.apiUrl}/tourPreference`, tourPreference);
+  }
+
+  /* Tour */
+  getPublishedTours(): Observable<PagedResult<Tour>>{
+    return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}`);
   }
 }
