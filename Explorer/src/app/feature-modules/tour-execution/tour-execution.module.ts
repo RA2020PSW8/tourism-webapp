@@ -6,20 +6,22 @@ import { TourIssueComponent } from './tour-issue/tour-issue.component';
 import { TourIssueFormComponent } from './tour-issue-form/tour-issue-form.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
+import { TouristPositionComponent } from './tourist-position/tourist-position.component';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @NgModule({
   declarations: [
     TourReviewComponent,
     TourReviewFormComponent,
     TourIssueComponent,
-    TourIssueFormComponent
+    TourIssueFormComponent,
+    TouristPositionComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MapComponent
   ],
   exports: [
     TourReviewComponent

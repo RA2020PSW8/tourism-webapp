@@ -9,6 +9,7 @@ import { Keypoint } from 'src/app/feature-modules/tour-authoring/model/keypoint.
 import { RouteQuery } from '../model/routeQuery.model';
 import { RouteInfo } from '../model/routeInfo.model';
 import { TransportType } from 'src/app/feature-modules/tour-authoring/model/tour.model';
+import { Position } from '../model/position.model';
 
 @Component({
   standalone: true,
@@ -21,6 +22,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   
   private map: any;
   private routeControl: L.Routing.Control;
+  private markerLayer: L.LayerGroup;
   @Output() clickEvent = new EventEmitter<number[]>();
   @Output() routesFoundEvent = new EventEmitter<RouteInfo>();
   @Input() selectedTour: TestTour;
@@ -28,11 +30,14 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() markType: string;
   @Input() toggleOff: boolean;
   @Input() routeQuery: RouteQuery;
+  @Input() markerPosition: Position;
+  @Input() allowMultipleMarkers: boolean;
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
     this.markType = 'Key point';
     this.toggleOff = false;
+    this.allowMultipleMarkers = true;
   }
 
   public handleButtonClick(): void {
@@ -56,11 +61,17 @@ export class MapComponent implements AfterViewInit, OnChanges {
       }
     );
     tiles.addTo(this.map);
+    this.markerLayer = new L.LayerGroup();
+    this.markerLayer.addTo(this.map);
+
     if(this.enableClicks){
       this.registerOnClick();
     }
     if(this.routeQuery){
       this.setRoute();
+    }
+    if(this.markerPosition) {
+      this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
     }
   }
 
@@ -76,6 +87,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
   ngOnChanges(): void {
     if(this.map){
       this.setRoute();
+      if(this.markerPosition) {
+        this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
+        this.map.panTo(L.latLng(this.markerPosition.latitude, this.markerPosition.longitude));
+      }
     }
   }
 
@@ -104,18 +119,23 @@ export class MapComponent implements AfterViewInit, OnChanges {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );   
       let mp = null;
+
+      if(!this.allowMultipleMarkers){
+        this.markerLayer.eachLayer((layer) =>{
+          layer.remove();
+        })
+      }
+
       if(this.markType == 'Object') {
         const customIcon = L.icon({
           iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
           iconSize: [32, 32], 
           iconAnchor: [16, 16], 
         });
-        mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.map);
+        mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
         alert(mp.getLatLng());
-        new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map);
       } else {
-        mp = new L.Marker([lat, lng]).addTo(this.map);
-        new L.Marker([lat, lng]).addTo(this.map);
+        mp = new L.Marker([lat, lng]).addTo(this.markerLayer);
         this.clickEvent.emit([lat, lng]);
       }
     }); 
@@ -167,5 +187,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-
+  setMarker(lat: number, lng: number): void {
+    new L.Marker([lat, lng]).addTo(this.markerLayer);
+  }
 }

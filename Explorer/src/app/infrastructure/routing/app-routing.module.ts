@@ -28,6 +28,7 @@ import { AppRatingTouristComponent } from 'src/app/feature-modules/administratio
 import { AppRatingAuthorComponent } from 'src/app/feature-modules/administration/app-rating-author/app-rating-author.component';
 import { AppRatingFormTouristComponent } from 'src/app/feature-modules/administration/app-rating-form-tourist/app-rating-form-tourist.component';
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
+import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tours-overview/tours-overview.component';
 
 
@@ -42,7 +43,7 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
   
-  // Tourists
+  // Tourist
   {path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard]},
   {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]}, 
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
@@ -54,6 +55,7 @@ const routes: Routes = [
   {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},
   {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},
   {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
@@ -72,8 +74,7 @@ const routes: Routes = [
   
   // ?
   {path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
-
-
+  
 ];
 
 
