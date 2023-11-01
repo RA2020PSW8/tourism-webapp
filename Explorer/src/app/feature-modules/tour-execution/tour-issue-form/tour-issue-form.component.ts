@@ -18,8 +18,7 @@ export class TourIssueFormComponent implements OnChanges {
   tourIssueForm = new FormGroup({
     category: new FormControl('', Validators.required),
     priority: new FormControl(''),
-    description: new FormControl('', Validators.required),
-    dateTime: new FormControl('')
+    description: new FormControl('', Validators.required)
   });
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -28,7 +27,7 @@ export class TourIssueFormComponent implements OnChanges {
       category: this.selectedTourIssue.category,
       priority: this.selectedTourIssue.priority.toString(),
       description: this.selectedTourIssue.description,
-      dateTime: this.selectedTourIssue.dateTime.toString()
+      dateTime: new Date().toUTCString()
     };
 
     this.tourIssueForm.patchValue(tourIssueString);
@@ -39,8 +38,10 @@ export class TourIssueFormComponent implements OnChanges {
       category: this.tourIssueForm.value.category || "",
       priority: Number(this.tourIssueForm.value.priority) || 1,
       description: this.tourIssueForm.value.description || "",
-      dateTime: new Date(this.tourIssueForm.value.dateTime as string)
+      dateTime: new Date(new Date().toUTCString())
     }
+
+    this.clearFormFields();
 
     this.service.addTourIssue(tourIssue).subscribe({
       next: (_) => {
@@ -55,12 +56,21 @@ export class TourIssueFormComponent implements OnChanges {
       category: this.tourIssueForm.value.category as string,
       priority: Number(this.tourIssueForm.value.priority),
       description: this.tourIssueForm.value.description as string,
-      dateTime: new Date(this.tourIssueForm.value.dateTime as string)
+      dateTime: new Date(new Date().toUTCString())
     }
+
+    this.clearFormFields();
+
     this.service.updateTourIssue(tourIssue).subscribe({
       next: (_) => {
         this.tourIssueUpdated.emit();
       }
     });
+  }
+
+  clearFormFields(): void {
+    this.tourIssueForm.value.category = "";
+    this.tourIssueForm.value.priority = "";
+    this.tourIssueForm.value.description = "";
   }
 }
