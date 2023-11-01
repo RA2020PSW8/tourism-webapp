@@ -1,7 +1,7 @@
 export interface TouristPosition {
     id?: number,
-    userId: number,
+    userId?: number,
     latitude: number,
     longitude: number,
-    updatedAt: Date
+    updatedAt?: Date
 }

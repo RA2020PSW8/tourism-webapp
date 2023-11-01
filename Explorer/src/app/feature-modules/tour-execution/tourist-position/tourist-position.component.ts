@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TouristPosition } from '../model/tourist-position.model';
 import { TourExecutionService } from '../tour-execution.service';
+import { Position } from 'src/app/shared/model/position.model';
 
 @Component({
   selector: 'xp-tourist-position',
@@ -11,6 +12,7 @@ export class TouristPositionComponent implements OnInit {
   
   public touristPosition: TouristPosition;
   public mode: string = 'add';
+  public touristMapPosition: Position; // mby remove, but it easier with map
 
   constructor(private service: TourExecutionService) { }
 
@@ -22,6 +24,10 @@ export class TouristPositionComponent implements OnInit {
     this.service.getTouristPosition().subscribe({
       next: (result: TouristPosition) => { 
         this.touristPosition = result;
+        this.touristMapPosition = {
+          latitude: this.touristPosition.latitude,
+          longitude: this.touristPosition.longitude
+        }
         this.mode = 'edit';
       },
       error: () => { 
@@ -31,18 +37,33 @@ export class TouristPositionComponent implements OnInit {
     });
   }
 
+  updateTouristPosition(event: number[]): void {
+    this.touristPosition = {
+      latitude: event[0],
+      longitude: event[1]
+    }
+  }
+
   confirmPosition(): void {
+    if(this.touristPosition == null) {
+      window.alert("Please select your position");
+      return;
+    }
+
     if (this.mode === 'edit' ) {
-      this.service.updateTouristPosition(this.touristPosition).subscribe();
+      this.service.updateTouristPosition(this.touristPosition).subscribe({
+        next: () => {
+          window.alert("Position successfully updated");  
+        },
+      });
     }
     else if (this.mode ==='add') {
-      this.touristPosition = {
-        userId: 0,
-        latitude: 20,
-        longitude: 30,
-        updatedAt: new Date()
-      }
-      this.service.addTouristPosition(this.touristPosition).subscribe();
+      this.service.addTouristPosition(this.touristPosition).subscribe({
+        next: () => {
+          window.alert("Position successfully added");  
+          this.mode = 'edit';
+        },
+      });
     }
   }
 }

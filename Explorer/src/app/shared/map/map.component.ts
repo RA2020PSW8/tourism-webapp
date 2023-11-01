@@ -81,6 +81,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
   ngOnChanges(): void {
     if(this.map){
       this.setRoute();
+      if(this.markerPosition) {
+        this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
+        this.map.panTo(L.latLng(this.markerPosition.latitude, this.markerPosition.longitude));
+      }
     }
   }
 
@@ -117,10 +121,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
         });
         mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.map);
         alert(mp.getLatLng());
-        new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map);
+        //new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map);
       } else {
         mp = new L.Marker([lat, lng]).addTo(this.map);
-        new L.Marker([lat, lng]).addTo(this.map);
+        //new L.Marker([lat, lng]).addTo(this.map);
         this.clickEvent.emit([lat, lng]);
       }
     }); 
@@ -172,7 +176,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  setMarker(lat: number, lng: number): void {
-    new L.Marker([lat, lng]).addTo(this.map);
+  setMarker(lat: number, lng: number): L.Marker<any> {
+    console.log("MARKER  " + lat + ", " + lng);
+    return new L.Marker([lat, lng]).addTo(this.map);
   }
 }
