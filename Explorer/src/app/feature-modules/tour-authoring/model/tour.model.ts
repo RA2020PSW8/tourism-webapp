@@ -1,3 +1,5 @@
+import { Keypoint } from "./keypoint.model";
+
 export enum TourDifficulty {
     EASY = 'EASY',
     MEDIUM = 'MEDIUM',
@@ -30,5 +32,6 @@ export interface Tour {
     transportType: TransportType,
     status: Status,
     tags?: string[],
-    statusUpdateTime?: Date
+    statusUpdateTime?: Date,
+    keypoints?: Keypoint[]
 }
