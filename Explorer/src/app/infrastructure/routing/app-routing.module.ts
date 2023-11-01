@@ -55,6 +55,7 @@ const routes: Routes = [
   {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},
   {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},
   {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
@@ -73,11 +74,7 @@ const routes: Routes = [
   
   // ?
   {path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
-
-
-  // Tourist
-  {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
-
+  
 ];
 
 

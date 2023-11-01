@@ -12,7 +12,7 @@ export class TouristPositionComponent implements OnInit {
   
   public touristPosition: TouristPosition;
   public mode: string = 'add';
-  public touristMapPosition: Position; // mby remove, but it easier with map
+  public touristMapPosition: Position;
 
   constructor(private service: TourExecutionService) { }
 
@@ -31,7 +31,6 @@ export class TouristPositionComponent implements OnInit {
         this.mode = 'edit';
       },
       error: () => { 
-        console.log("error");
         this.mode = 'add';
       }
     });

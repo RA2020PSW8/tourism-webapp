@@ -134,10 +134,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
         });
         mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
         alert(mp.getLatLng());
-        //new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map); // duplicate? Why?
       } else {
         mp = new L.Marker([lat, lng]).addTo(this.markerLayer);
-        //new L.Marker([lat, lng]).addTo(this.map); // duplicate? Why?
         this.clickEvent.emit([lat, lng]);
       }
     }); 
