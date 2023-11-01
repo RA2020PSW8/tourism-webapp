@@ -1,7 +1,7 @@
 <div class="tourist-position-container">
     <h2>My current position: </h2>.
     <div class="map-container">
-        <app-map [enableClicks]="true" [toggleOff]="true" [markerPosition]="touristMapPosition" (clickEvent)="updateTouristPosition($event)"></app-map>
+        <app-map [enableClicks]="true" [toggleOff]="true" [markerPosition]="touristMapPosition" [allowMultipleMarkers]="false" (clickEvent)="updateTouristPosition($event)"></app-map>
     </div>
     <button color="primary" type="submit" (click)="confirmPosition()" mat-raised-button>Confirm</button>
 </div>

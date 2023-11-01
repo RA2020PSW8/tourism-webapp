@@ -22,6 +22,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   
   private map: any;
   private routeControl: L.Routing.Control;
+  private markerLayer: L.LayerGroup;
   @Output() clickEvent = new EventEmitter<number[]>();
   @Output() routesFoundEvent = new EventEmitter<RouteInfo>();
   @Input() selectedTour: TestTour;
@@ -30,11 +31,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() toggleOff: boolean;
   @Input() routeQuery: RouteQuery;
   @Input() markerPosition: Position;
+  @Input() allowMultipleMarkers: boolean;
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
     this.markType = 'Key point';
     this.toggleOff = false;
+    this.allowMultipleMarkers = true;
   }
 
   public handleButtonClick(): void {
@@ -58,6 +61,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
       }
     );
     tiles.addTo(this.map);
+    this.markerLayer = new L.LayerGroup();
+    this.markerLayer.addTo(this.map);
+
     if(this.enableClicks){
       this.registerOnClick();
     }
@@ -113,18 +119,25 @@ export class MapComponent implements AfterViewInit, OnChanges {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );   
       let mp = null;
+
+      if(!this.allowMultipleMarkers){
+        this.markerLayer.eachLayer((layer) =>{
+          layer.remove();
+        })
+      }
+
       if(this.markType == 'Object') {
         const customIcon = L.icon({
           iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
           iconSize: [32, 32], 
           iconAnchor: [16, 16], 
         });
-        mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.map);
+        mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
         alert(mp.getLatLng());
-        //new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map);
+        //new L.Marker([lat, lng], { icon: customIcon }).addTo(this.map); // duplicate? Why?
       } else {
-        mp = new L.Marker([lat, lng]).addTo(this.map);
-        //new L.Marker([lat, lng]).addTo(this.map);
+        mp = new L.Marker([lat, lng]).addTo(this.markerLayer);
+        //new L.Marker([lat, lng]).addTo(this.map); // duplicate? Why?
         this.clickEvent.emit([lat, lng]);
       }
     }); 
@@ -176,8 +189,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  setMarker(lat: number, lng: number): L.Marker<any> {
-    console.log("MARKER  " + lat + ", " + lng);
-    return new L.Marker([lat, lng]).addTo(this.map);
+  setMarker(lat: number, lng: number): void {
+    new L.Marker([lat, lng]).addTo(this.markerLayer);
   }
 }
