@@ -54,9 +54,19 @@ export class BlogFormComponent implements OnChanges {
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
       creationDate: this.blogForm.value.creationDate as string,
-      imageLinks: this.blogForm.value.imageLinks as unknown as string[],
+      //imageLinks: this.blogForm.value.imageLinks as unknown as string[],
+      imageLinks: null as unknown as string[],
       status: Number(this.string2enum(this.blogForm.value.status as string))
     }
+    if(this.blogForm.value.imageLinks?.length != 1)
+    {
+      blog.imageLinks = this.blogForm.value.imageLinks?.split(',') as unknown as string[];
+    }
+    else
+    {
+      blog.imageLinks = this.blogForm.value.imageLinks as unknown as string[];
+    }
+
 
     this.prepareBlogForSending(blog);
 

@@ -48,7 +48,7 @@ const routes: Routes = [
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
   {path: 'appRating', component: AppRatingFormComponent, canActivate: [AuthGuard]},
   {path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard]},
-  {path: 'blog', component:BlogComponent},
+  {path: 'blog', component:BlogComponent, canActivate: [AuthGuard]},
   {path: 'tour-review', component: TourReviewComponent},
   
   // Admin
