@@ -17,6 +17,7 @@ import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
 import { MapComponent } from './shared/map/map.component';
+import { TimePipe } from './shared/helpers/time.pipe';
 
 
 @NgModule({
