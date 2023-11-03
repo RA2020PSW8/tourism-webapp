@@ -26,7 +26,6 @@ export class BlogComponent implements OnInit {
         {
           this.prepareBlogForDisplay(b);
           this.blogs.push(b);
-          console.log(b)
         }
       },
       error: (err: any) => {
@@ -36,14 +35,12 @@ export class BlogComponent implements OnInit {
   }
 
   private prepareBlogForDisplay(b: Blog) {
-    b.creationDate = b.creationDate.slice(0, 10);
     b.description = b.description.replaceAll('\n', '<br>');
-    //todo enum u str, i metoda koja radi kontra
-    //kasnije iz razloga da ne pokvari CRUD
   }
 
   onUpdateClicked(blog: Blog): void
   {
+    blog.description = blog.description.replace('<br>','\n');
     this.selectedBlog = blog;
   }
 

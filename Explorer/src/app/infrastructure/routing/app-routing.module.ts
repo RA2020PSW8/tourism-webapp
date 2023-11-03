@@ -50,7 +50,7 @@ const routes: Routes = [
   {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
   {path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard]},
-  {path: 'blog', component:BlogComponent},
+  {path: 'blog', component:BlogComponent, canActivate: [AuthGuard]},
   {path: 'tour-review', component: TourReviewComponent},
   {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},
   {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},

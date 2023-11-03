@@ -10,14 +10,16 @@
                 <mat-icon>delete</mat-icon>
             </button>
         </div>
-        <p class="blog-date">Created: {{bl.creationDate}}</p>
+        <p class="single-blog-date">Created: {{bl.creationDate}}</p>
         <p>Status: {{bl.status}}</p>
         <p>Description:</p>
         <markdown ngPreserveWhitespaces >
             {{bl.description}}
         </markdown>
-        <img src="{{bl.imageLinks}}" height="100" width="100">
-    </div>
+        <div class="single-blog-mini-img">
+            <img *ngFor="let i of bl.imageLinks" src="{{i}}" height="100" width="100">
+        </div>
+        </div>
     </div>
     <xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
 
