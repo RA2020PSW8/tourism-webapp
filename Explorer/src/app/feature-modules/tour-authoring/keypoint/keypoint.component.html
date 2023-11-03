@@ -1,22 +1,25 @@
 <div class="cont">
     <div>
-        <h2>Tour keypoints</h2>
         <table>
             <thead>
-                <th>Id</th>
+                <th>Position</th>
                 <th>Name</th>
                 <th>Latitude</th>
                 <th>Longitude</th>
                 <th>Description</th>
+                <th>Image</th>
                 <th></th>
             </thead>
             <tbody>
                 <tr *ngFor="let kp of keypoints">
-                    <td>{{kp.id}}</td>
+                    <td>{{kp.position}}</td>
                     <td>{{kp.name}}</td>
                     <td>{{kp.latitude}}</td>
                     <td>{{kp.longitude}}</td>
                     <td>{{kp.description}}</td>
+                    <td>
+                        <img [src]="kp.image" alt="kp image" width="30px" height="30px">
+                    </td>
                     <td>
                         <button color="accent" mat-icon-button (click)="deleteKeypoint(kp.id || 0)">
                             <mat-icon>delete</mat-icon>
@@ -26,13 +29,7 @@
                         </button>
                     </td>
                 </tr>
-                <tr>
-                    <button color="primary" mat-icon-button (click)="onAddClicked()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </tr>
             </tbody>
         </table>
     </div>
-    <xp-keypoint-form *ngIf="renderKeypointForm" [mode]="mode" [keypoint]="selectedKeypoint" (keypointUpdated)="getKeypoints()" class="form-container"></xp-keypoint-form>
 </div>
