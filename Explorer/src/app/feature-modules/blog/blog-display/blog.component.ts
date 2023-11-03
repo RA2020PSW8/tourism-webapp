@@ -36,12 +36,6 @@ export class BlogComponent implements OnInit {
 
   private prepareBlogForDisplay(b: Blog) {
     b.description = b.description.replaceAll('\n', '<br>');
-    if(b.status == "0")
-      b.status = "Draft";
-    else if(b.status == "1")
-      b.status = "Published";
-    else
-      b.status = "Closed";
   }
 
   onUpdateClicked(blog: Blog): void

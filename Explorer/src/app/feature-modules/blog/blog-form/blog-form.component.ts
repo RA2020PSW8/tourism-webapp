@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
-import { Blog } from '../model/blog.model';
+import { Blog, BlogStatus } from '../model/blog.model';
 import { toArray } from 'rxjs';
 import { BlogString } from '../model/blogform.model';
 
@@ -34,9 +34,9 @@ export class BlogFormComponent implements OnChanges {
     const blog: BlogString = {
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
-      creationDate: this.blogForm.value.creationDate as string,
+      creationDate: new Date().toISOString().split('T')[0] as string,
       imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
-      status: Number(this.string2enum(this.blogForm.value.status as string))
+      status: this.blogForm.value.status as BlogStatus || ""
     }
 
     this.prepareBlogForSending(blog);
@@ -53,10 +53,9 @@ export class BlogFormComponent implements OnChanges {
       id: this.selectedBlog.id,
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
-      creationDate: this.blogForm.value.creationDate as string,
-      //imageLinks: this.blogForm.value.imageLinks as unknown as string[],
+      creationDate: this.selectedBlog.creationDate as string,
       imageLinks: null as unknown as string[],
-      status: Number(this.string2enum(this.blogForm.value.status as string))
+      status: this.blogForm.value.status as BlogStatus
     }
     if(this.blogForm.value.imageLinks?.length != 1)
     {
@@ -80,15 +79,4 @@ export class BlogFormComponent implements OnChanges {
   private prepareBlogForSending(b: BlogString) {
     b.description = b.description.replaceAll('\n', '<br>');
   }
-
-  private string2enum(s: string): string 
-  {
-    if(s.toLowerCase() == "draft")
-      return "0";
-    else if(s.toLowerCase() == "published")
-      return "1";
-    else
-      return "2";
-  }
-
 }
