@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { PagedResult } from '../tour-execution/shared/model/paged-result.model';
 import { Tour } from '../tour-authoring/model/tour.model';
 import { OrderItem } from './model/order-item.model';
+import { PagedResults } from '../../shared/model/paged-results.model';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,9 @@ export class MarketplaceService {
   }
   getAllOrders(): Observable<PagedResult<OrderItem>>{
     return this.http.get<PagedResult<OrderItem>>(`${this.apiUrl}/orderItems`);
+  }
+  getOrdersForUser(): Observable<PagedResults<OrderItem>> {
+    return this.http.get<PagedResults<OrderItem>>(environment.apiHost + 'tourist/orderItems/byUser');
   }
 
 }
