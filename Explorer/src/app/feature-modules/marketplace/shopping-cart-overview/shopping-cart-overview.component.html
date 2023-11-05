@@ -1,6 +1,11 @@
 <div class="cont">
-    <h1>Shopping cart</h1>
+    <h1>Shopping Cart</h1>
 </div>
 <div class="cont">
-    <xp-shopping-cart *ngFor="let order of orders" [order]="order"></xp-shopping-cart>
+    <div class="preferences-container">
+        <xp-shopping-cart *ngFor="let order of orders" [order]="order"></xp-shopping-cart>
+    </div>
+    <div class="total-price">
+        Total Price: {{ calculateTotalPrice() | currency: 'EUR' }}
+    </div>
 </div>

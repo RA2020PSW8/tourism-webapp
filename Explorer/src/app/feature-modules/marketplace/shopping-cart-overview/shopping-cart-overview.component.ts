@@ -5,6 +5,7 @@ import { PagedResult } from '../../tour-execution/shared/model/paged-result.mode
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { OrderItem } from '../model/order-item.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ShoppingCart } from '../model/shopping-cart.model';
 
 @Component({
   selector: 'xp-shopping-cart-overview',
@@ -15,6 +16,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
 
     orders: OrderItem[] =  []; 
   loggedId: number; 
+  shoppingCart: ShoppingCart;
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService){}
 
   ngOnInit(): void {
@@ -32,5 +34,8 @@ export class ShoppingCartOverviewComponent implements OnInit {
         console.log(err); 
       }
     })
+  }
+  calculateTotalPrice(): number {
+    return this.orders.reduce((total, order) => total + order.tourPrice, 0);
   }
 }

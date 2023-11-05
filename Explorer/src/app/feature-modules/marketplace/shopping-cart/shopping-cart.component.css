@@ -1,21 +1,22 @@
 .somediv {
-    width: 400px;
-    height: 600px;
-    display:flex;
-    gap: 10px;
-    flex-direction: column;
-    border: 1px solid black;
-    border-radius: 0.5rem;
-    padding: 0.5rem;
-}
-
-.tag-list {
+    width: 665px;
+    height: 110px;
     display: flex;
+    flex-direction: column;
     gap: 10px;
-    flex-direction: row;
-    flex-wrap: wrap;
+    border: 1px solid #ccc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 20px;
+    position: relative;
 }
 
+.somediv h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+/* Common styling for tags */
 .tag {
     background-color: lightblue;
     padding: 5px;
@@ -23,23 +24,8 @@
     min-width: 50px;
     text-align: center;
 }
-
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
-    text-align: left;
-}
-
-th, td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 0.5rem;
+.somediv button {
+    position:absolute;
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    right: 15px; /* Adjust the distance from the right as needed */
 }
