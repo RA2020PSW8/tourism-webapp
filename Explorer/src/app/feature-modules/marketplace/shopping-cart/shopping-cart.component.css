@@ -16,7 +16,6 @@
     margin: 0;
 }
 
-/* Common styling for tags */
 .tag {
     background-color: lightblue;
     padding: 5px;
@@ -26,6 +25,6 @@
 }
 .somediv button {
     position:absolute;
-    bottom: 20px; /* Adjust the distance from the bottom as needed */
-    right: 15px; /* Adjust the distance from the right as needed */
+    bottom: 20px; 
+    right: 15px; 
 }
