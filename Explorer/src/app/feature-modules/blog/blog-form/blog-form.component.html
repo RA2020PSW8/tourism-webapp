@@ -14,10 +14,6 @@
         </textarea>
     </mat-form-field>
 
-    <mat-form-field>
-        <label>Creation date</label>
-        <input matInput formControlName="creationDate">
-    </mat-form-field>
 
     <mat-form-field>
         <mat-label>Image links:</mat-label>
@@ -29,7 +25,11 @@
 
     <mat-form-field>
         <mat-label>Status</mat-label>
-        <input matInput formControlName="status">        
+        <mat-select formControlName="status" matInput> 
+            <mat-option value="DRAFT">Draft</mat-option>
+            <mat-option value="PUBLISHED">Published</mat-option>
+            <mat-option value="CLOSED">Closed</mat-option>
+        </mat-select>       
     </mat-form-field>
 
     <button color="primary" type="submit" (click)="addBlog()" mat-raised-button>Create</button>

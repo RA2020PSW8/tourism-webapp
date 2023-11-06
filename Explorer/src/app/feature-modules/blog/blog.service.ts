@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResult } from './shared/model/paged-result.model';
 import { Blog } from './model/blog.model';
 import { environment } from 'src/env/environment';
+import { BlogString } from './model/blogform.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,11 @@ export class BlogService {
       return this.http.get<PagedResult<Blog>>(environment.apiHost + 'blog');
   }
 
-  addBlog(blog: Blog): Observable<Blog> {
+  addBlog(blog: BlogString): Observable<Blog> {
     return this.http.post<Blog>(environment.apiHost + 'blog',blog);
   }
 
-  updateBlog(blog: Blog): Observable<Blog> {
+  updateBlog(blog: BlogString): Observable<Blog> {
     return this.http.put<Blog>(environment.apiHost + 'blog/'+blog.id,blog);
   }
 
