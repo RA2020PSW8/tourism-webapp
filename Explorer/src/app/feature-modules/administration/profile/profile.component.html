@@ -35,7 +35,7 @@
             <td>{{f.name}}</td>
             <td>{{f.surname}}</td>
             <td>
-              <button mat-raised-button (click)="unfollow(f)">unfollow</button>
+              <button mat-raised-button (click)="unfollow(f.userId)">unfollow</button>
             </td>
           </tr>
         </tbody>
@@ -54,7 +54,7 @@
             <td>{{f.name}}</td>
             <td>{{f.surname}}</td>
             <td>
-              <button mat-raised-button (click)="follow(f)">follow</button>
+              <button mat-raised-button (click)="follow(f.userId)">follow</button>
             </td>
           </tr>
         </tbody>

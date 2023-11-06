@@ -30,14 +30,14 @@ export class ProfileService {
     return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/following/${userId}`);
 
   }
-  unfollow(following: Profile): Observable<PagedResults<Profile>> {
+  unfollow(followingId: number): Observable<PagedResults<Profile>> {
 
-    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/unfollow/` + parseInt(localStorage.getItem('loggedId')!), following);
+    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/unfollow/` + parseInt(localStorage.getItem('loggedId')!), followingId);
   }
 
-  follow(following: Profile): Observable<PagedResults<Profile>> {
+  follow(followingId: number): Observable<PagedResults<Profile>> {
 
-    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/follow/` + parseInt(localStorage.getItem('loggedId')!), following);
+    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/follow/` + parseInt(localStorage.getItem('loggedId')!), followingId);
   }
 
   updateProfile(userId: number, updatedProfile: Profile): Observable<Profile> {

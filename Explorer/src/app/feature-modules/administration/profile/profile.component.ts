@@ -126,9 +126,9 @@ export class ProfileComponent implements OnInit {
   showTable(show: string): void {
     this.showContent = show;
   }
-  unfollow(following: Profile) {
+  unfollow(followingId: number) {
     this.auth.user$.subscribe((user) => {
-      this.service.unfollow(following).subscribe({
+      this.service.unfollow(followingId).subscribe({
         next: (data:PagedResults<Profile>) => {
           this.following = data.results
           this.getProfiles();
@@ -139,9 +139,9 @@ export class ProfileComponent implements OnInit {
       });
     })
   }
-  follow(following: Profile) {
+  follow(followingId: number) {
     this.auth.user$.subscribe((user) => {
-      this.service.follow(following).subscribe({
+      this.service.follow(followingId).subscribe({
         next: (data:PagedResults<Profile>) => {
           this.following = data.results
           this.getProfiles();
