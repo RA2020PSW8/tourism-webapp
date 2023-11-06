@@ -3,6 +3,7 @@ import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { PagedResult } from '../../tour-execution/shared/model/paged-result.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Router } from '@angular/router'; 
 
 @Component({
   selector: 'xp-tours-overview',
@@ -14,7 +15,11 @@ export class ToursOverviewComponent implements OnInit {
   public tours: Tour[];
   public tourFilterForm: FormGroup;
   
-  constructor(private marketplaceService: MarketplaceService, private formBuilder: FormBuilder) {
+  constructor(
+    private marketplaceService: MarketplaceService,
+    private formBuilder: FormBuilder,
+    private router: Router 
+  ) {
     this.tourFilterForm = this.formBuilder.group({
       latitude: [''],
       longitude: [''],
@@ -42,8 +47,7 @@ export class ToursOverviewComponent implements OnInit {
         longitudeInput.value = longitude.toString();
       }
   
-  
-      // You can also update your keypointForm if needed
+      
       this.tourFilterForm.patchValue({
         latitude: latitude,
         longitude: longitude
@@ -51,14 +55,13 @@ export class ToursOverviewComponent implements OnInit {
     }
   }
 
-  
   getFilteredTours() {
     const { latitude, longitude, filterRadius } = this.tourFilterForm.value;
     alert(JSON.stringify(filterRadius));
     this.marketplaceService.getFilteredTours(1, 5, latitude, longitude, filterRadius)
       .subscribe((res: PagedResult<Tour>) => {
         this.tours = res.results;
+        this.router.navigate([this.router.url]); 
       });
   }
-
 }
