@@ -21,7 +21,7 @@
                         <td>{{ti.category}}</td>
                         <td>{{ti.priority}}</td>
                         <td>{{ti.description}}</td>
-                        <td>{{ti.dateTime | date:'short'}}</td>
+                        <td>{{ti.creationDateTime | date:'short'}}</td>
                         <td><button color="primary" mat-raised-button (click)="onUpdateClicked(ti)">Update</button></td>
                         <td><button color="accent" mat-raised-button (click)="onDeleteClicked(ti)">Delete</button></td>
                     </tr>

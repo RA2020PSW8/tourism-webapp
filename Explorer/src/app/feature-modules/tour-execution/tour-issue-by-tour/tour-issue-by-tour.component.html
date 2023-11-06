@@ -1,0 +1,54 @@
+<div id="tour-issue-by-tour-container">
+    <table id="tour">
+        <h2>Tour info</h2>
+        <tr>
+            <td>Tour name</td>
+            <td>Description</td>
+            <td>Price</td>
+            <td>Author name</td>
+        </tr>
+        <tr>
+            <td>{{selectedTour.name}}</td>
+            <td>{{selectedTour.description}}</td>
+            <td>{{selectedTour.price}}</td>
+            <td>{{author.name}} {{author.surname}}</td>
+        </tr>
+    </table>
+
+    <table id="tour-issue">
+        <h2>Tour issue info</h2>
+        <tr>
+            <td>Category</td>
+            <td>Priority</td>
+            <td>Creation date and time</td>
+            <td>Description</td>
+            <td>Is resolved</td>
+            <td>Must be resolved by</td>
+        </tr>
+        <tr>
+            <td>{{selectedTourIssue.category}}</td>
+            <td>{{selectedTourIssue.priority}}</td>
+            <td>{{selectedTourIssue.creationDateTime}}</td>
+            <td>{{selectedTourIssue.description}}</td>
+            <td>{{selectedTourIssue.isResolved}}</td>
+            <td>{{selectedTourIssue.resolveDateTime}}</td>
+        </tr>
+        <tr>
+            <td>Created by:</td>
+        </tr>
+    </table><br>
+
+    <div id="comments">
+        <h2>Comments</h2>
+        <table class="comment" *ngFor = "let com of selectedTourIssue.comments">
+            <tr>
+                <td>Pera</td>
+                <td>Peric</td>
+                <td>Created at: {{com.creationDateTime}}</td>
+            </tr>
+            <tr>
+                <td>Message: {{com.comment}}</td>
+            </tr>
+        </table>
+    </div>
+</div>

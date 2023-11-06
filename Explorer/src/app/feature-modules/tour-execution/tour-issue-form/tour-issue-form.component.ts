@@ -38,7 +38,9 @@ export class TourIssueFormComponent implements OnChanges {
       category: this.tourIssueForm.value.category || "",
       priority: Number(this.tourIssueForm.value.priority) || 1,
       description: this.tourIssueForm.value.description || "",
-      dateTime: new Date(new Date().toUTCString())
+      creationDateTime: new Date(new Date().toUTCString()),
+      userId: -1, //TODO FIX
+      tourId: -1 //TODO FIX
     }
 
     this.clearFormFields();
@@ -56,7 +58,9 @@ export class TourIssueFormComponent implements OnChanges {
       category: this.tourIssueForm.value.category as string,
       priority: Number(this.tourIssueForm.value.priority),
       description: this.tourIssueForm.value.description as string,
-      dateTime: new Date(new Date().toUTCString())
+      creationDateTime: new Date(new Date().toUTCString()),
+      tourId: -1, //TODO FIX
+      userId: -1 //TODO FIX
     }
 
     this.clearFormFields();
