@@ -12,7 +12,7 @@
         <label for="filterRadius">Filter Radius</label>
         <input type="number" id="filterRadius" name="filterRadius" formControlName="filterRadius">
         
-        <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="fillParams($event)"></app-map>
+        <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="fillParams($event)" [allowMultipleMarkers]="false"></app-map>
         <button type="button" (click)="getFilteredTours()">Get Filtered Tours</button>
     </form>
 </div>
