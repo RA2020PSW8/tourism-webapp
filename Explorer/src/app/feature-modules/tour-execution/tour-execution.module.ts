@@ -8,7 +8,6 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { TouristPositionComponent } from './tourist-position/tourist-position.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { TourIssueByTourComponent } from './tour-issue-by-tour/tour-issue-by-tour.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +16,6 @@ import { TourIssueByTourComponent } from './tour-issue-by-tour/tour-issue-by-tou
     TourIssueComponent,
     TourIssueFormComponent,
     TouristPositionComponent,
-    TourIssueByTourComponent,
   ],
   imports: [
     CommonModule,
