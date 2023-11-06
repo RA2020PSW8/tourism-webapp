@@ -25,11 +25,12 @@ export class ShoppingCartComponent implements OnInit {
   Delete(orderItem: OrderItem): void {
     this.marketplaceService.deleteOrderItem(Number(orderItem.id)).subscribe({
       next: (_) => {
-        this.shoppingCart.getOrders();
-        this.changeDetectorRef.detectChanges(); 
+        window.alert('Item deleted successfully');
+        
       },
       error: (err: any) => {
         console.log(err);
+        alert('An error occurred while deleting the order item. Please try again later.');
       }
     })
   }

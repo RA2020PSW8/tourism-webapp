@@ -54,7 +54,13 @@ export class TourCardComponent implements OnInit {
       
       this.marketplaceService.addOrderItem(orderItem).subscribe({
         next: (_) => {
+          window.alert('Tour added to cart successfully!');
           this.orderUpdated.emit();
+        },
+        error:(error)=>{
+          if(error.status===409){
+            window.alert('Tour is already added to the cart.');
+          }
         }
       });
     });
