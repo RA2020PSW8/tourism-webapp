@@ -8,6 +8,7 @@ import { TourPreferenceFormComponent } from './tour-preference-form/tour-prefere
 import { ToursOverviewComponent } from './tours-overview/tours-overview.component';
 import { TourCardComponent } from './tour-card/tour-card.component';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
     MaterialModule,
     ReactiveFormsModule,
     MatRadioModule,
-    TimePipe
+    TimePipe, 
+    MapComponent
   ]
 })
 export class MarketplaceModule { }
