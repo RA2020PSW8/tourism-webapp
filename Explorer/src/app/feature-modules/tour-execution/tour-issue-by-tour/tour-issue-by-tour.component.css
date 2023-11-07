@@ -12,6 +12,7 @@
     width: 75%; 
     height: 150px;
     margin-top: 10px;
+    border-radius: 5px;
 }
 
 #tour-issue
@@ -20,23 +21,81 @@
     width: 75%; 
     height: 150px;
     margin-top: 10px;
+    border-radius: 5px;
 }
 
-#comments
+.comments
 {
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
     justify-content: center;
     align-items: center;
     width: 75%; 
     margin-top: 10px;
+    row-gap: 10px;
 }
 
-.comment
-{
-    background-color:lightyellow; 
+.comment-details {
+    margin-left: 10px;
     width: 75%; 
-    height: 100px;
-    margin-top: 10px;
+    background-color:lightgrey; 
+    color: #666;
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
 }
 
+.comment-details h3 {
+    margin: 0; 
+}
+
+.comment-details p {
+    margin: 0;
+}
+
+.comment-date {
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-bottom: 10px;
+}
+
+.profile-img {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.comment-content {
+    margin-top: 15px;
+}
+
+.add-new-comment {
+    display: flex;
+    flex-direction: column;    
+    justify-content: center;
+    align-items: center;
+    width: 50%; 
+    margin-top: 10px;
+    row-gap: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    font-size: 20px;
+}
+
+button {
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 100px;
+    height: 35px;
+    margin-right: -3px;
+    justify-self: flex-end;
+    align-self:flex-end;
+    cursor: pointer;
+}

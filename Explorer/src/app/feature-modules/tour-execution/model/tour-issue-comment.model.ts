@@ -3,5 +3,5 @@ export interface TourIssueComment{
     tourIssueId : number,
     userId : number,
     comment : string,
-    creationDateTime : Date
+    creationDateTime : string
 }

@@ -38,17 +38,25 @@
         </tr>
     </table><br>
 
-    <div id="comments">
+    <div class="comments">
         <h2>Comments</h2>
-        <table class="comment" *ngFor = "let com of selectedTourIssue.comments">
-            <tr>
-                <td>Pera</td>
-                <td>Peric</td>
-                <td>Created at: {{com.creationDateTime}}</td>
-            </tr>
-            <tr>
-                <td>Message: {{com.comment}}</td>
-            </tr>
-        </table>
+        <div class="comment-details" *ngFor = "let com of selectedTourIssue.comments">
+            <div class="profile-img">
+                <img style="width: 150px; height: 150px;" src="korisnik1.jpg">
+            </div>
+            
+            <div class="comment-content">
+                <label style="font-size: 20px;">Petar Petrovic</label><br><br>
+                <p style="font-size: 20px; width: 500px;">{{com.comment}}</p>
+            </div>
+
+            <p class="comment-date" style="float: right;">{{com.creationDateTime}}</p>
+        </div>
     </div>
+    <br><br>
+    <form [formGroup]="tourIssueCommentForm" class="add-new-comment">
+        <h2>Add new comment</h2>
+        <textarea formControlName="comment"></textarea>
+        <button color="primary" mat-raised-button (click)="addTourIssueComment()">Submit</button>
+    </form>
 </div>
