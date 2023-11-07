@@ -6,11 +6,17 @@
     align-items: center;
 }
 
+#infos {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 90%;
+}
+
 #tour
 {
     background-color: lightgrey; 
-    width: 75%; 
-    height: 150px;
+    width: 50%; 
     margin-top: 10px;
     border-radius: 5px;
 }
@@ -18,8 +24,7 @@
 #tour-issue
 {
     background-color: lightblue; 
-    width: 75%; 
-    height: 150px;
+    width: 50%; 
     margin-top: 10px;
     border-radius: 5px;
 }

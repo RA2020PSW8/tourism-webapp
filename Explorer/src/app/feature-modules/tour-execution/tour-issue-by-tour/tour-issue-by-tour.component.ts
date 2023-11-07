@@ -23,7 +23,8 @@ public constructor(private tourissueservice: TourIssueService, private profilese
 
 public selectedTourIssue : TourIssue
 public selectedTour : Tour
-public author : Profile
+public tourAuthor : Profile
+public tourIssueAuthor : Profile
 public routeQuery : RouteQuery;
 public tourIssueId : Number;
 
@@ -43,8 +44,11 @@ private getTourIssueAgregate() {
       this.tourissueservice.getTourIssue(this.tourIssueId).subscribe((res: PagedResult<TourIssue>) => {
         this.selectedTourIssue = res.results[0];
         console.log(this.selectedTourIssue);
-        this.tourissueservice.getTour(this.selectedTourIssue.tourId).subscribe(result => { this.selectedTour = result; });
-        this.profileservice.getProfile(this.selectedTourIssue.userId).subscribe(result => { this.author = result; });
+        this.tourissueservice.getTour(this.selectedTourIssue.tourId).subscribe(result => { 
+          this.selectedTour = result; 
+          this.profileservice.getProfile(this.selectedTour.userId).subscribe(result => { this.tourAuthor = result; });
+        });
+        this.profileservice.getProfile(this.selectedTourIssue.userId).subscribe(result => { this.tourIssueAuthor = result; });
       });
     }
   });
