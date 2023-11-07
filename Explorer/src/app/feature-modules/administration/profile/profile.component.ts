@@ -80,77 +80,66 @@ export class ProfileComponent implements OnInit {
     });
 
   }
+
   loadProfileFollowers() {
-    this.auth.user$.subscribe((user) => {
-      if (user.username) {
-        const userId = user.id;
-
-        this.service.getFollowers(userId).subscribe({
-          next: (data: PagedResults<Profile>) => {
-            this.followers = data.results;
-          },
-          error: (err: any) => {
-            console.log(err);
-          }
-        });
+    this.service.getFollowers().subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.followers = data.results;
+      },
+      error: (err: any) => {
+        console.log(err);
       }
     });
   }
+
   loadProfileFollowing() {
-    this.auth.user$.subscribe((user) => {
-      if (user.username) {
-        const userId = user.id;
-
-        this.service.getFollowing(userId).subscribe({
-          next: (data: PagedResults<Profile>) => {
-            this.following = data.results;
-          },
-          error: (err: any) => {
-            console.log(err);
-          }
-        });
+    this.service.getFollowing().subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.following = data.results;
+      },
+      error: (err: any) => {
+        console.log(err);
       }
     });
   }
-  getProfiles(): void{
+
+  getProfiles(): void {
 
     this.service.getProfiles().subscribe({
       next: (data: PagedResults<Profile>) => {
-        this.profilesToFollow = data.results;  
+        this.profilesToFollow = data.results;
       },
-      error:(err: any) => {
-        console.log(err); 
+      error: (err: any) => {
+        console.log(err);
       }
-    })
+    });
   }
+
   showTable(show: string): void {
     this.showContent = show;
   }
+
   unfollow(followingId: number) {
-    this.auth.user$.subscribe((user) => {
-      this.service.unfollow(followingId).subscribe({
-        next: (data:PagedResults<Profile>) => {
-          this.following = data.results
-          this.getProfiles();
-        },
-        error: (err: any) => {
-          console.log(err);
-        }
-      });
-    })
+    this.service.unfollow(followingId).subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.following = data.results
+        this.getProfiles();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
   follow(followingId: number) {
-    this.auth.user$.subscribe((user) => {
-      this.service.follow(followingId).subscribe({
-        next: (data:PagedResults<Profile>) => {
-          this.following = data.results
-          this.getProfiles();
-        },
-        error: (err: any) => {
-          console.log(err);
-        }
-      });
-    })
+    this.service.follow(followingId).subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.following = data.results
+        this.getProfiles();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
   onSubmit() {
     if (this.personUpdateForm.valid) {
@@ -189,6 +178,4 @@ export class ProfileComponent implements OnInit {
       });
     }
   }
-
-
 }

@@ -20,24 +20,24 @@ export class ProfileService {
     return this.http.get<Profile>(`${environment.apiHost}profile/${userId}`);
 
   }
-  getFollowers(userId: number): Observable<PagedResults<Profile>> {
+  getFollowers(): Observable<PagedResults<Profile>> {
 
-    return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/followers/${userId}`);
+    return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/followers`);
 
   }
-  getFollowing(userId: number): Observable<PagedResults<Profile>> {
+  getFollowing(): Observable<PagedResults<Profile>> {
 
-    return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/following/${userId}`);
+    return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/following`);
 
   }
   unfollow(followingId: number): Observable<PagedResults<Profile>> {
 
-    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/unfollow/` + parseInt(localStorage.getItem('loggedId')!), followingId);
+    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/unfollow`, followingId);
   }
 
   follow(followingId: number): Observable<PagedResults<Profile>> {
 
-    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/follow/` + parseInt(localStorage.getItem('loggedId')!), followingId);
+    return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/follow`, followingId);
   }
 
   updateProfile(userId: number, updatedProfile: Profile): Observable<Profile> {
@@ -46,6 +46,6 @@ export class ProfileService {
   }
   getProfiles(): Observable<PagedResults<Profile>> {
 
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + `profile/all/` + parseInt(localStorage.getItem('loggedId')!));
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + `profile/all`);
   }
 }
