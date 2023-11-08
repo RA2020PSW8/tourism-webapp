@@ -41,8 +41,7 @@ export class MarketplaceService {
     return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}`);
   }
 
-
-  getFilteredTours(page: number,pageSize: number, currentLatitude: number, currentLongitude: number,filterRadius: number): Observable<PagedResult<Tour>>{
+  getFilteredTours(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Tour>>{
     const params = new HttpParams()
     .set('page', page.toString())
     .set('pageSize', pageSize.toString())
