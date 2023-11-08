@@ -8,6 +8,8 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { TouristPositionComponent } from './tourist-position/tourist-position.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { ActiveTourComponent } from './active-tour/active-tour.component';
+import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 
 @NgModule({
   declarations: [
@@ -16,12 +18,14 @@ import { MapComponent } from 'src/app/shared/map/map.component';
     TourIssueComponent,
     TourIssueFormComponent,
     TouristPositionComponent,
+    ActiveTourComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    MapComponent
+    MapComponent,
+    TimePipe
   ],
   exports: [
     TourReviewComponent
