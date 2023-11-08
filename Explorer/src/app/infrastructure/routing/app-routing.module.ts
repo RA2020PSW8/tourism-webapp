@@ -30,6 +30,7 @@ import { AppRatingFormTouristComponent } from 'src/app/feature-modules/administr
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tours-overview/tours-overview.component';
+import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
 
 
 const routes: Routes = [
@@ -56,6 +57,7 @@ const routes: Routes = [
   {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},
   {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
   {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
+  {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
