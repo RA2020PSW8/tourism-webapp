@@ -46,6 +46,6 @@ export class ProfileService {
   }
   getProfiles(): Observable<PagedResults<Profile>> {
 
-    return this.http.get<PagedResults<Profile>>(environment.apiHost + `profile/all`);
+    return this.http.get<PagedResults<Profile>>(environment.apiHost + `profile/not-followed`);
   }
 }
