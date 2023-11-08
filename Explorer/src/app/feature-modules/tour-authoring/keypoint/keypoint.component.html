@@ -27,6 +27,9 @@
                         <button color="primary" mat-icon-button (click)="onEditClicked(kp)">
                             <mat-icon>edit</mat-icon>
                         </button>
+                        <button color="primary" mat-icon-button (click)="sendPublicEntityRequest(kp.id || 0)">
+                            <mat-icon>send request</mat-icon>
+                        </button>
                     </td>
                 </tr>
             </tbody>
