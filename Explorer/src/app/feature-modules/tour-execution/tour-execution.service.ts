@@ -18,12 +18,12 @@ export class TourExecutionService {
     return this.http.get<PagedResults<TourReview>>(`${environment.apiHost}tourexecution/tourreview/`);
   }
 
-  addTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.post<TourReview>(`${environment.apiHost}tourexecution/tourreview/`, tourreview);
+  addTourReview(tourreview: TourReviewString): Observable<TourReviewString> {
+    return this.http.post<TourReviewString>(`${environment.apiHost}tourexecution/tourreview/`, tourreview);
   }
 
-  updateTourReview(tourreview: TourReview): Observable<TourReview> {
-    return this.http.put<TourReview>(`${environment.apiHost}tourexecution/tourreview/` + tourreview.id, tourreview);
+  updateTourReview(tourreview: TourReviewString): Observable<TourReviewString> {
+    return this.http.put<TourReviewString>(`${environment.apiHost}tourexecution/tourreview/` + tourreview.id, tourreview);
   }
 
   deleteTourReview(tourreview: TourReview): Observable<TourReview> {
