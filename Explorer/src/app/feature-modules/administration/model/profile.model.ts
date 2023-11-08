@@ -8,6 +8,6 @@ export interface Profile{
     quote : string, 
     username: string, 
     password: string, 
-    email: string,
+    email: string
     
 }
