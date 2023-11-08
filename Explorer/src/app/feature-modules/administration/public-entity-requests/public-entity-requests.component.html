@@ -18,16 +18,16 @@
                     <td>{{r.id}}</td>
                     <td>{{r.userId}}</td>
                     <td>{{r.entityId}}</td>
-                    <td>{{r.entityType}}</td>
-                    <td>{{r.status}}</td>
+                    <td>{{getEntityTypeString(r.entityType)}}</td>
+                    <td>{{getStatusString(r.status)}}</td>
                     <td>{{r.comment}}</td>
                     <td>
-                        <button color="primary" mat-icon-button (click)="approveRequest(r)">
+                        <button color="primary" mat-icon-button (click)="approveRequest(r)" [disabled]="r.status !== 0">
                             <mat-icon>thumb_up</mat-icon>
                         </button>
                     </td>
                     <td>
-                        <button color="accent" mat-icon-button (click)="declineRequest(r)">
+                        <button color="accent" mat-icon-button (click)="declineRequest(r)" [disabled]="r.status !== 0">
                             <mat-icon>thumb_down</mat-icon>
                         </button>
                     </td>
