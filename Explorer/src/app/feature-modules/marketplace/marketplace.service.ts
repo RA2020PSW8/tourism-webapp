@@ -50,7 +50,7 @@ export class MarketplaceService {
     .set('CurrentLongitude', currentLongitude.toString())
     .set('FilterRadius', filterRadius.toString());
     return this.http.get<PagedResult<Tour>>(`${this.filterApiUrl}`, {params})
-
+  }
   addOrderItem(orderItem: OrderItem): Observable<OrderItem> {
     return this.http.post<OrderItem>(environment.apiHost +'tourist/orderItems', orderItem);
   }
@@ -68,6 +68,6 @@ export class MarketplaceService {
   }
   deleteOrderItem(orderItemId: number): Observable<OrderItem> {
     return this.http.delete<OrderItem>(environment.apiHost + 'tourist/orderItems/'+ orderItemId);
-
+    
   }
 }

@@ -38,15 +38,7 @@ export class ToursOverviewComponent implements OnInit {
       const latitude = event[0];
       const longitude = event[1];
   
-      // Update the input fields with the obtained latitude and longitude
-      const latitudeInput = document.getElementById('latitude') as HTMLInputElement;
-      const longitudeInput = document.getElementById('longitude') as HTMLInputElement;
-  
-      if (latitudeInput && longitudeInput) {
-        latitudeInput.value = latitude.toString();
-        longitudeInput.value = longitude.toString();
-      }
-  
+      
       
       this.tourFilterForm.patchValue({
         latitude: latitude,
@@ -57,11 +49,11 @@ export class ToursOverviewComponent implements OnInit {
 
   getFilteredTours() {
     const { latitude, longitude, filterRadius } = this.tourFilterForm.value;
-    alert(JSON.stringify(filterRadius));
+    
     this.marketplaceService.getFilteredTours(1, 5, latitude, longitude, filterRadius)
       .subscribe((res: PagedResult<Tour>) => {
         this.tours = res.results;
-        this.router.navigate([this.router.url]); 
+        
       });
   }
 }
