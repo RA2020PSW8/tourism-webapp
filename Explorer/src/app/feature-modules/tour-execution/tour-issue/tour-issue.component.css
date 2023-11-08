@@ -68,3 +68,8 @@ button {
     border-radius: 3px;
     font-size: 16px;
 }
+
+.past-5-days {
+    background-color: red; 
+    color: white; 
+  }

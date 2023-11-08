@@ -31,6 +31,7 @@ import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-f
 import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tours-overview/tours-overview.component';
 import { TourIssueByTourComponent } from 'src/app/feature-modules/tour-execution/tour-issue-by-tour/tour-issue-by-tour.component';
+import { TourIssueFormComponent } from 'src/app/feature-modules/tour-execution/tour-issue-form/tour-issue-form.component';
 
 const routes: Routes = [
   
@@ -49,8 +50,9 @@ const routes: Routes = [
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
   {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
-  {path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard]},
-  {path: 'tourissuebytour/:id', component: TourIssueByTourComponent, canActivate: [AuthGuard]},
+  {path: 'admin/tourissues', component: TourIssueComponent, canActivate: [AuthGuard]},
+  {path: 'user/tourissues', component: TourIssueFormComponent, canActivate: [AuthGuard]},
+  {path: 'tourissue/:id', component: TourIssueByTourComponent, canActivate: [AuthGuard]},
   {path: 'blog', component:BlogComponent, canActivate: [AuthGuard]},
   {path: 'tour-review', component: TourReviewComponent},
   {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},

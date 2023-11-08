@@ -16,21 +16,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor = "let ti of tourIssues">
+                    <tr *ngFor = "let ti of tourIssues" [ngClass]="{'past-5-days': calculateDifference(ti.creationDateTime) >= 5}">
                         <td>{{ti.id}}</td>
                         <td>{{ti.category}}</td>
                         <td>{{ti.priority}}</td>
                         <td>{{ti.description}}</td>
                         <td>{{ti.creationDateTime | date:'short'}}</td>
-                        <td><button color="primary" mat-raised-button (click)="onUpdateClicked(ti)">Update</button></td>
-                        <td><button color="accent" mat-raised-button (click)="onDeleteClicked(ti)">Delete</button></td>
                     </tr>
                 </tbody>
             </table>
-        </div>
-    
-        <div>
-            <xp-tour-issue-form (tourIssueUpdated)="getTourIssues()" [selectedTourIssue]="selectedTourIssue"></xp-tour-issue-form>
         </div>
     </div>
 </div>

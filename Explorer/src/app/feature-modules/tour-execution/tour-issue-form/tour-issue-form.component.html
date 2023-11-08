@@ -1,3 +1,29 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Category</th>
+                <th>Priority</th>
+                <th>Description</th>
+                <th>Date and time</th>
+                <th>Update tour issue</th>
+                <th>Delete tour issue</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor = "let ti of tourIssues">
+                <td>{{ti.id}}</td>
+                <td>{{ti.category}}</td>
+                <td>{{ti.priority}}</td>
+                <td>{{ti.description}}</td>
+                <td>{{ti.creationDateTime | date:'short'}}</td>
+                <td><button color="primary" mat-raised-button (click)="onUpdateClicked(ti)">Update</button></td>
+                <td><button color="accent" mat-raised-button (click)="onDeleteClicked(ti)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 <form [formGroup]="tourIssueForm">
     <div>
         <label>Category:</label><input formControlName="category">

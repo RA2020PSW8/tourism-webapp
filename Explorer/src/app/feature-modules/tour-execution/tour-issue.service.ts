@@ -22,6 +22,10 @@ export class TourIssueService {
     return this.http.get<PagedResult<TourIssue>>(`${environment.apiHost}tourexecution/tourissue/id/${id}`);
   }
 
+  getTourIssueByUserId(id : Number): Observable<PagedResult<TourIssue>> {
+    return this.http.get<PagedResult<TourIssue>>(`${environment.apiHost}tourexecution/tourissue/user/${id}`);
+  }
+
   addTourIssue(tourissue: TourIssue): Observable<TourIssue> {
     return this.http.post<TourIssue>(environment.apiHost + 'tourexecution/tourissue', tourissue);
   }
@@ -30,12 +34,16 @@ export class TourIssueService {
     return this.http.put<TourIssue>(environment.apiHost + 'tourexecution/tourissue/'+ tourissue.id, tourissue);
   }
 
+  resolveTourIssue(tourissue: TourIssue): Observable<TourIssue> {
+    return this.http.put<TourIssue>(environment.apiHost + 'tourexecution/tourissue/resolve/'+ tourissue.id, tourissue);
+  }
+
   deleteTourIssue(tourissueId: number): Observable<TourIssue> {
     return this.http.delete<TourIssue>(environment.apiHost + 'tourexecution/tourissue/'+ tourissueId);
   }
 
   getTour(tourId: number): Observable<Tour> {
-    return this.http.get<Tour>(`${environment.apiHost}tourist/tours/${tourId}`);
+    return this.http.get<Tour>(`${environment.apiHost}author/tours/${tourId}`);
   }
 
   getTourIssueComments(): Observable<PagedResult<TourIssueComment>> {

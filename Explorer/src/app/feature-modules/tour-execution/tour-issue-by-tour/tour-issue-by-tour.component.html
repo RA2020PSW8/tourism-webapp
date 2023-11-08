@@ -51,6 +51,7 @@
             <tr>
                 <td>Created by:</td>
                 <td>{{tourIssueAuthor.name}} {{tourIssueAuthor.surname}}</td>
+                <td><button color="primary" mat-raised-button (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button></td>
             </tr>
         </table><br>
     </div>
@@ -74,6 +75,6 @@
     <form [formGroup]="tourIssueCommentForm" class="add-new-comment">
         <h2>Add new comment</h2>
         <textarea formControlName="comment"></textarea>
-        <button color="primary" mat-raised-button (click)="addTourIssueComment()">Submit</button>
+        <button color="primary" mat-raised-button (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
     </form>
 </div>

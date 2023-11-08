@@ -63,17 +63,26 @@ addTourIssueComment(): void {
   }
 
 
-this.clearFormFields();
-console.log(tourIssueComment);
+  this.clearFormFields();
 
-    this.tourissueservice.addTourIssueComment(tourIssueComment).subscribe({
-      next: (_) => {
-        this.getTourIssueAgregate();
-      }
-    });
-  }
-
-    clearFormFields(): void {
-      this.tourIssueCommentForm.value.comment = "";
+  this.tourissueservice.addTourIssueComment(tourIssueComment).subscribe({
+    next: (_) => {
+      this.getTourIssueAgregate();
     }
+  });
+}
+
+resolveTourIssue(): void {
+  this.selectedTourIssue.isResolved = true;
+  this.selectedTourIssue.resolveDateTime = new Date();
+  this.tourissueservice.resolveTourIssue(this.selectedTourIssue).subscribe({
+    next: (_) => {
+      this.getTourIssueAgregate();
+    }
+  });
+}
+
+  clearFormFields(): void {
+    this.tourIssueCommentForm.value.comment = "";
+  }
 }
