@@ -38,6 +38,10 @@ export class ActiveTourComponent implements OnInit {
   }
 
   abandonTour(): void {
+    if(!window.confirm('Are you sure you want to abandon this tour?')) {
+      return;
+    }
+
     this.service.abandonTour().subscribe({
       next: (result: TourProgress) => {
         this.activeTour = undefined;
