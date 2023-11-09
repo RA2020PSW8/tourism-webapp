@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourIssueService } from '../tour-issue.service';
 import { TourIssue } from '../model/tour-issue.model';
-import { tourIssueString } from '../model/tour-issue-string.model';
 import { PagedResult } from '../shared/model/paged-result.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
@@ -42,25 +41,17 @@ export class TourIssueFormComponent implements OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const tourIssueString: tourIssueString = {
-      id: this.selectedTourIssue.id,
-      category: this.selectedTourIssue.category,
-      priority: this.selectedTourIssue.priority.toString(),
-      description: this.selectedTourIssue.description,
-      dateTime: new Date().toUTCString()
-    };
-
-    this.tourIssueForm.patchValue(tourIssueString);
+    this.tourIssueForm.patchValue(this.selectedTourIssue);
   }
 
   addTourIssue(): void {
     const tourIssue : TourIssue = {
       category: this.tourIssueForm.value.category || "",
-      priority: Number(this.tourIssueForm.value.priority) || 1,
+      priority: this.tourIssueForm.value.priority as string || "1",
       description: this.tourIssueForm.value.description || "",
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: -1, //TODO FIX, 
+      tourId: "-1", //TODO FIX, 
       comments: []
     }
 
@@ -68,13 +59,14 @@ export class TourIssueFormComponent implements OnChanges {
 
     this.service.addTourIssue(tourIssue).subscribe({
       next: (_) => {
-        
+        this.ngOnInit();
       }
     });
   }
 
   onUpdateClicked(tourIssue: TourIssue): void {
     this.selectedTourIssue = tourIssue;
+    this.tourIssueForm.patchValue(tourIssue);
   }
 
   onDeleteClicked(tourIssue: TourIssue): void {
@@ -92,11 +84,11 @@ export class TourIssueFormComponent implements OnChanges {
     const tourIssue : TourIssue = {
       id: this.selectedTourIssue.id,
       category: this.tourIssueForm.value.category as string,
-      priority: Number(this.tourIssueForm.value.priority),
+      priority: this.tourIssueForm.value.priority as string,
       description: this.tourIssueForm.value.description as string,
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: -1, //TODO FIX, 
+      tourId: "-1", //TODO FIX, 
       comments: []
     }
 
@@ -104,7 +96,7 @@ export class TourIssueFormComponent implements OnChanges {
 
     this.service.updateTourIssue(tourIssue).subscribe({
       next: (_) => {
-        
+        this.ngOnInit();
       }
     });
   }

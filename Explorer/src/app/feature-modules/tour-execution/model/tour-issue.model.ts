@@ -1,14 +1,14 @@
 import { TourIssueComment } from "./tour-issue-comment.model";
 
 export interface TourIssue {
-    id?: number,
+    id?: string,
     category: string,
-    priority: number,
+    priority: string,
     description: string,
     creationDateTime: Date,
     resolveDateTime?: Date,
     isResolved?: boolean,
-    tourId: number,
+    tourId: string,
     comments?: TourIssueComment[],
-    userId: number,
+    userId: string,
 }

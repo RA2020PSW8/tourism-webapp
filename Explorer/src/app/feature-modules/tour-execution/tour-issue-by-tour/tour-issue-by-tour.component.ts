@@ -44,11 +44,11 @@ private getTourIssueAgregate() {
       this.tourissueservice.getTourIssue(this.tourIssueId).subscribe((res: PagedResult<TourIssue>) => {
         this.selectedTourIssue = res.results[0];
         console.log(this.selectedTourIssue);
-        this.tourissueservice.getTour(this.selectedTourIssue.tourId).subscribe(result => { 
+        this.tourissueservice.getTour(parseInt(this.selectedTourIssue.tourId)).subscribe(result => { 
           this.selectedTour = result; 
           this.profileservice.getProfile(this.selectedTour.userId).subscribe(result => { this.tourAuthor = result; });
         });
-        this.profileservice.getProfile(this.selectedTourIssue.userId).subscribe(result => { this.tourIssueAuthor = result; });
+        this.profileservice.getProfile(parseInt(this.selectedTourIssue.userId)).subscribe(result => { this.tourIssueAuthor = result; });
       });
     }
   });
@@ -56,7 +56,7 @@ private getTourIssueAgregate() {
 
 addTourIssueComment(): void {
   const tourIssueComment : TourIssueComment = {
-    tourIssueId: this.selectedTourIssue.id as number,
+    tourIssueId: parseInt(this.selectedTourIssue.id as string),
     userId: -1,
     comment: this.tourIssueCommentForm.value.comment as string,
     creationDateTime: new Date().toISOString()

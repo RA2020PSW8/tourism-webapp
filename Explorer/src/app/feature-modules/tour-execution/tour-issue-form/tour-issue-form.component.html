@@ -1,37 +1,61 @@
-<div>
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Category</th>
-                <th>Priority</th>
-                <th>Description</th>
-                <th>Date and time</th>
-                <th>Update tour issue</th>
-                <th>Delete tour issue</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor = "let ti of tourIssues">
-                <td>{{ti.id}}</td>
-                <td>{{ti.category}}</td>
-                <td>{{ti.priority}}</td>
-                <td>{{ti.description}}</td>
-                <td>{{ti.creationDateTime | date:'short'}}</td>
-                <td><button color="primary" mat-raised-button (click)="onUpdateClicked(ti)">Update</button></td>
-                <td><button color="accent" mat-raised-button (click)="onDeleteClicked(ti)">Delete</button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-<form [formGroup]="tourIssueForm">
-    <div>
-        <label>Category:</label><input formControlName="category">
-        <label>Priority:</label><input formControlName="priority">
-        <label>Description:</label><input formControlName="description">
-        <div id="buttons">
-            <button color="primary" mat-raised-button (click)="addTourIssue()">Create</button>
-            <button color="primary" mat-raised-button (click)="updateTourIssue()">Update</button>
-        </div>
+<p>Tour issues</p>
+<hr>
+<div id="page">
+    <div id="tourissueslist">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th style="width: 60px;">Category</th>
+                    <th style="width: 20px;">Priority</th>
+                    <th style="width: 180px;">Description</th>
+                    <th>Date and time</th>
+                    <th colspan="2">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor = "let ti of tourIssues">
+                    <td>{{ti.id}}</td>
+                    <td>{{ti.category}}</td>
+                    <td>{{ti.priority}}</td>
+                    <td>{{ti.description}}</td>
+                    <td>{{ti.creationDateTime | date:'short'}}</td>
+                    <td>
+                        <button id="buttonsAction" color="primary" (click)="onUpdateClicked(ti)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                    <td>
+                        <button id="buttonsAction" color="accent" (click)="onDeleteClicked(ti)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-</form>
+
+    <div id="formcontainer">
+        <form [formGroup]="tourIssueForm" id="tourissueform">
+            <mat-form-field>
+                <mat-label>Category:</mat-label>
+                <input matInput type="text" formControlName="category">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Priority:</mat-label>
+                <input matInput type="text" formControlName="priority">
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Description:</mat-label>
+                <textarea matInput cdkTextareaAutosize
+                cdkAutosizeMinRows="1"
+                formControlName="description"
+                cdkAutosizeMaxRows="5"></textarea>
+            </mat-form-field>
+            <div id="buttonsPrimary">
+                <button class="buttonPrimary" color="primary" mat-raised-button (click)="addTourIssue()">Create</button>
+                <button class="buttonPrimary" color="primary" mat-raised-button (click)="updateTourIssue()">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
