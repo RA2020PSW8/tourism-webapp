@@ -117,12 +117,15 @@ export class TourAuthoringService {
       `${this.apiUrl}/publicEntityRequests/entity?entityId=` + entityId + `&entityType=` + entityType);
   } treca verzija, ok u svaggery*/
 
-  getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
+  /*getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
     const params = new HttpParams()
       .set('entityId', entityId.toString())
       .set('entityType', entityType.toString());
   
     return this.http.get<PublicEntityRequest>(`${this.apiUrl}/entity`, { params });
-  }
+  }*/
   
+  getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
+    return this.http.get<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/entity/${entityId}/${entityType}`);
+  }
 }

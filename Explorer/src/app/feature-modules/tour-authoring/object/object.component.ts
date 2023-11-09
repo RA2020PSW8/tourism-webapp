@@ -64,36 +64,32 @@ export class ObjectComponent implements OnInit{
     onSendRequestClicked(id: number): void{
       this.tourAuthoringService.getPublicEntityRequestByEntityId(id, 1).subscribe({
         next: (result: PublicEntityRequest) => { 
-          //this.publicEntityRequest = result;
+          this.publicEntityRequest = result;
           this.publicEntityRequest.id = result.id;
           this.publicEntityRequest.entityId = result.entityId;
           this.publicEntityRequest.entityType = result.entityType;
           this.publicEntityRequest.status = result.status;
           this.publicEntityRequest.comment = result.comment;
+          if(this.publicEntityRequest.entityId == id && this.publicEntityRequest.entityType == 1 && this.publicEntityRequest.status != 0){
+            window.alert('Request for this object already exists!');
+          }
+          else{
+            if(window.confirm('Are you sure that you want this object to be public?')){          
+              this.newPublicEntityRequest = {
+                entityId: id,
+                entityType: 1,
+                status: 0,
+                comment: ""
+              };
+              this.tourAuthoringService.addPublicEntityRequest(this.newPublicEntityRequest).subscribe({
+                next: () => {
+                  window.alert('You have successfuly send request for making this object public');
+                }
+              });
+            }
+          }
         }
       }); 
-      console.log(this.publicEntityRequest);
-      //if(this.publicEntityRequest.entityId == id && this.publicEntityRequest.entityType == 1 && this.publicEntityRequest.status != 0){
-
-      
-      if(this.publicEntityRequest == null){ 
-        if(window.confirm('Are you sure that you want this object to be public?')){          
-          this.newPublicEntityRequest = {
-            entityId: id,
-            entityType: 1,
-            status: 0,
-            comment: ""
-          };
-          this.tourAuthoringService.addPublicEntityRequest(this.newPublicEntityRequest).subscribe({
-            next: () => {
-              window.alert('You have successfuly send request for making this object public');
-            }
-          });
-        }
-      } else{
-        window.alert('Request for this object already exists!');
-
-      }
     }
     
 

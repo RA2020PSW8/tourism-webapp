@@ -45,13 +45,10 @@ export class PublicEntityRequestsComponent implements OnInit{
 
   declineRequest(request: PublicEntityRequest): void{
     if(window.confirm('Are you sure that you want to decline this request?')){
-      //prozor za comment!!!
       let comment = prompt('Enter comment why are you declining this request!');
       if(comment != null){
         request.comment = comment;
       }
-      //request.comment = "odbijen zahtev eto tako"; 
-
       this.service.declineRequest(request).subscribe({
         next: () => {
           window.alert('Request is declined');

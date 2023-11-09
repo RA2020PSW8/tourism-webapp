@@ -9,6 +9,7 @@
                 <th>Image</th>
                 <th>Category</th>
                 <th></th>
+                <th>Request public status</th>
             </thead>
             <tbody>
                 <tr *ngFor="let t of objects">
@@ -24,6 +25,8 @@
                         <button color="primary" mat-icon-button (click)="onEditClicked(t)">
                             <mat-icon>edit</mat-icon>
                         </button>
+                    </td>
+                    <td>
                         <button color="primary" mat-icon-button (click)="onSendRequestClicked(t.id || 0)">
                             <mat-icon>send request</mat-icon>
                         </button>
