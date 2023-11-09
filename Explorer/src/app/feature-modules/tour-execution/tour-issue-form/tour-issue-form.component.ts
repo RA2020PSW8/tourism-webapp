@@ -16,6 +16,7 @@ export class TourIssueFormComponent implements OnChanges {
   selectedTourIssue: TourIssue;
 
   tourIssueForm = new FormGroup({
+    tourId: new FormControl('', Validators.required),
     category: new FormControl('', Validators.required),
     priority: new FormControl(''),
     description: new FormControl('', Validators.required)
@@ -51,7 +52,7 @@ export class TourIssueFormComponent implements OnChanges {
       description: this.tourIssueForm.value.description || "",
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: "-1", //TODO FIX, 
+      tourId: this.tourIssueForm.value.tourId as string,
       comments: []
     }
 
@@ -88,7 +89,7 @@ export class TourIssueFormComponent implements OnChanges {
       description: this.tourIssueForm.value.description as string,
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: "-1", //TODO FIX, 
+      tourId: this.tourIssueForm.value.tourId as string,
       comments: []
     }
 
@@ -102,6 +103,7 @@ export class TourIssueFormComponent implements OnChanges {
   }
 
   clearFormFields(): void {
+    this.tourIssueForm.value.tourId = "";
     this.tourIssueForm.value.category = "";
     this.tourIssueForm.value.priority = "";
     this.tourIssueForm.value.description = "";

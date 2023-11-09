@@ -34,7 +34,7 @@
             </tr>
             <tr>
                 <td>Creation date and time:</td>
-                <td>{{selectedTourIssue.creationDateTime}}</td>
+                <td>{{selectedTourIssue.creationDateTime | date:'short'}}</td>
             </tr>
             <tr>
                 <td>Description:</td>
@@ -46,7 +46,7 @@
             </tr>
             <tr>                
                 <td>Must be resolved by:</td>
-                <td>{{selectedTourIssue.resolveDateTime}}</td>
+                <td>{{selectedTourIssue.resolveDateTime | date:'short'}}</td>
             </tr>
             <tr>
                 <td>Created by:</td>
@@ -68,7 +68,7 @@
                 <p style="font-size: 20px; width: 500px;">{{com.comment}}</p>
             </div>
 
-            <p class="comment-date" style="float: right;">{{com.creationDateTime}}</p>
+            <p class="comment-date" style="float: right;">Created: {{com.creationDateTime | date:'mm/dd/yyyy'}}</p>
         </div>
     </div>
     <br><br>

@@ -46,6 +46,10 @@ export class TourIssueService {
     return this.http.get<Tour>(`${environment.apiHost}author/tours/${tourId}`);
   }
 
+  updateTour(updatedTour: Tour): Observable<Tour>{
+    return this.http.put<Tour>(`${environment.apiHost}author/tours/disable/${updatedTour.id}`, updatedTour);
+  }
+
   getTourIssueComments(): Observable<PagedResult<TourIssueComment>> {
     return this.http.get<PagedResult<TourIssueComment>>(environment.apiHost + 'tourexecution/tourissuecomment');
   }
@@ -60,5 +64,9 @@ export class TourIssueService {
 
   deleteTourIssueComment(tourissueId: number): Observable<TourIssueComment> {
     return this.http.delete<TourIssueComment>(environment.apiHost + 'tourexecution/tourissuecomment/'+ tourissueId);
+  }
+
+  setResolveDateTime(tourissue: TourIssue): Observable<TourIssue> {
+    return this.http.put<TourIssue>(environment.apiHost + 'tourexecution/tourissue/setresolvedate/' + tourissue.id, tourissue);
   }
 }

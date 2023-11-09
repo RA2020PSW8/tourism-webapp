@@ -6,6 +6,7 @@
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>Tour ID</th>
                     <th style="width: 60px;">Category</th>
                     <th style="width: 20px;">Priority</th>
                     <th style="width: 180px;">Description</th>
@@ -16,6 +17,7 @@
             <tbody>
                 <tr *ngFor = "let ti of tourIssues">
                     <td>{{ti.id}}</td>
+                    <td>{{ti.tourId}}</td>
                     <td>{{ti.category}}</td>
                     <td>{{ti.priority}}</td>
                     <td>{{ti.description}}</td>
@@ -37,6 +39,10 @@
 
     <div id="formcontainer">
         <form [formGroup]="tourIssueForm" id="tourissueform">
+            <mat-form-field>
+                <mat-label>Tour ID:</mat-label>
+                <input matInput type="text" formControlName="tourId">
+            </mat-form-field>
             <mat-form-field>
                 <mat-label>Category:</mat-label>
                 <input matInput type="text" formControlName="category">

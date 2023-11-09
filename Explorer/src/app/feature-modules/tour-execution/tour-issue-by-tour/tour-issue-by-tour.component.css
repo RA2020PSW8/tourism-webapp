@@ -19,6 +19,7 @@
     width: 50%; 
     margin-top: 10px;
     border-radius: 5px;
+    padding: 10px;
 }
 
 #tour-issue
@@ -27,6 +28,7 @@
     width: 50%; 
     margin-top: 10px;
     border-radius: 5px;
+    padding: 10px;
 }
 
 .comments

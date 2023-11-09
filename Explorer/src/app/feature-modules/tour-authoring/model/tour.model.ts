@@ -17,7 +17,8 @@ export enum TransportType {
 export enum Status {
     DRAFT = 'DRAFT',
     PUBLISHED = 'PUBLISHED',
-    ARCHIVED = 'ARCHIVED'
+    ARCHIVED = 'ARCHIVED',
+    DISABLED = 'DISABLED'
 }
 
 export interface Tour {
