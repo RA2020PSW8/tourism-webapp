@@ -2,7 +2,8 @@
     <h1>Tours marketplace</h1>
 </div>
 <div class="cont">
-    <form [formGroup]="tourFilterForm">
+    <button type="button" (click)="toggleForm()">Toggle Form</button>
+    <form [formGroup]="tourFilterForm" *ngIf="showForm">
         <label for="longitude">Longitude</label>
         <input type="text" id="longitude" name="longitude" formControlName="longitude">
 

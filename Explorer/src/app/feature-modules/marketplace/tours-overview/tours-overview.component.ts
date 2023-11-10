@@ -13,6 +13,8 @@ export class ToursOverviewComponent implements OnInit {
 
   public tours: Tour[];
   public tourFilterForm: FormGroup;
+  showForm: boolean = true; // Initially show the form
+
   
   constructor(
     private marketplaceService: MarketplaceService,
@@ -50,5 +52,8 @@ export class ToursOverviewComponent implements OnInit {
       .subscribe((res: PagedResult<Tour>) => {
         this.tours = res.results;
       });
+  }
+  toggleForm() {
+    this.showForm = !this.showForm;
   }
 }
