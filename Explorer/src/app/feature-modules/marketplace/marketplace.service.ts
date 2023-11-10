@@ -52,10 +52,15 @@ export class MarketplaceService {
   updateShoppingCart(shoppingCart: ShoppingCart): Observable<ShoppingCart> {
     return this.http.put<ShoppingCart>(`${this.apiUrl}/shoppingCart`, shoppingCart);
   }
-  getShoppingCartForUser(): Observable<PagedResults<ShoppingCart>> {
-    return this.http.get<PagedResults<ShoppingCart>>(environment.apiHost + 'tourist/shoppingCart/byUser');
+  getShoppingCartForUser(): Observable<ShoppingCart> {
+    return this.http.get<ShoppingCart>(environment.apiHost + 'tourist/shoppingCart/byUser');
   }
   deleteOrderItem(orderItemId: number): Observable<OrderItem> {
     return this.http.delete<OrderItem>(environment.apiHost + 'tourist/orderItems/'+ orderItemId);
   }
+
+  buyShoppingCart(shoppingCartId : number) : Observable<void>{
+    return this.http.put<void>(this.tourApiUrl + '/token/' + shoppingCartId, null);
+  }
+
 }
