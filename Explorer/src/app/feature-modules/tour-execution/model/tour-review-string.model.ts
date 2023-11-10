@@ -4,5 +4,7 @@ export interface TourReviewString {
     comment: string,
     visitDate: string,
     ratingDate: string,
-    imageLinks: string
+    imageLinks: string,
+    tourId: string,
+    userId: string
 }

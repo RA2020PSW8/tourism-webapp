@@ -29,6 +29,10 @@ export class TourExecutionService {
     return this.http.delete<TourReview>(`${environment.apiHost}tourexecution/tourreview/` + tourreview.id);
   }
 
+  getTourReviewByTourId(tourId: number): Observable<PagedResults<TourReview>> {
+    return this.http.get<PagedResults<TourReview>>(`${environment.apiHost}tourexecution/tourreview/tour/` + tourId);
+  }
+
   getTouristPosition(): Observable<TouristPosition> {
     return this.http.get<TouristPosition>(`${environment.apiHost}tourist/position`);
   }
