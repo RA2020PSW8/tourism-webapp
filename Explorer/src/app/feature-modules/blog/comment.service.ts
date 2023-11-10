@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from '../../shared/model/paged-results.model';
@@ -13,8 +13,12 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  getComments(): Observable<PagedResults<Comment>> {
-      return this.http.get<PagedResults<Comment>>('https://localhost:44333/api/blog/comments');
+  getComments(page: Number,pageSize: Number, blogId: Number): Observable<PagedResults<Comment>> {
+      const params = new HttpParams()
+        .set('page',page.toString())
+        .set('pageSize',pageSize.toString())
+        .set('blogId',blogId.toString());
+      return this.http.get<PagedResults<Comment>>('https://localhost:44333/api/blog/comments',{params});
   }
 
   createComment(comment : Comment): Observable<Comment> 

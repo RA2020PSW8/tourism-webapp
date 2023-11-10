@@ -10,7 +10,7 @@ import { Blog } from '../model/blog.model';
 })
 export class SingleBlogDisplayComponent implements OnInit{
   public selectedBlog : Blog
-  private blogId : number
+  public blogId : number
   constructor(private service: BlogService, private router: Router, private route: ActivatedRoute) {}
 
 ngOnInit(): void {

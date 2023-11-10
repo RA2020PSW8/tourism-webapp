@@ -11,4 +11,5 @@
     <div class="single-selectedBlogog-mini-img">
         <img *ngFor="let i of selectedBlog.imageLinks" src="{{i}}" height="100" width="100">
     </div>
+    <xp-comments-display [blogId]="blogId" ></xp-comments-display>
     </div>
