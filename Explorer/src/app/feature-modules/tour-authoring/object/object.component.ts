@@ -18,7 +18,7 @@ export class ObjectComponent implements OnInit{
     publicEntityRequest: PublicEntityRequest;
     newPublicEntityRequest: PublicEntityRequest;
 
-    constructor(private tourAuthoringService: TourAuthoringService){}
+    constructor(private tourAuthoringService: TourAuthoringService){ }
 
     ngOnInit(): void{
       this.getObjects();
@@ -60,37 +60,40 @@ export class ObjectComponent implements OnInit{
         }
       });
     }
-
-    onSendRequestClicked(id: number): void{
+    
+    onSendRequestClicked(id: number): void {
       this.tourAuthoringService.getPublicEntityRequestByEntityId(id, 1).subscribe({
-        next: (result: PublicEntityRequest) => { 
+        next: (result: PublicEntityRequest) => {
           this.publicEntityRequest = result;
           this.publicEntityRequest.id = result.id;
           this.publicEntityRequest.entityId = result.entityId;
           this.publicEntityRequest.entityType = result.entityType;
           this.publicEntityRequest.status = result.status;
           this.publicEntityRequest.comment = result.comment;
-          if(this.publicEntityRequest.entityId == id && this.publicEntityRequest.entityType == 1 && this.publicEntityRequest.status != 0){
+        },
+        complete: () => {
+          if (
+            this.publicEntityRequest &&
+            this.publicEntityRequest.entityId == id &&
+            this.publicEntityRequest.entityType == 1
+            ) {
             window.alert('Request for this object already exists!');
-          }
-          else{
-            if(window.confirm('Are you sure that you want this object to be public?')){          
+          } else if (this.publicEntityRequest == null ) {
+            if (window.confirm('Are you sure that you want this object to be public?')) {
               this.newPublicEntityRequest = {
                 entityId: id,
                 entityType: 1,
                 status: 0,
-                comment: ""
+                comment: '',
               };
               this.tourAuthoringService.addPublicEntityRequest(this.newPublicEntityRequest).subscribe({
                 next: () => {
-                  window.alert('You have successfuly send request for making this object public');
-                }
+                  window.alert('You have successfully sent a request for making this object public');
+                },
               });
             }
           }
-        }
-      }); 
+        },
+      });
     }
-    
-
 }
