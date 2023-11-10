@@ -1,0 +1,10 @@
+.active-tour-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.active-tour__information {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
