@@ -4,6 +4,8 @@ import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { OrderItem } from '../model/order-item.model';
+import { TourExecutionService } from '../../tour-execution/tour-execution.service';
+import { TourProgress } from '../../tour-execution/model/tour-progress.model';
 
 @Component({
   selector: 'xp-tour-card',
@@ -17,7 +19,7 @@ export class TourCardComponent implements OnInit {
   public firstKp: Keypoint;
   private lastOrderId: number;
 
-  constructor(private marketplaceService: MarketplaceService, private authService: AuthService) {
+  constructor(private marketplaceService: MarketplaceService, private tourExecutionService: TourExecutionService, private authService: AuthService) {
     this.lastOrderId = 0; 
   }
 
@@ -64,5 +66,16 @@ export class TourCardComponent implements OnInit {
         }
       });
     });
+  }
+
+  startTour(tourId?: number): void {
+    this.tourExecutionService.startTour(tourId || 0).subscribe({
+      next: (result: TourProgress) => {
+        alert("Tour started, check it out in active tour section!");
+      },
+      error: (error) => {
+        alert(error.error.detail); // show better
+      }
+    })
   }
 }
