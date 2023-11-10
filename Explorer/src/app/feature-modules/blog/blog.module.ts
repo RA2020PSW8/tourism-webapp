@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommentsDisplayComponent } from './comments-display/comments-display.component';
 import { MatTable, MatTableModule } from '@angular/material/table';
+import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-display.component';
 
 
 
@@ -19,6 +20,7 @@ import { MatTable, MatTableModule } from '@angular/material/table';
     BlogFormComponent,
     CommentFormComponent,
     CommentsDisplayComponent,
+    SingleBlogDisplayComponent,
   ],
   imports: [
     CommonModule,
