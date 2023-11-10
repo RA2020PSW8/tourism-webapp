@@ -8,6 +8,6 @@ export interface Blog {
     title : string,
     description : string,
     creationDate : string,
-    imageLinks : string,
-    status : BlogStatus;
+    imageLinks : string[],
+    systemStatus : BlogStatus;
 }

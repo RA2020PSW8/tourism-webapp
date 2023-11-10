@@ -1,5 +1,67 @@
-<div>
-  <div class="user-profile-container">
+<div class="menu-container">
+  <div class="menu">
+    <button mat-raised-button (click)="showTable('showProfile')">Profile</button>
+    <button mat-raised-button (click)="showTable('showFollowers')">Followers</button>
+    <button mat-raised-button (click)="showTable('showFollowing')">Followings</button>
+    <button mat-raised-button (click)="showTable('showPeople')">Find people</button>
+  </div>
+</div>
+<div class="content-container">
+  <div *ngIf="showContent === 'showFollowers'">
+    <div>
+      <h2>Followers</h2>
+      <table class="user-profile-table">
+        <tbody>
+          <tr *ngFor="let f of followers">
+            <td>
+              <img [src]="f.profileImage" alt="Profile Image">
+            </td>
+            <td>{{f.name}}</td>
+            <td>{{f.surname}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="showContent === 'showFollowing'">
+    <div>
+      <h2>Followings</h2>
+      <table class="user-profile-table">
+        <tbody>
+          <tr *ngFor="let f of following">
+            <td>
+              <img [src]="f.profileImage" alt="Profile Image">
+            </td>
+            <td>{{f.name}}</td>
+            <td>{{f.surname}}</td>
+            <td>
+              <button mat-raised-button (click)="unfollow(f.userId)">unfollow</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div *ngIf="showContent === 'showPeople'">
+    <div>
+      <h2>Find People</h2>
+      <table class="user-profile-table">
+        <tbody>
+          <tr *ngFor="let f of profilesToFollow">
+            <td>
+              <img [src]="f.profileImage" alt="Profile Image">
+            </td>
+            <td>{{f.name}}</td>
+            <td>{{f.surname}}</td>
+            <td>
+              <button mat-raised-button (click)="follow(f.userId)">follow</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="user-profile-container" *ngIf="showContent === 'showProfile'">
     <table class="user-profile-table">
       <tr>
         <th>Name:</th>
@@ -28,68 +90,64 @@
         </td>
       </tr>
     </table>
-    </div>
-    <div>
-      <form [formGroup]="personUpdateForm" (ngSubmit)="onSubmit()">
-        <div>
-            <mat-form-field >
-                <mat-label>Name</mat-label>
-                <input matInput formControlName="newName" type="text"/>
-                <br>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Surname</mat-label>
-                <input matInput formControlName="newSurname" type="text"/>
-                <br>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Profile Image</mat-label>
-                <input matInput formControlName="newProfileImage" type="text"/>
-                <br>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Biography</mat-label>
-                <input matInput formControlName="newBiography" type="text"/>
-                <br>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-                <mat-label>Quote</mat-label>
-                <input matInput formControlName="newQuote" type="text"/>
-                <br>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-              <mat-label>Username</mat-label>
-              <input matInput formControlName="username" type="text"/>
-              <br>
-            </mat-form-field>
-            <br>
-            <mat-form-field>
-              <mat-label>Email</mat-label>
-              <input matInput formControlName="email" type="text"/>
-              <br>
-          </mat-form-field>
+    <form [formGroup]="personUpdateForm" (ngSubmit)="onSubmit()">
+      <div>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput formControlName="newName" type="text" />
           <br>
-          <mat-form-field>
-              <mat-label>Password</mat-label>
-              <input matInput formControlName="password" type="password"/>
-              <br>
-          </mat-form-field>
-          <br>
-          <mat-form-field>
-            <mat-label>UserId</mat-label>
-            <input matInput formControlName="userId" type="number"/>
-            <br>
         </mat-form-field>
         <br>
-            <button mat-raised-button type="submit" >Update Profile</button>
-        </div>
-      </form>
-            
-            
-    </div>
+        <mat-form-field>
+          <mat-label>Surname</mat-label>
+          <input matInput formControlName="newSurname" type="text" />
+          <br>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Profile Image</mat-label>
+          <input matInput formControlName="newProfileImage" type="text" />
+          <br>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Biography</mat-label>
+          <input matInput formControlName="newBiography" type="text" />
+          <br>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Quote</mat-label>
+          <input matInput formControlName="newQuote" type="text" />
+          <br>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Username</mat-label>
+          <input matInput formControlName="username" type="text" />
+          <br>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Email</mat-label>
+          <input matInput formControlName="email" type="text" />
+          <br>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>Password</mat-label>
+          <input matInput formControlName="password" type="password" />
+          <br>
+        </mat-form-field>
+        <br>
+        <mat-form-field>
+          <mat-label>UserId</mat-label>
+          <input matInput formControlName="userId" type="number" />
+          <br>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button type="submit">Update Profile</button>
+      </div>
+    </form>
+  </div>
 </div>

@@ -1,15 +1,19 @@
 .user-profile-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 20px 0;
-    border: 2px solid #e0e0e0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-collapse: collapse;
+  width: 50%;
+  margin: 0px 20px 0px 0; /* Set the right margin to 20px */
+  border: 2px solid #e0e0e0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+  .user-profile-container {
+    display: flex;
+    flex-direction: row;
   }
   
   .user-profile-table th, .user-profile-table td {
     border: 1px solid #e0e0e0;
     text-align: left;
-    padding: 10px;
+    padding: 5px;
   }
   
   .user-profile-table th {
@@ -17,19 +21,18 @@
   }
   
   .user-profile-table img {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 80px;
+    max-height: 80px;
     border: 2px solid #e0e0e0;
     border-radius: 50%;
   }
   
   .user-profile-table p {
     font-size: 16px;
-    line-height: 1.4;
+    line-height: 1.2;
   }
   
   .user-profile-table th, .user-profile-table td:first-child {
     font-weight: bold;
     color: #333;
   }
-  
