@@ -2,7 +2,7 @@
     <div>
         <mat-form-field>
             <mat-label>Rating</mat-label>
-            <input matInput formControlName="rating" type="number"/>
+            <input matInput formControlName="rating" type="number" min="1" max="5"/>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Comment</mat-label>
@@ -14,7 +14,7 @@
         </mat-form-field>
         <mat-form-field>
             <mat-label>Visit date</mat-label>
-            <input matInput formControlName="visitDate" type="text"/>
+            <input matInput formControlName="visitDate" type="date"/>
         </mat-form-field>
         <mat-form-field>
             <mat-label>Images</mat-label>

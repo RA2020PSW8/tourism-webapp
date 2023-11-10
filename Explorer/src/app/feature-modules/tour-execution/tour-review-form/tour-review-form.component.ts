@@ -36,7 +36,7 @@ export class TourReviewFormComponent implements OnChanges {
     const tourReview: TourReviewString = {
       rating: Number(this.tourReviewForm.value.rating),
       comment: this.tourReviewForm.value.comment || "",
-      visitDate: this.tourReviewForm.value.visitDate as string,
+      visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
       ratingDate: new Date().toISOString(),
       imageLinks: this.tourReviewForm.value.imageLinks?.split('\n') as string[]
     }
@@ -45,7 +45,8 @@ export class TourReviewFormComponent implements OnChanges {
 
     this.service.addTourReview(tourReview).subscribe({
       next: (_) => {
-        this.tourReviewUpdated.emit()
+        this.tourReviewUpdated.emit();
+        alert('Successfully added tour review!');
       }
     });
   }
@@ -54,7 +55,7 @@ export class TourReviewFormComponent implements OnChanges {
     const tourReview: TourReviewString = {
       rating: Number(this.tourReviewForm.value.rating),
       comment: this.tourReviewForm.value.comment || "",
-      visitDate: this.tourReviewForm.value.visitDate as string,
+      visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
       ratingDate: new Date().toISOString(),
       imageLinks: this.tourReviewForm.value.imageLinks as unknown as string[]
     }
@@ -64,7 +65,8 @@ export class TourReviewFormComponent implements OnChanges {
 
     this.service.updateTourReview(tourReview).subscribe({
       next: (_) => {
-        this.tourReviewUpdated.emit()
+        this.tourReviewUpdated.emit();
+        alert('Successfully updated tour review!');
       }
     });
   }
