@@ -94,36 +94,6 @@ export class TourAuthoringService {
   addPublicEntityRequest(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
     return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests`, newRequest);
   }
-
-  /*(entityId: number, entityType: number): Observable<PublicEntityRequest>{
-    const params = { entityType: entityType };
-    return this.http.get<PublicEntityRequest>(
-      `${this.apiUrl}/publicEntityRequests/entity/${entityId}`,
-      { params: params }
-    );
-  }   prva verzija, ne*/
-
- /* getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest>{
-    const params = { entityId: entityId, entityType: entityType };
-    return this.http.get<PublicEntityRequest>(
-      `${this.apiUrl}/publicEntityRequests/entity`,
-      { params: params }
-    );
-  }     druga verzija, ok u swaggeru  aaaaa radii1!!!!*/
-
-  /*getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest>{
-    const params = { entityId: entityId, entityType: entityType };
-    return this.http.get<PublicEntityRequest>(
-      `${this.apiUrl}/publicEntityRequests/entity?entityId=` + entityId + `&entityType=` + entityType);
-  } treca verzija, ok u svaggery*/
-
-  /*getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
-    const params = new HttpParams()
-      .set('entityId', entityId.toString())
-      .set('entityType', entityType.toString());
-  
-    return this.http.get<PublicEntityRequest>(`${this.apiUrl}/entity`, { params });
-  }*/
   
   getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
     return this.http.get<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/entity/${entityId}/${entityType}`);
