@@ -41,8 +41,7 @@ ngOnChanges(changes: SimpleChanges): void {
   createComment(): void
   {
     const newComment: Comment = {
-      forumId: 1,
-      username: 'miki',
+      blogId: 1,
       postTime: new Date(),
       lastEditTime: new Date(),
       comment: this.commentForm.value.comment || "", 
@@ -59,13 +58,13 @@ ngOnChanges(changes: SimpleChanges): void {
   {
     const com : Comment = {
       comment: this.commentForm.value.comment || "",
-      forumId: 0,
+      blogId: 0,
       username: '',
       postTime: new Date(),
       isDeleted: false
     }
     com.id = this.comment.id;
-    com.forumId = this.comment.forumId;
+    com.blogId = this.comment.blogId;
     com.username = this.comment.username;
     com.lastEditTime = this.comment.lastEditTime;
     com.postTime = this.comment.postTime;
