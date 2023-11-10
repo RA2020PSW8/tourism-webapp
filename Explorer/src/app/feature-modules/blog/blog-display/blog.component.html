@@ -1,5 +1,30 @@
 <div id="blog">
     <div id="all-blogs">
+
+        <table>
+            <tr>
+                <td>Title</td>
+                <td>Description</td>
+                <td>System status</td>
+                <td>Statuses</td>
+                <td>Actions</td>
+            </tr>
+            <tr  *ngFor="let bl of blogs">
+                <td><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
+                <td>{{bl.description}}</td>
+                <td>{{bl.systemStatus}}</td>
+                <td>TODO Statuses</td>
+                <td>
+                    <button (click)="onUpdateClicked(bl)" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </td>
+            </tr>
+        </table>
+
     <div *ngFor="let bl of blogs" class="single-blog-details">
         <div class="single-blog-title-row">
             <p class="single-blog-title">{{bl.title}}</p>
@@ -21,6 +46,8 @@
         </div>
         </div>
     </div>
+
+
     <xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
 
 </div>
