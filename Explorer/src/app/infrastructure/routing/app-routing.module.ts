@@ -31,6 +31,7 @@ import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-f
 import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tours-overview/tours-overview.component';
 import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
+import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
 
 
 const routes: Routes = [
@@ -58,6 +59,7 @@ const routes: Routes = [
   {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
   {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
   {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'comments', component:CommentsDisplayComponent},
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
