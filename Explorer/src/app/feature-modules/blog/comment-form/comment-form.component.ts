@@ -14,6 +14,7 @@ export class CommentFormComponent implements OnChanges {
 @Output() commentAdded = new EventEmitter<null>();
 @Input() comment : Comment;
 @Input() editMode: boolean = false;
+@Input() blogId: number
 
 constructor(private service: CommentService) {}
  
@@ -41,7 +42,7 @@ ngOnChanges(changes: SimpleChanges): void {
   createComment(): void
   {
     const newComment: Comment = {
-      blogId: 1,
+      blogId: this.blogId,
       postTime: new Date(),
       lastEditTime: new Date(),
       comment: this.commentForm.value.comment || "", 
@@ -58,8 +59,7 @@ ngOnChanges(changes: SimpleChanges): void {
   {
     const com : Comment = {
       comment: this.commentForm.value.comment || "",
-      blogId: 0,
-      username: '',
+      blogId: this.blogId,
       postTime: new Date(),
       isDeleted: false
     }
