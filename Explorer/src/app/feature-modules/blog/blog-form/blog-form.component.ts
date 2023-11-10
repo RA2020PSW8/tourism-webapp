@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
-import { Blog } from '../model/blog.model';
+import { Blog, BlogStatus } from '../model/blog.model';
 import { toArray } from 'rxjs';
 import { BlogString } from '../model/blogform.model';
 
@@ -27,26 +27,19 @@ export class BlogFormComponent implements OnChanges {
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-    const blogForm: BlogString = {
-      id: this.selectedBlog.id,
-      title: this.selectedBlog.title,
-      description: this.selectedBlog.description,
-      creationDate : this.selectedBlog.creationDate,
-      imageLinks : this.selectedBlog.imageLinks,
-      status : this.selectedBlog.status.toString()
-    };
-
-    this.blogForm.patchValue(blogForm);
+    this.blogForm.patchValue(this.selectedBlog);
   }
 
   addBlog(): void {
-    const blog: Blog = {
+    const blog: BlogString = {
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
-      creationDate: this.blogForm.value.creationDate as string,
-      imageLinks: this.blogForm.value.imageLinks as string,
-      status: Number(this.blogForm.value.status)
+      creationDate: new Date().toISOString().split('T')[0] as string,
+      imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
+      status: this.blogForm.value.status as BlogStatus || ""
     }
+
+    this.prepareBlogForSending(blog);
 
     this.service.addBlog(blog).subscribe({
       next: (_) => {
@@ -56,19 +49,34 @@ export class BlogFormComponent implements OnChanges {
   }
 
   updateBlog(): void {
-    const blog: Blog = {
+    const blog: BlogString = {
       id: this.selectedBlog.id,
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
-      creationDate: this.blogForm.value.creationDate as string,
-      imageLinks: this.blogForm.value.imageLinks as string,
-      status: Number(this.blogForm.value.status)
+      creationDate: this.selectedBlog.creationDate as string,
+      imageLinks: null as unknown as string[],
+      status: this.blogForm.value.status as BlogStatus
     }
+    if(this.blogForm.value.imageLinks?.length != 1)
+    {
+      blog.imageLinks = this.blogForm.value.imageLinks?.split(',') as unknown as string[];
+    }
+    else
+    {
+      blog.imageLinks = this.blogForm.value.imageLinks as unknown as string[];
+    }
+
+
+    this.prepareBlogForSending(blog);
 
     this.service.updateBlog(blog).subscribe({
       next: (_) => {
         this.blogUpdated.emit();
       }
     });
+  }
+
+  private prepareBlogForSending(b: BlogString) {
+    b.description = b.description.replaceAll('\n', '<br>');
   }
 }

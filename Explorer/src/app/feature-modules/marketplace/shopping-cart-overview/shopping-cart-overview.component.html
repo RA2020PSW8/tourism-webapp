@@ -1,0 +1,16 @@
+<div class="cont">
+    <h1>Shopping Cart</h1>
+</div>
+<div class="cont">
+    <div class="preferences-container">
+        <ng-container *ngIf="orders.length > 0; else emptyCart">
+            <xp-shopping-cart *ngFor="let order of orders" [order]="order"></xp-shopping-cart>
+        </ng-container>
+        <ng-template #emptyCart class="empty-cart">
+            <p>You don't have any items in your shopping cart!</p>
+        </ng-template>
+    </div>
+    <div class="total-price">
+        Total Price: {{ calculateTotalPrice() | currency: 'EUR' }}
+    </div>
+</div>

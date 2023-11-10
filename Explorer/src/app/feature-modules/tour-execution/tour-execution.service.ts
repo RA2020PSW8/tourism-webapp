@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourReview } from './model/tour-review.model';
 import { environment } from 'src/env/environment';
 import { TouristPosition } from './model/tourist-position.model';
+import { TourProgress } from './model/tour-progress.model';
 
 @Injectable({
   providedIn: 'root'
@@ -39,5 +40,17 @@ export class TourExecutionService {
 
   updateTouristPosition(touristPosition: TouristPosition): Observable<TouristPosition> {
     return this.http.put<TouristPosition>(`${environment.apiHost}tourist/position`, touristPosition);
+  }
+
+  getActiveTour(): Observable<TourProgress> {
+    return this.http.get<TourProgress>(`${environment.apiHost}tourexecution/activeTour`);
+  }
+
+  startTour(tourId: number): Observable<TourProgress> {
+    return this.http.post<TourProgress>(`${environment.apiHost}tourexecution/start/` + tourId, null);
+  }
+
+  abandonTour(): Observable<TourProgress> {
+    return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/abandonActive`, null);
   }
 }

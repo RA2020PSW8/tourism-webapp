@@ -29,8 +29,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() enableClicks: boolean;
   @Input() markType: string;
   @Input() toggleOff: boolean;
-  @Input() routeQuery: RouteQuery;
-  @Input() markerPosition: Position;
+  @Input() routeQuery: RouteQuery | undefined;
+  @Input() markerPosition: Position | undefined;
   @Input() allowMultipleMarkers: boolean;
 
   constructor(private mapService: MapService) {
