@@ -21,12 +21,18 @@ export class BlogService {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 91fa042 (feat: added single blog display)
   getBlog(id: Number): Observable<Blog> {
     return this.http.get<Blog>(`${environment.apiHost}blog/${id}`);
 }
 
+<<<<<<< HEAD
 =======
 >>>>>>> 0b2a354 (fix: removed redundant BlogString class)
+=======
+>>>>>>> 91fa042 (feat: added single blog display)
   addBlog(blog: Blog): Observable<Blog> {
     return this.http.post<Blog>(environment.apiHost + 'blog',blog);
   }

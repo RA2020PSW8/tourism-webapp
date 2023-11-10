@@ -44,7 +44,7 @@ rate(x:number): void{
   if(x === 2){
     this.rating.rating = 'DOWNVOTE';
   }
- console.log('aaaa')
+ 
   this.service.addRating(this.rating).subscribe({
     next: (result: Blog) => {
       this.selectedBlog.blogRatings = result.blogRatings;
