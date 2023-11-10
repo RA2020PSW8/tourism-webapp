@@ -11,10 +11,6 @@ export interface Blog {
     description : string,
     creationDate : string,
     imageLinks : string[],
-<<<<<<< HEAD
     systemStatus : BlogStatus,
     blogRatings?:Rating[]
-=======
-    systemStatus : BlogStatus;
->>>>>>> 0b2a354 (fix: removed redundant BlogString class)
 }

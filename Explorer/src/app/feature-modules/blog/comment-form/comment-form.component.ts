@@ -43,10 +43,14 @@ ngOnChanges(changes: SimpleChanges): void {
   {
     const newComment: Comment = {
 <<<<<<< HEAD
+<<<<<<< HEAD
       blogId: this.blogId,
 =======
       blogId: 1,
 >>>>>>> 67b9138 (checkpoint)
+=======
+      blogId: this.blogId,
+>>>>>>> b7c22ca (feat: loading comments for a specific blog)
       postTime: new Date(),
       lastEditTime: new Date(),
       comment: this.commentForm.value.comment || "", 
@@ -64,11 +68,15 @@ ngOnChanges(changes: SimpleChanges): void {
     const com : Comment = {
       comment: this.commentForm.value.comment || "",
 <<<<<<< HEAD
+<<<<<<< HEAD
       blogId: this.blogId,
 =======
       blogId: 0,
       username: '',
 >>>>>>> 67b9138 (checkpoint)
+=======
+      blogId: this.blogId,
+>>>>>>> b7c22ca (feat: loading comments for a specific blog)
       postTime: new Date(),
       isDeleted: false
     }

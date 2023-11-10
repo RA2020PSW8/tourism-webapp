@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class SingleBlogDisplayComponent implements OnInit{
   public selectedBlog : Blog
   public blogId : number
+<<<<<<< HEAD
   public rating : Rating = {
     blogId:-1,
     userId:-1,
@@ -20,6 +21,8 @@ export class SingleBlogDisplayComponent implements OnInit{
     creationTime:new Date().toISOString().split('T')[0],
     rating: 'a'
   }
+=======
+>>>>>>> b7c22ca (feat: loading comments for a specific blog)
   constructor(private service: BlogService, private router: Router, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
