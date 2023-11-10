@@ -4,7 +4,10 @@ import { Observable } from 'rxjs';
 import { PagedResult } from './shared/model/paged-result.model';
 import { Blog } from './model/blog.model';
 import { environment } from 'src/env/environment';
+<<<<<<< HEAD
 import { Rating } from './model/rating.model';
+=======
+>>>>>>> 0b2a354 (fix: removed redundant BlogString class)
 
 @Injectable({
   providedIn: 'root'
@@ -17,10 +20,13 @@ export class BlogService {
       return this.http.get<PagedResult<Blog>>(environment.apiHost + 'blog');
   }
 
+<<<<<<< HEAD
   getBlog(id: Number): Observable<Blog> {
     return this.http.get<Blog>(`${environment.apiHost}blog/${id}`);
 }
 
+=======
+>>>>>>> 0b2a354 (fix: removed redundant BlogString class)
   addBlog(blog: Blog): Observable<Blog> {
     return this.http.post<Blog>(environment.apiHost + 'blog',blog);
   }
