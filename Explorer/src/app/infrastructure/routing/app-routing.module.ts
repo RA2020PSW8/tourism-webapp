@@ -67,7 +67,6 @@ const routes: Routes = [
   {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
   {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
   {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
-  {path: 'comments', component:CommentsDisplayComponent},
   {path: 'blog/:id',component: SingleBlogDisplayComponent},
 
   // Admin
