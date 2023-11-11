@@ -44,7 +44,6 @@ export class KeypointComponent implements OnInit{
   sendPublicEntityRequest(id: number): void{
     this.tourAuthoringService.getPublicEntityRequestByEntityId(id, 0).subscribe({
       next: (result: PublicEntityRequest) => { 
-        this.publicEntityRequest = result;
         this.publicEntityRequest.id = result.id;
         this.publicEntityRequest.entityId = result.entityId;
         this.publicEntityRequest.entityType = result.entityType;
@@ -66,7 +65,7 @@ export class KeypointComponent implements OnInit{
               status: 0,
               comment: '',
             };
-            this.tourAuthoringService.addPublicEntityRequest(this.newPublicEntityRequest).subscribe({
+            this.tourAuthoringService.addPublicEntityRequestKeypoint(this.newPublicEntityRequest).subscribe({
               next: () => {
                 window.alert('You have successfully sent a request for making this keypoint public');
               },

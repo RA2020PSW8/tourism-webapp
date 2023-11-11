@@ -86,7 +86,7 @@ export class ObjectComponent implements OnInit{
                 status: 0,
                 comment: '',
               };
-              this.tourAuthoringService.addPublicEntityRequest(this.newPublicEntityRequest).subscribe({
+              this.tourAuthoringService.addPublicEntityRequestObject(this.newPublicEntityRequest).subscribe({
                 next: () => {
                   window.alert('You have successfully sent a request for making this object public');
                 },

@@ -91,8 +91,12 @@ export class TourAuthoringService {
     return this.http.put<Tour>(`${this.apiUrl}/tours/${updatedTour.id}`, updatedTour);
   }
 
-  addPublicEntityRequest(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
-    return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests`, newRequest);
+  addPublicEntityRequestObject(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
+    return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/createObjectRequest`, newRequest);
+  }
+
+  addPublicEntityRequestKeypoint(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
+    return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/createKeypointRequest`, newRequest);
   }
   
   getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
