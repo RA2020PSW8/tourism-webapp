@@ -1,6 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ProfileService } from '../profile.service';
 import { ChatMessage } from '../model/chat-preview.model';
+import { MessageInput } from '../model/message-input.model';
 
 @Component({
   selector: 'xp-chat-messages-view',
@@ -12,11 +13,11 @@ export class ChatMessagesViewComponent implements OnChanges {
   @Input() followerId: number;
 
   public messages: ChatMessage[];
+  public messageContent: string;
 
   constructor(private profileService: ProfileService){}
 
   ngOnChanges(): void {
-    console.log(this.followerId);
     if(this.followerId > 0){
       this.getMessages();
     }
@@ -25,6 +26,27 @@ export class ChatMessagesViewComponent implements OnChanges {
   getMessages(): void{
     this.profileService.getMessages(this.followerId).subscribe(res => {
       this.messages = res.results;
+      this.scrollDownChat();
     });    
+  }
+
+  private scrollDownChat(){
+    var objDiv = document.getElementById("messages");
+    if(objDiv){
+      objDiv.scrollTop = objDiv.scrollHeight; //doesn't work rip
+    }
+  }
+
+  sendMessage(){
+    if(this.messageContent){
+      let message: MessageInput = {
+        receiverId: this.followerId,
+        content: this.messageContent
+      }
+      this.profileService.sendMessage(message).subscribe(res => {
+        this.messageContent = '';
+        this.getMessages();
+      });
+    }
   }
 }

@@ -6,6 +6,7 @@ import { Profile } from './model/profile.model';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/env/environment';
 import { ChatMessage } from './model/chat-preview.model';
+import { MessageInput } from './model/message-input.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,9 @@ export class ProfileService {
 
   getMessages(followerId: number): Observable<PagedResults<ChatMessage>>{
     return this.http.get<PagedResults<ChatMessage>>(`${environment.apiHost}chat/${followerId}`);
+  }
+
+  sendMessage(message: MessageInput): Observable<ChatMessage>{
+    return this.http.post<ChatMessage>(`${environment.apiHost}chat`, message);
   }
 }

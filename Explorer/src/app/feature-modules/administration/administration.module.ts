@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EquipmentFormComponent } from './equipment-form/equipment-form.component';
 import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRatingComponent } from './app-rating/app-rating.component';
 import { ProfileComponent } from './profile/profile.component';
 import { AppRatingFormAuthorComponent } from './app-rating-form-author/app-rating-form-author.component';
@@ -34,7 +34,8 @@ import { ChatMessagesViewComponent } from './chat-messages-view/chat-messages-vi
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     EquipmentComponent,
