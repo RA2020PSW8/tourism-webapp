@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Blog } from '../model/blog.model';
+import { Blog, BlogSystemStatus } from '../model/blog.model';
+import { BlogStatus } from '../model/blogstatus-model';
 
 @Component({
   selector: 'xp-single-blog-display',
@@ -11,9 +12,11 @@ import { Blog } from '../model/blog.model';
 export class SingleBlogDisplayComponent implements OnInit{
   public selectedBlog : Blog
   public blogId : number
+
   constructor(private service: BlogService, private router: Router, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
+
   this.route.paramMap.subscribe((params: ParamMap) => {
     this.blogId = Number(params.get('id'));
 
@@ -24,5 +27,4 @@ ngOnInit(): void {
     }
   });
 }
-
 }

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResult } from './shared/model/paged-result.model';
 import { Blog } from './model/blog.model';
 import { environment } from 'src/env/environment';
+import { BlogStatus } from './model/blogstatus-model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,14 @@ export class BlogService {
 
   getBlogs(): Observable<PagedResult<Blog>> {
       return this.http.get<PagedResult<Blog>>(environment.apiHost + 'blog');
+  }
+
+  getBlogsWithStatus(): Observable<PagedResult<Blog>> {
+    return this.http.get<PagedResult<Blog>>(`${environment.apiHost}blog/status`);
+}
+
+  getBlogStatuses(): Observable<PagedResult<BlogStatus>> {
+      return this.http.get<PagedResult<BlogStatus>>(`${environment.apiHost}blog/blogStatus`);
   }
 
   getBlog(id: Number): Observable<Blog> {

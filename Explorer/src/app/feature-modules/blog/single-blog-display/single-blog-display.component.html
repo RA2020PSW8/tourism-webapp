@@ -1,15 +1,15 @@
-<div class="single-selectedBlogog-details">
-    <div class="single-selectedBlogog-title-row">
-        <p class="single-selectedBlogog-title">{{selectedBlog.title}}</p>
+<div class="single-blog-details">
+    <div class="single-blog-title-row">
+        <p class="single-blog-title">{{selectedBlog.title}}</p>
     </div>
-    <p class="single-selectedBlogog-date">Created: {{selectedBlog.creationDate}}</p>
+    <p class="single-blog-date">Created: {{selectedBlog.creationDate}}</p>
     <p>Status: {{selectedBlog.systemStatus}}</p>
     <p>Description:</p>
     <markdown ngPreserveWhitespaces >
         {{selectedBlog.description}}
     </markdown>
-    <div class="single-selectedBlogog-mini-img">
+    <div class="single-blog-mini-img">
         <img *ngFor="let i of selectedBlog.imageLinks" src="{{i}}" height="100" width="100">
     </div>
     <xp-comments-display [blogId]="blogId" ></xp-comments-display>
-    </div>
+</div>
