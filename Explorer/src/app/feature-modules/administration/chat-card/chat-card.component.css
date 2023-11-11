@@ -2,6 +2,15 @@ h2{
     margin-bottom: 0.1rem;
 }
 
+p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
 .container {
     padding: 0.5rem;
     display: flex;
