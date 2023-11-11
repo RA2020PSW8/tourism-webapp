@@ -4,17 +4,17 @@
     <h2 *ngIf="mode == 'add'">Add your preference</h2>
     <p>Select preferred tour difficulty</p>
     <mat-radio-group aria-label="Select preferred tour difficulty" formControlName="difficulty">
-        <mat-radio-button [value]="0">Easy</mat-radio-button>
-        <mat-radio-button [value]="1">Medium</mat-radio-button>
-        <mat-radio-button [value]="2">Hard</mat-radio-button>
-        <mat-radio-button [value]="3">Extreme</mat-radio-button>
+        <mat-radio-button value="EASY">Easy</mat-radio-button>
+        <mat-radio-button value="MEDIUM">Medium</mat-radio-button>
+        <mat-radio-button value="HARD">Hard</mat-radio-button>
+        <mat-radio-button value="EXTREME">Extreme</mat-radio-button>
     </mat-radio-group>
     <p>Select preferred transport type</p>
     <mat-radio-group aria-label="Select preferred transport type" formControlName="transportType">
-        <mat-radio-button [value]="0">Walk</mat-radio-button>
-        <mat-radio-button [value]="1">Bike</mat-radio-button>
-        <mat-radio-button [value]="2">Car</mat-radio-button>
-        <mat-radio-button [value]="3">Boat</mat-radio-button>
+        <mat-radio-button value="WALK">Walk</mat-radio-button>
+        <mat-radio-button value="BIKE">Bike</mat-radio-button>
+        <mat-radio-button value="CAR">Car</mat-radio-button>
+        <mat-radio-button value="BOAT">Boat</mat-radio-button>
     </mat-radio-group>
     <div>
         <mat-form-field>
