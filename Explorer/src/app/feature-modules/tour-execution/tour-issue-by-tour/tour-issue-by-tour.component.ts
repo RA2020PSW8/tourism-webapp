@@ -43,10 +43,16 @@ private getTourIssueAgregate() {
     if (this.tourIssueId !== 0) {
       this.tourissueservice.getTourIssue(this.tourIssueId).subscribe((res: PagedResult<TourIssue>) => {
         this.selectedTourIssue = res.results[0];
-        console.log(this.selectedTourIssue);
         this.tourissueservice.getTour(parseInt(this.selectedTourIssue.tourId)).subscribe(result => { 
           this.selectedTour = result; 
           this.profileservice.getProfile(this.selectedTour.userId).subscribe(result => { this.tourAuthor = result; });
+          for(let c of this.selectedTourIssue.comments as TourIssueComment[]){
+            this.profileservice.getProfile(c.userId).subscribe(result => { 
+              c.name = result.name; 
+              c.surname = result.surname;
+            });
+          }
+          
         });
         this.profileservice.getProfile(parseInt(this.selectedTourIssue.userId)).subscribe(result => { this.tourIssueAuthor = result; });
       });

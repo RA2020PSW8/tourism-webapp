@@ -56,10 +56,9 @@ export class TourIssueFormComponent implements OnChanges {
       comments: []
     }
 
-    this.clearFormFields();
-
     this.service.addTourIssue(tourIssue).subscribe({
       next: (_) => {
+        this.clearFormFields();
         this.ngOnInit();
       }
     });

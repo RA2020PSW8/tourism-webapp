@@ -8,7 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 60%;
+    width: 70%;
     margin-top: 20px;
 }
 
@@ -16,7 +16,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40%;
+    width: 30%;
     margin-top: 20px;
 }
 
@@ -26,13 +26,16 @@
     flex-direction: column;
 }
 
+table {
+    width: 1000px;
+}
+
 label {
     font-size: 16px;
     font-family: sans-serif;
 }
 
 input {
-    width: 400px;
     height: 30px;
     background-color: #f3f3f3;
     border-style: hidden;

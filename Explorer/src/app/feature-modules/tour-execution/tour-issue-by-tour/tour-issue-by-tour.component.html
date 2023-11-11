@@ -46,7 +46,7 @@
             </tr>
             <tr>                
                 <td>Must be resolved by:</td>
-                <td>{{selectedTourIssue.resolveDateTime | date:'short'}}</td>
+                <td>{{selectedTourIssue.resolveDateTime | date:'MM/dd/yy'}}</td>
             </tr>
             <tr>
                 <td>Created by:</td>
@@ -64,11 +64,11 @@
             </div>
             
             <div class="comment-content">
-                <label style="font-size: 20px;">Petar Petrovic</label><br><br>
+                <label style="font-size: 20px;">{{com.name}} {{com.surname}}</label><br><br>
                 <p style="font-size: 20px; width: 500px;">{{com.comment}}</p>
             </div>
 
-            <p class="comment-date" style="float: right;">Created: {{com.creationDateTime | date:'mm/dd/yyyy'}}</p>
+            <p class="comment-date" style="float: right;">Created: {{com.creationDateTime | date:'MM/dd/yy'}}</p>
         </div>
     </div>
     <br><br>

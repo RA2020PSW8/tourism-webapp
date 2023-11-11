@@ -10,13 +10,13 @@
                     <th style="width: 60px;">Category</th>
                     <th style="width: 20px;">Priority</th>
                     <th style="width: 180px;">Description</th>
-                    <th>Date and time</th>
+                    <th>Creation date and time</th>
                     <th colspan="2">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor = "let ti of tourIssues">
-                    <td>{{ti.id}}</td>
+                    <td><a href="tourissue/{{ti.id}}">{{ti.id}}</a></td>
                     <td>{{ti.tourId}}</td>
                     <td>{{ti.category}}</td>
                     <td>{{ti.priority}}</td>
@@ -47,9 +47,9 @@
                 <mat-label>Category:</mat-label>
                 <input matInput type="text" formControlName="category">
             </mat-form-field>
-            <mat-form-field>
+            <mat-form-field style="width: 100px;">
                 <mat-label>Priority:</mat-label>
-                <input matInput type="text" formControlName="priority">
+                <input matInput type="number" min="1" max="5" formControlName="priority">
             </mat-form-field>
             <mat-form-field>
                 <mat-label>Description:</mat-label>
