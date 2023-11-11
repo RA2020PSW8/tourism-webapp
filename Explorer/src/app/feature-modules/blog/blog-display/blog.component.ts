@@ -27,17 +27,6 @@ export class BlogComponent implements OnInit {
         imageLinks: [],
         systemStatus: BlogSystemStatus.DRAFT,
       }
-      //TODO uvezi sa feat/blog-status
-      let famous: BlogStatus = {
-        name: 'famous',
-        frontColor: this.generateRandomPastelColor()
-      }
-      let veryfamous: BlogStatus = {
-        name: 'veryfamous',
-        frontColor: this.generateRandomPastelColor()
-      }
-      this.allBlogStatus.push(famous);
-      this.allBlogStatus.push(veryfamous);
       this.getBlogs();
   }
 
@@ -50,6 +39,8 @@ export class BlogComponent implements OnInit {
           this.prepareBlogForDisplay(b);
           this.blogs.push(b);
           this.allBlogs.push(b);
+          for(let bs of b.blogStatuses as BlogStatus[])
+            this.addBlogStatus(bs)
         }
       },
       error: (err: any) => {
@@ -106,6 +97,15 @@ export class BlogComponent implements OnInit {
         return bs.frontColor
     }
     return "#FFFFFF"
+  }
+
+  addBlogStatus(blogStatus: BlogStatus)
+  {
+    if(!this.allBlogStatus.includes(blogStatus))
+    {
+      blogStatus.frontColor = this.generateRandomPastelColor();
+      this.allBlogStatus.push(blogStatus);
+    }
   }
 
   modifyFilter(blogStatus: BlogStatus)
