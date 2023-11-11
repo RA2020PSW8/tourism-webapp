@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { TourIssueService } from '../tour-issue.service';
+import { ProfileService } from '../../administration/profile.service';
 import { TourIssue } from '../model/tour-issue.model';
+import { Tour } from '../../tour-authoring/model/tour.model';
+import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
+import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { Profile } from '../../administration/model/profile.model';
 import { PagedResult } from '../shared/model/paged-result.model';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { Router } from '@angular/router';
+import { TourIssueComment } from '../model/tour-issue-comment.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Status, Tour } from '../../tour-authoring/model/tour.model';
+
 
 @Component({
   selector: 'xp-tour-issue',
@@ -13,90 +19,76 @@ import { Status, Tour } from '../../tour-authoring/model/tour.model';
   styleUrls: ['./tour-issue.component.css']
 })
 export class TourIssueComponent implements OnInit {
-  constructor(private service: TourIssueService, private authservice: AuthService, private router: Router) {
-    if(this.authservice.user$.value.role !== 'administrator') {
-      this.router.navigate(['home']);
-    }
-  }
+public constructor(private tourissueservice: TourIssueService, private profileservice:ProfileService, private router: Router, private route: ActivatedRoute){}
 
-  tourIssues: TourIssue[] = [];
-  selectedTourIssue: TourIssue;
-  td = new Date().getTime();
-  
-  ngOnInit(): void {
-    this.service.getTourIssues().subscribe({
-      next: (result: PagedResult<TourIssue>) => {
-        this.tourIssues = result.results;
-      },
-      error: (err: any) => {
-        console.log(err);
-      }
-    })
-  }
+public selectedTourIssue : TourIssue
+public selectedTour : Tour
+public tourAuthor : Profile
+public tourIssueAuthor : Profile
+public routeQuery : RouteQuery;
+public tourIssueId : Number;
 
-  onChange(event: any, index: number) {
-    const newResolveDate = event.target?.value;
-    this.tourIssues[index].resolveDateTime = newResolveDate;
-  }
+tourIssueCommentForm = new FormGroup({
+  comment: new FormControl('', Validators.required)
+});
 
-  getTourIssues(): void {
-    this.service.getTourIssues().subscribe({
-      next: (result: PagedResult<TourIssue>) => {
-        this.tourIssues = result.results;
-      },
-      error: (err: any) => {
-        console.log(err);
-      }
-    })
-  }
+ngOnInit(): void {
+  this.getTourIssueAgregate();
+}
 
-  calculateDifference(creationDate: Date): number {
-    const today = new Date();
-    const daysDifference = Math.floor((today.getTime() - new Date(creationDate).getTime()) / (1000 * 60 * 60 * 24));
-    console.log(daysDifference);
-    return daysDifference;
-  }
+private getTourIssueAgregate() {
+  this.route.paramMap.subscribe((params: ParamMap) => {
+    this.tourIssueId = Number(params.get('id'));
 
-  setResolveDateTime(tourIssue: TourIssue): void {
-    this.selectedTourIssue = tourIssue;
-    this.selectedTourIssue.resolveDateTime = new Date(tourIssue.resolveDateTime as Date);
-    this.service.setResolveDateTime(tourIssue).subscribe({
-      next: () => {
-        this.ngOnInit();
-      },
-      error: (err: any) => {
-        console.log(err);
-      }
-    });
-  }
-
-  disableTour(tourIssue: TourIssue): void {
-    this.service.getTour(parseInt(tourIssue.tourId)).subscribe({
-      next: (result: Tour) => {
-        result.status = Status.DISABLED;
-        this.service.updateTour(result).subscribe({
-          next: () => {},
-          error: (err: any) => {
-            console.log(err);
+    if (this.tourIssueId !== 0) {
+      this.tourissueservice.getTourIssue(this.tourIssueId).subscribe((res: PagedResult<TourIssue>) => {
+        this.selectedTourIssue = res.results[0];
+        this.tourissueservice.getTour(parseInt(this.selectedTourIssue.tourId)).subscribe(result => { 
+          this.selectedTour = result; 
+          this.profileservice.getProfile(this.selectedTour.userId).subscribe(result => { this.tourAuthor = result; });
+          for(let c of this.selectedTourIssue.comments as TourIssueComment[]){
+            this.profileservice.getProfile(c.userId).subscribe(result => { 
+              c.name = result.name; 
+              c.surname = result.surname;
+            });
           }
+          
         });
-      }
-    })
+        this.profileservice.getProfile(parseInt(this.selectedTourIssue.userId)).subscribe(result => { this.tourIssueAuthor = result; });
+      });
+    }
+  });
+}
+
+addTourIssueComment(): void {
+  const tourIssueComment : TourIssueComment = {
+    tourIssueId: parseInt(this.selectedTourIssue.id as string),
+    userId: -1,
+    comment: this.tourIssueCommentForm.value.comment as string,
+    creationDateTime: new Date().toISOString()
   }
 
-  public resolveButtonDisabled(tourIssue: TourIssue): boolean
-  {
 
-    if(tourIssue.resolveDateTime == undefined || tourIssue.resolveDateTime == null)
-    {
-      return true;
-    }
-    
-    if(new Date(tourIssue.resolveDateTime).getTime() < new Date().getTime())
-    {
-      return false;
-    }
+  this.clearFormFields();
 
-    return true;
+  this.tourissueservice.addTourIssueComment(tourIssueComment).subscribe({
+    next: (_) => {
+      this.getTourIssueAgregate();
+    }
+  });
+}
+
+resolveTourIssue(): void {
+  this.selectedTourIssue.isResolved = true;
+  this.selectedTourIssue.resolveDateTime = new Date();
+  this.tourissueservice.resolveTourIssue(this.selectedTourIssue).subscribe({
+    next: (_) => {
+      this.getTourIssueAgregate();
+    }
+  });
+}
+
+  clearFormFields(): void {
+    this.tourIssueCommentForm.value.comment = "";
   }
 }

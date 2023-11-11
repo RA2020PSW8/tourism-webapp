@@ -7,11 +7,11 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'xp-tour-issue-form',
-  templateUrl: './tour-issue-form.component.html',
-  styleUrls: ['./tour-issue-form.component.css']
+  selector: 'xp-tour-issue-tourist',
+  templateUrl: './tour-issue-tourist.component.html',
+  styleUrls: ['./tour-issue-tourist.component.css']
 })
-export class TourIssueFormComponent implements OnChanges {
+export class TourIssueTouristComponent implements OnChanges {
   tourIssues: TourIssue[] = [];
   selectedTourIssue: TourIssue;
 
