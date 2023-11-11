@@ -33,6 +33,8 @@ import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tour
 import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
 import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
 import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
+import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
+
 
 
 const routes: Routes = [
@@ -62,6 +64,7 @@ const routes: Routes = [
   {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
   {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
   {path: 'comments', component:CommentsDisplayComponent},
+  {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
