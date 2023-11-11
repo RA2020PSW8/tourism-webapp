@@ -47,4 +47,8 @@ export class ProfileService {
   getPreviewChats(): Observable<ChatMessage[]>{
     return this.http.get<ChatMessage[]>(`${environment.apiHost}chat/preview`);
   }
+
+  getMessages(followerId: number): Observable<PagedResults<ChatMessage>>{
+    return this.http.get<PagedResults<ChatMessage>>(`${environment.apiHost}chat/${followerId}`);
+  }
 }

@@ -1,7 +1,15 @@
+h2{
+    margin-bottom: 0.1rem;
+}
+
 .container {
     padding: 0.5rem;
     display: flex;
     border-bottom: 1px solid black;
+}
+
+.container:hover{
+    background-color: lightcoral;
 }
 
 .contentContainer {

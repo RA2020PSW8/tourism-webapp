@@ -12,6 +12,7 @@ import { AppRatingAuthorComponent } from './app-rating-author/app-rating-author.
 import { AppRatingFormTouristComponent } from './app-rating-form-tourist/app-rating-form-tourist.component';
 import { ChatViewComponent } from './chat-view/chat-view.component';
 import { ChatCardComponent } from './chat-card/chat-card.component';
+import { ChatMessagesViewComponent } from './chat-messages-view/chat-messages-view.component';
 
 
 
@@ -27,8 +28,8 @@ import { ChatCardComponent } from './chat-card/chat-card.component';
     AppRatingAuthorComponent,
     AppRatingFormTouristComponent,
     ChatViewComponent,
-    ChatCardComponent
-    
+    ChatCardComponent,
+    ChatMessagesViewComponent    
   ],
   imports: [
     CommonModule,

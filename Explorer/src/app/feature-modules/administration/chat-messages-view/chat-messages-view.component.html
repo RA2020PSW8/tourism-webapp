@@ -1,0 +1,4 @@
+<p *ngFor="let message of messages">
+    <strong>{{message.sender.name}} {{message.sender.surname}}:</strong> {{message.content}}<br>
+    <span class="timestamp">sent at: {{message.creationDateTime | date:'short'}}</span>
+</p>
