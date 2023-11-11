@@ -13,7 +13,7 @@
             <mat-menu #notificationsMenu="matMenu" class="my-menu">  
               <span *ngIf="notifications.length !== 0" class="notification-box">    
                 <div *ngFor="let n of notifications">                 
-                  <div class="cloud-container"> 
+                  <div class="cloud-container" (click)="redirect(n.actionURL)"> 
                     <mat-icon class="icon">notifications</mat-icon>
                     <span  class="content">
                     <p>{{ n.content }}</p>

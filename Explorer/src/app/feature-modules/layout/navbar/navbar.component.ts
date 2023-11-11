@@ -4,6 +4,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { LayoutService } from '../layout.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { NotificationModel } from '../model/notification.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-navbar',
@@ -15,7 +16,7 @@ export class NavbarComponent implements OnInit {
   user: User | undefined;
   notifications: NotificationModel[] = [];
 
-  constructor(private authService: AuthService, private layoutService: LayoutService) {}
+  constructor(private authService: AuthService, private layoutService: LayoutService, private router: Router) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -59,5 +60,11 @@ export class NavbarComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  redirect(actionURL: string): void {
+    if(actionURL){
+      this.router.navigate([actionURL]);
+    }
   }
 }

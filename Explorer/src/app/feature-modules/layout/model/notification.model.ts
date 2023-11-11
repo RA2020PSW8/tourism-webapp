@@ -3,7 +3,7 @@ export interface NotificationModel{
     userId: number;
     type: number;
     content: string;
-    actionURL?: string;
+    actionURL: string;
     creationDateTime: Date;
     isRead: boolean;
 }
