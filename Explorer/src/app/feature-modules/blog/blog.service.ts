@@ -5,9 +5,13 @@ import { PagedResult } from './shared/model/paged-result.model';
 import { Blog } from './model/blog.model';
 import { environment } from 'src/env/environment';
 <<<<<<< HEAD
+<<<<<<< HEAD
 import { Rating } from './model/rating.model';
 =======
 >>>>>>> 0b2a354 (fix: removed redundant BlogString class)
+=======
+import { BlogStatus } from './model/blogstatus-model';
+>>>>>>> 991b061 (feat: implemented filtering by status)
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +26,19 @@ export class BlogService {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 >>>>>>> 91fa042 (feat: added single blog display)
+=======
+  getBlogsWithStatus(): Observable<PagedResult<Blog>> {
+    return this.http.get<PagedResult<Blog>>(`${environment.apiHost}blog/status`);
+}
+
+  getBlogStatuses(): Observable<PagedResult<BlogStatus>> {
+      return this.http.get<PagedResult<BlogStatus>>(`${environment.apiHost}blog/blogStatus`);
+  }
+
+>>>>>>> 991b061 (feat: implemented filtering by status)
   getBlog(id: Number): Observable<Blog> {
     return this.http.get<Blog>(`${environment.apiHost}blog/${id}`);
 }

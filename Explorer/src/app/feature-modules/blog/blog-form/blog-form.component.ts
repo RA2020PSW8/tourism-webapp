@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
-import { Blog, BlogStatus } from '../model/blog.model';
+import { Blog, BlogSystemStatus } from '../model/blog.model';
 import { toArray } from 'rxjs';
 
 @Component({
@@ -42,7 +42,7 @@ export class BlogFormComponent implements OnChanges {
       description: this.blogForm.value.description || "",
       creationDate: new Date().toISOString().split('T')[0] as string,
       imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
-      systemStatus: this.blogForm.value.status as BlogStatus || ""
+      systemStatus: this.blogForm.value.status as BlogSystemStatus || ""
     }
 
     this.prepareBlogForSending(blog);
@@ -61,7 +61,7 @@ export class BlogFormComponent implements OnChanges {
       description: this.blogForm.value.description || "",
       creationDate: this.selectedBlog.creationDate as string,
       imageLinks: this.selectedBlog.imageLinks,
-      systemStatus: this.blogForm.value.status as BlogStatus
+      systemStatus: this.blogForm.value.status as BlogSystemStatus
     }
     if(this.blogForm.value.imageLinks?.length != 1)
     {

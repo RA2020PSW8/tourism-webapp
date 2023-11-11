@@ -1,9 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+<<<<<<< HEAD
 import { Blog } from '../model/blog.model';
 import { Rating } from '../model/rating.model';
 import { Observable } from 'rxjs';
+=======
+import { Blog, BlogSystemStatus } from '../model/blog.model';
+import { BlogStatus } from '../model/blogstatus-model';
+>>>>>>> 991b061 (feat: implemented filtering by status)
 
 @Component({
   selector: 'xp-single-blog-display',
@@ -14,6 +19,7 @@ export class SingleBlogDisplayComponent implements OnInit{
   public selectedBlog : Blog
   public blogId : number
 <<<<<<< HEAD
+<<<<<<< HEAD
   public rating : Rating = {
     blogId:-1,
     userId:-1,
@@ -23,9 +29,13 @@ export class SingleBlogDisplayComponent implements OnInit{
   }
 =======
 >>>>>>> b7c22ca (feat: loading comments for a specific blog)
+=======
+
+>>>>>>> 991b061 (feat: implemented filtering by status)
   constructor(private service: BlogService, private router: Router, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
+
   this.route.paramMap.subscribe((params: ParamMap) => {
     this.blogId = Number(params.get('id'));
 
@@ -36,6 +46,7 @@ ngOnInit(): void {
     }
   });
 }
+<<<<<<< HEAD
 
 rate(x:number): void{
   this.rating.blogId = this.blogId;
@@ -59,4 +70,6 @@ rate(x:number): void{
   });
 }
 
+=======
+>>>>>>> 991b061 (feat: implemented filtering by status)
 }
