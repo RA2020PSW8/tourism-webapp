@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Profile } from './model/profile.model';
 import { ActivatedRoute } from '@angular/router';
 import { environment } from 'src/env/environment';
+import { ChatMessage } from './model/chat-preview.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,36 +17,34 @@ export class ProfileService {
   }
 
   getProfile(userId: number): Observable<Profile> {
-
     return this.http.get<Profile>(`${environment.apiHost}profile/${userId}`);
-
   }
+
   getFollowers(): Observable<PagedResults<Profile>> {
-
     return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/followers`);
-
   }
+
   getFollowing(): Observable<PagedResults<Profile>> {
-
     return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/following`);
-
   }
-  unfollow(followingId: number): Observable<PagedResults<Profile>> {
 
+  unfollow(followingId: number): Observable<PagedResults<Profile>> {
     return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/unfollow`, followingId);
   }
 
   follow(followingId: number): Observable<PagedResults<Profile>> {
-
     return this.http.put<PagedResults<Profile>>(`${environment.apiHost}profile/follow`, followingId);
   }
 
   updateProfile(userId: number, updatedProfile: Profile): Observable<Profile> {
-
     return this.http.put<Profile>(`${environment.apiHost}profile/${userId}`, updatedProfile);
   }
-  getProfiles(): Observable<PagedResults<Profile>> {
 
+  getProfiles(): Observable<PagedResults<Profile>> {
     return this.http.get<PagedResults<Profile>>(environment.apiHost + `profile/not-followed`);
+  }
+
+  getPreviewChats(): Observable<ChatMessage[]>{
+    return this.http.get<ChatMessage[]>(`${environment.apiHost}chat/preview`);
   }
 }

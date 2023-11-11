@@ -1,0 +1,11 @@
+.container {
+    padding: 0.5rem;
+    display: flex;
+    border-bottom: 1px solid black;
+}
+
+.contentContainer {
+    padding: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
