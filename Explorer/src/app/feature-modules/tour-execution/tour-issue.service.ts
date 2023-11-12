@@ -4,8 +4,8 @@ import { Observable } from 'rxjs';
 import { PagedResult } from './shared/model/paged-result.model';
 import { TourIssue } from './model/tour-issue.model';
 import { environment } from 'src/env/environment';
-import { TourIssueComment } from './model/tour-issue-comment.model';
 import { Tour } from '../tour-authoring/model/tour.model';
+import { TourIssueComment } from './model/tour-issue-comment.model';
 
 @Injectable({
   providedIn: 'root'

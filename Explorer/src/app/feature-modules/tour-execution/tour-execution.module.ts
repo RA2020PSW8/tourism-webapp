@@ -9,6 +9,8 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourIssueAdminComponent } from './tour-issue-admin/tour-issue-admin.component';
 import { TourIssueTouristComponent } from './tour-issue-tourist/tour-issue-tourist.component';
 import { TourIssueComponent } from './tour-issue/tour-issue.component';
+import { ActiveTourComponent } from './active-tour/active-tour.component';
+import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 
 @NgModule({
   declarations: [
@@ -18,12 +20,14 @@ import { TourIssueComponent } from './tour-issue/tour-issue.component';
     TourIssueAdminComponent,
     TourIssueTouristComponent,
     TourIssueComponent,
+    ActiveTourComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    MapComponent
+    MapComponent,
+    TimePipe
   ],
   exports: [
     TourReviewComponent

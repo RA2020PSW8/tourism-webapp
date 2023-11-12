@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Object } from '../model/object.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { PublicEntityRequest } from '../model/public-entity-request.model';
 
 @Component({
   selector: 'xp-object',
@@ -14,8 +15,10 @@ export class ObjectComponent implements OnInit{
     selectedObject: Object;
     mode : string = 'add';
     renderObject: boolean = false;
+    publicEntityRequest: PublicEntityRequest;
+    newPublicEntityRequest: PublicEntityRequest;
 
-    constructor(private tourAuthoringService: TourAuthoringService){}
+    constructor(private tourAuthoringService: TourAuthoringService){ }
 
     ngOnInit(): void{
       this.getObjects();
@@ -58,5 +61,39 @@ export class ObjectComponent implements OnInit{
       });
     }
     
-
+    onSendRequestClicked(id: number): void {
+      this.tourAuthoringService.getPublicEntityRequestByEntityId(id, 1).subscribe({
+        next: (result: PublicEntityRequest) => {
+          this.publicEntityRequest = result;
+          this.publicEntityRequest.id = result.id;
+          this.publicEntityRequest.entityId = result.entityId;
+          this.publicEntityRequest.entityType = result.entityType;
+          this.publicEntityRequest.status = result.status;
+          this.publicEntityRequest.comment = result.comment;
+        },
+        complete: () => {
+          if (
+            this.publicEntityRequest &&
+            this.publicEntityRequest.entityId == id &&
+            this.publicEntityRequest.entityType == 1
+            ) {
+            window.alert('Request for this object already exists!');
+          } else if (this.publicEntityRequest == null ) {
+            if (window.confirm('Are you sure that you want this object to be public?')) {
+              this.newPublicEntityRequest = {
+                entityId: id,
+                entityType: 1,
+                status: 0,
+                comment: '',
+              };
+              this.tourAuthoringService.addPublicEntityRequestObject(this.newPublicEntityRequest).subscribe({
+                next: () => {
+                  window.alert('You have successfully sent a request for making this object public');
+                },
+              });
+            }
+          }
+        },
+      });
+    }
 }

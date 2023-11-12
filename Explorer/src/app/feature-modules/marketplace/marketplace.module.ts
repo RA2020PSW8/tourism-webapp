@@ -7,21 +7,27 @@ import { MatRadioModule } from '@angular/material/radio';
 import { TourPreferenceFormComponent } from './tour-preference-form/tour-preference-form.component';
 import { ToursOverviewComponent } from './tours-overview/tours-overview.component';
 import { TourCardComponent } from './tour-card/tour-card.component';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { ShoppingCartOverviewComponent } from './shopping-cart-overview/shopping-cart-overview.component';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @NgModule({
   declarations: [
     TourPreferenceComponent,
     TourPreferenceFormComponent,
     ToursOverviewComponent,
-    TourCardComponent
+    TourCardComponent,
+    ShoppingCartComponent,
+    ShoppingCartOverviewComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
     MatRadioModule,
-    TimePipe
+    TimePipe, 
+    MapComponent
   ]
 })
 export class MarketplaceModule { }

@@ -32,6 +32,9 @@ import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tour
 import { TourIssueAdminComponent } from 'src/app/feature-modules/tour-execution/tour-issue-admin/tour-issue-admin.component';
 import { TourIssueTouristComponent } from 'src/app/feature-modules/tour-execution/tour-issue-tourist/tour-issue-tourist.component';
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
+import { PublicEntityRequestsComponent } from 'src/app/feature-modules/administration/public-entity-requests/public-entity-requests.component';
+import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
+import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 
 const routes: Routes = [
   
@@ -59,12 +62,15 @@ const routes: Routes = [
   {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},
   {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
   {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
+  {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
+  {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard]},
   {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
+  {path: 'publicEntityRequests', component: PublicEntityRequestsComponent, canActivate: [AuthGuard]},
   
   // Author
   //{path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]},
