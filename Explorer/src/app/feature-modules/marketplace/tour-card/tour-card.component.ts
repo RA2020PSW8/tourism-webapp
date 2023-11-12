@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { OrderItem } from '../model/order-item.model';
 import { TourExecutionService } from '../../tour-execution/tour-execution.service';
 import { TourProgress } from '../../tour-execution/model/tour-progress.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CartSuccessComponent } from '../dialogs/cart-success/cart-success.component';
+import { CartWarningComponent } from '../dialogs/cart-warning/cart-warning.component';
 
 @Component({
   selector: 'xp-tour-card',
@@ -19,7 +22,7 @@ export class TourCardComponent implements OnInit, OnChanges {
   public firstKp: Keypoint;
   private lastOrderId: number;
 
-  constructor(private marketplaceService: MarketplaceService, private tourExecutionService: TourExecutionService, private authService: AuthService) {
+  constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, private tourExecutionService: TourExecutionService, private authService: AuthService) {
     this.lastOrderId = 0; 
   }
 
@@ -36,7 +39,7 @@ export class TourCardComponent implements OnInit, OnChanges {
   }
 
   addToCart(): void {
-   
+    this.lastOrderId = Date.now();
     this.marketplaceService.getAllOrders().subscribe((orders) => {
       if (orders.results && orders.results.length > 0) {
         const lastOrder = orders.results[orders.results.length - 1];
@@ -59,12 +62,12 @@ export class TourCardComponent implements OnInit, OnChanges {
       
       this.marketplaceService.addOrderItem(orderItem).subscribe({
         next: (_) => {
-          window.alert('Tour added to cart successfully!');
+          this.dialog.open(CartSuccessComponent, {panelClass: 'success-dialog-container'});
           this.orderUpdated.emit();
         },
         error:(error)=>{
           if(error.status===409){
-            window.alert('Tour is already added to the cart.');
+            this.dialog.open(CartWarningComponent, {panelClass: 'warning-dialog-container'});
           }
         }
       });

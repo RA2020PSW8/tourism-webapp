@@ -1,5 +1,4 @@
-#mainContainer
-{
+#mainContainer {
     height: 100%;
     width: 100%;
     background-color: white;
@@ -10,12 +9,13 @@
     justify-content: space-between;
     align-items: center;
     background: #F5EEC8;
-    color: #192655; 
+    color: #192655;
     padding: 10px 20px;
 }
 
 .navbar-modules {
     display: flex;
+    align-items: center;
     font-family: 'Raleway', sans-serif;
 }
 
@@ -26,82 +26,11 @@
 }
 
 .app-name {
-    font-size: 24px; 
+    font-size: 24px;
     font-weight: bold;
 }
 
-.navbar-actions a {
-    text-decoration: none;
-    color: #192655;
-    margin-right: 20px;
-}
-
-header {
-    background: #F5EEC8;
-    padding: 10px;
-}
-nav ul {
-    list-style: none;
-    padding: 0;
-    text-align: center;
-    display: inline;
-}
-nav ul li {
-    margin-right: 20px;
-}
-nav a {
-    text-decoration: none;
-    color: white;
-    font-size: 20px;
-}
-
-#toursContainer
-{
-    height: 450px;
-    width: 90%;
-    margin-top: 3%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.categoryName
-{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 30px;
-}
-
-.p-card-label
-{
-    width: 55%;
-    height: 35px;
-    font-size: 20px;
-    font-weight: bold;
-    padding: 1% 5% 1% 5% ;
-    border-radius: 25px;
-}
-
-.p-card-description
-{
-    font-size: 15px;
-    padding: 1% 5% 1% 5% ;
-}
-
-.p-header
-{
-    font-size: 25px;
-    font-weight: 400;
-}
-
-.p-regular
-{
-    font-size: 17px;
-    font-weight: 350;
-}
-
-#cardsContainer 
-{
+#cardsContainer {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -111,41 +40,37 @@ nav a {
 }
 
 .card {
-    flex-basis: 23%; 
+    flex-basis: 23%;
     max-width: 23%;
     height: 40%;
     border-radius: 7px;
     background-color: #EBF3E8;
 }
 
-.cardText
-{
+.cardText {
     width: 99%;
     height: 40%;
     border-radius: 7px;
 }
 
-.cardImg
-{
+.cardImg {
     width: 99%;
     height: 60%;
     object-fit: cover;
     border-radius: 7px;
 }
 
-#otherContainer
-{
+#otherContainer {
     display: flex;
     flex-direction: column;
     height: 400px;
     width: 90%;
-    margin-top: 35%;
+    margin-top: 3%;
     margin-left: auto;
     margin-right: auto;
 }
 
-.panel
-{
+.panel {
     height: 45%;
     width: 102%;
     margin-top: 15px;
@@ -158,55 +83,52 @@ nav a {
 }
 
 footer {
-    background: #F5EEC8; 
+    background: #F5EEC8;
     color: white;
     text-align: center;
     padding: 10px;
 }
 
 .fancyButton {
-    background: #186F65; 
+    background: #186F65;
     color: white;
     padding: 10px 20px;
     text-decoration: none;
     display: inline-block;
     font-weight: bold;
     border-radius: 5px;
-    margin: 10px; 
+    margin: 10px;
 }
 
-.fancyButton:hover
-{
+.fancyButton:hover {
     color: black;
 }
 
-.linkList
-{
+.linkList {
     list-style: none;
     padding: 0;
     text-align: left;
-    display: inline; 
+    display: inline;
 }
 
-.footerLink
-{
+.footerLink {
     color: black;
     text-decoration: none;
 }
 
-a:hover
-{
+a:hover {
     color: #4942E4;
 }
 
 .center-container {
-    margin: 0 auto; /* Center horizontally */
-    text-align: center; /* Center the content within the container */
+    margin: 0 auto;
+    /* Center horizontally */
+    text-align: center;
+    /* Center the content within the container */
     max-width: 70%;
 }
 
-#bottomContainer
-{
+#bottomContainer {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: row;
@@ -217,8 +139,7 @@ a:hover
     border-radius: 15px;
 }
 
-.bottom-panel
-{
+.bottom-panel {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -230,7 +151,66 @@ a:hover
     height: 100%;
 }
 
-.p-footer
-{
+.p-footer {
     font-family: 'Montserrat', sans-serif;
+}
+
+.scam-button {
+    position: relative;
+    background-color: #FF0000;
+    border: none;
+    color: green;
+    font-size: 28px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}
+
+.scam-button:hover {
+    animation: flash 0.1s infinite;
+}
+
+@keyframes flash {
+    0% {
+        background-color: #FF0000;
+    }
+
+    50% {
+        background-color: #FFFF00;
+    }
+
+    100% {
+        background-color: #FF0000;
+    }
+}
+
+.popup {
+    visibility: hidden;
+    position: absolute;
+    background-color: #ffffff;
+    font-size: medium;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 8px 0;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.popup::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
 }
