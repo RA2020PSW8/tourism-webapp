@@ -3,8 +3,8 @@
   <div *ngIf="tourReviews && tourReviews.length > 0; else noReviews">
     <div *ngFor="let review of tourReviews">
       <p><strong>Rating:</strong>
-        <mat-icon *ngFor="let i of [].constructor(review.rating)">star</mat-icon>
-        <mat-icon *ngFor="let i of [].constructor(5 - review.rating)">star_border</mat-icon>
+        <mat-icon *ngFor="let i of [].constructor(parseToInt(review.rating))">star</mat-icon>
+        <mat-icon *ngFor="let i of [].constructor(5 - parseToInt(review.rating))">star_border</mat-icon>
       </p>
       <p><strong>Comment:</strong> {{review.comment}}</p>
       <p><strong>Date:</strong> {{review.ratingDate | date:'dd.MM.yyyy'}}</p>

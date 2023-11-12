@@ -30,4 +30,9 @@ export class ReviewsComponent implements OnInit {
       this.tourReviews = reviews.results;
     });
   }
+
+  parseToInt(str: string): number {
+    return parseInt(str);
+  }
+
 }
