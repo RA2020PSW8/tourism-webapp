@@ -7,25 +7,29 @@ import { RouterModule } from '@angular/router';
 import { ProfileComponent } from '../administration/profile/profile.component';
 import { AdministrationModule } from '../administration/administration.module';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { FooterComponent } from './footer/footer.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
-    
+    FooterComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
     RouterModule,
     AdministrationModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSidenavModule
   ],
   exports: [
     NavbarComponent,
     HomeComponent, 
     AdministrationModule,
-    MatGridListModule
+    MatGridListModule,
+    FooterComponent
   ]
 })
 export class LayoutModule { }

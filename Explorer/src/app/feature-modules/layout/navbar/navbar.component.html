@@ -1,6 +1,7 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="old-toolbar" [class]="showOldToolbar ? '' : 'hidden'">
     <div>
         <p>Explorer</p>
+        <button class="button button-primary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
         <div id="buttons">
             
             <!-- All -->
@@ -38,3 +39,80 @@
         </div>
     </div>
 </mat-toolbar>
+
+
+<mat-toolbar class='heading new-toolbar' role="heading" [class]="showOldToolbar ? 'hidden' : ''">
+    <div class="left-menu">
+        <span class="icon" (click)="leftDrawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </span>
+        <a class="link-underline" [routerLink]="['toursMarketplace']">Tours</a>
+        <button class="button button-primary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
+    </div>
+    <div class="logo" [routerLink]="['home']">
+        <p>Tutours</p>
+    </div>
+    <div class="right-menu">
+        <span class="icon" [routerLink]="user ? ['profile'] : ['login']">
+            <mat-icon>account_circle</mat-icon>
+        </span>
+        <span class="icon" [routerLink]="user ? ['shopping-cart-overview'] : ['login']">
+            <mat-icon>shopping_cart</mat-icon>
+        </span>
+    </div>
+</mat-toolbar>
+
+<mat-drawer-container hasBackdrop="true" class="left-drawer-container" [class]="leftDrawer.opened ? '' : 'hidden'">
+    <mat-drawer class="left-drawer" #leftDrawer mode="over">
+        <div class="left-drawer__main-content" *ngIf="user && user.role === 'tourist'">
+            <div>
+                <h4>Travel</h4>
+                <p [routerLink]="['touristSelectingEquipment']"><span class="link-underline">Manage my equipment</span></p>
+                <p [routerLink]="['tourPreference']"><span class="link-underline">My preferences</span></p>
+                <p [routerLink]="['my-position']"><span class="link-underline">My position</span></p>
+                <p [routerLink]="['active-tour']"><span class="link-underline">Active tour</span></p>
+            </div>
+            <div>
+                <h4>Socilize</h4>
+                <p [routerLink] = "['clubs']"><span class="link-underline">See clubs</span></p>
+                <p [routerLink]="['clubJoinRequests']"><span class="link-underline">My join requests</span></p>
+                <p [routerLink]="['clubInvitations']"><span class="link-underline">Manage club memberships</span></p>
+                <p [routerLink]="['clubInvitations']"><span class="link-underline">Manage club invitations</span></p>
+            </div>
+            <div>
+                <h4>Create</h4>
+                <p [routerLink]="['blog']"><span class="link-underline">Write blog</span></p>
+                <p [routerLink]="['tour-review']"><span class="link-underline">Write tour review</span></p>
+                <p [routerLink]="['tourissue']"><span class="link-underline">Report tour issues</span></p>
+            </div>
+        </div>
+        <div class="left-drawer__main-content" *ngIf="user && user.role === 'administrator'">
+            <div>
+                <h4>Admin Panel</h4>
+                <p [routerLink]="['equipment']"><span class="link-underline">Manage equipment</span></p>
+                <p [routerLink]="['users']"><span class="link-underline">See all users</span></p>
+                <p [routerLink]="['appRatingList']"><span class="link-underline">See all app ratings</span></p>
+            </div>
+        </div>
+        <div class="left-drawer__main-content" *ngIf="user && user.role === 'author'">
+            <div>
+                <h4>Manage Tours</h4>
+                <p [routerLink]="['tours-equipment']"><span class="link-underline">Manage tour equipment</span></p>
+                <p [routerLink]="['tours']"><span class="link-underline">Tours</span></p>
+                <p [routerLink]="['objects']"><span class="link-underline">Tour Objects</span></p>
+            </div>
+        </div>
+        <div class="left-drawer__footer">
+            <p *ngIf="user && user.username === ''" [routerLink]="['login']"><span class="link-underline">Login</span></p>
+            <p *ngIf="user && user.username !== ''" [routerLink]="['profile']"><span class="link-underline">My Account</span></p>
+            <p *ngIf="user && user.username !== ''" (click)="onLogout()"><span class="link-underline">Logout</span></p>
+        </div>
+    </mat-drawer>
+</mat-drawer-container>
+
+<div class="sticky-footer" *ngIf="user && user.role === 'tourist'" [routerLink]="['appRatingTourist']">
+    <span class="icon">
+        <mat-icon>stars</mat-icon>
+    </span>
+    Rate App
+</div>
