@@ -1,6 +1,5 @@
 <div id="blog">
     <div id="all-blogs">
-
         <h2>All tags:</h2>
         <div id="status-containers">
             <div *ngFor="let status of allBlogStatus" >
@@ -47,7 +46,6 @@
                 </td>
             </tr>
         </table>
-</div>
-<xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
-
+    </div>
+    <xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
 </div>
