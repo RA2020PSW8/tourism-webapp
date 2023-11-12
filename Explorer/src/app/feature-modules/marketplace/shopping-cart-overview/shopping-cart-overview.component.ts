@@ -24,7 +24,6 @@ export class ShoppingCartOverviewComponent implements OnInit {
     this.loggedId = this.authService.user$.value.id; 
   }
   getOrders(): void{
-
     this.marketplaceService.getOrdersForUser().subscribe({
       next: (result:PagedResults<OrderItem>) => {
         this.orders = result.results;
@@ -34,8 +33,29 @@ export class ShoppingCartOverviewComponent implements OnInit {
         console.log(err); 
       }
     })
+    this.marketplaceService.getShoppingCartForUser().subscribe({
+      next: (result:ShoppingCart) => {
+        this.shoppingCart = result;
+         
+      },
+      error:(err: any) => {
+        console.log(err); 
+      }
+    })
   }
   calculateTotalPrice(): number {
     return this.orders.reduce((total, order) => total + order.tourPrice, 0);
+  }
+  checkout() : void{
+    this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).subscribe({
+      next: (_) => {
+        window.alert('Successfully purchased');
+        this.getOrders(); 
+      },
+      error: (err: any) => {
+        console.log(err);
+        alert('Error. Some tours were already purchased.');
+      }
+    })
   }
 }

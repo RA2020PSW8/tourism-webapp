@@ -8,3 +8,40 @@ div {
     width: auto;
     margin-left: auto;
 }
+
+::ng-deep .cdk-overlay-pane .my-menu {
+    min-width: 550px;
+    max-height: 80vh;
+}
+
+.content {
+    width: 350px;
+}
+
+.icon{
+    padding: 5px;
+    margin: 5px;
+}
+
+.cloud-container {
+    background-color: #f0f0f0; 
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.notification-button {
+    padding-top: 10px;
+    padding-right: 5px;
+    width: 120px;
+}
+
+.no-notifications {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    justify-content: center;
+  }
+
+.notification-box {
+    padding-bottom: 5px;
+}
