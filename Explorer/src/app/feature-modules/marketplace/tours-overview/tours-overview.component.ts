@@ -13,7 +13,7 @@ export class ToursOverviewComponent implements OnInit {
 
   public tours: Tour[];
   public tourFilterForm: FormGroup;
-  showForm: boolean = true; // Initially show the form
+  showForm: boolean = false;
 
   
   constructor(
