@@ -1,5 +1,6 @@
 <div class="container">
     <div id="messages">
+        <h2 *ngIf="messages.length === 0" style="text-align: center;">Wow, this chat is empty like your soul</h2>
         <p *ngFor="let message of messages">
             <strong>{{message.sender.name}} {{message.sender.surname}}:</strong> {{message.content}}<br>
             <span class="timestamp">sent at: {{message.creationDateTime | date:'short'}}</span>

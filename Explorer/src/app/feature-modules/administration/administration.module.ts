@@ -13,7 +13,8 @@ import { AppRatingFormTouristComponent } from './app-rating-form-tourist/app-rat
 import { ChatViewComponent } from './chat-view/chat-view.component';
 import { ChatCardComponent } from './chat-card/chat-card.component';
 import { ChatMessagesViewComponent } from './chat-messages-view/chat-messages-view.component';
-
+import { MatSelectModule } from '@angular/material/select';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 
 
@@ -35,7 +36,9 @@ import { ChatMessagesViewComponent } from './chat-messages-view/chat-messages-vi
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
     EquipmentComponent,

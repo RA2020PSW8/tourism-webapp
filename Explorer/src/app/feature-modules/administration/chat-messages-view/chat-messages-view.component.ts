@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { ProfileService } from '../profile.service';
 import { ChatMessage } from '../model/chat-preview.model';
 import { MessageInput } from '../model/message-input.model';
@@ -11,8 +11,9 @@ import { MessageInput } from '../model/message-input.model';
 export class ChatMessagesViewComponent implements OnChanges {
 
   @Input() followerId: number;
+  @Output() messageSent = new EventEmitter<void>();
 
-  public messages: ChatMessage[];
+  public messages: ChatMessage[] = [];
   public messageContent: string;
 
   constructor(private profileService: ProfileService){}
@@ -26,15 +27,7 @@ export class ChatMessagesViewComponent implements OnChanges {
   getMessages(): void{
     this.profileService.getMessages(this.followerId).subscribe(res => {
       this.messages = res.results;
-      this.scrollDownChat();
     });    
-  }
-
-  private scrollDownChat(){
-    var objDiv = document.getElementById("messages");
-    if(objDiv){
-      objDiv.scrollTop = objDiv.scrollHeight; //doesn't work rip
-    }
   }
 
   sendMessage(){
@@ -46,6 +39,7 @@ export class ChatMessagesViewComponent implements OnChanges {
       this.profileService.sendMessage(message).subscribe(res => {
         this.messageContent = '';
         this.getMessages();
+        this.messageSent.emit();
       });
     }
   }
