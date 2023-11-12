@@ -26,3 +26,11 @@ p {
     display: flex;
     flex-direction: column;
 }
+.read-indicator {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: red;
+    border-radius: 50%;
+    margin-left: 5px; /* Adjust this value to control the spacing between the name and the indicator. */
+}

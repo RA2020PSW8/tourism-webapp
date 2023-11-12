@@ -27,6 +27,7 @@ export class ChatMessagesViewComponent implements OnChanges {
   getMessages(): void{
     this.profileService.getMessages(this.followerId).subscribe(res => {
       this.messages = res.results;
+      this.messageSent.emit();
     });    
   }
 
@@ -39,7 +40,6 @@ export class ChatMessagesViewComponent implements OnChanges {
       this.profileService.sendMessage(message).subscribe(res => {
         this.messageContent = '';
         this.getMessages();
-        this.messageSent.emit();
       });
     }
   }
