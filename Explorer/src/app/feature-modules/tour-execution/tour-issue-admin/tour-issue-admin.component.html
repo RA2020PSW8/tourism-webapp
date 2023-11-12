@@ -28,8 +28,8 @@
                         <td>{{ti.resolveDateTime | date:'MM/dd/yy'}}</td>
                         <td>
                             <form>
-                                <input matInput type="date"  (change)="onChange($event, i)" />
-                                <button class="buttonnewdate" color="primary" mat-raised-button (click)="setResolveDateTime(ti)">Set new date</button>
+                                <input matInput type="date" style="font-size: 16px;" (change)="onChange($event, i)" />
+                                <button class="buttonnewdate" mat-raised-button (click)="setResolveDateTime(ti)">Set new date</button>
                             </form>
                         </td>
                         <td><button class="buttondisable" color="primary" mat-raised-button color="accent" (click)="disableTour(ti)" [disabled]="resolveButtonDisabled(ti)">Disable</button></td>

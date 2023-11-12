@@ -24,7 +24,7 @@
 
 #tour-issue
 {
-    background-color: lightblue; 
+    background-color: #fff0e9; 
     width: 50%; 
     margin-top: 10px;
     border-radius: 5px;
@@ -45,7 +45,7 @@
 .comment-details {
     margin-left: 10px;
     width: 75%; 
-    background-color:lightgrey; 
+    background-color:#efe5dc; 
     color: #666;
     display: flex;
     flex-direction: row;
@@ -99,10 +99,19 @@ button {
     font-size: 20px;
     font-weight: bold;
     border-radius: 5px;
-    width: 100px;
+    width: 110px;
     height: 35px;
     margin-right: -3px;
     justify-self: flex-end;
     align-self:flex-end;
     cursor: pointer;
+}
+
+.addCommentButton {
+    background-color: #d0b8ac;
+}
+
+.resolveButton {
+    background-color: #d0b8ac;
+    float: right;
 }

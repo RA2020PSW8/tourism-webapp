@@ -5,7 +5,6 @@
 
 #tourissue-details {
     display: flex;
-    
 }
 
 hr {
@@ -17,7 +16,7 @@ p {
     font-size: 25px;
     font-family: sans-serif;
     font-style: oblique;
-    color: #3f51b5;
+    color: #ce796b;
     font-weight: bolder;
 }
 
@@ -32,8 +31,8 @@ table {
 }
 
 thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
+    background-color: #ce796b;
+    color: white;
     text-align: center;
 }
 
@@ -51,7 +50,7 @@ tbody tr:nth-of-type(even) {
 }
 
 tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
+    border-bottom: 2px solid #e3d5ca;
 }
 
 tbody tr.active-row {
@@ -68,13 +67,15 @@ button {
 }
 
 .past-5-days {
-    background-color: red !important; 
-    color: white !important; 
+    background-color: #e3d5ca !important; 
+    color: black !important; 
 }
 
 .buttonnewdate {
     width: 145px;
     margin-left: 15px;
+    background-color: #ce796b;
+    color: white;
 }
 
 .buttondisable {
