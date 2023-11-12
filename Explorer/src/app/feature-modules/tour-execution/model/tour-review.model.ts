@@ -1,10 +1,10 @@
 export interface TourReview {
-    id?: number,
-    rating: number,
+    id? : number,
+    rating: string,
     comment: string,
-    visitDate: Date,
-    ratingDate: Date,
-    imageLinks: string[],
+    visitDate: string,
+    ratingDate: string,
+    imageLinks: string,
     tourId: number,
     userId: number
 }
