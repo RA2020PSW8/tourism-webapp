@@ -7,25 +7,26 @@ import { RouterModule } from '@angular/router';
 import { ProfileComponent } from '../administration/profile/profile.component';
 import { AdministrationModule } from '../administration/administration.module';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MarketplaceModule } from "../marketplace/marketplace.module";
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    NavbarComponent,
-    
-  ],
-  imports: [
-    CommonModule,
-    MaterialModule,
-    RouterModule,
-    AdministrationModule,
-    MatGridListModule
-  ],
-  exports: [
-    NavbarComponent,
-    HomeComponent, 
-    AdministrationModule,
-    MatGridListModule
-  ]
+    declarations: [
+        HomeComponent,
+        NavbarComponent,
+    ],
+    exports: [
+        NavbarComponent,
+        HomeComponent,
+        AdministrationModule,
+        MatGridListModule
+    ],
+    imports: [
+        CommonModule,
+        MaterialModule,
+        RouterModule,
+        AdministrationModule,
+        MatGridListModule,
+        MarketplaceModule
+    ]
 })
 export class LayoutModule { }
