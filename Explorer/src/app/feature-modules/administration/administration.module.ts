@@ -15,6 +15,8 @@ import { ChatCardComponent } from './chat-card/chat-card.component';
 import { ChatMessagesViewComponent } from './chat-messages-view/chat-messages-view.component';
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { PublicEntityRequestsComponent } from './public-entity-requests/public-entity-requests.component';
+
 
 
 
@@ -30,7 +32,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     AppRatingFormTouristComponent,
     ChatViewComponent,
     ChatCardComponent,
-    ChatMessagesViewComponent    
+    ChatMessagesViewComponent,
+    PublicEntityRequestsComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +51,8 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
     AppRatingFormAuthorComponent,
     AppRatingTouristComponent,
     AppRatingAuthorComponent,
-    AppRatingFormTouristComponent
+    AppRatingFormTouristComponent,
+    PublicEntityRequestsComponent
   ]
 })
 export class AdministrationModule { }

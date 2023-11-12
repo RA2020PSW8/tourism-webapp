@@ -35,7 +35,6 @@ export class TourReviewComponent implements OnInit {
   onEditClicked(tourReview: TourReview): void {
     this.shouldEdit = true;
     this.selectedTourReview = tourReview;
-    console.log(tourReview);
   }
 
   onAddClicked(): void {

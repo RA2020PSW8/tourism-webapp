@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -8,6 +8,7 @@ import { Object } from './model/object.model';
 import { Equipment } from '../administration/model/equipment.model';
 import { TourEquipment } from './model/tour_equipment';
 import { Tour } from './model/tour.model';
+import { PublicEntityRequest } from './model/public-entity-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -88,5 +89,17 @@ export class TourAuthoringService {
 
   updateTour(updatedTour: Tour): Observable<Tour>{
     return this.http.put<Tour>(`${this.apiUrl}/tours/${updatedTour.id}`, updatedTour);
+  }
+
+  addPublicEntityRequestObject(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
+    return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/createObjectRequest`, newRequest);
+  }
+
+  addPublicEntityRequestKeypoint(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
+    return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/createKeypointRequest`, newRequest);
+  }
+  
+  getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
+    return this.http.get<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/entity/${entityId}/${entityType}`);
   }
 }
