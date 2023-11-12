@@ -30,6 +30,7 @@ import { AppRatingFormTouristComponent } from 'src/app/feature-modules/administr
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tours-overview/tours-overview.component';
+import { PublicEntityRequestsComponent } from 'src/app/feature-modules/administration/public-entity-requests/public-entity-requests.component';
 import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 
@@ -66,6 +67,7 @@ const routes: Routes = [
   {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
   {path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard]},
   {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
+  {path: 'publicEntityRequests', component: PublicEntityRequestsComponent, canActivate: [AuthGuard]},
   
   // Author
   //{path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]},

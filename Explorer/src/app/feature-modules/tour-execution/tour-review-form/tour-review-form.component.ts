@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourExecutionService } from '../tour-execution.service';
 import { TourReview } from '../model/tour-review.model';
 import { TourReviewString } from '../model/tour-review-string.model';
+import { Tour } from '../../tour-authoring/model/tour.model';
 
 @Component({
   selector: 'xp-tour-review-form',
@@ -38,7 +39,9 @@ export class TourReviewFormComponent implements OnChanges {
       comment: this.tourReviewForm.value.comment || "",
       visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
       ratingDate: new Date().toISOString(),
-      imageLinks: this.tourReviewForm.value.imageLinks?.split('\n') as string[]
+      imageLinks: this.tourReviewForm.value.imageLinks?.split('\n') as string[],
+      tourId: "1",
+      userId: localStorage.getItem('loggedId')??'1'
     }
     
     this.clearFormFields();
@@ -57,7 +60,9 @@ export class TourReviewFormComponent implements OnChanges {
       comment: this.tourReviewForm.value.comment || "",
       visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
       ratingDate: new Date().toISOString(),
-      imageLinks: this.tourReviewForm.value.imageLinks as unknown as string[]
+      imageLinks: this.tourReviewForm.value.imageLinks as unknown as string[],
+      tourId: "1",
+      userId: localStorage.getItem('loggedId')??'1'
     }
 
     tourReview.id = this.tourReview.id;

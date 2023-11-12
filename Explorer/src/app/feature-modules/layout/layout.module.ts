@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ProfileComponent } from '../administration/profile/profile.component';
 import { AdministrationModule } from '../administration/administration.module';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -17,9 +18,11 @@ import {MatGridListModule} from '@angular/material/grid-list';
   imports: [
     CommonModule,
     MaterialModule,
+    MatMenuModule,
     RouterModule,
     AdministrationModule,
-    MatGridListModule
+    MatGridListModule,
+
   ],
   exports: [
     NavbarComponent,

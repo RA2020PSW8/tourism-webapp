@@ -10,6 +10,7 @@ import { AppRatingFormAuthorComponent } from './app-rating-form-author/app-ratin
 import { AppRatingTouristComponent } from './app-rating-tourist/app-rating-tourist.component';
 import { AppRatingAuthorComponent } from './app-rating-author/app-rating-author.component';
 import { AppRatingFormTouristComponent } from './app-rating-form-tourist/app-rating-form-tourist.component';
+import { PublicEntityRequestsComponent } from './public-entity-requests/public-entity-requests.component';
 
 
 
@@ -23,7 +24,8 @@ import { AppRatingFormTouristComponent } from './app-rating-form-tourist/app-rat
     AppRatingFormAuthorComponent,
     AppRatingTouristComponent,
     AppRatingAuthorComponent,
-    AppRatingFormTouristComponent
+    AppRatingFormTouristComponent,
+    PublicEntityRequestsComponent
     
   ],
   imports: [
@@ -39,7 +41,8 @@ import { AppRatingFormTouristComponent } from './app-rating-form-tourist/app-rat
     AppRatingFormAuthorComponent,
     AppRatingTouristComponent,
     AppRatingAuthorComponent,
-    AppRatingFormTouristComponent
+    AppRatingFormTouristComponent,
+    PublicEntityRequestsComponent
   ]
 })
 export class AdministrationModule { }

@@ -33,5 +33,5 @@ export class ShoppingCartComponent implements OnInit {
         alert('An error occurred while deleting the order item. Please try again later.');
       }
     })
-  }
+  } 
 }

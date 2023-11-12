@@ -54,13 +54,4 @@ export class AppRatingFormTouristComponent implements OnChanges{
       });
     }
   }
-
-  /*addAppRating(): void{
-    const appRating: AppRating = {
-      rating: this.appRatingForm.value.rating || 5,
-      comment: this.appRatingForm.value.comment || "",
-      lastModified: new Date()
-    };
-    this.service.addAppRatingForTourist(appRating).subscribe();
-  }*/
 }

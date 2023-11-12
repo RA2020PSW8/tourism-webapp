@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { MarketplaceService } from '../marketplace.service';
@@ -12,7 +12,7 @@ import { TourProgress } from '../../tour-execution/model/tour-progress.model';
   templateUrl: './tour-card.component.html',
   styleUrls: ['./tour-card.component.css']
 })
-export class TourCardComponent implements OnInit {
+export class TourCardComponent implements OnInit, OnChanges {
 
   @Output() orderUpdated = new EventEmitter<null>();
   @Input() tour: Tour;
@@ -21,6 +21,9 @@ export class TourCardComponent implements OnInit {
 
   constructor(private marketplaceService: MarketplaceService, private tourExecutionService: TourExecutionService, private authService: AuthService) {
     this.lastOrderId = 0; 
+  }
+
+  ngOnChanges(): void {
   }
 
   ngOnInit(): void {
