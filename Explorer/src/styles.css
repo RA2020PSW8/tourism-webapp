@@ -11,6 +11,7 @@
   --font-heading-size: 32px;
 
   --border-radius: 7px;
+  --content-top-padding: 80px;
 
   --max-page-width: 1440px;
 }
@@ -95,6 +96,13 @@ body {
 .button-secondary:hover {
     background-color: var(--color-accent-dark);
     color: var(--color-accent-light);
+}
+
+.button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
 }
 
 /* FORM */
