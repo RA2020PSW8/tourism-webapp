@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angu
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourPreference } from '../model/tour-preference.model';
 import { MarketplaceService } from '../marketplace.service';
+import { TourDifficulty, TransportType } from '../../tour-authoring/model/tour.model';
 
 @Component({
   selector: 'xp-tour-preference-form',
@@ -14,8 +15,15 @@ export class TourPreferenceFormComponent implements OnChanges, OnInit {
   @Input() tourPreference: TourPreference | undefined;
   @Input() tags: string[] = [];
   @Input() mode: string;
+  tourPreferenceForm: FormGroup;
 
-  constructor(private service: MarketplaceService) { }
+  constructor(private service: MarketplaceService) {
+    this.tourPreferenceForm = new FormGroup({
+      difficulty: new FormControl('', [Validators.required]),
+      transportType: new FormControl('', [Validators.required]),
+      newTag: new FormControl('')
+    });
+   }
 
   ngOnInit(): void {
       this.tags = this.tourPreference ? this.tourPreference.tags : [];
@@ -27,12 +35,6 @@ export class TourPreferenceFormComponent implements OnChanges, OnInit {
       this.tourPreferenceForm.patchValue(this.tourPreference);
     }
   }
-
-  tourPreferenceForm = new FormGroup({
-    difficulty: new FormControl(0, [Validators.required]),
-    transportType: new FormControl(0, [Validators.required]),
-    newTag: new FormControl('')
-  });
 
   addTag(): void {
     if(!this.tourPreferenceForm.value.newTag) return;
@@ -55,8 +57,8 @@ export class TourPreferenceFormComponent implements OnChanges, OnInit {
 
   confirmChanges(): void {
     this.tourPreference = {
-      difficulty: this.tourPreferenceForm.value.difficulty || 0,
-      transportType: this.tourPreferenceForm.value.transportType || 0,
+      difficulty: this.tourPreferenceForm.value.difficulty || "",
+      transportType: this.tourPreferenceForm.value.transportType || TransportType.WALK,
       tags: this.tags || ""
     }
 
