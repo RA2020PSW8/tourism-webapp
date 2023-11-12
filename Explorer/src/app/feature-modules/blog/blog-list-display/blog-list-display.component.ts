@@ -101,11 +101,21 @@ export class BlogListDisplayComponent implements OnInit {
 
   addBlogStatus(blogStatus: BlogStatus)
   {
-    if(!this.allBlogStatus.includes(blogStatus))
+    if(!this.containsStatus(blogStatus))
     {
       blogStatus.frontColor = this.generateRandomPastelColor();
       this.allBlogStatus.push(blogStatus);
     }
+  }
+
+  containsStatus(blogStatus: BlogStatus) : boolean
+  {
+    for(let bs of this.allBlogStatus)
+    {
+        if(bs.name === blogStatus.name)
+          return true;
+    }
+    return false;
   }
 
   modifyFilter(blogStatus: BlogStatus)
