@@ -10,6 +10,7 @@ import { TourCardComponent } from './tour-card/tour-card.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ShoppingCartOverviewComponent } from './shopping-cart-overview/shopping-cart-overview.component';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
     MaterialModule,
     ReactiveFormsModule,
     MatRadioModule,
-    TimePipe
+    TimePipe, 
+    MapComponent
   ]
 })
 export class MarketplaceModule { }
