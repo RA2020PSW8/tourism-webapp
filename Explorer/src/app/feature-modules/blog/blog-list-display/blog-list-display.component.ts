@@ -5,11 +5,11 @@ import { PagedResult } from '../shared/model/paged-result.model';
 import { BlogStatus } from '../model/blogstatus-model';
 
 @Component({
-  selector: 'xp-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+  selector: 'xp-blog-list-display',
+  templateUrl: './blog-list-display.component.html',
+  styleUrls: ['./blog-list-display.component.css']
 })
-export class BlogComponent implements OnInit {
+export class BlogListDisplayComponent implements OnInit {
   constructor(private service: BlogService) { }
 
   blogs: Blog[] = [];

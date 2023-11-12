@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlogComponent } from './blog-display/blog.component';
 import { BlogFormComponent } from './blog-form/blog-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
@@ -11,16 +10,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommentsDisplayComponent } from './comments-display/comments-display.component';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-display.component';
+import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.component';
 
 
 
 @NgModule({
   declarations: [
-    BlogComponent,
     BlogFormComponent,
     CommentFormComponent,
     CommentsDisplayComponent,
     SingleBlogDisplayComponent,
+    BlogListDisplayComponent,
   ],
   imports: [
     CommonModule,
@@ -31,9 +31,9 @@ import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-di
     MatFormFieldModule,
   ],
   exports: [
-    BlogComponent,
     CommentFormComponent,
     CommentsDisplayComponent,
+    BlogListDisplayComponent
   ]
 })
 export class BlogModule { }

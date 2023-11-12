@@ -7,7 +7,6 @@ import { UserComponent } from 'src/app/feature-modules/administration/users/user
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { TouristEquipmentComponent } from 'src/app/feature-modules/tourist/tourist-equipment/tourist-equipment.component';
-import { BlogComponent } from 'src/app/feature-modules/blog/blog-display/blog.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
@@ -37,6 +36,8 @@ import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketpla
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
 import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
+import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
+
 
 
 const routes: Routes = [
@@ -59,7 +60,7 @@ const routes: Routes = [
   {path: 'admin/tourissues', component: TourIssueAdminComponent, canActivate: [AuthGuard]},
   {path: 'user/tourissues', component: TourIssueTouristComponent, canActivate: [AuthGuard]},
   {path: 'tourissue/:id', component: TourIssueComponent, canActivate: [AuthGuard]},
-  {path: 'blog', component:BlogComponent, canActivate: [AuthGuard]},
+  {path: 'blog', component:BlogListDisplayComponent, canActivate: [AuthGuard]},
   {path: 'blog/:id', component:SingleBlogDisplayComponent, canActivate: [AuthGuard]},
   {path: 'tour-review', component: TourReviewComponent},
   {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},
