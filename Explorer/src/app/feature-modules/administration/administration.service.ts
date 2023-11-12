@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { PagedResult } from '../tour-execution/shared/model/paged-result.model';
 import { AppRating } from './model/app-rating.model';
+import { PublicEntityRequest } from '../tour-authoring/model/public-entity-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -81,6 +82,16 @@ export class AdministrationService {
     return this.http.delete<AppRating>(environment.apiHost + 'author/appRating');
   }
   
+  apporoveRequest(request: PublicEntityRequest): Observable<PublicEntityRequest> {
+    return this.http.put<PublicEntityRequest>(environment.apiHost + 'administrator/publicEntityRequests/approve', request );
+  }
 
+  declineRequest(request: PublicEntityRequest): Observable<PublicEntityRequest> {
+    return this.http.put<PublicEntityRequest>(environment.apiHost + 'administrator/publicEntityRequests/decline', request );
+  }
+
+  getAllRequests(): Observable<PagedResults<PublicEntityRequest>>{
+    return this.http.get<PagedResults<PublicEntityRequest>>(environment.apiHost + 'administrator/publicEntityRequests');
+  }
     
 }
