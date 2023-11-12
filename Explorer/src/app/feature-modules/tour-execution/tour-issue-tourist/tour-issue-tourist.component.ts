@@ -102,9 +102,9 @@ export class TourIssueTouristComponent implements OnChanges {
   }
 
   clearFormFields(): void {
-    this.tourIssueForm.value.tourId = "";
-    this.tourIssueForm.value.category = "";
-    this.tourIssueForm.value.priority = "";
-    this.tourIssueForm.value.description = "";
+    this.tourIssueForm.get('tourId')?.setValue('');
+    this.tourIssueForm.get('category')?.setValue('');
+    this.tourIssueForm.get('priority')?.setValue('');
+    this.tourIssueForm.get('description')?.setValue('');
   }
 }

@@ -68,7 +68,6 @@ addTourIssueComment(): void {
     creationDateTime: new Date().toISOString()
   }
 
-
   this.clearFormFields();
 
   this.tourissueservice.addTourIssueComment(tourIssueComment).subscribe({
@@ -89,6 +88,6 @@ resolveTourIssue(): void {
 }
 
   clearFormFields(): void {
-    this.tourIssueCommentForm.value.comment = "";
+    this.tourIssueCommentForm.get('comment')?.setValue('');
   }
 }

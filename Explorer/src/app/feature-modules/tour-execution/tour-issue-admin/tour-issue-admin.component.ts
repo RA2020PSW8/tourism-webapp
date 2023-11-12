@@ -86,17 +86,16 @@ export class TourIssueAdminComponent implements OnInit {
 
   public resolveButtonDisabled(tourIssue: TourIssue): boolean
   {
-
     if(tourIssue.resolveDateTime == undefined || tourIssue.resolveDateTime == null)
     {
       return true;
     }
-    
+
     if(new Date(tourIssue.resolveDateTime).getTime() < new Date().getTime())
     {
       return false;
     }
-
+  
     return true;
   }
 }
