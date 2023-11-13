@@ -73,6 +73,7 @@ ngOnChanges(changes: SimpleChanges): void {
     this.service.updateComment(com).subscribe({
       next: (_) => {
         this.commentAdded.emit();
+        this.commentForm.reset();
       }
     });
   }

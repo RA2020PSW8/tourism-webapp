@@ -35,6 +35,7 @@ export class CommentsDisplayComponent implements OnInit {
     this.commentService.getComments(0,0,this.blogId).subscribe({
       next : (response: PagedResults<Comment>)=>{
         this.comments = response.results;
+        this.shouldRenderForm = false;
       },
       error:(err : any)=>{
         console.log(err);
@@ -44,6 +45,7 @@ export class CommentsDisplayComponent implements OnInit {
 
 onUpdateClicked(comment: Comment): void
 {
+  this.shouldRenderForm = true;
  this.editMode = true;
  this.selectedComment = comment;
 }
