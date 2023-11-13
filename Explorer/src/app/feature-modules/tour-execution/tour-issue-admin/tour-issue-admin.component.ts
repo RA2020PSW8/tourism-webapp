@@ -75,7 +75,9 @@ export class TourIssueAdminComponent implements OnInit {
       next: (result: Tour) => {
         result.status = Status.DISABLED;
         this.service.updateTour(result).subscribe({
-          next: () => {},
+          next: () => {
+            alert("Successfully disabled tour! ඞ");
+          },
           error: (err: any) => {
             console.log(err);
           }
@@ -86,6 +88,9 @@ export class TourIssueAdminComponent implements OnInit {
 
   public resolveButtonDisabled(tourIssue: TourIssue): boolean
   {
+    if(tourIssue.isResolved === true)
+      return true;
+    
     if(tourIssue.resolveDateTime == undefined || tourIssue.resolveDateTime == null)
     {
       return true;
