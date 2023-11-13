@@ -34,10 +34,9 @@ import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-
 import { PublicEntityRequestsComponent } from 'src/app/feature-modules/administration/public-entity-requests/public-entity-requests.component';
 import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
-import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
 import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
+import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
 import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
-
 
 
 const routes: Routes = [
