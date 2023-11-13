@@ -12,5 +12,5 @@ export interface Blog {
     creationDate : string,
     imageLinks : string[],
     systemStatus : BlogStatus,
-    ratings?:Rating[]
+    blogRatings?:Rating[]
 }

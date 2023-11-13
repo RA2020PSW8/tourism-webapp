@@ -2,6 +2,6 @@ export interface Rating{
     blogId:number,
     userId:number,
     username?:string,
-    creationTime:Date,
+    creationTime:string,
     rating: string
 }

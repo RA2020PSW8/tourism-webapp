@@ -36,6 +36,7 @@ import { PublicEntityRequestsComponent } from 'src/app/feature-modules/administr
 import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
+import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
 
 
 const routes: Routes = [
@@ -67,6 +68,7 @@ const routes: Routes = [
   {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
   {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
   {path: 'comments', component:CommentsDisplayComponent},
+  {path: 'blog/:id',component: SingleBlogDisplayComponent},
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Blog } from '../model/blog.model';
+import { Rating } from '../model/rating.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'xp-single-blog-display',
@@ -11,6 +13,13 @@ import { Blog } from '../model/blog.model';
 export class SingleBlogDisplayComponent implements OnInit{
   public selectedBlog : Blog
   public blogId : number
+  public rating : Rating = {
+    blogId:-1,
+    userId:-1,
+    username:'a',
+    creationTime:new Date().toISOString().split('T')[0],
+    rating: 'a'
+  }
   constructor(private service: BlogService, private router: Router, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
@@ -25,12 +34,26 @@ ngOnInit(): void {
   });
 }
 
-upvote(): void{
-  alert('radim');
-}
+rate(x:number): void{
+  this.rating.blogId = this.blogId;
+  this.rating.creationTime = new Date().toISOString().split('T')[0];
 
-downvote(): void{
-  alert('ne radim');
+  if(x === 1){
+    this.rating.rating = 'UPVOTE';
+  }
+  if(x === 2){
+    this.rating.rating = 'DOWNVOTE';
+  }
+ console.log('aaaa')
+  this.service.addRating(this.rating).subscribe({
+    next: (result: Blog) => {
+      this.selectedBlog.blogRatings = result.blogRatings;
+      this.ngOnInit();
+    },
+    error: (err: any) => {
+        console.log(err);
+      }
+  });
 }
 
 }
