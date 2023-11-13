@@ -25,4 +25,12 @@ ngOnInit(): void {
   });
 }
 
+upvote(): void{
+  alert('radim');
+}
+
+downvote(): void{
+  alert('ne radim');
+}
+
 }

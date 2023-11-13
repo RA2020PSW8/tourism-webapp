@@ -1,3 +1,5 @@
+import { Rating } from "./rating.model";
+
 export enum BlogStatus {
     DRAFT = 'DRAFT',
     PUBLISHED = 'PUBLISHED',
@@ -9,5 +11,6 @@ export interface Blog {
     description : string,
     creationDate : string,
     imageLinks : string[],
-    systemStatus : BlogStatus;
+    systemStatus : BlogStatus,
+    ratings?:Rating[]
 }

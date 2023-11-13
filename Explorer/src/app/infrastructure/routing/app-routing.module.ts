@@ -34,16 +34,9 @@ import { TourIssueTouristComponent } from 'src/app/feature-modules/tour-executio
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
 import { PublicEntityRequestsComponent } from 'src/app/feature-modules/administration/public-entity-requests/public-entity-requests.component';
 import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
-<<<<<<< HEAD
-<<<<<<< HEAD
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
-=======
 import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
-=======
-import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
->>>>>>> 91fa042 (feat: added single blog display)
 
->>>>>>> 67b9138 (checkpoint)
 
 const routes: Routes = [
   
@@ -66,18 +59,14 @@ const routes: Routes = [
   {path: 'user/tourissues', component: TourIssueTouristComponent, canActivate: [AuthGuard]},
   {path: 'tourissue/:id', component: TourIssueComponent, canActivate: [AuthGuard]},
   {path: 'blog', component:BlogComponent, canActivate: [AuthGuard]},
-  {path: 'blog/:id', component:SingleBlogDisplayComponent, canActivate: [AuthGuard]},
   {path: 'tour-review', component: TourReviewComponent},
   {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},
   {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},
   {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
   {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
   {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
-<<<<<<< HEAD
   {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
-=======
   {path: 'comments', component:CommentsDisplayComponent},
->>>>>>> 67b9138 (checkpoint)
 
   // Admin
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
