@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { LayoutService } from '../layout.service';
@@ -15,14 +15,15 @@ export class NavbarComponent implements OnInit {
 
   user: User | undefined;
   notifications: NotificationModel[] = [];
+  unreadNotificationsCount: number = 0;
 
   constructor(private authService: AuthService, private layoutService: LayoutService, private router: Router) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
+      this.getNotifications();
     });
-    this.getNotifications();
   }
 
   onLogout(): void {
@@ -33,6 +34,7 @@ export class NavbarComponent implements OnInit {
     this.layoutService.getNotifications().subscribe({
       next: (result: PagedResults<NotificationModel>) => {
         this.notifications = result.results;
+        this.unreadNotificationsCount = this.notifications.filter(n => !n.isRead).length;
       },
       error: (err: any) => {
         console.log(err);
@@ -44,6 +46,7 @@ export class NavbarComponent implements OnInit {
     this.layoutService.markAsRead(notification).subscribe({
       next: () => {
         this.getNotifications();
+        this.unreadNotificationsCount -= 1;
       },
       error: (err: any) => {
         console.log(err);

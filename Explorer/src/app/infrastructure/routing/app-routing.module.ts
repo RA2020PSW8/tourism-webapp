@@ -14,7 +14,6 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 import { KeypointComponent } from 'src/app/feature-modules/tour-authoring/keypoint/keypoint.component';
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { ClubInvitationComponent } from '../../feature-modules/tourist/club-invitation/club-invitation.component';
-import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
 import { ObjectComponent } from 'src/app/feature-modules/tour-authoring/object/object.component';
 import { ToursTestModuleComponent } from 'src/app/feature-modules/tour-authoring/tours-test-module/tours-test-module.component';
 import { ToursPreviewComponent } from 'src/app/feature-modules/tour-authoring/tours-preview/tours-preview.component';
@@ -30,10 +29,12 @@ import { AppRatingFormTouristComponent } from 'src/app/feature-modules/administr
 import { TourFormComponent } from 'src/app/feature-modules/tour-authoring/tour-form/tour-form.component';
 import { TouristPositionComponent } from 'src/app/feature-modules/tour-execution/tourist-position/tourist-position.component';
 import { ToursOverviewComponent } from 'src/app/feature-modules/marketplace/tours-overview/tours-overview.component';
+import { TourIssueAdminComponent } from 'src/app/feature-modules/tour-execution/tour-issue-admin/tour-issue-admin.component';
+import { TourIssueTouristComponent } from 'src/app/feature-modules/tour-execution/tour-issue-tourist/tour-issue-tourist.component';
+import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
 import { PublicEntityRequestsComponent } from 'src/app/feature-modules/administration/public-entity-requests/public-entity-requests.component';
 import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
-
 
 const routes: Routes = [
 
@@ -47,21 +48,23 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], },
 
   // Tourist
-  { path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard] },
-  { path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard] },
-  { path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
-  { path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
-  { path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard], },
-  { path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard] },
-  { path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
-  { path: 'tour-review', component: TourReviewComponent },
-  { path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard] },
-  { path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard] },
-  { path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard] },
-  { path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard] },
-  { path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard] },
-  { path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard] },
-  { path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard] },
+{ path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard] },
+{ path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard] },
+{ path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
+{ path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
+{ path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard], },
+{ path: 'admin/tourissues', component: TourIssueAdminComponent, canActivate: [AuthGuard]},
+{ path: 'user/tourissues', component: TourIssueTouristComponent, canActivate: [AuthGuard]},
+{ path: 'tourissue/:id', component: TourIssueComponent, canActivate: [AuthGuard]},
+{ path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
+{ path: 'tour-review', component: TourReviewComponent },
+{ path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard] },
+{ path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard] },
+{ path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard] },
+{ path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard] },
+{ path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard] },
+{ path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard] },
+{ path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard] },
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },
