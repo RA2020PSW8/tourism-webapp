@@ -22,17 +22,30 @@ import { animate, style, transition, trigger } from '@angular/animations';
 })
 export class ReviewsComponent implements OnInit {
   public tourReviews: TourReview[] = [];
+  averageRate: number;
 
   constructor(@Inject(MAT_DIALOG_DATA) public tourId: number, private marketplaceService: MarketplaceService) { }
 
   ngOnInit(): void {
     this.marketplaceService.getReviewsByTour(this.tourId).subscribe(reviews => {
       this.tourReviews = reviews.results;
+
+      this.calculateAverageRate();
     });
+
   }
 
   parseToInt(str: string): number {
     return parseInt(str);
+  }
+
+  calculateAverageRate() {
+    this.marketplaceService.calculateAverageRate(this.tourReviews).subscribe(
+      (response) => {
+        this.averageRate = response;
+      },
+      
+    );
   }
 
 }
