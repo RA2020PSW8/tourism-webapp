@@ -190,4 +190,5 @@ export class MapComponent implements AfterViewInit, OnChanges {
   setMarker(lat: number, lng: number): void {
     new L.Marker([lat, lng]).addTo(this.markerLayer);
   }
+ 
 }
