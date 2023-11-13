@@ -15,6 +15,7 @@ import { TourCardCompactComponent } from './tour-card-compact/tour-card-compact.
 import { ReviewsComponent } from './dialogs/reviews/reviews.component';
 import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.component';
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
+import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CartSuccessComponent } from './dialogs/cart-success/cart-success.compon
     TourCardCompactComponent,
     ReviewsComponent,
     CartWarningComponent,
-    CartSuccessComponent
+    CartSuccessComponent,
+    TourKeypointsMapComponent
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -35,7 +37,7 @@ import { CartSuccessComponent } from './dialogs/cart-success/cart-success.compon
     MaterialModule,
     ReactiveFormsModule,
     MatRadioModule,
-    TimePipe, 
+    TimePipe,
     MapComponent
   ]
 })

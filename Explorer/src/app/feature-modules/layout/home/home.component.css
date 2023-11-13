@@ -214,3 +214,14 @@ a:hover {
     border-style: solid;
     border-color: #ffffff transparent transparent transparent;
 }
+
+.cheapskate {
+    background-color: #FF0000;
+    color: #ffffff;
+    font-size: 28px;
+    padding: 5px 32px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition-duration: 0.4s;
+}

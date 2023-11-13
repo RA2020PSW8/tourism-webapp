@@ -25,8 +25,11 @@
     <div style="display: flex; justify-content: space-between;">
       <button mat-raised-button color="primary" (click)="openReviews(tour.id??0)">View Reviews</button>
       <button mat-raised-button class="add-to-cart-button"
-        *ngIf="tour.status == 'PUBLISHED' && (authService.isLoggedIn$ | async)" (click)="addToCart()">Add to
-        cart</button>
+        *ngIf="router.url.includes('/home') && tour.status == 'PUBLISHED' && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'"
+        (click)="addToCart()">Add to cart</button>
+      <button mat-raised-button class="show-keypoints-button"
+        *ngIf="router.url.includes('/purchased-tours') && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'"
+        (click)="showKeypoints()">Show Keypoints</button>
     </div>
   </div>
 </div>

@@ -36,51 +36,52 @@ import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/acti
 
 
 const routes: Routes = [
-  
+
   // S1
-  
+
   // All
-  {path: 'home', component: HomeComponent},
-  {path:'', redirectTo: 'home', pathMatch: 'full'},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard],},
-  
+  { path: 'home', component: HomeComponent },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegistrationComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], },
+
   // Tourist
-  {path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard]},
-  {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]}, 
-  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
-  {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
-  {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
-  {path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard]},
-  {path: 'blog', component:BlogComponent, canActivate: [AuthGuard]},
-  {path: 'tour-review', component: TourReviewComponent},
-  {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},
-  {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},
-  {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
-  {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
-  {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
-  {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
+  { path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard] },
+  { path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard] },
+  { path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
+  { path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
+  { path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard], },
+  { path: 'tourissue', component: TourIssueComponent, canActivate: [AuthGuard] },
+  { path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
+  { path: 'tour-review', component: TourReviewComponent },
+  { path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard] },
+  { path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard] },
+  { path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard] },
+  { path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard] },
+  { path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard] },
+  { path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard] },
+  { path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard] },
 
   // Admin
-  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
-  {path: 'users', component: UserComponent, canActivate: [AuthGuard],},
-  {path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard]},
-  {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
-  {path: 'publicEntityRequests', component: PublicEntityRequestsComponent, canActivate: [AuthGuard]},
-  
+  { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },
+  { path: 'users', component: UserComponent, canActivate: [AuthGuard], },
+  { path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard] },
+  { path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
+  { path: 'publicEntityRequests', component: PublicEntityRequestsComponent, canActivate: [AuthGuard] },
+
   // Author
   //{path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]},
-  {path: 'tours', component: TourComponent, canActivate: [AuthGuard]},
-  {path: 'tours-equipment', component: ToursPreviewComponent, canActivate: [AuthGuard],},
-  {path: 'objects',  component: ObjectComponent, canActivate: [AuthGuard]},
-  {path: 'appRatingAuthorForm', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]},
-  {path: 'appRatingAuthor', component: AppRatingAuthorComponent, canActivate: [AuthGuard]},
-  {path: 'tour-management/:id', component: TourFormComponent, canActivate: [AuthGuard] },
-  
+  { path: 'tours', component: TourComponent, canActivate: [AuthGuard] },
+  { path: 'tours-equipment', component: ToursPreviewComponent, canActivate: [AuthGuard], },
+  { path: 'objects', component: ObjectComponent, canActivate: [AuthGuard] },
+  { path: 'appRatingAuthorForm', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard] },
+  { path: 'appRatingAuthor', component: AppRatingAuthorComponent, canActivate: [AuthGuard] },
+  { path: 'tour-management/:id', component: TourFormComponent, canActivate: [AuthGuard] },
+
   // ?
-  {path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
-  
+  { path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
+
 ];
 
 
