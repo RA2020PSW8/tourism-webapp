@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, ɵisEnvironmentProviders } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourReview } from './model/tour-review.model';
@@ -57,4 +57,10 @@ export class TourExecutionService {
   abandonTour(): Observable<TourProgress> {
     return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/abandonActive`, null);
   }
+
+  updateActiveTour(): Observable<TourProgress> {
+    return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/updateActive`, null);
+  }
+  
 }
+
