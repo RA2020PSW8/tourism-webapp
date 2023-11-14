@@ -8,97 +8,50 @@
                     <a href="#">Contact</a>
                 </div>
                 <div class="app-name">TourTravel</div>
+
                 <div class="navbar-modules">
+
                     <a href="#">Sign In</a>
                     <a href="#">Search</a>
-                    <a href="#">My Tours</a>
+                    <a routerLink="/purchased-tours" *ngIf="authService.user$.value.role=='tourist'">Purchased Tours</a>
                 </div>
             </div>
         </nav>
     </header>
 
-    <div id="toursContainer">
-        <div class="categoryName">
-            <p class="p-header">Experience Travel Like Never Before with TourApp</p>
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of tours">
+                <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
+            </div>
         </div>
-        <div id="cardsContainer">
-            <div class="card">
-                <img class="cardImg" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1280px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg">
-                <div class="cardText">
-                    <p class="p-card-label">Popular</p>
-                    <p class="p-card-description">Paris is celebrated for its elegant boulevards, picturesque Seine River, and its contributions to art, fashion, and gastronomy.</p>
-                </div>
-            </div>
-            <div class="card">
-               <img class="cardImg" src="https://tourismmedia.italia.it/is/image/mitur/20220127150143-colosseo-roma-lazio-shutterstock-756032350-1?wid=1600&hei=900&fit=constrain,1&fmt=webp">
-               <div class="cardText">
-                    <p class="p-card-label">Stunning</p>
-                    <p class="p-card-description">Rome is a city steeped in history and legend, boasting iconic ancient ruins such as the Colosseum.</p>
-               </div>
-            </div>
-            <div class="card">
-               <img class="cardImg" src="https://u.profitroom.pl/2014.palacbonerowski.pl/thumb/1600x900/uploads/DSC_0595.jpg?mode=crop">
-               <div class="cardText">
-                    <p class="p-card-label">Leave your family</p>
-                    <p class="p-card-description">Krakow, a historic city in southern Poland, is renowned for its well-preserved medieval architecture and rich cultural heritage.</p>
-               </div>
-            </div>
-            <div class="card">
-               <img class="cardImg" src="https://www.pocruises.com/content/dam/po/inventory-assets/ports/AMS/AMS.jpg">
-               <div class="cardText">
-                    <p class="p-card-label">Colourful</p>
-                    <p class="p-card-description">Amsterdam is famous for it's historic architecture, and vibrant artistic and cultural scene.</p>
-               </div>
-            </div>
-            <div class="card">
-               <img class="cardImg" src="https://www.travelandleisure.com/thmb/ubTOmrdr85740HVyLq_nGhinVWE=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/venice-italy-VENICETG0521-cddab02114ae44f08ba49c8c3fc9158c.jpg">
-               <div class="cardText">
-                    <p class="p-card-label">Affordable</p>
-                    <p class="p-card-description">Venice, a city in northeastern Italy, is renowned for its romantic canals, beautiful bridges, and rich history.</p>
-               </div>
-            </div>
-            <div class="card">
-               <img class="cardImg" src="https://www.neweuropetours.eu/wp-content/uploads/2021/10/cathedral-of-florence-from-piazza-michelangelo-photo-by-ali-nuredini-1600x900.jpeg">
-               <div class="cardText">
-                    <p class="p-card-label">YEWS</p>
-                    <p class="p-card-description">Florence, Italy, is famous for its Renaissance art and architecture.</p>
-               </div>
-            </div>
-            <div class="card">
-               <img class="cardImg" src="https://cdn.britannica.com/54/183454-050-A602E4AE/Night-view-Rio-de-Janeiro.jpg">
-               <div class="cardText">
-                    <p class="p-card-label">Beach</p>
-                    <p class="p-card-description">Rio de Janeiro, Brazil, is famed for its stunning beaches, lively Carnival celebrations and BBL's.</p>
-               </div>
-            </div>
-            <div class="card">
-               <img class="cardImg" src="https://a.cdn-hotels.com/gdcs/production163/d345/47e14d8a-051b-4932-85d1-8f5c0363fde7.jpg">
-               <div class="cardText">
-                    <p class="p-card-label">Affordable</p>
-                    <p class="p-card-description">Broke fu#ks all aboard!!</p>
-               </div>
-            </div>
+        <div *ngIf="!isLoading && tours.length === 0">
+            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
+        </div>
+
+
+    </div>
+
+    <div id="otherContainer" *ngIf="router.url.includes('/home')">
+        <div class="panel">
+            <p class="p-header">Discover New Experiences</p>
+            <p class="p-regular">Explore breathtaking destinations, uncover hidden gems, and make memories that last a
+                lifetime.</p>
+            <a href="#" class="fancyButton">Discover your adventure</a>
+        </div>
+
+        <div class="panel" *ngIf="router.url.includes('/home')">
+            <p class="p-header">Embark on Adventures through Captivating Narratives</p>
+            <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
+                gems to travel tips, our blog has it all.</p>
+            <a href="#" class="fancyButton">Read Our Blog</a>
         </div>
     </div>
 
-    <div id="otherContainer">
-        <div class="panel">
-         <p class="p-header">Discover New Experiences</p>
-            <p class="p-regular">Explore breathtaking destinations, uncover hidden gems, and make memories that last a lifetime.</p>
-            <a href="#" class="fancyButton">Discover your adventure</a>
-        </div>
-    
-         <div class="panel">
-            <p class="p-header">Embark on Adventures through Captivating Narratives</p>
-            <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden gems to travel tips, our blog has it all.</p>
-            <a href="#" class="fancyButton">Read Our Blog</a>
-         </div>
-    </div>
-    
     <div id="bottomContainer">
         <div class="bottom-panel">
             <h2>Contact Us</h2>
-            <p class="p-footer">Email:<a class="footerLink" href="mailto:info@tourme.app"> info@tourme.app</a></p>
+            <p class="p-footer">Email:<a class="footerLink" href="mailto:info@tourme.app"> info&#64;tourme.app</a></p>
             <p class="p-footer">Phone: +1 (123) 456-7890</p>
             <p class="p-footer">Address: 123 Main Street, Anytown, USA</p>
             <p class="p-footer">Social Media:</p>
@@ -111,16 +64,16 @@
                     <i class="fab fa-twitter"></i>
                     <a class="footerLink" href="https://twitter.com/TourMeApp" target="_blank">Twitter</a>
                 </div>
-                    <div class="social-icon">
+                <div class="social-icon">
                     <i class="fab fa-instagram"></i>
                     <a class="footerLink" href="https://www.instagram.com/tourmeapp" target="_blank">Instagram</a>
-                </div>       
+                </div>
             </ul>
-            <p class="p-footer">Support: For technical support or inquiries, please email 
-                <a class="footerLink" href="mailto:support@tourme.app">support@tourme.app</a>.
+            <p class="p-footer">Support: For technical support or inquiries, please email
+                <a class="footerLink" href="mailto:support@tourme.app">support&#64;tourme.app</a>.
             </p>
-            <p class="p-footer">Business Inquiries: For business partnerships and collaborations, please contact 
-                <a class="footerLink" href="mailto:partnerships@tourme.app">partnerships@tourme.app</a>.
+            <p class="p-footer">Business Inquiries: For business partnerships and collaborations, please contact
+                <a class="footerLink" href="mailto:partnerships@tourme.app">partnerships&#64;tourme.app</a>.
             </p>
         </div>
         <div class="bottom-panel">

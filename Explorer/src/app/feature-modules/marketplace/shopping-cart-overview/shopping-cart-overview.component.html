@@ -13,4 +13,8 @@
     <div class="total-price">
         Total Price: {{ calculateTotalPrice() | currency: 'EUR' }}
     </div>
+
+    <div class="checkout-button">
+        <td><button color="accent" mat-raised-button (click)="checkout()">Checkout</button></td>
+    </div>
 </div>

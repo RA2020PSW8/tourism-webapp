@@ -1,70 +1,117 @@
-#tourissue {
-    margin-top: 20px;
-    margin-left: 20px;
+#tour-issue-by-tour-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-#tourissue-details {
+#infos {
     display: flex;
     flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
+    gap: 20px;
+    width: 90%;
 }
 
-hr {
-    margin-right: 20px;
-    margin-bottom: 15px;
+#tour
+{
+    background-color: lightgrey; 
+    width: 50%; 
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
 }
 
-p {
-    font-size: 25px;
-    font-family: sans-serif;
-    font-style: oblique;
-    color: #3f51b5;
-    font-weight: bolder;
+#tour-issue
+{
+    background-color: #fff0e9; 
+    width: 50%; 
+    margin-top: 10px;
+    border-radius: 5px;
+    padding: 10px;
 }
 
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    font-family: sans-serif;
-    font-size: 16px;
+.comments
+{
+    display: flex;
+    flex-direction: column;    
+    justify-content: center;
+    align-items: center;
+    width: 75%; 
+    margin-top: 10px;
+    row-gap: 10px;
 }
 
-thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
-    text-align: center;
+.comment-details {
+    margin-left: 10px;
+    width: 75%; 
+    background-color:#efe5dc; 
+    color: #666;
+    display: flex;
+    flex-direction: row;
+    border-radius: 5px;
 }
 
-th, td {
-    padding: 12px 15px;
-    text-align: center;
+.comment-details h3 {
+    margin: 0; 
 }
 
-tbody tr {
-    border-bottom: 1px solid #dddddd;
+.comment-details p {
+    margin: 0;
 }
 
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+.comment-date {
+    align-self: flex-end;
+    justify-self: flex-end;
+    margin-bottom: 10px;
 }
 
-tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
+.profile-img {
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
 }
 
-tbody tr.active-row {
-    font-weight: bold;
-    color: #3f51b5;
+.comment-content {
+    margin-top: 15px;
+}
+
+.add-new-comment {
+    display: flex;
+    flex-direction: column;    
+    justify-content: center;
+    align-items: center;
+    width: 50%; 
+    margin-top: 10px;
+    row-gap: 10px;
+}
+
+textarea {
+    width: 100%;
+    height: 100px;
+    font-size: 20px;
 }
 
 button {
-    width: 90px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 5px;
+    width: 110px;
     height: 35px;
-    border-style: hidden;
-    border-radius: 3px;
-    font-size: 16px;
+    margin-right: -3px;
+    justify-self: flex-end;
+    align-self:flex-end;
+    cursor: pointer;
+}
+
+.addCommentButton {
+    background-color: #d0b8ac;
+}
+
+.resolveButton {
+    background-color: #d0b8ac;
+    float: right;
 }

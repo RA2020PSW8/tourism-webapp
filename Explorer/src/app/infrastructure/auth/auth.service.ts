@@ -14,7 +14,8 @@ import { Registration } from './model/registration.model';
   providedIn: 'root'
 })
 export class AuthService {
-  user$ = new BehaviorSubject<User>({username: "", id: 0, role: "" });
+  user$ = new BehaviorSubject<User>({ username: "", id: 0, role: "" });
+  isLoggedIn$ = new BehaviorSubject<boolean>(false);
 
   constructor(private http: HttpClient,
     private tokenStorage: TokenStorage,
@@ -28,26 +29,31 @@ export class AuthService {
           this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
           localStorage.setItem('loggedId', authenticationResponse.id.toString());
           this.setUser();
+          this.isLoggedIn$.next(true);
+          localStorage.setItem('isLoggedIn', 'true');
         })
       );
   }
 
   register(registration: Registration): Observable<AuthenticationResponse> {
     return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
-    .pipe(
-      tap((authenticationResponse) => {
-        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
-        this.setUser();
-      })
-    );
+      .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
+      .pipe(
+        tap((authenticationResponse) => {
+          this.tokenStorage.saveAccessToken(authenticationResponse.accessToken);
+          this.setUser();
+        })
+      );
   }
+
 
   logout(): void {
     this.router.navigate(['/home']).then(_ => {
       this.tokenStorage.clear();
-      this.user$.next({username: "", id: 0, role: "" });
-      }
+      this.user$.next({ username: "", id: 0, role: "" });
+      this.isLoggedIn$.next(false);
+      localStorage.removeItem('isLoggedIn');
+    }
     );
   }
 
@@ -57,6 +63,10 @@ export class AuthService {
       return;
     }
     this.setUser();
+    const isLoggedIn = localStorage.getItem('isLoggedIn');
+    if (isLoggedIn) {
+      this.isLoggedIn$.next(true);
+    }
   }
 
   private setUser(): void {

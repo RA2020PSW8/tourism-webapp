@@ -4,6 +4,7 @@
     <button mat-raised-button (click)="showTable('showFollowers')">Followers</button>
     <button mat-raised-button (click)="showTable('showFollowing')">Followings</button>
     <button mat-raised-button (click)="showTable('showPeople')">Find people</button>
+    <button mat-raised-button (click)="showTable('showChat')">Chat with followers :)</button>
   </div>
 </div>
 <div class="content-container">
@@ -149,5 +150,8 @@
         <button mat-raised-button type="submit">Update Profile</button>
       </div>
     </form>
+  </div>
+  <div *ngIf="showContent === 'showChat'">
+    <xp-chat-view></xp-chat-view>
   </div>
 </div>

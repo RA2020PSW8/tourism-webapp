@@ -8,8 +8,23 @@
     <markdown ngPreserveWhitespaces >
         {{selectedBlog.description}}
     </markdown>
-    <div class="single-blog-mini-img">
+    <div class="single-selectedBlogog-mini-img">
         <img *ngFor="let i of selectedBlog.imageLinks" src="{{i}}" height="100" width="100">
     </div>
-    <xp-comments-display [blogId]="blogId" ></xp-comments-display>
+    <div>
+        <table>
+            <thead>
+                <th>Ratings</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of selectedBlog.blogRatings">
+                    <td>{{r.username}}</td>
+                    <td>{{r.rating}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <button (click)="rate(1)"  mat-raised-button type="submit" color="primary">UP</button>
+        <button (click)="rate(2)" mat-raised-button type="submit" color="primary">DOWN</button>
+    </div>
+    <xp-comments-display [blogId]="blogId"></xp-comments-display>
 </div>

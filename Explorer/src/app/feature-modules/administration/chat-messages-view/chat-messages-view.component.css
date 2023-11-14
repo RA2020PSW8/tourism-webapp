@@ -1,0 +1,30 @@
+textarea {
+    resize: none;
+ }
+
+.timestamp{
+    font-size: small;
+    color: gray;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    padding: 0.2rem;
+    height: 80vh;
+}
+
+#messages {
+    display: flex;
+    flex-direction: column-reverse;
+    height: 85%;
+    overflow-y:auto;
+    padding: 0.5rem;
+    border: 1px solid gainsboro;
+}
+
+.messageForm {
+    padding-top: 0.3rem;
+    display: flex;
+    height: 15%;
+}
