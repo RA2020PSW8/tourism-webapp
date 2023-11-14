@@ -1,9 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
-import { Blog, BlogStatus } from '../model/blog.model';
+import { Blog, BlogSystemStatus } from '../model/blog.model';
 import { toArray } from 'rxjs';
-import { BlogString } from '../model/blogform.model';
 
 @Component({
   selector: 'xp-blog-form',
@@ -27,16 +26,23 @@ export class BlogFormComponent implements OnChanges {
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.blogForm.patchValue(this.selectedBlog);
+        const blog = {
+      title: this.selectedBlog.title,
+      description: this.selectedBlog.description,
+      creationDate: this.selectedBlog.creationDate,
+      imageLinks: this.selectedBlog.imageLinks.toString(),
+      systemStatus: this.selectedBlog.systemStatus || ""
+    }
+    this.blogForm.patchValue(blog);
   }
 
   addBlog(): void {
-    const blog: BlogString = {
+    const blog: Blog = {
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
       creationDate: new Date().toISOString().split('T')[0] as string,
       imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
-      status: this.blogForm.value.status as BlogStatus || ""
+      systemStatus: this.blogForm.value.status as BlogSystemStatus || ""
     }
 
     this.prepareBlogForSending(blog);
@@ -49,13 +55,13 @@ export class BlogFormComponent implements OnChanges {
   }
 
   updateBlog(): void {
-    const blog: BlogString = {
+    const blog: Blog = {
       id: this.selectedBlog.id,
       title: this.blogForm.value.title || "",
       description: this.blogForm.value.description || "",
       creationDate: this.selectedBlog.creationDate as string,
-      imageLinks: null as unknown as string[],
-      status: this.blogForm.value.status as BlogStatus
+      imageLinks: this.selectedBlog.imageLinks,
+      systemStatus: this.blogForm.value.status as BlogSystemStatus
     }
     if(this.blogForm.value.imageLinks?.length != 1)
     {
@@ -76,7 +82,7 @@ export class BlogFormComponent implements OnChanges {
     });
   }
 
-  private prepareBlogForSending(b: BlogString) {
+  private prepareBlogForSending(b: Blog) {
     b.description = b.description.replaceAll('\n', '<br>');
   }
 }
