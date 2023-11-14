@@ -8,6 +8,8 @@ import { Tour } from '../tour-authoring/model/tour.model';
 import { OrderItem } from './model/order-item.model';
 import { PagedResults } from '../../shared/model/paged-results.model';
 import { ShoppingCart } from './model/shopping-cart.model';
+import { TourReview } from '../tour-execution/model/tour-review.model';
+import { TourPurchaseToken } from './model/tour-purchase-token.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +19,8 @@ export class MarketplaceService {
   private readonly apiUrl = `${environment.apiHost}tourist`;
   private readonly tourApiUrl = `${environment.apiHost}marketplace/tours`;
   private readonly filterApiUrl = `${environment.apiHost}marketplace/tours/filter`
+  private readonly tourReviewApiUrl = `${environment.apiHost}tourexecution/tourreview`;
+
 
   constructor(private http: HttpClient) { }
 
@@ -37,23 +41,23 @@ export class MarketplaceService {
   }
 
   /* Tour */
-  getPublishedTours(): Observable<PagedResult<Tour>>{
+  getPublishedTours(): Observable<PagedResult<Tour>> {
     return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}`);
   }
 
-  getFilteredTours(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Tour>>{
+  getFilteredTours(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Tour>> {
     const params = new HttpParams()
-    .set('page', page.toString())
-    .set('pageSize', pageSize.toString())
-    .set('CurrentLatitude', currentLatitude.toString())
-    .set('CurrentLongitude', currentLongitude.toString())
-    .set('FilterRadius', filterRadius.toString());
-    return this.http.get<PagedResult<Tour>>(`${this.filterApiUrl}`, {params})
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('CurrentLatitude', currentLatitude.toString())
+      .set('CurrentLongitude', currentLongitude.toString())
+      .set('FilterRadius', filterRadius.toString());
+    return this.http.get<PagedResult<Tour>>(`${this.filterApiUrl}`, { params })
   }
   addOrderItem(orderItem: OrderItem): Observable<OrderItem> {
-    return this.http.post<OrderItem>(environment.apiHost +'tourist/orderItems', orderItem);
+    return this.http.post<OrderItem>(environment.apiHost + 'tourist/orderItems', orderItem);
   }
-  getAllOrders(): Observable<PagedResult<OrderItem>>{
+  getAllOrders(): Observable<PagedResult<OrderItem>> {
     return this.http.get<PagedResult<OrderItem>>(`${this.apiUrl}/orderItems`);
   }
   getOrdersForUser(): Observable<PagedResults<OrderItem>> {
@@ -66,12 +70,28 @@ export class MarketplaceService {
     return this.http.get<ShoppingCart>(environment.apiHost + 'tourist/shoppingCart/byUser');
   }
   deleteOrderItem(orderItemId: number): Observable<OrderItem> {
-    return this.http.delete<OrderItem>(environment.apiHost + 'tourist/orderItems/'+ orderItemId);
-    
+    return this.http.delete<OrderItem>(environment.apiHost + 'tourist/orderItems/' + orderItemId);
+
   }
 
-  buyShoppingCart(shoppingCartId : number) : Observable<void>{
+  getArchivedAndPublishedTours(): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(`${this.tourApiUrl}/arhived-published`);
+  }
+
+  getReviewsByTour(tourId: number): Observable<PagedResults<TourReview>> {
+    return this.http.get<PagedResults<TourReview>>(`${this.tourReviewApiUrl}/tour/${tourId}`);
+  }
+
+  buyShoppingCart(shoppingCartId: number): Observable<void> {
     return this.http.put<void>(this.tourApiUrl + '/token/' + shoppingCartId, null);
+  }
+
+  calculateAverageRate(tourReviews: TourReview[]): Observable<number> {
+    return this.http.post<number>(this.tourReviewApiUrl + '/averageRate', tourReviews);
+  }
+  
+  getPurchasedTours(): Observable<PagedResults<TourPurchaseToken>> {
+    return this.http.get<PagedResults<TourPurchaseToken>>(`${this.tourApiUrl}/token`);
   }
 
 }
