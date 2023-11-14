@@ -1,4 +1,7 @@
 <div [@slideInOut]>
+  <div *ngIf="averageRate !== undefined">
+    <h2>Average Rate: {{ averageRate }}</h2>
+  </div>
   <h2>Reviews</h2>
   <div *ngIf="tourReviews && tourReviews.length > 0; else noReviews">
     <div *ngFor="let review of tourReviews">

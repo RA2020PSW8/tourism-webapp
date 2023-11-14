@@ -86,6 +86,10 @@ export class MarketplaceService {
     return this.http.put<void>(this.tourApiUrl + '/token/' + shoppingCartId, null);
   }
 
+  calculateAverageRate(tourReviews: TourReview[]): Observable<number> {
+    return this.http.post<number>(this.tourReviewApiUrl + '/averageRate', tourReviews);
+  }
+  
   getPurchasedTours(): Observable<PagedResults<TourPurchaseToken>> {
     return this.http.get<PagedResults<TourPurchaseToken>>(`${this.tourApiUrl}/token`);
   }
