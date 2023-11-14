@@ -1,8 +1,8 @@
-<div class="single-selectedBlogog-details">
-    <div class="single-selectedBlogog-title-row">
-        <p class="single-selectedBlogog-title">{{selectedBlog.title}}</p>
+<div class="single-blog-details">
+    <div class="single-blog-title-row">
+        <p class="single-blog-title">{{selectedBlog.title}}</p>
     </div>
-    <p class="single-selectedBlogog-date">Created: {{selectedBlog.creationDate}}</p>
+    <p class="single-blog-date">Created: {{selectedBlog.creationDate}}</p>
     <p>Status: {{selectedBlog.systemStatus}}</p>
     <p>Description:</p>
     <markdown ngPreserveWhitespaces >
@@ -27,4 +27,4 @@
         <button (click)="rate(2)" mat-raised-button type="submit" color="primary">DOWN</button>
     </div>
     <xp-comments-display [blogId]="blogId"></xp-comments-display>
-    </div>
+</div>

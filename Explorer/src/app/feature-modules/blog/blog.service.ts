@@ -28,7 +28,7 @@ export class BlogService {
 
   getBlog(id: Number): Observable<Blog> {
     return this.http.get<Blog>(`${environment.apiHost}blog/${id}`);
-}
+  }
 
   addBlog(blog: Blog): Observable<Blog> {
     return this.http.post<Blog>(environment.apiHost + 'blog',blog);
