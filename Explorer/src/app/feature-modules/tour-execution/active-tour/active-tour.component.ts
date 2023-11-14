@@ -55,6 +55,12 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
       this.service.updateActiveTour().subscribe({
         next: (result: TourProgress) => {
           if(this.currentPosition?.latitude !== result.touristPosition?.latitude || this.currentPosition?.longitude !== result.touristPosition?.longitude ){
+
+            if (this.currentKeyPoint?.secret !== "") {
+              if (window.confirm(this.currentKeyPoint?.secret)) {
+              
+              }
+            }
              
             if(result.status === 'COMPLETED'){
               this.activeTour = undefined; 
