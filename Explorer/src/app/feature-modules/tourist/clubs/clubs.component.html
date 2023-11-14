@@ -29,6 +29,9 @@
                         <button *ngIf="c.userId === loggedId"(click) = "onEditClicked(c)" color="primary" mat-icon-button>
                                 <mat-icon>edit</mat-icon>
                         </button>
+                        <button *ngIf="c.userId === loggedId"(click) = "onDeleteClicked(c)" color="primary" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
                     </td>
                     <td>
                         <button *ngIf="c.userId !== loggedId"(click) = "onJoinClicked(c)" color="primary" aria-label="Join Request" type="submit" 

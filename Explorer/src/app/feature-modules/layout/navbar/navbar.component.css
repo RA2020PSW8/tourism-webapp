@@ -30,7 +30,7 @@ div {
 }
 
 .notification-button {
-    padding-top: 10px;
+    padding-top: 15px;
     padding-right: 5px;
     width: 120px;
 }
@@ -44,4 +44,23 @@ div {
 
 .notification-box {
     padding-bottom: 5px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #f73a98;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+  }
+
+.date{
+    font-size: small;
 }

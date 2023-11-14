@@ -13,7 +13,7 @@
 
                     <a href="#">Sign In</a>
                     <a href="#">Search</a>
-                    <a href="#">My Tours</a>
+                    <a routerLink="/purchased-tours" *ngIf="authService.user$.value.role=='tourist'">Purchased Tours</a>
                 </div>
             </div>
         </nav>
@@ -25,10 +25,14 @@
                 <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
             </div>
         </div>
+        <div *ngIf="!isLoading && tours.length === 0">
+            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
+        </div>
+
 
     </div>
 
-    <div id="otherContainer">
+    <div id="otherContainer" *ngIf="router.url.includes('/home')">
         <div class="panel">
             <p class="p-header">Discover New Experiences</p>
             <p class="p-regular">Explore breathtaking destinations, uncover hidden gems, and make memories that last a
@@ -36,7 +40,7 @@
             <a href="#" class="fancyButton">Discover your adventure</a>
         </div>
 
-        <div class="panel">
+        <div class="panel" *ngIf="router.url.includes('/home')">
             <p class="p-header">Embark on Adventures through Captivating Narratives</p>
             <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
                 gems to travel tips, our blog has it all.</p>
@@ -47,7 +51,7 @@
     <div id="bottomContainer">
         <div class="bottom-panel">
             <h2>Contact Us</h2>
-            <p class="p-footer">Email:<a class="footerLink" href="mailto:info@tourme.app"> info@tourme.app</a></p>
+            <p class="p-footer">Email:<a class="footerLink" href="mailto:info@tourme.app"> info&#64;tourme.app</a></p>
             <p class="p-footer">Phone: +1 (123) 456-7890</p>
             <p class="p-footer">Address: 123 Main Street, Anytown, USA</p>
             <p class="p-footer">Social Media:</p>
@@ -66,10 +70,10 @@
                 </div>
             </ul>
             <p class="p-footer">Support: For technical support or inquiries, please email
-                <a class="footerLink" href="mailto:support@tourme.app">support@tourme.app</a>.
+                <a class="footerLink" href="mailto:support@tourme.app">support&#64;tourme.app</a>.
             </p>
             <p class="p-footer">Business Inquiries: For business partnerships and collaborations, please contact
-                <a class="footerLink" href="mailto:partnerships@tourme.app">partnerships@tourme.app</a>.
+                <a class="footerLink" href="mailto:partnerships@tourme.app">partnerships&#64;tourme.app</a>.
             </p>
         </div>
         <div class="bottom-panel">

@@ -67,4 +67,8 @@ export class TouristService {
     return this.http.post<Club>(`${this.apiUrl}/clubJoinRequest`, club);
   }
 
+  deleteClub(club: Club): Observable<Club>{
+    return this.http.delete<Club>(environment.apiHost+'tourist/clubs/'+club.id); 
+  }
+
 }

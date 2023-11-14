@@ -9,6 +9,7 @@ import { OrderItem } from './model/order-item.model';
 import { PagedResults } from '../../shared/model/paged-results.model';
 import { ShoppingCart } from './model/shopping-cart.model';
 import { TourReview } from '../tour-execution/model/tour-review.model';
+import { TourPurchaseToken } from './model/tour-purchase-token.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class MarketplaceService {
   private readonly tourApiUrl = `${environment.apiHost}marketplace/tours`;
   private readonly filterApiUrl = `${environment.apiHost}marketplace/tours/filter`
   private readonly tourReviewApiUrl = `${environment.apiHost}tourexecution/tourreview`;
+
 
   constructor(private http: HttpClient) { }
 
@@ -76,20 +78,20 @@ export class MarketplaceService {
     return this.http.get<PagedResults<Tour>>(`${this.tourApiUrl}/arhived-published`);
   }
 
-  getTourById(tourId: number): Observable<Tour> {
-    return this.http.get<Tour>(`${this.apiUrl}/all/${tourId}`);
-  }
-
   getReviewsByTour(tourId: number): Observable<PagedResults<TourReview>> {
     return this.http.get<PagedResults<TourReview>>(`${this.tourReviewApiUrl}/tour/${tourId}`);
   }
 
-  buyShoppingCart(shoppingCartId : number) : Observable<void>{
+  buyShoppingCart(shoppingCartId: number): Observable<void> {
     return this.http.put<void>(this.tourApiUrl + '/token/' + shoppingCartId, null);
   }
 
   calculateAverageRate(tourReviews: TourReview[]): Observable<number> {
     return this.http.post<number>(this.tourReviewApiUrl + '/averageRate', tourReviews);
+  }
+  
+  getPurchasedTours(): Observable<PagedResults<TourPurchaseToken>> {
+    return this.http.get<PagedResults<TourPurchaseToken>>(`${this.tourApiUrl}/token`);
   }
 
 }

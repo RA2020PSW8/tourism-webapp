@@ -10,6 +10,8 @@ import { Tour } from '../../tour-authoring/model/tour.model';
 import { TourReview } from '../../tour-execution/model/tour-review.model';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { TourKeypointsMapComponent } from '../dialogs/tour-keypoints-map/tour-keypoints-map.component';
 
 @Component({
   selector: 'xp-tour-card-compact',
@@ -27,7 +29,7 @@ export class TourCardCompactComponent {
   public keypoints: Keypoint[] = [];
   private lastOrderId: number;
 
-  constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, public authService: AuthService) {
+  constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) {
     this.lastOrderId = 0;
   }
 
@@ -100,6 +102,13 @@ export class TourCardCompactComponent {
           }
         }
       });
+    });
+  }
+
+  showKeypoints(): void {
+    this.dialog.open(TourKeypointsMapComponent, {
+      data: this.tour,
+      panelClass: 'keypoints-map-dialog'
     });
   }
 
