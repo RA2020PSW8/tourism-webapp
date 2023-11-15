@@ -8,6 +8,8 @@ import { Tour } from '../tour-authoring/model/tour.model';
 import { OrderItem } from './model/order-item.model';
 import { PagedResults } from '../../shared/model/paged-results.model';
 import { ShoppingCart } from './model/shopping-cart.model';
+import { Keypoint } from '../tour-authoring/model/keypoint.model';
+import { Object } from '../tour-authoring/model/object.model';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +52,27 @@ export class MarketplaceService {
     .set('FilterRadius', filterRadius.toString());
     return this.http.get<PagedResult<Tour>>(`${this.filterApiUrl}`, {params})
   }
+
+  getPublicObjects(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Object>>{
+    const params = new HttpParams()
+    .set('page', page.toString())
+    .set('pageSize', pageSize.toString())
+    .set('CurrentLatitude', currentLatitude.toString())
+    .set('CurrentLongitude', currentLongitude.toString())
+    .set('FilterRadius', filterRadius.toString());
+    return this.http.get<PagedResult<Object>>(environment.apiHost +'tourist/object/filtered', {params});
+  }
+
+  getPublicKeyPoints(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Keypoint>>{
+    const params = new HttpParams()
+    .set('page', page.toString())
+    .set('pageSize', pageSize.toString())
+    .set('CurrentLatitude', currentLatitude.toString())
+    .set('CurrentLongitude', currentLongitude.toString())
+    .set('FilterRadius', filterRadius.toString());
+    return this.http.get<PagedResult<Keypoint>>(environment.apiHost +'tourist/publicKeypoint/filtered', {params});
+  }
+
   addOrderItem(orderItem: OrderItem): Observable<OrderItem> {
     return this.http.post<OrderItem>(environment.apiHost +'tourist/orderItems', orderItem);
   }

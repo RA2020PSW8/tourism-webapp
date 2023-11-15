@@ -31,6 +31,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() toggleOff: boolean;
   @Input() routeQuery: RouteQuery | undefined;
   @Input() markerPosition: Position | undefined;
+  @Input() markerPositions: Position[];
   @Input() allowMultipleMarkers: boolean;
 
   constructor(private mapService: MapService) {
@@ -73,6 +74,11 @@ export class MapComponent implements AfterViewInit, OnChanges {
     if(this.markerPosition) {
       this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
     }
+    if(this.markerPositions && this.markerPositions.length > 0) {
+      this.markerPositions.forEach((marker) => {
+        this.setMarker(marker.latitude, marker.longitude);
+      });
+    }
   }
 
   ngAfterViewInit(): void {
@@ -91,6 +97,12 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
         this.map.panTo(L.latLng(this.markerPosition.latitude, this.markerPosition.longitude));
       }
+
+      if(this.markerPositions && this.markerPositions.length > 0) {
+      this.markerPositions.forEach((marker) => {
+        this.setMarker(marker.latitude, marker.longitude, marker.color);
+      });
+    }
     }
   }
 
@@ -187,7 +199,21 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  setMarker(lat: number, lng: number): void {
-    new L.Marker([lat, lng]).addTo(this.markerLayer);
+  setMarker(lat: number, lng: number, color: string = 'red'): void {
+    console.log("Setting marker");
+    const customIcon = L.icon({
+      iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
+      iconSize: [32, 32], 
+      iconAnchor: [16, 16], 
+    });
+
+    switch(color){
+      case 'red': 
+        new L.Marker([lat, lng]).addTo(this.markerLayer);
+        break;
+      case 'yellow':
+        new L.Marker([lat, lng], {icon: customIcon}).addTo(this.markerLayer);
+        break;
+    }
   }
 }

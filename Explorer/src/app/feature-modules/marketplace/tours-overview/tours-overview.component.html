@@ -3,7 +3,7 @@
 </div>
 <div class="cont">
     <button type="button" (click)="toggleForm()">Filter tours by location</button>
-    <form [formGroup]="tourFilterForm" *ngIf="showForm">
+    <form [formGroup]="tourFilterForm" >
         <label for="longitude">Longitude</label>
         <input type="text" id="longitude" name="longitude" formControlName="longitude">
 
@@ -13,8 +13,8 @@
         <label for="filterRadius">Filter Radius</label>
         <input type="number" id="filterRadius" name="filterRadius" formControlName="filterRadius">
         
-        <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="fillParams($event)" [allowMultipleMarkers]="false"></app-map>
-        <button type="button" (click)="getFilteredTours()">Get Filtered Tours</button>
+        <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="handleMapClick($event)" [allowMultipleMarkers]="false" [markerPositions]="pointsOfInterest"></app-map>
+        <button type="button" (click)="getFilteredTours()">Get Nearby Tours</button>
     </form>
 </div>
 <div class="cont">

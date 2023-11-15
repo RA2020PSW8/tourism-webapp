@@ -3,6 +3,9 @@ import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { PagedResult } from '../../tour-execution/shared/model/paged-result.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Keypoint } from '../../tour-authoring/model/keypoint.model';
+import { Position } from 'src/app/shared/model/position.model';
+import { Object } from '../../tour-authoring/model/object.model';
 
 @Component({
   selector: 'xp-tours-overview',
@@ -14,8 +17,9 @@ export class ToursOverviewComponent implements OnInit {
   public tours: Tour[];
   public tourFilterForm: FormGroup;
   showForm: boolean = false;
+  public pointsOfInterest: Position[];
+  private temporary: Position[];
 
-  
   constructor(
     private marketplaceService: MarketplaceService,
     private formBuilder: FormBuilder
@@ -25,6 +29,9 @@ export class ToursOverviewComponent implements OnInit {
       longitude: [''],
       filterRadius: ['']
     });
+
+    this.tours = [];
+    this.pointsOfInterest = [];
   }
 
   ngOnInit(): void {
@@ -33,7 +40,7 @@ export class ToursOverviewComponent implements OnInit {
     });
   }
 
-  fillParams(event: number[]): void {
+  handleMapClick(event: number[]): void {
     if (event.length >= 2) {
       const latitude = event[0];
       const longitude = event[1];
@@ -42,6 +49,35 @@ export class ToursOverviewComponent implements OnInit {
         latitude: latitude,
         longitude: longitude
       });
+
+      this.temporary = [];
+
+      this.marketplaceService.getPublicObjects(0, 0, latitude, longitude, this.tourFilterForm.value.filterRadius || 1).subscribe({
+        next: (result: PagedResult<Object>) => {
+          result.results.forEach((obj) => {
+            this.temporary.push({
+              longitude: obj.longitude,
+              latitude: obj.latitude,
+              color: 'red'
+            })
+          });
+
+          this.marketplaceService.getPublicKeyPoints(0, 0, latitude, longitude, this.tourFilterForm.value.filterRadius || 1).subscribe({
+            next: (result: PagedResult<Keypoint>) => {
+              result.results.forEach((kp) => {
+                this.temporary.push({
+                  longitude: kp.longitude,
+                  latitude: kp.latitude,
+                  color: 'yellow'
+                })
+              });
+
+              this.pointsOfInterest = this.temporary;
+            }
+          })
+        }
+      })
+      
     }
   }
 
