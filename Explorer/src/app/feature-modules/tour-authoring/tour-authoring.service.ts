@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -8,6 +8,7 @@ import { Object } from './model/object.model';
 import { Equipment } from '../administration/model/equipment.model';
 import { TourEquipment } from './model/tour_equipment';
 import { Tour } from './model/tour.model';
+import { PublicEntityRequest } from './model/public-entity-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,10 @@ export class TourAuthoringService {
 
   getKeypoints(): Observable<PagedResults<Keypoint>>{
     return this.http.get<PagedResults<Keypoint>>(`${this.apiUrl}/keypoints`);
+  }
+
+  getKeypointsByTour(tourId: number): Observable<PagedResults<Keypoint>>{
+    return this.http.get<PagedResults<Keypoint>>(`${this.apiUrl}/keypoints/tour/${tourId}`);
   }
 
   deleteKeypoint(id: number): Observable<Keypoint>{
@@ -70,6 +75,10 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours`);
   }
 
+  getTourById(tourId: number): Observable<Tour>{
+    return this.http.get<Tour>(`${this.apiUrl}/tours/${tourId}`);
+  }
+
   deleteTour(id: number): Observable<Tour>{
     return this.http.delete<Tour>(`${this.apiUrl}/tours/${id}`);
   }
@@ -80,5 +89,17 @@ export class TourAuthoringService {
 
   updateTour(updatedTour: Tour): Observable<Tour>{
     return this.http.put<Tour>(`${this.apiUrl}/tours/${updatedTour.id}`, updatedTour);
+  }
+
+  addPublicEntityRequestObject(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
+    return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/createObjectRequest`, newRequest);
+  }
+
+  addPublicEntityRequestKeypoint(newRequest: PublicEntityRequest): Observable<PublicEntityRequest>{
+    return this.http.post<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/createKeypointRequest`, newRequest);
+  }
+  
+  getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
+    return this.http.get<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/entity/${entityId}/${entityType}`);
   }
 }

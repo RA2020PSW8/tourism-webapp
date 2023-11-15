@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Keypoint } from '../model/keypoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { PublicEntityRequest } from '../model/public-entity-request.model';
 
 @Component({
   selector: 'xp-keypoint',
@@ -10,22 +10,25 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class KeypointComponent implements OnInit{
 
-  public keypoints : Keypoint[];
+  @Output() keypointDeleted = new EventEmitter<null>();
+  @Output() keypointSelected = new EventEmitter<Keypoint>();
+  @Input() keypoints : Keypoint[];
   public selectedKeypoint: Keypoint;
-  public mode : string = 'add';
-  public renderKeypointForm: boolean = false;
+  publicEntityRequest: PublicEntityRequest;
+  newPublicEntityRequest: PublicEntityRequest;
+
 
   constructor(private tourAuthoringService: TourAuthoringService){}
 
   ngOnInit(): void {
-    this.getKeypoints(); 
+    
   }
 
   deleteKeypoint(id: number): void{
     if(window.confirm('Are you sure that you want to delete this keypoint?')){
       this.tourAuthoringService.deleteKeypoint(id).subscribe({
         next: () => {
-          this.getKeypoints();
+          this.keypointDeleted.emit();
         },
         error: () => {
           
@@ -35,25 +38,41 @@ export class KeypointComponent implements OnInit{
   }
 
   onEditClicked(keypoint: Keypoint): void{
-    this.selectedKeypoint = keypoint;
-    console.log(this.selectedKeypoint);
-    this.mode = 'edit';
-    this.renderKeypointForm = true;
+    this.keypointSelected.emit(keypoint);
   }
 
-  onAddClicked(): void{
-    this.mode = 'add';
-    this.renderKeypointForm = true;
-  }
-
-  getKeypoints(): void{
-    this.tourAuthoringService.getKeypoints().subscribe({
-      next: (response: PagedResults<Keypoint>) => {
-        this.keypoints = response.results;
+  sendPublicEntityRequest(id: number): void{
+    this.tourAuthoringService.getPublicEntityRequestByEntityId(id, 0).subscribe({
+      next: (result: PublicEntityRequest) => { 
+        this.publicEntityRequest.id = result.id;
+        this.publicEntityRequest.entityId = result.entityId;
+        this.publicEntityRequest.entityType = result.entityType;
+        this.publicEntityRequest.status = result.status;
+        this.publicEntityRequest.comment = result.comment;
       },
-      error: () => {
-        
+      complete: () => {
+        if (
+          this.publicEntityRequest &&
+          this.publicEntityRequest.entityId == id &&
+          this.publicEntityRequest.entityType == 0 
+        ) {
+          window.alert('Request for this keypoint already exists!');
+        } else if (this.publicEntityRequest == null ) {
+          if (window.confirm('Are you sure that you want this keypoint to be public?')) {
+            this.newPublicEntityRequest = {
+              entityId: id,
+              entityType: 0,
+              status: 0,
+              comment: '',
+            };
+            this.tourAuthoringService.addPublicEntityRequestKeypoint(this.newPublicEntityRequest).subscribe({
+              next: () => {
+                window.alert('You have successfully sent a request for making this keypoint public');
+              },
+            });
+          }
+        }
       }
-    });
+    }); 
   }
 }

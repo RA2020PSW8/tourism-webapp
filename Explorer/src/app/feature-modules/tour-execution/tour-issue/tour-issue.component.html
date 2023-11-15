@@ -1,36 +1,80 @@
-<div id="tourissue"><br>
-    <p>Tour issues</p>
-    <hr>
-    <div id="tourissue-details">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Category</th>
-                        <th>Priority</th>
-                        <th>Description</th>
-                        <th>Date and time</th>
-                        <th>Update tour issue</th>
-                        <th>Delete tour issue</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor = "let ti of tourIssues">
-                        <td>{{ti.id}}</td>
-                        <td>{{ti.category}}</td>
-                        <td>{{ti.priority}}</td>
-                        <td>{{ti.description}}</td>
-                        <td>{{ti.dateTime | date:'short'}}</td>
-                        <td><button (click)="onUpdateClicked(ti)">Update</button></td>
-                        <td><button (click)="onDeleteClicked(ti)">Delete</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    
-        <div>
-            <xp-tour-issue-form (tourIssueUpdated)="getTourIssues()" [selectedTourIssue]="selectedTourIssue"></xp-tour-issue-form>
+<div id="tour-issue-by-tour-container">
+    <div id="infos">
+        <table id="tour">
+            <h2>Tour info</h2>
+            <tr>
+                <td style="width: 180px;">Tour name:</td>
+                <td>{{selectedTour.name}}</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>{{selectedTour.description}}</td>
+            </tr>
+            <tr>
+                <td>Price:</td>
+                <td>{{selectedTour.price}}</td>
+            </tr>
+            <tr>
+                <td>Author name:</td>
+                <td>{{tourAuthor.name}} {{tourAuthor.surname}}</td>
+            </tr>
+        </table>
+
+        <table id="tour-issue">
+            <tr>
+                <td colspan="6"><h2>Tour issue info</h2></td>
+            </tr>
+            <tr>
+                <td style="width: 180px;">Category:</td>
+                <td>{{selectedTourIssue.category}}</td>
+            </tr>
+            <tr>
+                <td>Priority:</td>
+                <td>{{selectedTourIssue.priority}}</td>
+            </tr>
+            <tr>
+                <td>Creation date and time:</td>
+                <td>{{selectedTourIssue.creationDateTime | date:'short'}}</td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td>{{selectedTourIssue.description}}</td>
+            </tr>
+            <tr>
+                <td>Is resolved:</td>
+                <td>{{selectedTourIssue.isResolved}}</td>
+            </tr>
+            <tr>                
+                <td>Must be resolved by:</td>
+                <td>{{selectedTourIssue.resolveDateTime | date:'MM/dd/yy'}}</td>
+            </tr>
+            <tr>
+                <td>Created by:</td>
+                <td>{{tourIssueAuthor.name}} {{tourIssueAuthor.surname}}</td>
+                <td><button class="resolveButton" mat-raised-button (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button></td>
+            </tr>
+        </table><br>
+    </div>
+
+    <div class="comments">
+        <h2>Comments</h2>
+        <div class="comment-details" *ngFor = "let com of selectedTourIssue.comments">
+            <div class="profile-img">
+                <img style="width: 150px; height: 150px;" src="korisnik1.jpg">
+            </div>
+            
+            <div class="comment-content">
+                <label style="font-size: 20px;">{{com.name}} {{com.surname}}</label><br><br>
+                <p style="font-size: 20px; width: 500px;">{{com.comment}}</p>
+            </div>
+
+            <p class="comment-date" style="float: right;">Created: {{com.creationDateTime | date:'MM/dd/yy'}}</p>
         </div>
     </div>
+    <br><br>
+    <form [formGroup]="tourIssueCommentForm" class="add-new-comment">
+        <h2>Add new comment</h2>
+        <textarea formControlName="comment"></textarea>
+        <button class="addCommentButton" mat-raised-button (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
+    </form>
 </div>

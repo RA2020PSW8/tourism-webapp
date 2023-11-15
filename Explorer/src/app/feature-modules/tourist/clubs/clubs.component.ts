@@ -64,4 +64,11 @@ export class ClubsComponent implements OnInit{
 
   }
 
+  onDeleteClicked(club: Club): void{
+    this.service.deleteClub(club).subscribe({
+      next:(_) => { this.getClubs(); },
+
+    })
+  }
+
 }

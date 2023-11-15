@@ -15,56 +15,160 @@ import { ReactiveFormsModule } from '@angular/forms';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent implements OnInit{
-
+export class ProfileComponent implements OnInit {
+  showContent = 'showProfile';
+  profilesToFollow: Profile[] = [];
   personUpdateForm: FormGroup;
+  followers: Profile[];
+  following: Profile[];
 
-    profile : Profile = {
-      name: '',
-      surname: '',
-      profileImage: '',
-      biography: '',
-      quote: '',
-      username: '',
-      password: '',
-      email: '',
-      userId:0
-    }
-    constructor(private cd:ChangeDetectorRef,private service: ProfileService, private auth:AuthService, private formBuilder :FormBuilder){
-      this.personUpdateForm = this.formBuilder.group({
-        newName: new FormControl('', Validators.required),
-        newSurname: new FormControl('', Validators.required),
-        newProfileImage: new FormControl('', Validators.required),
-        newBiography: new FormControl('', Validators.required),
-        newQuote: new FormControl('', Validators.required),
-        username:new FormControl('', Validators.required),
-        password:new FormControl('', Validators.required),
-        email:new FormControl('', Validators.required),
-        userId: 0
-      
-      });
-    }
+  profile: Profile = {
+    name: '',
+    surname: '',
+    profileImage: '',
+    biography: '',
+    quote: '',
+    username: '',
+    password: '',
+    email: '',
+    userId: 0,
+  }
+  constructor(private cd: ChangeDetectorRef, private service: ProfileService, private auth: AuthService, private formBuilder: FormBuilder) {
+    this.personUpdateForm = this.formBuilder.group({
+      newName: new FormControl('', Validators.required),
+      newSurname: new FormControl('', Validators.required),
+      newProfileImage: new FormControl('', Validators.required),
+      newBiography: new FormControl('', Validators.required),
+      newQuote: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', Validators.required),
+      email: new FormControl('', Validators.required),
+      userId: 0
 
-    ngOnInit(): void {
-      this.loadProfileData();
-    }
+    });
+  }
 
-   
-    loadProfileData(){
+  ngOnInit(): void {
+    this.loadProfileData();
+    this.loadProfileFollowers();
+    this.loadProfileFollowing();
+    this.getProfiles();
+  }
+
+
+  loadProfileData() {
+    this.auth.user$.subscribe((user) => {
+      if (user.username) {
+
+
+        const userId = user.id;
+
+
+        this.service.getProfile(userId).subscribe({
+          next: (data: Profile) => {
+            this.profile.name = data.name;
+            this.profile.surname = data.surname;
+            this.profile.profileImage = data.profileImage;
+            this.profile.biography = data.biography;
+            this.profile.quote = data.quote;
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        });
+      }
+    });
+
+  }
+
+  loadProfileFollowers() {
+    this.service.getFollowers().subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.followers = data.results;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+  loadProfileFollowing() {
+    this.service.getFollowing().subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.following = data.results;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+  getProfiles(): void {
+
+    this.service.getProfiles().subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.profilesToFollow = data.results;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+
+  showTable(show: string): void {
+    this.showContent = show;
+  }
+
+  unfollow(followingId: number) {
+    this.service.unfollow(followingId).subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.following = data.results
+        this.getProfiles();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+  follow(followingId: number) {
+    this.service.follow(followingId).subscribe({
+      next: (data: PagedResults<Profile>) => {
+        this.following = data.results
+        this.getProfiles();
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
+  }
+  onSubmit() {
+    if (this.personUpdateForm.valid) {
+
       this.auth.user$.subscribe((user) => {
         if (user.username) {
-         
-          
+
+
+
           const userId = user.id;
-  
-          
-          this.service.getProfile(userId).subscribe({
+
+          const updatedProfile: Profile = {
+            name: this.personUpdateForm.value.newName,
+            surname: this.personUpdateForm.value.newSurname,
+            profileImage: this.personUpdateForm.value.newProfileImage,
+            biography: this.personUpdateForm.value.newBiography,
+            quote: this.personUpdateForm.value.newQuote,
+            username: this.personUpdateForm.value.username,
+            password: this.personUpdateForm.value.password,
+            email: this.personUpdateForm.value.email,
+            userId: user.id,
+          };
+
+
+          this.service.updateProfile(userId, updatedProfile).subscribe({
             next: (data: Profile) => {
-              this.profile.name = data.name;
-              this.profile.surname = data.surname;
-              this.profile.profileImage = data.profileImage;
-              this.profile.biography = data.biography;
-              this.profile.quote = data.quote;
+              this.personUpdateForm.reset();
+              this.loadProfileData();
+              this.cd.detectChanges();
             },
             error: (err: any) => {
               console.log(err);
@@ -72,46 +176,6 @@ export class ProfileComponent implements OnInit{
           });
         }
       });
-     
     }
-    onSubmit() {
-      if (this.personUpdateForm.valid) {
-       
-        this.auth.user$.subscribe((user) => {
-          if (user.username) {
-            
-            
-    
-            const userId = user.id;
-            
-            const updatedProfile: Profile = {
-              name: this.personUpdateForm.value.newName,
-              surname: this.personUpdateForm.value.newSurname,
-              profileImage: this.personUpdateForm.value.newProfileImage,
-              biography: this.personUpdateForm.value.newBiography,
-              quote: this.personUpdateForm.value.newQuote,
-              username: this.personUpdateForm.value.username,
-              password: this.personUpdateForm.value.password,
-              email: this.personUpdateForm.value.email,
-              userId: user.id
-              
-            };
-    
-           
-            this.service.updateProfile(userId, updatedProfile).subscribe({
-              next: (data: Profile) => {
-                this.personUpdateForm.reset();
-                this.loadProfileData();
-                this.cd.detectChanges();
-              },
-              error: (err: any) => {
-                console.log(err);
-              }
-            });
-          }
-        });
-      }
-    }
-          
-   
+  }
 }

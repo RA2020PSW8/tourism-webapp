@@ -1,0 +1,21 @@
+<div>
+    <div *ngIf="mode == 'preview' && !appRatingExist">
+        <h3>You didn't rate this app.</h3>
+        <button mat-raised-button type="submit" color="primary" (click)="addAppRating()">Rate app</button>
+    </div>
+
+
+    <div *ngIf="mode == 'preview' && appRatingExist ">
+        <p>App Rating ID: {{ appRating.id }}</p>
+        <p>Rating: {{ appRating.rating }}</p>
+        <p>Comment: {{ appRating.comment }}</p>
+        <p>Last Modified: {{ appRating.lastModified }}</p>
+        
+        <button mat-raised-button type="submit" color="primary" (click)="editAppRating()">Edit</button>
+        <button mat-raised-button type="submit" color="accent" (click)="deleteAppRating()">Delete</button>
+    </div>
+
+    <xp-app-rating-form-tourist *ngIf="showForm" [mode]="mode" [appRating]="appRating" (appRatingUpdated)="getAppRating()" ></xp-app-rating-form-tourist>
+</div>
+  
+
