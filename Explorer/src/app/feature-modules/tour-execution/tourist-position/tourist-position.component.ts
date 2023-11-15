@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TouristPosition } from '../model/tourist-position.model';
 import { TourExecutionService } from '../tour-execution.service';
-import { Position } from 'src/app/shared/model/position.model';
+import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
 
 @Component({
   selector: 'xp-tourist-position',
@@ -12,7 +12,7 @@ export class TouristPositionComponent implements OnInit {
   
   public touristPosition: TouristPosition;
   public mode: string = 'add';
-  public touristMapPosition: Position;
+  public touristMapPosition: MarkerPosition;
 
   constructor(private service: TourExecutionService) { }
 

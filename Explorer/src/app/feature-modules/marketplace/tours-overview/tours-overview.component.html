@@ -17,7 +17,7 @@
         <input type="number" id="filterRadius" name="filterRadius" formControlName="filterRadius" min="0">
         
         <div class="map-container">
-            <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="handleMapClick($event)" [allowMultipleMarkers]="false" [markerPositions]="pointsOfInterest"></app-map>
+            <app-map [enableClicks]="true" [toggleOff]="true" [drawRadiusOnClick]="true" (clickEvent)="handleMapClick($event)" [allowMultipleMarkers]="false" [radiusSize]="radius" [markerPositions]="pointsOfInterest"></app-map>
         </div>
     </form>
 </div>

@@ -9,7 +9,7 @@ import { Keypoint } from 'src/app/feature-modules/tour-authoring/model/keypoint.
 import { RouteQuery } from '../model/routeQuery.model';
 import { RouteInfo } from '../model/routeInfo.model';
 import { TransportType } from 'src/app/feature-modules/tour-authoring/model/tour.model';
-import { Position } from '../model/position.model';
+import { MarkerPosition } from '../model/markerPosition.model';
 
 @Component({
   standalone: true,
@@ -22,24 +22,54 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
   private map: any;
   private routeControl: L.Routing.Control;
+  private clickMarker: L.Marker; // saving just so we can access current lng/lat when needed
   private markerLayer: L.LayerGroup;
+  private drawLayer: L.LayerGroup;
+
   @Output() clickEvent = new EventEmitter<number[]>();
   @Output() routesFoundEvent = new EventEmitter<RouteInfo>();
-  @Input() selectedTour: TestTour;
-  @Input() enableClicks: boolean;
+
+  @Input() selectedTour: TestTour; //?
   @Input() markType: string;
-  @Input() toggleOff: boolean;
+
   @Input() routeQuery: RouteQuery | undefined;
-  @Input() markerPosition: Position | undefined;
-  @Input() markerPositions: Position[];
+  @Input() markerPosition: MarkerPosition | undefined;
+  @Input() markerPositions: MarkerPosition[];
+  @Input() radiusSize: number;
+
+  @Input() enableClicks: boolean;
+  @Input() toggleOff: boolean;
   @Input() allowMultipleMarkers: boolean;
   @Input() moveMarkers: boolean;
+  @Input() drawRadiusOnClick: boolean;
+
+  /* Icons */
+  yellowIcon = L.icon({
+    iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
+    iconSize: [32, 32], 
+    iconAnchor: [16, 16], 
+  });
+  blueIcon = L.icon({
+    iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+  });
+  redIcon = L.icon({
+    iconUrl: 'https://static.vecteezy.com/system/resources/previews/023/554/762/original/red-map-pointer-icon-on-a-transparent-background-free-png.png',
+    iconSize: [48, 48], 
+    iconAnchor: [16, 16],
+  });
+  greenIcon = L.icon({
+    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Map_pin_icon_green.svg/1504px-Map_pin_icon_green.svg.png',
+    iconSize: [22.5, 32], 
+    iconAnchor: [16, 16],
+  })
+  /* Icons end */
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
     this.markType = 'Key point';
     this.toggleOff = false;
     this.allowMultipleMarkers = true;
+    this.drawRadiusOnClick = false;
   }
 
   public handleButtonClick(): void {
@@ -64,7 +94,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
     );
     tiles.addTo(this.map);
     this.markerLayer = new L.LayerGroup();
+    this.drawLayer = new L.LayerGroup();
     this.markerLayer.addTo(this.map);
+    this.drawLayer.addTo(this.map);
 
     if (this.enableClicks) {
       this.registerOnClick();
@@ -73,11 +105,11 @@ export class MapComponent implements AfterViewInit, OnChanges {
       this.setRoute();
     }
     if (this.markerPosition) {
-      this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
+      this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude, this.markerPosition.color);
     }
     if(this.markerPositions && this.markerPositions.length > 0) {
       this.markerPositions.forEach((marker) => {
-        this.setMarker(marker.latitude, marker.longitude);
+        this.setMarker(marker.latitude, marker.longitude, marker.color, marker.title);
       });
     }
   }
@@ -95,15 +127,20 @@ export class MapComponent implements AfterViewInit, OnChanges {
     if (this.map) {
       this.setRoute();
       if (this.markerPosition) {
-        this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
+        this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude, this.markerPosition.color, '');
         this.map.panTo(L.latLng(this.markerPosition.latitude, this.markerPosition.longitude));
       }
 
       if(this.markerPositions && this.markerPositions.length > 0) {
-      this.markerPositions.forEach((marker) => {
-        this.setMarker(marker.latitude, marker.longitude, marker.color);
-      });
-    }
+        this.markerPositions.forEach((marker) => {
+          this.setMarker(marker.latitude, marker.longitude, marker.color, marker.title);
+        });
+      }
+
+      if(this.drawRadiusOnClick && this.radiusSize && this.radiusSize > 0) {
+        this.clearDrawings();
+        this.setRadius(this.clickMarker.getLatLng().lat, this.clickMarker.getLatLng().lng, this.radiusSize, 'red');
+      }
     }
   }
 
@@ -131,12 +168,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
-      let mp = null;
 
       if (!this.allowMultipleMarkers) {
-        this.markerLayer.eachLayer((layer) => {
-          layer.remove();
-        })
+        this.clearMarkers();
+        this.clearDrawings();
       }
 
       if (this.markType == 'Object') {
@@ -145,13 +180,33 @@ export class MapComponent implements AfterViewInit, OnChanges {
           iconSize: [32, 32],
           iconAnchor: [16, 16],
         });
-        mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
-        alert(mp.getLatLng());
+        this.clickMarker = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
+        alert(this.clickMarker.getLatLng());
       } else {
-        mp = new L.Marker([lat, lng]).addTo(this.markerLayer);
+        this.clickMarker = new L.Marker([lat, lng]).addTo(this.markerLayer);
         this.clickEvent.emit([lat, lng]);
       }
+
+      if(this.drawRadiusOnClick && this.radiusSize && this.radiusSize > 0) {
+        this.setRadius(lat, lng, this.radiusSize, 'red');
+      }
     });
+  }
+
+  drawPreviousClickMarker(){
+    this.setMarker(this.clickMarker.getLatLng().lat, this.clickMarker.getLatLng().lng);
+  }
+
+  clearMarkers(): void {
+    this.markerLayer.eachLayer((layer) => {
+      layer.remove();
+    })
+  }
+
+  clearDrawings(): void {
+    this.drawLayer.eachLayer((layer) => {
+      layer.remove();
+    })
   }
 
   setRoute(): void {
@@ -212,22 +267,36 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  setMarker(lat: number, lng: number, color: string = 'red'): void {
-    console.log("Setting marker");
-    const customIcon = L.icon({
-      iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
-      iconSize: [32, 32], 
-      iconAnchor: [16, 16], 
-    });
-
+  setMarker(lat: number, lng: number, color: string = 'blue', title: string = ''): void {
+    let markerIcon = this.blueIcon;
     switch(color){
-      case 'red': 
-        new L.Marker([lat, lng]).addTo(this.markerLayer);
+      case 'blue': 
+        markerIcon = this.blueIcon;
         break;
       case 'yellow':
-        new L.Marker([lat, lng], {icon: customIcon}).addTo(this.markerLayer);
+        markerIcon = this.yellowIcon;
+        break;
+      case 'red':
+        markerIcon = this.redIcon;
+        break;
+      case 'green':
+        markerIcon = this.greenIcon;
         break;
     }
+    
+    let newMarker = new L.Marker([lat, lng], {icon: markerIcon});
+    if(title && title !== '') {
+      newMarker.bindTooltip(title, { permanent: false }).openTooltip();
+    }
+    newMarker.addTo(this.markerLayer);
   }
- 
+
+  setRadius(centerLat: number, centerLng: number, radius: number, color: string = 'red'): void {
+    L.circle([centerLat, centerLng], {
+      color: color,
+      fillColor: color,
+      fillOpacity: 0.2,
+      radius: radius * 1000
+    }).addTo(this.drawLayer);
+  }
 }
