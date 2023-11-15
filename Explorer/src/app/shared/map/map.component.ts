@@ -19,7 +19,7 @@ import { Position } from '../model/position.model';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit, OnChanges {
-  
+
   private map: any;
   private routeControl: L.Routing.Control;
   private markerLayer: L.LayerGroup;
@@ -33,6 +33,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() markerPosition: Position | undefined;
   @Input() markerPositions: Position[];
   @Input() allowMultipleMarkers: boolean;
+  @Input() moveMarkers: boolean;
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
@@ -65,13 +66,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
     this.markerLayer = new L.LayerGroup();
     this.markerLayer.addTo(this.map);
 
-    if(this.enableClicks){
+    if (this.enableClicks) {
       this.registerOnClick();
     }
-    if(this.routeQuery){
+    if (this.routeQuery) {
       this.setRoute();
     }
-    if(this.markerPosition) {
+    if (this.markerPosition) {
       this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
     }
     if(this.markerPositions && this.markerPositions.length > 0) {
@@ -91,9 +92,9 @@ export class MapComponent implements AfterViewInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if(this.map){
+    if (this.map) {
       this.setRoute();
-      if(this.markerPosition) {
+      if (this.markerPosition) {
         this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude);
         this.map.panTo(L.latLng(this.markerPosition.latitude, this.markerPosition.longitude));
       }
@@ -115,7 +116,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
           .bindPopup('Pozdrav iz Strazilovske 19.')
           .openPopup();
       },
-      error: () => {},
+      error: () => { },
     });
   }
 
@@ -129,20 +130,20 @@ export class MapComponent implements AfterViewInit, OnChanges {
       });
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
-      );   
+      );
       let mp = null;
 
-      if(!this.allowMultipleMarkers){
-        this.markerLayer.eachLayer((layer) =>{
+      if (!this.allowMultipleMarkers) {
+        this.markerLayer.eachLayer((layer) => {
           layer.remove();
         })
       }
 
-      if(this.markType == 'Object') {
+      if (this.markType == 'Object') {
         const customIcon = L.icon({
           iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
-          iconSize: [32, 32], 
-          iconAnchor: [16, 16], 
+          iconSize: [32, 32],
+          iconAnchor: [16, 16],
         });
         mp = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
         alert(mp.getLatLng());
@@ -150,24 +151,37 @@ export class MapComponent implements AfterViewInit, OnChanges {
         mp = new L.Marker([lat, lng]).addTo(this.markerLayer);
         this.clickEvent.emit([lat, lng]);
       }
-    }); 
+    });
   }
 
   setRoute(): void {
-    if(this.routeQuery && this.routeQuery.keypoints.length > 1){
+    if (this.routeQuery && this.routeQuery.keypoints.length > 1) {
       var routesFoundEvent = this.routesFoundEvent;
-      
-      if(this.routeControl){
+
+      if (this.routeControl) {
         this.routeControl.remove(); //Removes previous legend 
       }
-      
+
       let lwaypoints = [];
-      for(let k of this.routeQuery.keypoints){
-        lwaypoints.push(L.latLng(k.latitude, k.longitude));
+      for (let i = 0; i < this.routeQuery.keypoints.length; i++) {
+        let k = this.routeQuery.keypoints[i];
+        let latLng = L.latLng(k.latitude, k.longitude);
+        lwaypoints.push(latLng);
+
+        // Create a marker for the keypoint and add it to the map
+        let marker = L.marker([k.latitude, k.longitude]);
+        let tooltipText = k.name;
+        if (i === 0) {
+          tooltipText = 'Start: ' + tooltipText;
+        } else if (i === this.routeQuery.keypoints.length - 1) {
+          tooltipText = 'Finish: ' + tooltipText;
+        }
+        marker.bindTooltip(tooltipText, { permanent: true }).openTooltip();
+        marker.addTo(this.map);
       }
-  
+
       let profile = '';
-      switch(this.routeQuery.transportType){
+      switch (this.routeQuery.transportType) {
         case TransportType.WALK:
           profile = 'mapbox/walking';
           break;
@@ -183,15 +197,14 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
       this.routeControl = L.Routing.control({
         waypoints: lwaypoints,
-        router: L.routing.mapbox(environment.mapBoxApiKey, {profile: profile})
+        router: L.routing.mapbox(environment.mapBoxApiKey, { profile: profile })
       }).addTo(this.map);
-  
-      this.routeControl.on('routesfound', function(e: any) {
+
+      this.routeControl.on('routesfound', function (e: any) {
         var routes = e.routes;
         var summary = routes[0].summary;
-        // alert('Total distance is ' + summary.totalDistance / 1000 + ' km and total time is ' + Math.round(summary.totalTime % 3600 / 60) + ' minutes');
         let routeInfo: RouteInfo = {
-          distance: summary.totalDistance/1000,
+          distance: summary.totalDistance / 1000,
           duration: Math.ceil(summary.totalTime / 60)
         }
         routesFoundEvent.emit(routeInfo);
@@ -216,4 +229,5 @@ export class MapComponent implements AfterViewInit, OnChanges {
         break;
     }
   }
+ 
 }

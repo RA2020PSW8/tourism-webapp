@@ -1,14 +1,71 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, Output } from '@angular/core';
+import { Tour } from 'src/app/feature-modules/tour-authoring/model/tour.model';
+import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { Router } from '@angular/router';
+import { TourPurchaseToken } from '../../marketplace/model/tour-purchase-token.model';
+
 
 @Component({
   selector: 'xp-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent {
-  images = [
-    {url:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1200px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg',alt:'Image 1'},
-    {url:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg/1200px-La_Tour_Eiffel_vue_de_la_Tour_Saint-Jacques%2C_Paris_ao%C3%BBt_2014_%282%29.jpg',alt:'img2'},
-    {url:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FParis&psig=AOvVaw2Fu75pto7pKhhN6r10J7nO&ust=1698341429348000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCKjojf_ckYIDFQAAAAAdAAAAABAE',alt:'img3'}
-  ]
+  public tours: Tour[] = [];
+  public isLoading = true;
+  constructor(private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) { }
+
+  ngOnInit(): void {
+    if (this.router.url === '/home') {
+      this.loadArchivedAndPublishedTours();
+    } else if (this.router.url === '/purchased-tours') {
+      this.loadPurchasedTours();
+      console.log(this.tours);
+    }
+  }
+
+  loadArchivedAndPublishedTours(): void {
+    this.marketplaceService.getArchivedAndPublishedTours().subscribe(tours => {
+      this.tours = tours.results;
+      this.isLoading = false;
+    });
+  }
+
+  loadPurchasedTours(): void {
+    this.marketplaceService.getPurchasedTours().subscribe(tokens => {
+      tokens.results.forEach(token => {
+        if (token.touristId === this.authService.user$.value.id) {
+          this.addTourIfPurchased(token);
+        }
+      });
+      this.isLoading = false;
+    });
+  }
+
+  addTourIfPurchased(token: any): void {
+    this.marketplaceService.getPublishedTours().subscribe(tours => {
+      tours.results.forEach(tour => {
+        if (token.tourId === tour.id) {
+          this.tours.push(tour);
+        }
+      });
+    });
+  }
+  showPopup(): void {
+    const popup = document.querySelector('.popup') as HTMLElement;
+
+    if (popup) {
+      popup.style.visibility = 'visible';
+      popup.style.opacity = '1';
+
+      setTimeout(() => {
+        popup.style.visibility = 'hidden';
+        popup.style.opacity = '0';
+        window.location.href = 'https://www.youtube.com/watch?v=MMc8AP9KhEM';
+      }, 2000);
+    }
+  }
 }
