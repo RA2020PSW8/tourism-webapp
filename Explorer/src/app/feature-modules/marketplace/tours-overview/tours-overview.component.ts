@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { MarketplaceService } from '../marketplace.service';
 import { PagedResult } from '../../tour-execution/shared/model/paged-result.model';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Position } from 'src/app/shared/model/position.model';
 import { Object } from '../../tour-authoring/model/object.model';
@@ -20,14 +20,11 @@ export class ToursOverviewComponent implements OnInit {
   public pointsOfInterest: Position[];
   private temporary: Position[];
 
-  constructor(
-    private marketplaceService: MarketplaceService,
-    private formBuilder: FormBuilder
-  ) {
-    this.tourFilterForm = this.formBuilder.group({
-      latitude: [''],
-      longitude: [''],
-      filterRadius: ['']
+  constructor(private marketplaceService: MarketplaceService) {
+    this.tourFilterForm = new FormGroup({
+      latitude: new FormControl('', [Validators.required]),
+      longitude: new FormControl('', [Validators.required]),
+      filterRadius: new FormControl(1, [Validators.min(0)]),
     });
 
     this.tours = [];
@@ -89,6 +86,7 @@ export class ToursOverviewComponent implements OnInit {
         this.tours = res.results;
       });
   }
+
   toggleForm() {
     this.showForm = !this.showForm;
   }

@@ -2,19 +2,23 @@
     <h1>Tours marketplace</h1>
 </div>
 <div class="cont">
-    <button type="button" (click)="toggleForm()">Filter tours by location</button>
-    <form [formGroup]="tourFilterForm" >
+    <div class="button-container">
+        <button type="button" (click)="toggleForm()">Open map search</button>
+        <button type="button" (click)="getFilteredTours()" *ngIf="showForm">Get Nearby Tours</button>
+    </div>
+    <form [formGroup]="tourFilterForm" *ngIf="showForm">
         <label for="longitude">Longitude</label>
         <input type="text" id="longitude" name="longitude" formControlName="longitude">
 
         <label for="latitude">Latitude</label>
         <input type="text" id="latitude" name="latitude" formControlName="latitude">
 
-        <label for="filterRadius">Filter Radius</label>
-        <input type="number" id="filterRadius" name="filterRadius" formControlName="filterRadius">
+        <label for="filterRadius">Filter Radius [km]</label>
+        <input type="number" id="filterRadius" name="filterRadius" formControlName="filterRadius" min="0">
         
-        <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="handleMapClick($event)" [allowMultipleMarkers]="false" [markerPositions]="pointsOfInterest"></app-map>
-        <button type="button" (click)="getFilteredTours()">Get Nearby Tours</button>
+        <div class="map-container">
+            <app-map [enableClicks]="true" [toggleOff]="true" (clickEvent)="handleMapClick($event)" [allowMultipleMarkers]="false" [markerPositions]="pointsOfInterest"></app-map>
+        </div>
     </form>
 </div>
 <div class="cont">
