@@ -39,6 +39,16 @@ export class TourAuthoringService {
     return this.http.put<Keypoint>(`${this.apiUrl}/keypoints/${updatedKeypoint.id}`, updatedKeypoint);
   }
 
+  getPublicKeypoints(page: number, pageSize: number): Observable<PagedResults<Keypoint>>{
+    const params = new HttpParams()
+    .set('page', page.toString())
+    .set('pageSize', pageSize.toString())
+    .set('CurrentLatitude', '0')
+    .set('CurrentLongitude', '0')
+    .set('FilterRadius', '20000');
+    return this.http.get<PagedResults<Keypoint>>(environment.apiHost +'tourist/publicKeypoint/filtered', {params});
+  }
+
   getObjects() : Observable<PagedResults<Object>>{
     return this.http.get<PagedResults<Object>>(`${this.apiUrl}/objects`);
   }

@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output } from '@angular/core';
 import { Keypoint } from '../model/keypoint.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-keypoint-form',
   templateUrl: './keypoint-form.component.html',
   styleUrls: ['./keypoint-form.component.css']
 })
-export class KeypointFormComponent implements OnChanges{
+export class KeypointFormComponent implements OnChanges, OnInit {
 
   @Output() keypointsUpdated = new EventEmitter<Keypoint>();
   @Output() routeFound = new EventEmitter<RouteInfo>();
@@ -21,7 +22,10 @@ export class KeypointFormComponent implements OnChanges{
   @Input() keypointsCount: number = 0;
   @Input() mode: string = 'add';
 
+  public publicKeypoints: Keypoint[];
   public keypointForm: FormGroup;
+
+  public openPublicKeypointList: boolean;
 
   constructor(private tourAuthoringService: TourAuthoringService) {
     this.keypointForm = new FormGroup({
@@ -33,6 +37,11 @@ export class KeypointFormComponent implements OnChanges{
       secret: new FormControl(''), 
       position: new FormControl(this.keypointsCount+1, [Validators.required, Validators.min(1)])
     });
+    this.openPublicKeypointList = false;
+  }
+
+  ngOnInit(): void {
+    this.getPublicKeypoints();
   }
 
   ngOnChanges(): void {
@@ -80,6 +89,19 @@ export class KeypointFormComponent implements OnChanges{
         });
       } 
     }
+  }
+
+  getPublicKeypoints() {
+    this.tourAuthoringService.getPublicKeypoints(0, 0).subscribe({
+      next: (result: PagedResults<Keypoint>) => {
+        this.publicKeypoints = result.results;
+      }
+    });
+  }
+
+  selectPublicKeypoint(keypoint: Keypoint) {
+    this.keypointForm.patchValue(keypoint);
+    this.openPublicKeypointList = false;
   }
 
   fillCoords(event: number[]): void {
