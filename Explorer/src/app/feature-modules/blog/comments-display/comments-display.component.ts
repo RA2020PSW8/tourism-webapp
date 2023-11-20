@@ -11,6 +11,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 export class CommentsDisplayComponent implements OnInit {
   
   @Input() blogId : number
+  @Input() systemStatus : string
   
   public comments: Comment[] = []
   public selectedComment: Comment

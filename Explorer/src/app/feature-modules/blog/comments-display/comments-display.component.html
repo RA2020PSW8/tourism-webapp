@@ -9,16 +9,16 @@
                 <td>{{c.username}}</td>
                 <td>{{c.comment}}</td>
                 <td>
-                    <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
+                    <button *ngIf="systemStatus !== 'CLOSED' " (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
+                    <button *ngIf="systemStatus !== 'CLOSED' " (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
                         <mat-icon>edit</mat-icon>
                     </button>
                 </td>
             </tr>
             <tr>
-                <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                <button *ngIf="systemStatus !== 'CLOSED' " (click)="onAddClicked()" color="primary" mat-icon-button>
                     <mat-icon>add</mat-icon>
                 </button>
             </tr>
