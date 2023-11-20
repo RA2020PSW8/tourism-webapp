@@ -32,6 +32,7 @@
   background-color: white;
   padding: 20px;
   z-index: 9999;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 .popup.show {
@@ -40,6 +41,7 @@
 
 .popup .exit {
   position: absolute;
-  right: 5px;
-  top: 5px;
+  right: 10px;
+  top: 10px;
+  cursor: pointer;
 }

@@ -55,6 +55,6 @@
 
 <div class="popup" [class]="openPublicKeypointList ? 'show' : ''">
     <h1>Public Keypoints</h1>
-    <xp-keypoint [keypoints]="publicKeypoints" (keypointSelected)="selectPublicKeypoint($event)"></xp-keypoint>
+    <xp-public-keypoint [publicKeypoints]="publicKeypoints" (keypointSelected)="selectPublicKeypoint($event)"></xp-public-keypoint>
     <div class="exit" (click)="openPublicKeypointList = false"><span>X</span></div>
 </div>

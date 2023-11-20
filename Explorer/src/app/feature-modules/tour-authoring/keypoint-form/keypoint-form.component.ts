@@ -92,7 +92,7 @@ export class KeypointFormComponent implements OnChanges, OnInit {
   }
 
   getPublicKeypoints() {
-    this.tourAuthoringService.getPublicKeypoints(0, 0).subscribe({
+    this.tourAuthoringService.getPublicKeypoints().subscribe({
       next: (result: PagedResults<Keypoint>) => {
         this.publicKeypoints = result.results;
       }

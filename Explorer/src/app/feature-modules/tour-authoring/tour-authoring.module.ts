@@ -15,6 +15,7 @@ import { TourComponent } from './tour/tour.component';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { RouterModule } from '@angular/router';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
+import { PublicKeypointComponent } from './public-keypoint/public-keypoint.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
     ToursEquipmentComponent,
     ToursPreviewComponent,
     TourComponent,
-    TourFormComponent
+    TourFormComponent,
+    PublicKeypointComponent
   ],
   imports: [
     CommonModule,
