@@ -1,22 +1,28 @@
 <div class="main">
-    <div *ngFor="let c of comments" class="comment">
-        <div class="comment-header">
-            {{c.username}}
-        </div>
-        <div class="comment-body">
-            {{c.comment}}
-        </div>
-        <div>
-            <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
-                <mat-icon>delete</mat-icon>
-            </button>
-            <button (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
-                <mat-icon>edit</mat-icon>
-            </button>
-            <button (click)="onAddClicked()" color="primary" mat-icon-button>
-                <mat-icon>add</mat-icon>
-            </button>
-        </div>
-    </div>
+    <table>
+        <tr *ngFor="let c of comments">
+            <td style="height: 125px;">
+            <div class="comment">
+                <div class="comment-header">
+                    <p class="p-comment-header">{{c.username}}</p>
+                </div>
+                <div class="comment-body">
+                    <p>{{c.comment}}</p>
+                </div>
+                <div class="comment-footer">
+                    <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
+                        <mat-icon>edit</mat-icon>
+                    </button>
+                    <!--<button (click)="onAddClicked()" color="primary" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                    </button> -->
+                </div>
+            </div>
+            </td>
+        </tr>
+    </table>
 <!--<xp-comment-form *ngIf="shouldRenderForm" (commentAdded)="getComments()" [blogId]="blogId" [comment]="selectedComment" [editMode]="editMode"></xp-comment-form>-->
 </div>
