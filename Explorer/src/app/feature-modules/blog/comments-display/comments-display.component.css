@@ -1,44 +1,33 @@
-.cont{
-    padding: 1rem;
+.main{
+    width: 100%;
+    height: 100%;
+}
+
+.comment{
+    width: 100%;
+    height: 100%;
+    margin-top: 4%;
     display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
+    flex-direction: column;
+    background-color: red;
+    border-radius: 10px;
 }
 
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+.comment-header{
+    height: 30%;
+    border-radius: 10px 0px 0px 0px;
+    background-color: aqua;
 }
 
-thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
-    text-align: left;
+.comment-body{
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: yellow;
 }
 
-th, td {
-    text-align: center;
-    vertical-align: middle;
-    padding: 0.5rem;
-}
-
-tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
-}
-
-tbody tr.active-row {
-    font-weight: bold;
-    color: #3f51b5;
+.p-rating-header{
+    font-size: 18px;
+    font-weight: 400;
 }

@@ -1,30 +1,39 @@
-<div class="single-blog-details">
-    <div class="single-blog-title-row">
-        <p class="single-blog-title">{{selectedBlog.title}}</p>
+<div class="main">
+
+    <div class="blog-header">
+        <div class="blog-title-row">
+            <p class="p-blog-title">{{selectedBlog.title}}</p>
+            <p class="blog-date">Created: {{selectedBlog.creationDate}}</p>
+            <p>{{selectedBlog.systemStatus}}</p>
+        </div>
+        <div class="blog-info">
+            <div class="blog-description">
+                <markdown ngPreserveWhitespaces>
+                    {{selectedBlog.description}}
+                </markdown>
+            </div>
+           <!-- <div class="blog-mini-img">
+                <img *ngFor="let i of selectedBlog.imageLinks" src="{{i}}" height="100" width="100">
+            </div> -->
+            <button (click)="rate(1)"  mat-raised-button type="submit" color="primary">UP</button>
+            <button (click)="rate(2)" mat-raised-button type="submit" color="primary">DOWN</button>
+        </div>
     </div>
-    <p class="single-blog-date">Created: {{selectedBlog.creationDate}}</p>
-    <p>Status: {{selectedBlog.systemStatus}}</p>
-    <p>Description:</p>
-    <markdown ngPreserveWhitespaces >
-        {{selectedBlog.description}}
-    </markdown>
-    <div class="single-selectedBlogog-mini-img">
-        <img *ngFor="let i of selectedBlog.imageLinks" src="{{i}}" height="100" width="100">
+
+    <div class="content-container">
+        <div class="comments-container">
+            <xp-comments-display [blogId]="blogId" style="width: 70%; height: 45%;"></xp-comments-display>
+        </div>
+        <div class="rating-container">
+            <!--<p class="p-container-header">Comments</p>-->
+            <div *ngFor="let r of selectedBlog.blogRatings" class="rating">
+                <div class="rating-header">
+                    <p class="p-rating-header">{{r.username}}</p>
+                </div>
+                <div class="rating-body">
+                    <p>{{r.rating}}</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <table>
-            <thead>
-                <th>Ratings</th>
-            </thead>
-            <tbody>
-                <tr *ngFor="let r of selectedBlog.blogRatings">
-                    <td>{{r.username}}</td>
-                    <td>{{r.rating}}</td>
-                </tr>
-            </tbody>
-        </table>
-        <button (click)="rate(1)"  mat-raised-button type="submit" color="primary">UP</button>
-        <button (click)="rate(2)" mat-raised-button type="submit" color="primary">DOWN</button>
-    </div>
-    <xp-comments-display [blogId]="blogId"></xp-comments-display>
 </div>

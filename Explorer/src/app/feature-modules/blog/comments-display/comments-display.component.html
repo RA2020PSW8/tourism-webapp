@@ -1,29 +1,22 @@
-<div>
-    <div>
-    <table>
-        <thead>
-            <th>Comments</th>
-        </thead>
-        <tbody>
-            <tr *ngFor="let c of comments">
-                <td>{{c.username}}</td>
-                <td>{{c.comment}}</td>
-                <td>
-                    <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                    <button (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <button (click)="onAddClicked()" color="primary" mat-icon-button>
-                    <mat-icon>add</mat-icon>
-                </button>
-            </tr>
-        </tbody>
-    </table>
+<div class="main">
+    <div *ngFor="let c of comments" class="comment">
+        <div class="comment-header">
+            {{c.username}}
+        </div>
+        <div class="comment-body">
+            {{c.comment}}
+        </div>
+        <div>
+            <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
     </div>
-    <xp-comment-form *ngIf="shouldRenderForm" (commentAdded)="getComments()" [blogId]="blogId" [comment]="selectedComment" [editMode]="editMode"></xp-comment-form>
+<!--<xp-comment-form *ngIf="shouldRenderForm" (commentAdded)="getComments()" [blogId]="blogId" [comment]="selectedComment" [editMode]="editMode"></xp-comment-form>-->
 </div>
