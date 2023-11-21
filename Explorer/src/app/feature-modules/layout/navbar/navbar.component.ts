@@ -16,6 +16,7 @@ export class NavbarComponent implements OnInit {
   user: User | undefined;
   notifications: NotificationModel[] = [];
   unreadNotificationsCount: number = 0;
+  showOldToolbar: boolean = false;
 
   constructor(private authService: AuthService, private layoutService: LayoutService, private router: Router) {}
 
@@ -69,5 +70,8 @@ export class NavbarComponent implements OnInit {
     if(actionURL){
       this.router.navigate([actionURL]);
     }
+  }
+  toggleOldToolbar(): void {
+    this.showOldToolbar = !this.showOldToolbar;
   }
 }

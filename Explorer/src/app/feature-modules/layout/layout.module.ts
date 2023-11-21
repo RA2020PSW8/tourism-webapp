@@ -9,12 +9,14 @@ import { AdministrationModule } from '../administration/administration.module';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MarketplaceModule } from "../marketplace/marketplace.module";
 import { MatMenuModule } from '@angular/material/menu';
+import { FooterComponent } from './footer/footer.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 @NgModule({
   declarations: [
     HomeComponent,
     NavbarComponent,
-
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -24,12 +26,14 @@ import { MatMenuModule } from '@angular/material/menu';
     MatGridListModule,
     MarketplaceModule,
     MatMenuModule,
+    MatSidenavModule
   ],
   exports: [
     NavbarComponent,
     HomeComponent,
     AdministrationModule,
     MatGridListModule,
+    FooterComponent
   ]
 })
 export class LayoutModule { }

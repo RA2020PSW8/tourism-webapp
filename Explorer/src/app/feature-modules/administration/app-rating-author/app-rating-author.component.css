@@ -1,3 +1,8 @@
+.rating-container {
+  margin: 0 auto;
+  padding-top: var(--content-top-padding);
+}
+
 form {
   margin-top: 150px;
   display: flex;

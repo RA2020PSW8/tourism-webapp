@@ -34,7 +34,10 @@ export class AppRatingTouristComponent implements OnInit{
         this.appRating = result; 
         this.appRatingExist = true;
       },
-      error: () => {}
+      error: () => {
+        this.appRatingExist = false;
+        this.showForm = false;
+      }
     })
   }
   
