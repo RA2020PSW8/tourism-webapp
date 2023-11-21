@@ -108,3 +108,59 @@ div {
     margin-bottom: 3px;
     font-size: 20px;
 }
+
+::ng-deep .cdk-overlay-pane .my-menu {
+    min-width: 550px;
+    max-height: 80vh;
+}
+
+.content {
+    width: 350px;
+}
+
+.icon{
+    padding: 5px;
+    margin: 5px;
+}
+
+.cloud-container {
+    background-color: #f0f0f0; 
+    border-radius: 5px;
+    margin: 5px;
+}
+
+.notification-button {
+    padding-top: 15px;
+    padding-right: 5px;
+    width: 120px;
+}
+
+.no-notifications {
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    justify-content: center;
+  }
+
+.notification-box {
+    padding-bottom: 5px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #f73a98;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+  }
+
+.date{
+    font-size: small;
+}

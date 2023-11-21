@@ -39,6 +39,7 @@ export class ObjectFormComponent implements OnChanges{
       description: this.objectForm.value.description || "",
       image: this.objectForm.value.image || "",
       category: this.objectForm.value.category || "",
+      status: 0
     };
     if(this.mode === 'add'){
       this.tourAuthoringService.addObject(object).subscribe({

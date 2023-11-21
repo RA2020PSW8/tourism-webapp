@@ -16,12 +16,18 @@
                 <p><b>Start time:</b> {{ activeTour.startTime | date:"MMM dd, yyyy 'at' hh:mm a" }}</p>
                 <p><b>Your current location:</b> {{ activeTour.touristPosition?.longitude }}°, {{ activeTour.touristPosition?.latitude }}°</p>
             </div>
+            <div *ngIf="currentKeyPoint">
+           
+                <p><b>Keypoint Name:</b> {{ currentKeyPoint.name }}</p>
+                <p><b>Keypoint Position:</b> {{ currentKeyPoint.position }}</p>
+                <p><b>Keypoint Description:</b> {{ currentKeyPoint.description }}</p>
+              </div>
             <div class="button-container">
                 <button color="primary" (click)="abandonTour()" mat-raised-button>Abandon Tour</button>
             </div>
         </div>
         <div class="active-tour__map-container">
-            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition"></app-map>
+            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" *ngIf="refreshMap"></app-map>
         </div>
     </div>
 </div>

@@ -30,6 +30,7 @@ export class KeypointFormComponent implements OnChanges{
       longitude: new FormControl(0, [Validators.min(-180), Validators.max(180)]),
       description: new FormControl(''),
       image: new FormControl(''),
+      secret: new FormControl(''), 
       position: new FormControl(this.keypointsCount+1, [Validators.required, Validators.min(1)])
     });
   }
@@ -55,6 +56,7 @@ export class KeypointFormComponent implements OnChanges{
         longitude: this.keypointForm.value.longitude || 0,
         description: this.keypointForm.value.description || "",
         image: this.keypointForm.value.image || "",
+        secret: this.keypointForm.value.secret || "", 
         position: this.keypointForm.value.position || 0
       };
       

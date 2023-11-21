@@ -5,10 +5,16 @@ export enum Category {
     OTHER = 'OTHER'
 }
 
+export enum Status {
+    PRIVATE = 'PRIVATE',
+    PUBLIC = 'PUBLIC'
+}
+
 export interface Object {
         id? : number,
         name: string,
         description: string, 
         image?: string,
-        category: Category
+        category: Category,
+        status: number
 }

@@ -9,6 +9,8 @@ import { AdministrationModule } from '../administration/administration.module';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { FooterComponent } from './footer/footer.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MarketplaceModule } from "../marketplace/marketplace.module";
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -22,11 +24,13 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     RouterModule,
     AdministrationModule,
     MatGridListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MarketplaceModule,
+    MatMenuModule,
   ],
   exports: [
     NavbarComponent,
-    HomeComponent, 
+    HomeComponent,
     AdministrationModule,
     MatGridListModule,
     FooterComponent

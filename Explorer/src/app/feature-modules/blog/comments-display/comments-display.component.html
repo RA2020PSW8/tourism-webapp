@@ -25,5 +25,5 @@
         </tbody>
     </table>
     </div>
-    <xp-comment-form *ngIf="shouldRenderForm" (commentAdded)="getComments()" [comment]="selectedComment" [editMode]="editMode"></xp-comment-form>
+    <xp-comment-form *ngIf="shouldRenderForm" (commentAdded)="getComments()" [blogId]="blogId" [comment]="selectedComment" [editMode]="editMode"></xp-comment-form>
 </div>

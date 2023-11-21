@@ -1,7 +1,14 @@
+import { TourIssueComment } from "./tour-issue-comment.model";
+
 export interface TourIssue {
-    id?: number,
+    id?: string,
     category: string,
-    priority: number,
+    priority: string,
     description: string,
-    dateTime: Date
+    creationDateTime: Date,
+    resolveDateTime?: Date,
+    isResolved?: boolean,
+    tourId: string,
+    comments?: TourIssueComment[],
+    userId: string,
 }
