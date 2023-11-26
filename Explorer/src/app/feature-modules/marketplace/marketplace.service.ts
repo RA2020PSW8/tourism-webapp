@@ -57,24 +57,24 @@ export class MarketplaceService {
     return this.http.get<PagedResult<Tour>>(`${this.filterApiUrl}`, { params })
   }
 
-  getPublicObjects(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Object>>{
+  getPublicObjects(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Object>> {
     const params = new HttpParams()
-    .set('page', page.toString())
-    .set('pageSize', pageSize.toString())
-    .set('CurrentLatitude', currentLatitude.toString())
-    .set('CurrentLongitude', currentLongitude.toString())
-    .set('FilterRadius', filterRadius.toString());
-    return this.http.get<PagedResult<Object>>(environment.apiHost +'tourist/object/filtered', {params});
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('CurrentLatitude', currentLatitude.toString())
+      .set('CurrentLongitude', currentLongitude.toString())
+      .set('FilterRadius', filterRadius.toString());
+    return this.http.get<PagedResult<Object>>(environment.apiHost + 'tourist/object/filtered', { params });
   }
 
-  getPublicKeyPoints(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Keypoint>>{
+  getPublicKeyPoints(page: number, pageSize: number, currentLatitude: number, currentLongitude: number, filterRadius: number): Observable<PagedResult<Keypoint>> {
     const params = new HttpParams()
-    .set('page', page.toString())
-    .set('pageSize', pageSize.toString())
-    .set('CurrentLatitude', currentLatitude.toString())
-    .set('CurrentLongitude', currentLongitude.toString())
-    .set('FilterRadius', filterRadius.toString());
-    return this.http.get<PagedResult<Keypoint>>(environment.apiHost +'tourist/publicKeypoint/filtered', {params});
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString())
+      .set('CurrentLatitude', currentLatitude.toString())
+      .set('CurrentLongitude', currentLongitude.toString())
+      .set('FilterRadius', filterRadius.toString());
+    return this.http.get<PagedResult<Keypoint>>(environment.apiHost + 'tourist/publicKeypoint/filtered', { params });
   }
 
   addOrderItem(orderItem: OrderItem): Observable<OrderItem> {
@@ -112,9 +112,13 @@ export class MarketplaceService {
   calculateAverageRate(tourReviews: TourReview[]): Observable<number> {
     return this.http.post<number>(this.tourReviewApiUrl + '/averageRate', tourReviews);
   }
-  
+
   getPurchasedTours(): Observable<PagedResults<TourPurchaseToken>> {
     return this.http.get<PagedResults<TourPurchaseToken>>(`${this.tourApiUrl}/token`);
+  }
+
+  checkIfPurchased(tourId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.tourApiUrl}/token/check-purchase/${tourId}`);
   }
 
 }
