@@ -23,8 +23,8 @@
                 </tr>
             </tbody>
         </table>
-        <button (click)="rate(1)"  mat-raised-button type="submit" color="primary">UP</button>
-        <button (click)="rate(2)" mat-raised-button type="submit" color="primary">DOWN</button>
+        <button *ngIf="selectedBlog.systemStatus !== 'CLOSED' " (click)="rate(1)"  mat-raised-button type="submit" color="primary">UP</button>
+        <button *ngIf="selectedBlog.systemStatus !== 'CLOSED' " (click)="rate(2)" mat-raised-button type="submit" color="primary">DOWN</button>
     </div>
-    <xp-comments-display [blogId]="blogId"></xp-comments-display>
+    <xp-comments-display [blogId]="blogId" [systemStatus]="selectedBlog.systemStatus"></xp-comments-display>
 </div>
