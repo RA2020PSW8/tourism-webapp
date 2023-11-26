@@ -39,6 +39,10 @@ export class TourAuthoringService {
     return this.http.put<Keypoint>(`${this.apiUrl}/keypoints/${updatedKeypoint.id}`, updatedKeypoint);
   }
 
+  getPublicKeypoints(): Observable<PagedResults<Keypoint>>{
+    return this.http.get<PagedResults<Keypoint>>(`${this.apiUrl}/publicKeypoints`);
+  }
+
   getObjects() : Observable<PagedResults<Object>>{
     return this.http.get<PagedResults<Object>>(`${this.apiUrl}/objects`);
   }
