@@ -1,11 +1,11 @@
 .content-container {
     display: flex;
-    max-width: 1440px;
     padding: 20px 40px;
+    gap: 50px;
 }
 
-.content-container > * {
-    flex: 1;
+.content-container > .form-container {
+    width: 100%;
 }
 
 button { 

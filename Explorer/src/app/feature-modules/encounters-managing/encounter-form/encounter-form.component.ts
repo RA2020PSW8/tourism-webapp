@@ -63,4 +63,11 @@ export class EncounterFormComponent implements OnChanges {
       });
     } 
   }
+
+  fillCoords(event: number[]): void {
+    this.encounterForm.patchValue({
+      latitude: event[0],
+      longitude: event[1]
+    })
+  }
 }

@@ -54,4 +54,8 @@
             </button>
         </div>
     </form>
+
+    <div class="map-container">
+        <app-map [enableClicks]="true" [toggleOff]="true" [allowMultipleMarkers]="false" (clickEvent)="fillCoords($event)"></app-map>
+    </div>
 </div>

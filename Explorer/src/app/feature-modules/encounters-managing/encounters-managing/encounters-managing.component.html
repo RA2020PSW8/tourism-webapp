@@ -8,6 +8,6 @@
                 Add new
             </button>
         </div>
-        <xp-encounter-form *ngIf="showForm" [selectedEncounter]="selectedEncounter" (encounterUpdated)="encounterUpdated()" [mode]="formMode"></xp-encounter-form>
+        <xp-encounter-form class="form-container" *ngIf="showForm" [selectedEncounter]="selectedEncounter" (encounterUpdated)="encounterUpdated()" [mode]="formMode"></xp-encounter-form>
     </div>
 </div>

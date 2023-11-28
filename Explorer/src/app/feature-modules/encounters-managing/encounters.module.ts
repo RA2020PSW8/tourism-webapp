@@ -6,6 +6,7 @@ import { EncountersPreviewComponent } from './encounters-preview/encounters-prev
 import { EncounterFormComponent } from './encounter-form/encounter-form.component';
 import { EncountersManagingComponent } from './encounters-managing/encounters-managing.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     CommonModule,
     MaterialModule,
     MatButtonModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MapComponent
   ]
 })
 export class EncountersModule { }
