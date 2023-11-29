@@ -1,4 +1,6 @@
 <div class="main">
+    <xp-comment-form (commentAdded)="getComments()" [blogId]="blogId" [comment]="comment" [editMode]="editMode"
+    style="padding-top: 1.5em;"></xp-comment-form>
     <table>
         <tr *ngFor="let c of comments">
             <td style="height: 125px;">
@@ -16,13 +18,9 @@
                     <button (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <!--<button (click)="onAddClicked()" color="primary" mat-icon-button>
-                        <mat-icon>add</mat-icon>
-                    </button> -->
                 </div>
             </div>
             </td>
         </tr>
     </table>
-<!--<xp-comment-form *ngIf="shouldRenderForm" (commentAdded)="getComments()" [blogId]="blogId" [comment]="selectedComment" [editMode]="editMode"></xp-comment-form>-->
 </div>

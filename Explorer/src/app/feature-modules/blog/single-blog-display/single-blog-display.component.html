@@ -3,12 +3,12 @@
         <div class="blog-title-row">
             <p class="p-blog-title">{{selectedBlog.title}}</p>
             <p class="blog-date">Created: {{selectedBlog.creationDate}}</p>
-            <p>{{selectedBlog.systemStatus}}</p>
+            <p *ngIf="selectedBlog.systemStatus === 'CLOSED'">{{selectedBlog.systemStatus}}</p>
         </div>
         <div class="blog-info">
             <div class="blog-description">
-                <markdown ngPreserveWhitespaces>
-                    {{selectedBlog.description}}
+                <markdown ngPreserveWhitespaces style="padding: 15px; margin-top: 5px;">
+                  {{selectedBlog.description}}
                 </markdown>
             </div>
            <!-- <div class="blog-mini-img">
@@ -19,20 +19,21 @@
 
     <div class="content-container">
         <div class="comments-container">
-            <xp-comments-display [blogId]="blogId" style="width: 60%; margin-left: 20%;"></xp-comments-display>
+            <p class="p-header">Comments</p>
+            <xp-comments-display [blogId]="blogId" style="display: flex; flex-direction: column; width: 70%; height: auto;margin-left: 5%; margin-top: 1.7em;"></xp-comments-display>
         </div>
         <div class="rating-container">
+            <p class="p-container-header">Leave a rating</p>
             <div class="rating-buttons">
-                <button (click)="rate(1)"  mat-raised-button type="submit" color="primary">UP</button>
-                <button (click)="rate(2)" mat-raised-button type="submit" color="primary">DOWN</button>
+                <button (click)="rate(1)"  mat-raised-button type="submit" color="primary" class="rating-button">UP</button>
+                <button (click)="rate(2)" mat-raised-button type="submit" color="primary" class="rating-button">DOWN</button>
             </div>
-            <!--<p class="p-container-header">Comments</p>-->
             <div *ngFor="let r of selectedBlog.blogRatings" class="rating">
                 <div class="rating-header">
                     <p class="p-rating-header">{{r.username}}</p>
                 </div>
-                <div class="rating-body">
-                    <p class="p-rating-body">{{r.rating}}</p>
+                <div class="rating-body" [ngStyle]="{'background-color': r.rating === 'DOWNVOTE' ? '#E74646' : '#00DFA2'}">
+                    <p class="p-rating-body">{{ r.rating === 'UPVOTE' ? 'UP' : 'DOWN' }}</p>
                 </div>
             </div>
         </div>
