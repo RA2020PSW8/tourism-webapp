@@ -13,6 +13,7 @@ export class KeypointComponent implements OnInit{
   @Output() keypointDeleted = new EventEmitter<null>();
   @Output() keypointSelected = new EventEmitter<Keypoint>();
   @Input() keypoints : Keypoint[];
+  @Input() isCustom : Boolean = false;
   public selectedKeypoint: Keypoint;
   publicEntityRequest: PublicEntityRequest;
   newPublicEntityRequest: PublicEntityRequest;
