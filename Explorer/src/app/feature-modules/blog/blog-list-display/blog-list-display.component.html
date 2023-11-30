@@ -1,38 +1,80 @@
-<div id="blog">
-    <div id="all-blogs">
+<div class="main">
+    <div class="status-container">
         <h2>All tags:</h2>
-        <div id="status-containers">
-            <div *ngFor="let status of allBlogStatus" >
-                <div class="status" [ngStyle]="{'background-color':status.frontColor}" (click)="modifyFilter(status)">
-                    <i class="fa-solid fa-tag"></i>    
+        <div class="status-sub-container">
+            <div *ngFor="let status of allBlogStatus">
+                <div class="status" (click)="modifyFilter(status)">
+                    <div class="circle" [ngStyle]="{'background-color':getColor(status.name)}"></div>
                     {{status.name}}
                 </div>
             </div>
         </div>
         <h2>Selected tags:</h2>
-        <div id="status-containers">
+        <div class="status-sub-container">
             <div *ngFor="let status of selectedBlogStatus">
-                <div  class="status"  [ngStyle]="{'background-color':status.frontColor}" (click)="modifyFilter(status)">
-                    <i class="fa-solid fa-tag"></i>    
+                <div class="status" (click)="modifyFilter(status)">
+                    <div class="circle" [ngStyle]="{'background-color':getColor(status.name)}"></div>
                     {{status.name}}
                 </div>
             </div>
         </div>
+    </div> 
+
+    <div class="blogs-container">
         <table>
             <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>System status</td>
-                <td>Statuses</td>
-                <td>Actions</td>
+                <td>Explore blogs</td>
             </tr>
-            <tr  *ngFor="let bl of blogs">
-                <td><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
+            <tbody>
+                <tr *ngFor="let bl of blogs; let i = index;">
+                  <td>
+                    <div class="accordion accordion-flush" [id]="'accordionFlushExample' + i">
+                      <div class="accordion-item">
+                        <h2 class="accordion-header" [id]="'flush-heading' + i">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse' + i" [attr.aria-expanded]="'false'" [attr.aria-controls]="'flush-collapse' + i">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td style="width: fit-content;" class="p-rating-header"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
+                                        <td style="width: 2em;">{{bl.systemStatus}}</td>
+                                        <td *ngFor="let st of bl.blogStatuses">
+                                            <div class="status">
+                                                <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
+                                                {{st.name}}
+                                            </div>
+                                        </td>
+                                        <td style="width: min-content;">
+                                            <button (click)="onUpdateClicked(bl)" mat-icon-button>
+                                                <mat-icon>edit</mat-icon>
+                                            </button>
+                                        </td>
+                                        <td style="width: min-content;">
+                                            <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
+                                                <mat-icon>delete</mat-icon>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                          </button>
+                        </h2>
+                        <div [id]="'flush-collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-heading' + i" [attr.data-bs-parent]="'#accordionFlushExample' + i">
+                          <div class="accordion-body">
+                            {{bl.description}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+                <!--
+                <td class="p-rating-header"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
                 <td>{{bl.description}}</td>
                 <td>{{bl.systemStatus}}</td>
                 <td *ngFor="let st of bl.blogStatuses">
-                    <div class="status" [ngStyle]="{'background-color':getColor(st.name)}">
-                        <i class="fa-solid fa-tag"></i>    
+                    <div class="status">
+                        <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
                         {{st.name}}
                     </div>
                 </td>
@@ -44,8 +86,8 @@
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
-            </tr>
+            -->
         </table>
+        </div>
     </div>
     <!--<xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>-->
-</div>
