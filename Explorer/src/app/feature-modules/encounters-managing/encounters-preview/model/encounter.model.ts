@@ -19,5 +19,8 @@ export interface Encounter {
     longitude: number,
     xp: number,
     status: EncounterStatus,
-    type: EncounterType
+    type: EncounterType,
+    range: number,
+    image?: string,
+    peopleCount? : number 
 }
