@@ -37,6 +37,7 @@ import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
 import { EncountersManagingComponent } from 'src/app/feature-modules/encounters-managing/encounters-managing/encounters-managing.component';
+import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
 import { EncounterMapComponent } from 'src/app/feature-modules/encounters-managing/encounter-map/encounter-map.component';
 
 const routes: Routes = [
@@ -70,6 +71,7 @@ const routes: Routes = [
   {path: 'comments', component:CommentsDisplayComponent},
   {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
   {path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
   {path: 'encounters-map', component: EncounterMapComponent, canActivate: [AuthGuard]},
 
   // Admin

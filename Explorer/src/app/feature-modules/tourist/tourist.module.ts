@@ -11,6 +11,10 @@ import { ClubJoinRequestsComponent } from './club-join-requests/club-join-reques
 import { ClubsComponent } from './clubs/clubs.component';
 import { ClubFormComponent } from './club-form/club-form.component';
 import { MatButtonModule } from '@angular/material/button';
+import { CustomTourFormComponent } from './custom-tour-form/custom-tour-form.component';
+import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
+import { TimePipe } from 'src/app/shared/helpers/time.pipe';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 
 
@@ -23,13 +27,17 @@ import { MatButtonModule } from '@angular/material/button';
     ClubFormComponent,
     ClubInvitationComponent,
     ClubInvitationFormComponent,
-    ClubOwnerRequestsComponent
+    ClubOwnerRequestsComponent,
+    CustomTourFormComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
     MatButtonModule,
+    TourAuthoringModule,
+    TimePipe,
+    MapComponent
   ],
   exports: [
     ClubsComponent,

@@ -37,6 +37,11 @@ import { PublicKeypointComponent } from './public-keypoint/public-keypoint.compo
     MapComponent,
     RouterModule,
     TimePipe
+  ],
+  exports: [
+    KeypointComponent,
+    KeypointFormComponent,
+    PublicKeypointComponent
   ]
 })
 export class TourAuthoringModule { }

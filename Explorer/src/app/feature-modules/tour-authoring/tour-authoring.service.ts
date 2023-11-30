@@ -91,6 +91,10 @@ export class TourAuthoringService {
     return this.http.post<Tour>(`${this.apiUrl}/tours/`, newTour);
   }
 
+  addCustomTour(newTour: Tour): Observable<Tour>{
+    return this.http.post<Tour>(`${this.apiUrl}/tours/custom`, newTour);
+  }
+
   updateTour(updatedTour: Tour): Observable<Tour>{
     return this.http.put<Tour>(`${this.apiUrl}/tours/${updatedTour.id}`, updatedTour);
   }
