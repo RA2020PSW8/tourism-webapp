@@ -23,17 +23,16 @@ export class EncounterFormComponent implements OnChanges {
       latitude: new FormControl(0, [Validators.min(-90), Validators.max(90)]),
       longitude: new FormControl(0, [Validators.min(-180), Validators.max(180)]),
       xp: new FormControl(0, [Validators.min(1)]),
-      status: new FormControl('', [Validators.required]), 
+      status: new FormControl(''), 
       type: new FormControl('', [Validators.required]),
       range: new FormControl('', [Validators.min(1)]),
-      //napravi validatore za ova polja
       image: new FormControl(''),
-      peopleCount: new FormControl(null),
+      peopleCount: new FormControl(0),
     });
 
-    /*this.encounterForm.get('peopleCount')?.valueChanges.subscribe(() => {
-      this.encounterForm.get('peopleCount')?.updateValueAndValidity();
-    });*/
+    this.encounterForm.controls["peopleCount"].addValidators([this.customPeopleValidator()]);
+    this.encounterForm.controls["image"].addValidators([this.customImageValidator()]);
+    this.encounterForm.controls["status"].addValidators([this.customStatusValidator()]);
   }
 
   ngOnChanges(): void {
@@ -42,17 +41,38 @@ export class EncounterFormComponent implements OnChanges {
       this.encounterForm.patchValue(this.selectedEncounter);
     }
   }
-  /*customValidator(): ValidatorFn {
+  customPeopleValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const type = this.encounterForm.get('type')?.value;
       const peopleCount = this.encounterForm.get('peopleCount')?.value;
-  
-      if (type === 'LOCATION' && peopleCount < 1) {
-        return { invalidPeopleCount: true, message: 'For LOCATION type, at least 1 person is required.' };
+
+      if (type === 'SOCIAL' && (peopleCount === null || peopleCount < 1)) {
+        return { invalidPeopleCount: true, message: 'For SOCIAL type, at least 1 person is required.' };
       }
       return null;
     };
-  }*/
+  }
+  customImageValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const type = this.encounterForm.get('type')?.value;
+      const image = this.encounterForm.get('image')?.value;
+
+      if (type === 'LOCATION' && image === null) {
+        return { invalidImage: true, message: 'Image is required.' };
+      }
+      return null;
+    };
+  }
+  customStatusValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const status = this.encounterForm.get('status')?.value;
+
+      if (this.mode === 'edit' && status === null) {
+        return { invalidStatus: true, message: 'Status is required.' };
+      }
+      return null;
+    };
+  }
 
   saveEncounter(): void {
     let encounter: Encounter = {

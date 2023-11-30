@@ -35,7 +35,7 @@
                 <input matInput formControlName="range" type="number" min="1"/>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field *ngIf="mode=='edit'">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status" matInput required>
                     <mat-option value="ACTIVE">Active</mat-option>
@@ -44,7 +44,7 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field *ngIf="mode!=='edit'">
                 <mat-label>Type</mat-label>
                 <mat-select formControlName="type" matInput required>
                     <mat-option value="SOCIAL">Social</mat-option>
