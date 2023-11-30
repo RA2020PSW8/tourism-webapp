@@ -28,7 +28,7 @@ export class EncounterFormComponent implements OnChanges {
       range: new FormControl('', [Validators.min(1)]),
       //napravi validatore za ova polja
       image: new FormControl(''),
-      peopleCount: new FormControl(0, [Validators.min(1)]),
+      peopleCount: new FormControl(null),
     });
 
     /*this.encounterForm.get('peopleCount')?.valueChanges.subscribe(() => {
