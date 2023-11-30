@@ -26,7 +26,7 @@ export class EncounterFormComponent implements OnChanges {
       status: new FormControl(''), 
       type: new FormControl('', [Validators.required]),
       range: new FormControl('', [Validators.min(1)]),
-      image: new FormControl(''),
+      image: new FormControl(null),
       peopleCount: new FormControl(0),
     });
 
@@ -57,7 +57,7 @@ export class EncounterFormComponent implements OnChanges {
       const type = this.encounterForm.get('type')?.value;
       const image = this.encounterForm.get('image')?.value;
 
-      if (type === 'LOCATION' && image === null) {
+      if (type === 'LOCATION' && (image === null || image === '')) {
         return { invalidImage: true, message: 'Image is required.' };
       }
       return null;
