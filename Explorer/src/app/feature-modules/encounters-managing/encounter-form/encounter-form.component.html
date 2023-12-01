@@ -31,6 +31,11 @@
             </mat-form-field>
 
             <mat-form-field>
+                <mat-label>Range</mat-label>
+                <input matInput formControlName="range" type="number" min="1"/>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="mode=='edit'">
                 <mat-label>Status</mat-label>
                 <mat-select formControlName="status" matInput required>
                     <mat-option value="ACTIVE">Active</mat-option>
@@ -39,13 +44,23 @@
                 </mat-select>
             </mat-form-field>
 
-            <mat-form-field>
+            <mat-form-field *ngIf="mode!=='edit'">
                 <mat-label>Type</mat-label>
                 <mat-select formControlName="type" matInput required>
                     <mat-option value="SOCIAL">Social</mat-option>
                     <mat-option value="LOCATION">Location</mat-option>
                     <mat-option value="MISC">Misc</mat-option>
                 </mat-select>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="encounterForm.get('type')?.value === 'SOCIAL'">
+                <mat-label>People required number</mat-label>
+                <input matInput formControlName="peopleCount" type="number" min="1"/>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="encounterForm.get('type')?.value === 'LOCATION'">
+                <mat-label>Image</mat-label>
+                <input matInput formControlName="image" type="text"/>
             </mat-form-field>
     
             <button color="primary" type="submit" (click)="saveEncounter()" mat-raised-button [disabled]="!encounterForm.valid">

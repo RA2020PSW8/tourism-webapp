@@ -131,4 +131,8 @@ export class MarketplaceService {
     return this.http.get<boolean>(`${this.tourApiUrl}/token/check-purchase/${tourId}`);
   }
 
+  getCustomTours(): Observable<PagedResult<Tour>> {
+    return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}/custom`);
+  }
+
 }

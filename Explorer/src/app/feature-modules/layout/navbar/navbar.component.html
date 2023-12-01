@@ -46,7 +46,8 @@
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['tour-review']">Write tour review</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['my-position']">My position</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['active-tour']">Active tour</button>
-            
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['encounters-map']">Encounters</button>
+
             <!-- Admin -->
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage equipment</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['users']">See all users</button>
