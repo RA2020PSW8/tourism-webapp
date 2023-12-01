@@ -51,7 +51,10 @@
                     <td><b>Creation date and time:</b></td>
                     <td>{{selectedTourIssue.creationDateTime | date:'short'}}</td>
                     <td><b>Is resolved:</b></td>
-                    <td>{{selectedTourIssue.isResolved}}</td>
+                    <td>
+                        <i *ngIf="selectedTourIssue.isResolved == true" class="fa-solid fa-check fa-2xl" style="color: #5bd643;"></i>
+                        <i *ngIf="selectedTourIssue.isResolved == false" class="fa-solid fa-xmark fa-2xl" style="color: #d64343;"></i>
+                    </td>
                 </tr>
                 <tr>
                     
