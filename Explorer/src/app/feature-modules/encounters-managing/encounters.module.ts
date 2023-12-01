@@ -7,14 +7,14 @@ import { EncounterFormComponent } from './encounter-form/encounter-form.componen
 import { EncountersManagingComponent } from './encounters-managing/encounters-managing.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { EncounterMapComponent } from './encounter-map/encounter-map.component';
+import { EncountersTouristViewComponent } from './encounters-tourist-view/encounters-tourist-view.component';
 
 @NgModule({
   declarations: [
     EncountersPreviewComponent,
     EncounterFormComponent,
     EncountersManagingComponent,
-    EncounterMapComponent
+    EncountersTouristViewComponent
   ],
   imports: [
     CommonModule,

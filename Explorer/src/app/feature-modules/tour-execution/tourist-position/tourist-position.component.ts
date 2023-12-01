@@ -53,6 +53,11 @@ export class TouristPositionComponent implements OnInit {
       this.service.updateTouristPosition(this.touristPosition).subscribe({
         next: () => {
           window.alert("Position successfully updated");  
+
+          this.service.updateSocialEncounters().subscribe({
+            next: () => {
+          }
+          });
         },
       });
     }
@@ -61,6 +66,12 @@ export class TouristPositionComponent implements OnInit {
         next: () => {
           window.alert("Position successfully added");  
           this.mode = 'edit';
+
+          this.service.updateSocialEncounters().subscribe({
+            next: () => {
+          }
+          });
+          
         },
       });
     }
