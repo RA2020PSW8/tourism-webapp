@@ -19,9 +19,10 @@ export class TourIssueTouristComponent implements OnChanges {
   tourIssues: TourIssue[] = [];
   selectedTourIssue: TourIssue;
   tours: Tour[];
+  selectedTour : Tour;
+  selectedTourID? : number | null;
 
   tourIssueForm = new FormGroup({
-    tourId: new FormControl('', Validators.required),
     category: new FormControl('', Validators.required),
     priority: new FormControl(''),
     description: new FormControl('', Validators.required)
@@ -62,6 +63,12 @@ export class TourIssueTouristComponent implements OnChanges {
     })
   }
 
+  radioClicked(tour : Tour): number | undefined {
+    this.selectedTour = tour;
+    this.selectedTourID = this.selectedTour.id;
+    return this.selectedTourID;
+  }
+
   addTourIssue(): void {
     const tourIssue : TourIssue = {
       category: this.tourIssueForm.value.category || "",
@@ -69,7 +76,7 @@ export class TourIssueTouristComponent implements OnChanges {
       description: this.tourIssueForm.value.description || "",
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: this.tourIssueForm.value.tourId as string,
+      tourId: this.radioClicked(this.selectedTour) as string | undefined,
       comments: []
     }
 
@@ -105,7 +112,7 @@ export class TourIssueTouristComponent implements OnChanges {
       description: this.tourIssueForm.value.description as string,
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: this.tourIssueForm.value.tourId as string,
+      tourId: this.selectedTourIssue.tourId,
       comments: []
     }
 
@@ -119,7 +126,6 @@ export class TourIssueTouristComponent implements OnChanges {
   }
 
   clearFormFields(): void {
-    this.tourIssueForm.get('tourId')?.setValue('');
     this.tourIssueForm.get('category')?.setValue('');
     this.tourIssueForm.get('priority')?.setValue('');
     this.tourIssueForm.get('description')?.setValue('');

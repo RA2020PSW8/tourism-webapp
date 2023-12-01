@@ -17,7 +17,7 @@
                 <tbody>
                     <tr *ngFor = "let t of tours">
                         <td>
-                            <input type="radio" name="tour" style="height: 20px; width: 20px;">
+                            <input type="radio" name="tour" style="height: 20px; width: 20px;" (click)="radioClicked(t)">
                         </td>
                         <td>{{t.name}}</td>
                         <td>{{t.description}}</td>
@@ -46,10 +46,6 @@
 
         <div id="formcontainer">
             <form [formGroup]="tourIssueForm" id="tourissueform">
-                <mat-form-field>
-                    <mat-label>Tour ID:</mat-label>
-                    <input matInput type="text" formControlName="tourId">
-                </mat-form-field>
                 <mat-form-field>
                     <mat-label>Category:</mat-label>
                     <input matInput type="text" formControlName="category">
