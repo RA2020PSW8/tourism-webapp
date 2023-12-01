@@ -1,0 +1,9 @@
+<div *ngIf="bundle; else loading">
+    <h2>Bundle Details</h2>
+    <p><strong>Name:</strong> {{ bundle.name }}</p>
+    <p><strong>Bundle Price:</strong>{{bundlePrice.totalPrice}}</p>
+    <button (click)="navigateToBundleDetails(bundle)">View Details</button>
+    <button (click)="deleteBundle(bundle.id??0)">Delete</button>
+
+  </div>
+  <ng-template #loading>Loading...</ng-template>

@@ -37,6 +37,10 @@ import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
 import { EncountersManagingComponent } from 'src/app/feature-modules/encounters-managing/encounters-managing/encounters-managing.component';
+import { BundleFormComponent } from 'src/app/feature-modules/marketplace/bundle-form/bundle-form.component';
+import { BundleCardComponent } from 'src/app/feature-modules/marketplace/bundle-card/bundle-card.component';
+import { BundleOverviewComponent } from 'src/app/feature-modules/marketplace/bundle-overview/bundle-overview.component';
+import { BundleDetailsComponent } from 'src/app/feature-modules/marketplace/bundle-details/bundle-details.component';
 
 
 const routes: Routes = [
@@ -87,6 +91,10 @@ const routes: Routes = [
   { path: 'appRatingAuthorForm', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard] },
   { path: 'appRatingAuthor', component: AppRatingAuthorComponent, canActivate: [AuthGuard] },
   { path: 'tour-management/:id', component: TourFormComponent, canActivate: [AuthGuard] },
+  { path: 'bundle-form' ,component : BundleFormComponent },
+  { path: 'bundle-card' , component : BundleCardComponent },
+  { path: 'all-bundles', component:BundleOverviewComponent},
+  { path: 'bundle-details/:bundleId', component: BundleDetailsComponent},
 
   // ?
   { path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
