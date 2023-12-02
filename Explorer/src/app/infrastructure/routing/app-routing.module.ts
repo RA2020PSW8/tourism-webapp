@@ -36,6 +36,7 @@ import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-
 import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
+import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-form.component';
 
 
 const routes: Routes = [
@@ -69,6 +70,7 @@ const routes: Routes = [
   {path: 'comments', component:CommentsDisplayComponent},
   {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
   {path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'nip',component:BlogFormComponent},
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },

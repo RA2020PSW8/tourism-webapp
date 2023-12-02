@@ -12,7 +12,7 @@ import { MatTable, MatTableModule } from '@angular/material/table';
 import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-display.component';
 import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.component';
 import {MatExpansionModule} from '@angular/material/expansion';
-
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import {MatExpansionModule} from '@angular/material/expansion';
     MarkdownModule,
     MatInputModule,
     MatFormFieldModule,
-    MatExpansionModule
-    
+    MatExpansionModule,
+    MatStepperModule
   ],
   exports: [
     CommentFormComponent,
