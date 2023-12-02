@@ -41,6 +41,9 @@ export class KeypointComponent implements OnInit{
   onEditClicked(keypoint: Keypoint): void{
     this.keypointSelected.emit(keypoint);
   }
+  onEncountersClicked(keypointId: number): void{
+    //this.keypointSelected.emit(keypoint);
+  }
 
   sendPublicEntityRequest(id: number): void{
     this.tourAuthoringService.getPublicEntityRequestByEntityId(id, 0).subscribe({
