@@ -135,4 +135,8 @@ export class MarketplaceService {
     return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}/custom`);
   }
 
+  updateWallet(wallet: Wallet): Observable<Wallet> {
+    return this.http.put<Wallet>(environment.apiHost + 'tourist/wallet/' + wallet.id, wallet);
+  }
+
 }
