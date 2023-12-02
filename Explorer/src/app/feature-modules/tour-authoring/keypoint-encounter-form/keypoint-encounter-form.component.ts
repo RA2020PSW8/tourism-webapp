@@ -90,7 +90,7 @@ export class KeypointEncounterFormComponent {
 
   saveEncounter(): void {
     let formEncounter: Encounter = {
-      id: (this.mode === 'add' ? 0 : (this.selectedEncounter?.id || 0)),
+      id: (this.mode === 'add' ? 0 : (this.selectedEncounter.encounterId || 0)),
       name: this.encounterForm.value.name || "",
       description: this.encounterForm.value.description || "",
       latitude: this.keypoint.latitude,
@@ -105,7 +105,7 @@ export class KeypointEncounterFormComponent {
     let keypointEncounter: KeypointEncounter = {
       encounter: formEncounter,
       keypointId: this.keypoint.id || 0,
-      encounterId: (this.mode === 'add' ? 0 : (this.selectedEncounter?.id || 0)),
+      encounterId: (this.mode === 'add' ? 0 : (this.selectedEncounter.encounterId|| 0)),
       isRequired: (this.encounterForm.value.isRequired === 'YES' ? true : false),
     };
     
