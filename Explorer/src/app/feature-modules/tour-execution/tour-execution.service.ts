@@ -7,6 +7,8 @@ import { environment } from 'src/env/environment';
 import { TourReviewString } from './model/tour-review-string.model';
 import { TouristPosition } from './model/tourist-position.model';
 import { TourProgress } from './model/tour-progress.model';
+import { Encounter } from '../tour-authoring/model/keypointEncounter.model';
+import { EncounterCompletion } from '../encounters-managing/model/encounterCompletion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,12 +61,15 @@ export class TourExecutionService {
     return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/abandonActive`, null);
   }
 
-  updateActiveTour(): Observable<TourProgress> {
-    return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/updateActive`, null);
+  updateActiveTour(passedKeypoints: number): Observable<TourProgress> {
+    return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/updateActive`, passedKeypoints);
   }
   
   updateSocialEncounters(): Observable<void> {
     return this.http.post<void>(`${environment.apiHost}tourist/encounter/updateSocialEncounters`, null);
+  }
+  getTouristCompletedEncounters(): Observable<PagedResults<EncounterCompletion>> {
+    return this.http.get<PagedResults<EncounterCompletion>>(`${environment.apiHost}tourist/encounter`);
   }
 }
 

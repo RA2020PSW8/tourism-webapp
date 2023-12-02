@@ -29,5 +29,8 @@
         <div class="active-tour__map-container">
             <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" *ngIf="refreshMap"></app-map>
         </div>
+        <div>
+            <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters" [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview>
+        </div>
     </div>
 </div>
