@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { Encounter } from './model/encounter.model';
+import { Encounter } from '../model/encounter.model';
 import { EncountersService } from '../encounters.service';
 
 @Component({

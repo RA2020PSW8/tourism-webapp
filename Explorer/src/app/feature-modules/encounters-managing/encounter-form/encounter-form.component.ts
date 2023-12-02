@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { Encounter } from '../encounters-preview/model/encounter.model';
+import { Encounter } from '../model/encounter.model';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { EncountersService } from '../encounters.service';
 
