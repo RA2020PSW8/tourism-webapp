@@ -25,7 +25,7 @@ export class EncountersTouristViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getActiveEncounters();
-    this.getTouristEncounterComletions();  
+    this.getTouristEncounterCompletions();  
   }
 
   getActiveEncounters(): void {
@@ -38,7 +38,7 @@ export class EncountersTouristViewComponent implements OnInit {
     });
   }
 
-  getTouristEncounterComletions(): void {
+  getTouristEncounterCompletions(): void {
     this.service.getEncounterCompletionsByUser().subscribe({
       next: (result: PagedResults<EncounterCompletion>) => {
         this.startedEncounters = result.results.filter(c => c.status === EncounterCompletionStatus.STARTED);
