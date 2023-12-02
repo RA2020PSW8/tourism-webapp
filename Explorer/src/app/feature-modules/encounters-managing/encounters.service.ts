@@ -39,4 +39,10 @@ export class EncountersService {
   getEncounterCompletionsByUser(): Observable<PagedResults<EncounterCompletion>>{
     return this.http.get<PagedResults<EncounterCompletion>>(`${this.apiUrl}tourist/encounter`);
   }
+  startEncounter(encounter: Encounter): Observable<EncounterCompletion>{
+    return this.http.post<EncounterCompletion>(`${this.apiUrl}tourist/encounter/startEncounter`, encounter);
+  }
+  finishEncounter(encounter: Encounter): Observable<EncounterCompletion>{
+    return this.http.put<EncounterCompletion>(`${this.apiUrl}tourist/encounter/finishEncounter`, encounter);
+  }
 }

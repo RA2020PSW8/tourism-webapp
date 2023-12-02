@@ -47,6 +47,29 @@ export class EncountersTouristViewComponent implements OnInit {
       }
     });
   }
+  startEncounter(encounter: Encounter): void {
+      this.service.startEncounter(encounter).subscribe({
+        next: (result: EncounterCompletion) =>{
+            this.getTouristEncounterCompletions();
+            if (window.confirm("You started encounter")) {}
+        },
+        error: (error) => {
+          if (window.confirm("You have been started this encounter or completed")) {}
+        }
+      });
+  }
+
+  finishEncounter(encounter: Encounter): void {
+    this.service.finishEncounter(encounter).subscribe({
+      next: () =>{
+          this.getTouristEncounterCompletions();
+      },
+      error: (error) => {
+        if (window.confirm(error)) {}
+      }
+    });
+    
+  }
 
   showTableAndSetMarkers(show: string): void {
     this.showContent = show;

@@ -16,6 +16,7 @@
                 <th>Xp</th>
                 <th>Status</th>
                 <th>Type</th>
+                <th></th>
             </thead>
             <tbody>
                 <tr *ngFor="let e of allEncounters">
@@ -26,6 +27,10 @@
                     <td>{{e.xp}}</td>
                     <td>{{e.status}}</td>
                     <td>{{e.type}}</td>
+                    <td>
+                        <button *ngIf="e.type !== 'SOCIAL'" aria-label="Start" type="submit" 
+                        (click)="startEncounter(e)" color="primary" mat-raised-button>Start</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -42,6 +47,7 @@
                 <th>Status</th>
                 <th>Type</th>
                 <th>Date</th>
+                <th></th>
             </thead>
             <tbody>
                 <tr *ngFor="let e of startedEncounters">
@@ -53,6 +59,10 @@
                     <td>{{e.status}}</td>
                     <td>{{e.encounter.type}}</td>
                     <td>{{e.completionTime | date:'medium'}}</td>
+                    <td>
+                        <button *ngIf="e.encounter.type === 'MISC'" aria-label="Finish" type="submit" 
+                        (click)="finishEncounter(e.encounter)" color="primary" mat-raised-button>Finish</button>
+                    </td>
                 </tr>
             </tbody>
         </table>

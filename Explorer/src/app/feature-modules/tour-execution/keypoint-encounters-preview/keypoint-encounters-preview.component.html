@@ -8,6 +8,7 @@
             <th>Xp</th>
             <th>Type</th>
             <th  (click)="sortTable('isRequired')">Required for moving</th>
+            <th></th>
         </thead>
         <tbody>
             <tr *ngFor="let kpe of keypointEncounters">
@@ -16,6 +17,10 @@
                 <td>{{kpe.encounter.xp}}</td>
                 <td>{{kpe.encounter.type}}</td>
                 <td>{{kpe.isRequired === false ? 'NO' : 'YES'}}</td>
+                <td>
+                    <button *ngIf="kpe.encounter.type !== 'SOCIAL'" aria-label="Finish" type="submit" 
+                    (click)="startEncounter(kpe.encounter)" color="primary" mat-raised-button>Start</button>
+                </td>
             </tr>
         </tbody>
     </table>

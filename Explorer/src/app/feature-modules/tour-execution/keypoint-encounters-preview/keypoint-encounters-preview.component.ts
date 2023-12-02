@@ -1,6 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { KeypointEncounter } from '../../tour-authoring/model/keypointEncounter.model';
 import { TourExecutionService } from '../tour-execution.service';
+import { EncounterCompletion } from '../../encounters-managing/model/encounterCompletion.model';
+import { EncountersService } from '../../encounters-managing/encounters.service';
+import { Encounter } from '../../encounters-managing/model/encounter.model';
 
 @Component({
   selector: 'xp-keypoint-encounters-preview',
@@ -12,7 +15,7 @@ export class KeypointEncountersPreviewComponent {
   @Input() requiredEncounters: KeypointEncounter[];
   public sortDirection: number = 0;
 
-  constructor(private tourExecutionService: TourExecutionService){ }
+  constructor(private tourExecutionService: TourExecutionService, private encounterService: EncountersService){ }
 
   sortTable(field: string) {
     if(this.sortDirection === 0)
@@ -47,5 +50,16 @@ export class KeypointEncountersPreviewComponent {
     });
     this.keypointEncounters = encounters;
   }
+  startEncounter(encounter: Encounter): void {
+    this.encounterService.startEncounter(encounter).subscribe({
+      next: (result: EncounterCompletion) =>{
+          if (window.confirm("You started encounter")) {}
+          //maybe add button to change on complete if is misc
+      },
+      error: (error) => {
+        if (window.confirm("You have been started this encounter or completed")) {}
+      }
+    });
+}
 
 }

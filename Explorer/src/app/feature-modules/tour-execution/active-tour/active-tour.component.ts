@@ -152,4 +152,5 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
       }
     })
   }
+
 }
