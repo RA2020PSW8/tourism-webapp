@@ -11,7 +11,7 @@ import { CommentsDisplayComponent } from './comments-display/comments-display.co
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-display.component';
 import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.component';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 @NgModule({
@@ -29,6 +29,8 @@ import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.
     MarkdownModule,
     MatInputModule,
     MatFormFieldModule,
+    MatExpansionModule
+    
   ],
   exports: [
     CommentFormComponent,

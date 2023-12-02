@@ -22,71 +22,48 @@
 
     <div class="blogs-container">
         <table>
-            <tr>
-                <td>Explore blogs</td>
-            </tr>
+            <thead>
+                <tr>
+                    <td><p class="p-header">Explore blogs</p></td>
+                </tr>
+            </thead>
             <tbody>
-                <tr *ngFor="let bl of blogs; let i = index;">
+                <tr *ngFor="let bl of blogs; let i = index;" style="background-color: #FFFBF5;">
                   <td>
-                    <div class="accordion accordion-flush" [id]="'accordionFlushExample' + i">
-                      <div class="accordion-item">
-                        <h2 class="accordion-header" [id]="'flush-heading' + i">
-                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" [attr.data-bs-target]="'#flush-collapse' + i" [attr.aria-expanded]="'false'" [attr.aria-controls]="'flush-collapse' + i">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td style="width: fit-content;" class="p-rating-header"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
-                                        <td style="width: 2em;">{{bl.systemStatus}}</td>
-                                        <td *ngFor="let st of bl.blogStatuses">
-                                            <div class="status">
-                                                <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
-                                                {{st.name}}
-                                            </div>
-                                        </td>
-                                        <td style="width: min-content;">
-                                            <button (click)="onUpdateClicked(bl)" mat-icon-button>
-                                                <mat-icon>edit</mat-icon>
-                                            </button>
-                                        </td>
-                                        <td style="width: min-content;">
-                                            <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
-                                                <mat-icon>delete</mat-icon>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                          </button>
-                        </h2>
-                        <div [id]="'flush-collapse' + i" class="accordion-collapse collapse" [attr.aria-labelledby]="'flush-heading' + i" [attr.data-bs-parent]="'#accordionFlushExample' + i">
-                          <div class="accordion-body">
-                            {{bl.description}}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <mat-accordion>
+                        <mat-expansion-panel hideToggle>
+                          <mat-expansion-panel-header style="height: 70px;">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 25%; background-color: #CCD5AE;"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
+                                            <td style="width: 14%; background-color: #E9EDC9;"><p class="p-header" style="font-size: 1.5em;">{{bl.systemStatus}}</p></td>
+                                            <td *ngFor="let st of bl.blogStatuses" style="background-color: #F5EFE7;">
+                                                <div class="status">
+                                                    <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
+                                                    {{st.name}}
+                                                </div>
+                                            </td>
+                                            <td style="width: 2%; background-color: #F5EFE7;">
+                                                <button (click)="onUpdateClicked(bl)" mat-icon-button>
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                            </td>
+                                            <td style="width: 2%; background-color: #F5EFE7;">
+                                                <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                          </mat-expansion-panel-header>
+                            <p class="p-description">{{bl.description}}</p>
+                        </mat-expansion-panel>
+                      </mat-accordion>
                   </td>
                 </tr>
               </tbody>
-                <!--
-                <td class="p-rating-header"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
-                <td>{{bl.description}}</td>
-                <td>{{bl.systemStatus}}</td>
-                <td *ngFor="let st of bl.blogStatuses">
-                    <div class="status">
-                        <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
-                        {{st.name}}
-                    </div>
-                </td>
-                <td>
-                    <button (click)="onUpdateClicked(bl)" mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            -->
         </table>
         </div>
     </div>
