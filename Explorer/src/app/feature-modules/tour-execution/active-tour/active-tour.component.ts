@@ -35,10 +35,12 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     this.getActiveTour();
     this.refreshMap = true;
     this.updateSubscription = interval(10000).subscribe(() => {
-      if (this.requiredEncounters.length !== 0)
+      if(this.activeTour !== undefined){
+        if (this.requiredEncounters.length !== 0)
         this.getTouristCompletedEncounters();
       else
         this.updatePosition();
+      }
     });
 
 
@@ -88,11 +90,10 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           if (this.activeTour && this.activeTour.status === 'IN_PROGRESS') {
 
             this.currentKeyPoint = this.activeTour.tour.keypoints?.find((keypoint) => keypoint.position === result.currentKeyPoint);
-
+            this.getKeypointActiveEncounters();
           }
           this.triggerMapRefresh();
         }
-        this.getKeypointActiveEncounters();
       }
 
     })
