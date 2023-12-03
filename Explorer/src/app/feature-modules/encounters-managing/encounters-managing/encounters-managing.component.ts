@@ -14,6 +14,7 @@ export class EncountersManagingComponent implements OnInit {
   public selectedEncounter: Encounter;
   public showForm: boolean;
   public formMode: string;
+  public encounterRequests: Encounter[];
 
   constructor(private encountersService: EncountersService) {
     this.showForm = false;
@@ -22,12 +23,21 @@ export class EncountersManagingComponent implements OnInit {
 
   ngOnInit(): void {
     this.getEncounters();
+    this.getEncounterRequests();
   }
 
   getEncounters(): void {
     this.encountersService.getEncounters().subscribe({
       next: (result: PagedResults<Encounter>) => {
         this.encounters = result.results;
+      }
+    });
+  }
+
+  getEncounterRequests(): void {
+    this.encountersService.getEncounterRequests().subscribe({
+      next: (result: PagedResults<Encounter>) => {
+        this.encounterRequests = result.results;
       }
     });
   }
@@ -50,5 +60,11 @@ export class EncountersManagingComponent implements OnInit {
 
   encounterDeleted(): void {
     this.getEncounters();
+    this.getEncounterRequests();
+  }
+
+  approvalStatusChanged(): void {
+    this.getEncounters();
+    this.getEncounterRequests();
   }
 }

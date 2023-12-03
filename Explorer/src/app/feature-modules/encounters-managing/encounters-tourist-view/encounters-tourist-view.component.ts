@@ -5,6 +5,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
 import { EncounterCompletion, EncounterCompletionStatus } from '../model/encounterCompletion.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { Profile } from '../../administration/model/profile.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-encounter-map',
@@ -18,14 +20,20 @@ export class EncountersTouristViewComponent implements OnInit {
   public startedEncounters: EncounterCompletion[] = [];
   public completedEncounters: EncounterCompletion[] = [];
   public failedEncounters: EncounterCompletion[] = [];
-  showContent = 'showAll';
-  @ViewChild(MapComponent) mapComponent: MapComponent | undefined;
+  public touristEncounters: Encounter[] = [];
+  public showContent = 'showAll';
+  public selectedEncounter: Encounter;
+  public showForm: boolean;
+  public formMode: string;
+  public profile: Profile;
+  @ViewChild(MapComponent) mapComponent: MapComponent;
   
   constructor(private service: EncountersService) { }
 
   ngOnInit(): void {
-    this.getActiveEncounters();
-    this.getTouristEncounterCompletions();  
+    this.getActiveEncounters(); 
+    this.getTouristEncounterCompletions();    
+    this.getTouristEncounters();
   }
 
   getActiveEncounters(): void {
@@ -48,9 +56,19 @@ export class EncountersTouristViewComponent implements OnInit {
     });
   }
 
+  getTouristEncounters(): void {
+    this.service.getEncountersByUser().subscribe({
+      next: (result: PagedResults<Encounter>) => {
+        this.touristEncounters = result.results;  
+        this.setMarkers(this.touristEncounters);
+        this.pointsOfInterest = this.markers;                    
+      }
+    });
+  }
+
   showTableAndSetMarkers(show: string): void {
     this.showContent = show;
-    this.mapComponent?.clearMarkers();
+    this.mapComponent.clearMarkers();
     this.markers = [];
     
     switch (this.showContent) {
@@ -63,6 +81,9 @@ export class EncountersTouristViewComponent implements OnInit {
       case 'showFailed':
         this.setMarkers(this.failedEncounters);
         break;
+      case 'showMy':
+          this.setMarkers(this.touristEncounters);
+          break;
       default:
         this.setMarkers(this.allEncounters);
         break;
@@ -83,4 +104,36 @@ export class EncountersTouristViewComponent implements OnInit {
   
   }
 
+  addEncounter(): void {
+    this.showForm = true;
+    this.formMode = 'add';
+  }
+
+  selectEncounterForUpdate(encounter: Encounter): void {
+    this.selectedEncounter = encounter;
+    this.formMode = 'edit';
+    this.showForm = true;
+  }
+
+  deleteEncounter(id: number): void{
+    if(window.confirm('Are you sure that you want to delete this encounter?')){
+      this.service.deleteEncounter(id).subscribe({
+        next: () => {
+          this.getTouristEncounters();  
+          this.getActiveEncounters();
+          this.getTouristEncounterCompletions();
+        },
+        error: () => {
+          
+        }
+      });
+    }
+  }
+
+  encounterUpdated(): void {
+    this.getTouristEncounters();
+    this.getActiveEncounters();
+    this.getTouristEncounterCompletions();
+    this.showForm = false;
+  }
 }

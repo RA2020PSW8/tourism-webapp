@@ -30,6 +30,7 @@ export class EncountersService {
   updateEncounter(updatedEncounter: Encounter): Observable<Encounter>{
     return this.http.put<Encounter>(`${this.apiUrl}encounter/${updatedEncounter.id}`, updatedEncounter);
   }
+
   getEncountersByStatus(status: string): Observable<PagedResults<Encounter>>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("status", status);
@@ -39,4 +40,21 @@ export class EncountersService {
   getEncounterCompletionsByUser(): Observable<PagedResults<EncounterCompletion>>{
     return this.http.get<PagedResults<EncounterCompletion>>(`${this.apiUrl}tourist/encounter`);
   }
+
+  getEncountersByUser(): Observable<PagedResults<Encounter>>{
+    return this.http.get<PagedResults<Encounter>>(`${this.apiUrl}encounter/byUser`);
+  }
+
+  getEncounterRequests(): Observable<PagedResults<Encounter>>{
+    return this.http.get<PagedResults<Encounter>>(`${this.apiUrl}encounter/touristCreatedEncouters`);
+  }
+
+  approve(updatedEncounter: Encounter): Observable<Encounter>{
+    return this.http.put<Encounter>(`${this.apiUrl}encounter/approve`, updatedEncounter);
+  }
+
+  decline(updatedEncounter: Encounter): Observable<Encounter>{
+    return this.http.put<Encounter>(`${this.apiUrl}encounter/decline`, updatedEncounter);
+  }
+
 }
