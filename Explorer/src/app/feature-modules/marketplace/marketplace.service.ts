@@ -102,6 +102,14 @@ export class MarketplaceService {
   getWalletForUser(): Observable<Wallet> {
     return this.http.get<Wallet>(environment.apiHost + 'tourist/wallet/byUser');
   }
+  getWalletForUserId(userId: number):Observable<Wallet>{
+    return this.http.get<Wallet>(environment.apiHost + 'tourist/wallet/byUser/'+userId);
+  }
+  addCoins(wallet: Wallet): Observable<Wallet> {
+    const url = `${this.apiUrl}/wallet/addCoins/${wallet.id}`;
+  
+    return this.http.put<Wallet>(url, wallet);
+  }
   deleteOrderItem(orderItemId: number): Observable<OrderItem> {
     return this.http.delete<OrderItem>(environment.apiHost + 'tourist/orderItems/' + orderItemId);
 
