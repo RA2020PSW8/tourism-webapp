@@ -159,4 +159,11 @@ export class MarketplaceService {
   deleteBundle(id:number) :Observable<Bundle>{
     return this.http.delete<Bundle>(`https://localhost:44333/api/bundles/${id}`);
   }
+
+  publishBundle(id:number) : Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/bundles/publish/${id}`, null);
+  }
+  archiveBundle(id:number) : Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/bundles/archive/${id}`, null);
+  }
 }

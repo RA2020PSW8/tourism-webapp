@@ -12,7 +12,9 @@ import { BundlePrice } from '../model/bundle-price.model';
 })
 export class BundleCardComponent implements OnInit {
   bundle!: Bundle;
-  bundlePrice!: BundlePrice
+  bundlePrice!: BundlePrice;
+  price: number;
+  assignedPrice:boolean = false;
   @Input() id!:number
   
   constructor(
@@ -60,5 +62,51 @@ export class BundleCardComponent implements OnInit {
         console.error('Error deleting Bundle:', error);
       }
     )
+  }
+  createBundlePrice(price: number) {
+    const newBundlePrice: BundlePrice = {
+      // Define your BundlePrice properties based on your model
+      bundleId: this.id,
+      totalPrice: price,
+      // Add other properties as needed
+    };
+
+    this.service.createPriceForBundle(newBundlePrice).subscribe(
+      (createdBundlePrice) => {
+        console.log('Bundle price created:', createdBundlePrice);
+        // You can update the component state or perform additional actions as needed
+        this.bundlePrice = createdBundlePrice;
+        this.assignedPrice = true
+        this.getPriceForBundle();
+      },
+      (error) => {
+        console.error('Error creating bundle price:', error);
+      }
+    );
+  }
+  publishBundle(id: number) {
+    this.service.publishBundle(id).subscribe(
+      (publishedBundle) => {
+        alert('Bundle published successfully');
+        // You can update the component state or perform additional actions as needed
+        this.getBundle(); // Refresh bundle details after publishing
+      },
+      (error) => {
+        console.error('Error publishing bundle:', error);
+      }
+    );
+  }
+
+  archiveBundle(id: number) {
+    this.service.archiveBundle(id).subscribe(
+      (publishedBundle) => {
+        alert('Bundle archived successfully');
+        // You can update the component state or perform additional actions as needed
+        this.getBundle(); // Refresh bundle details after publishing
+      },
+      (error) => {
+        console.error('Error archiving bundle:', error);
+      }
+    );
   }
 }

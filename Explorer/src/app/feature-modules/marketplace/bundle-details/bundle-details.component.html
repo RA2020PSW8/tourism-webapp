@@ -2,8 +2,11 @@
     <h2>Bundle Details</h2>
     <div class="bundle-info">
         <p><strong>Name:</strong> {{ bundle.name }}</p>
-        <p><strong>Bundle Price:</strong> {{ bundlePrice.totalPrice }}</p>
-    </div>
+        <button *ngIf="!bundlePrice" (click)="createBundlePrice()">Create</button>
+        <p *ngIf="bundlePrice"> 
+            <strong>Bundle Price:</strong> {{ bundlePrice.totalPrice || 0 }}
+          </p>    
+</div>
     <table class="tour-table">
         <thead>
             <tr>
