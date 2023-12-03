@@ -45,7 +45,13 @@
     <div>
         <h1>Avaliable keypoints</h1>
         <div style="display: flex; flex-direction: row;">
-            <xp-keypoint [keypoints]="avaliableKeypoints"></xp-keypoint>
+            <xp-keypoint [keypoints]="avaliableKeypoints" [isCampaign]="true" (keypointSelected)="addKeypoint($event)"></xp-keypoint>
         </div>
     </div> 
+    <div>
+        <h1>Selected keypoints</h1>
+        <div style="display: flex; flex-direction: row;">
+            <xp-keypoint [keypoints]="selectedKeypoints" [isCampaignSelected]="true" (keypointSelected)="removeKeypoint($event)"></xp-keypoint>
+        </div>
+    </div>
 </div>

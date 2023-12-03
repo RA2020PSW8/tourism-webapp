@@ -8,8 +8,10 @@
                 <th>Longitude</th>
                 <th>Description</th>
                 <th>Image</th>
-                <th *ngIf="!isCustom"></th>
-                <th *ngIf="!isCustom">Request public KP</th>
+                <!--<th *ngIf="!isCustom && !isCampaign"></th>-->
+                <th *ngIf="!isCustom && !isCampaign && !isCampaignSelected">Request public KP</th>
+                <th *ngIf="isCampaign && !isCampaignSelected">Add</th>
+                <th *ngIf="isCampaignSelected">Remove</th>
             </thead>
             <tbody>
                 <tr *ngFor="let kp of keypoints">
@@ -21,7 +23,7 @@
                     <td>
                         <img [src]="kp.image" alt="kp image" width="30px" height="30px">
                     </td>
-                    <td>
+                    <td *ngIf="!isCampaign && !isCampaignSelected">
                         <button color="accent" mat-icon-button (click)="deleteKeypoint(kp.id || 0)">
                             <mat-icon>delete</mat-icon>
                         </button>
@@ -29,9 +31,19 @@
                             <mat-icon>edit</mat-icon>
                         </button>
                     </td>
-                    <td *ngIf="!isCustom">
+                    <td *ngIf="!isCustom && !isCampaign && !isCampaignSelected">
                         <button color="primary" mat-icon-button (click)="sendPublicEntityRequest(kp.id || 0)">
                             <mat-icon>send request</mat-icon>
+                        </button>
+                    </td>
+                    <td *ngIf="isCampaign">
+                        <button color="accent" mat-icon-button (click)="onEditClicked(kp)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </td>
+                    <td *ngIf="isCampaignSelected">
+                        <button color="accent" mat-icon-button (click)="onEditClicked(kp)">
+                            <mat-icon>delete</mat-icon>
                         </button>
                     </td>
                 </tr>

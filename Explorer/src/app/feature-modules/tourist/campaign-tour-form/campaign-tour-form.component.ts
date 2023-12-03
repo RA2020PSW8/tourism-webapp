@@ -5,6 +5,8 @@ import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { MarketplaceService } from '../../marketplace/marketplace.service';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-campaign-tour-form',
@@ -12,17 +14,18 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
   styleUrls: ['./campaign-tour-form.component.css']
 })
 export class CampaignTourFormComponent implements OnInit {
-  public tour: Tour
+
+  public newTour: Tour
   public tourForm: FormGroup
   public tourId: number
   public avaliableKeypoints: Keypoint[] = []
   public selectedKeypoints: Keypoint[] = []
   public routeQuery: RouteQuery
+  public isLoading = true;
+  public boughtTours: Tour[] = []
 
-  @Input() boughtTours: Tour[] = []
-
-  constructor(private tourAuthoringService: TourAuthoringService , private router: Router, private route: ActivatedRoute) {
-    this.tour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
+  constructor(private tourAuthoringService: TourAuthoringService,private marketplaceService: MarketplaceService,public authService: AuthService , private router: Router, private route: ActivatedRoute) {
+    this.newTour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
     this.tourForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
@@ -32,19 +35,41 @@ export class CampaignTourFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAvaliableKeypoints();
+    this.loadPurchasedTours();
   }
 
-  getAvaliableKeypoints(){
-    this.boughtTours.forEach(t =>{
-        t.keypoints?.forEach(k => {
-          this.avaliableKeypoints.push(k);
-        })
+  addKeypoint(keypoint : Keypoint):void{
+    this.selectedKeypoints.push(keypoint);
+  }
+
+  removeKeypoint(keypoint : Keypoint):void{
+    this.selectedKeypoints.splice(this.selectedKeypoints.indexOf(keypoint));
+  }
+
+  loadPurchasedTours() {
+    this.marketplaceService.getPurchasedTours().subscribe(tokens => {
+      tokens.results.forEach(token => {
+        if (token.touristId === this.authService.user$.value.id) {
+          this.addTourIfPurchased(token);
+        }
+      });
+      this.isLoading = false;
+    });
+  }
+
+  addTourIfPurchased(token: any): void {
+    this.marketplaceService.getPublishedTours().subscribe(tours => {
+      tours.results.forEach(tour => {
+        if (token.tourId === tour.id) {
+          this.boughtTours.push(tour);
+          this.avaliableKeypoints = this.avaliableKeypoints.concat(tour.keypoints || []);
+        }
+      });
     });
   }
 
   saveTour(statusChange: string = ''): void {
-    let tour: Tour = {
+    let newTour: Tour = {
       id: -1,
       userId: -1,
       name: this.tourForm.value.name || "",
@@ -58,8 +83,8 @@ export class CampaignTourFormComponent implements OnInit {
     };
 
     if(this.tourId === 0){
-      tour.statusUpdateTime = new Date();
-      this.tourAuthoringService.addCampaignTour(tour).subscribe({
+      newTour.statusUpdateTime = new Date();
+      this.tourAuthoringService.addCampaignTour(newTour).subscribe({
         next: (newTour) => { 
           window.alert("You have successfuly saved your campaign tour");
           this.router.navigate(

@@ -14,6 +14,8 @@ export class KeypointComponent implements OnInit{
   @Output() keypointSelected = new EventEmitter<Keypoint>();
   @Input() keypoints : Keypoint[];
   @Input() isCustom : Boolean = false;
+  @Input() isCampaign : Boolean = false;
+  @Input() isCampaignSelected : Boolean = false;
   public selectedKeypoint: Keypoint;
   publicEntityRequest: PublicEntityRequest;
   newPublicEntityRequest: PublicEntityRequest;

@@ -76,7 +76,7 @@ const routes: Routes = [
   {path: 'wallet', component: WalletComponent, canActivate: [AuthGuard]},
   {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
   {path: 'encounters-map', component: EncountersTouristViewComponent, canActivate: [AuthGuard]},
-  {path: 'campaign',component: CampaignTourFormComponent,canActivate: [AuthGuard]},
+  {path: 'campaign/:id',component: CampaignTourFormComponent,canActivate: [AuthGuard]},
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },

@@ -16,6 +16,7 @@ import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-form.component';
+import { MarketplaceModule } from '../marketplace/marketplace.module';
 
 
 
@@ -39,7 +40,8 @@ import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-fo
     MatButtonModule,
     TourAuthoringModule,
     TimePipe,
-    MapComponent
+    MapComponent,
+    MarketplaceModule
   ],
   exports: [
     ClubsComponent,

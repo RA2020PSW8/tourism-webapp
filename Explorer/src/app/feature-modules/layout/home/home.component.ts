@@ -84,8 +84,7 @@ export class HomeComponent {
   }
 
   navigateToCampaignCreation():void{
-    this.router.navigate([
-      ['/campaign']
-    ]);
+    this.router.navigate(
+      ['/campaign/',this.authService.user$.value.id]);
   }
 }
