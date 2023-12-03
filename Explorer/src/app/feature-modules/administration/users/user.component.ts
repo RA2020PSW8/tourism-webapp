@@ -41,8 +41,7 @@ export class UserComponent implements OnInit {
       
       user.wallet.adventureCoins += coinsToAdd;
 
-      // Call the updateWallet method with the updated wallet
-      this.marketplaceService.updateWallet(user.wallet).subscribe({
+      this.marketplaceService.addCoins(user.wallet).subscribe({
         next: (updatedWallet: Wallet) => {
           console.log('Wallet updated successfully:', updatedWallet);
         },
