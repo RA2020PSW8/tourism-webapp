@@ -1,80 +1,101 @@
 <div id="tour-issue-by-tour-container">
     <div id="infos">
-        <table id="tour">
-            <h2>Tour info</h2>
-            <tr>
-                <td style="width: 180px;">Tour name:</td>
-                <td>{{selectedTour.name}}</td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td>{{selectedTour.description}}</td>
-            </tr>
-            <tr>
-                <td>Price:</td>
-                <td>{{selectedTour.price}}</td>
-            </tr>
-            <tr>
-                <td>Author name:</td>
-                <td>{{tourAuthor.name}} {{tourAuthor.surname}}</td>
-            </tr>
-        </table>
+        <div id="tour">
+            <h2><b>Tour info for {{selectedTour.name}}</b></h2>
+            <table>
+                
+                <tr>
+                    <td><b>Distance:</b></td>
+                    <td>{{selectedTour.distance}}</td>
+                    <td><b>Price:</b></td>
+                    <td>{{selectedTour.price}}</td>
+                </tr>
+                <tr>
+                    <td><b>Transport type:</b></td>
+                    <td>
+                        <i *ngIf="selectedTour.transportType == 'WALK'" class="fa-solid fa-person-walking fa-2xl" style="color: #000000;"></i>
+                        <i *ngIf="selectedTour.transportType == 'BIKE'" class="fa-solid fa-bicycle fa-2xl" style="color: #000000;"></i>
+                        <i *ngIf="selectedTour.transportType == 'CAR'" class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>
+                        <i *ngIf="selectedTour.transportType == 'BOAT'" class="fa-solid fa-sailboat fa-2xl" style="color: #000000;"></i>
+                    </td>
+                    
+                    <td><b>Duration:</b></td>
+                    <td>{{selectedTour.duration}}</td>
+                </tr>
+                <tr>
+                    <td><b>Difficulty:</b></td>
+                    <td>
+                        <i *ngIf="selectedTour.difficulty == 'EASY'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #5bd643;"></i>
+                        <i *ngIf="selectedTour.difficulty == 'MEDIUM'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d6d143;"></i>
+                        <i *ngIf="selectedTour.difficulty == 'HARD'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #ff9500;"></i>
+                        <i *ngIf="selectedTour.difficulty == 'EXTREME'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d64343;"></i>
+                    </td>
+                    
+                    <td><b>Author name:</b></td>
+                    <td>{{tourAuthor.name}} {{tourAuthor.surname}}</td>
+                </tr>
 
-        <table id="tour-issue">
-            <tr>
-                <td colspan="6"><h2>Tour issue info</h2></td>
-            </tr>
-            <tr>
-                <td style="width: 180px;">Category:</td>
-                <td>{{selectedTourIssue.category}}</td>
-            </tr>
-            <tr>
-                <td>Priority:</td>
-                <td>{{selectedTourIssue.priority}}</td>
-            </tr>
-            <tr>
-                <td>Creation date and time:</td>
-                <td>{{selectedTourIssue.creationDateTime | date:'short'}}</td>
-            </tr>
-            <tr>
-                <td>Description:</td>
-                <td>{{selectedTourIssue.description}}</td>
-            </tr>
-            <tr>
-                <td>Is resolved:</td>
-                <td>{{selectedTourIssue.isResolved}}</td>
-            </tr>
-            <tr>                
-                <td>Must be resolved by:</td>
-                <td>{{selectedTourIssue.resolveDateTime | date:'MM/dd/yy'}}</td>
-            </tr>
-            <tr>
-                <td>Created by:</td>
-                <td>{{tourIssueAuthor.name}} {{tourIssueAuthor.surname}}</td>
-                <td><button class="resolveButton" mat-raised-button (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button></td>
-            </tr>
-        </table><br>
-    </div>
+            </table>
+        </div>
 
-    <div class="comments">
-        <h2>Comments</h2>
-        <div class="comment-details" *ngFor = "let com of selectedTourIssue.comments">
-            <div class="profile-img">
-                <img style="width: 150px; height: 150px;" src="korisnik1.jpg">
-            </div>
+        <div id="tour-issue">
+            <h2><b>Tour issue info</b></h2>
+            <table>
+                <tr>
+                    <td ><b>Category:</b></td>
+                    <td>{{selectedTourIssue.category}}</td>
+                    <td><b>Priority:</b></td>
+                    <td>{{selectedTourIssue.priority}}</td>
+                </tr>
+                <tr>
+                    <td><b>Creation date and time:</b></td>
+                    <td>{{selectedTourIssue.creationDateTime | date:'short'}}</td>
+                    <td><b>Is resolved:</b></td>
+                    <td>
+                        <i *ngIf="selectedTourIssue.isResolved == true" class="fa-solid fa-check fa-2xl" style="color: #5bd643;"></i>
+                        <i *ngIf="selectedTourIssue.isResolved == false" class="fa-solid fa-xmark fa-2xl" style="color: #d64343;"></i>
+                    </td>
+                </tr>
+                <tr>
+                    
+                    <td><b>Must be resolved by:</b></td>
+                    <td>{{selectedTourIssue.resolveDateTime | date:'MM/dd/yy'}}</td>
+                    <td><b>Created by:</b></td>
+                    <td>{{tourIssueAuthor.name}} {{tourIssueAuthor.surname}}</td>
+                </tr>
+                <tr>
+                    <td><b>Description:</b></td>
+                    <td colspan="3">{{selectedTourIssue.description}}</td>
+                </tr>
+            </table>
+            <button class="resolveButton" mat-raised-button (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button>
             
-            <div class="comment-content">
-                <label style="font-size: 20px;">{{com.name}} {{com.surname}}</label><br><br>
-                <p style="font-size: 20px; width: 500px;">{{com.comment}}</p>
-            </div>
-
-            <p class="comment-date" style="float: right;">Created: {{com.creationDateTime | date:'MM/dd/yy'}}</p>
         </div>
     </div>
-    <br><br>
-    <form [formGroup]="tourIssueCommentForm" class="add-new-comment">
-        <h2>Add new comment</h2>
-        <textarea formControlName="comment"></textarea>
-        <button class="addCommentButton" mat-raised-button (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
-    </form>
+
+    <div id="comment-container">
+        <h2><b>Comments</b></h2>
+        <div id="comments">
+            
+            <div class="comment-details" *ngFor = "let com of selectedTourIssue.comments">
+                <div class="profile-img">
+                    <img src="https://icons-for-free.com/iconfiles/png/512/female+person+user+woman+young+icon-1320196266256009072.png">
+                </div>
+                
+                <div class="comment-content">
+                    <label>{{com.name}} {{com.surname}}</label><br><br>
+                    <p>{{com.comment}}</p>
+                </div>
+
+                <p class="comment-date" >Created: {{com.creationDateTime | date:'MM/dd/yy'}}</p>
+                
+            </div>
+        </div>
+        <br>
+        <form [formGroup]="tourIssueCommentForm" class="add-new-comment">
+            <h2><b>Add new comment</b></h2>
+            <textarea formControlName="comment"></textarea>
+            <button class="addCommentButton" mat-raised-button (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
+        </form>
+    </div>
 </div>

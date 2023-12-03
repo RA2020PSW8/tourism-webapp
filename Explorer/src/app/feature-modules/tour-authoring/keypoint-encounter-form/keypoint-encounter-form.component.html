@@ -14,16 +14,6 @@
                 formControlName="description"
                 cdkAutosizeMaxRows="5"></textarea>
               </mat-form-field>
-    
-            <mat-form-field>
-                <mat-label>Latitude</mat-label>
-                <input matInput formControlName="latitude" type="number" min="-90" max="90"/>
-            </mat-form-field>
-    
-            <mat-form-field>
-                <mat-label>Longitude</mat-label>
-                <input matInput formControlName="longitude" type="number" min="-180" max="180"/>
-            </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Xp</mat-label>
@@ -62,6 +52,14 @@
                 <mat-label>Image</mat-label>
                 <input matInput formControlName="image" type="text"/>
             </mat-form-field>
+            
+            <mat-form-field>
+                <mat-label>Is required for completion?</mat-label>
+                <mat-select formControlName="isRequired" matInput required>
+                    <mat-option value="YES">YES</mat-option>
+                    <mat-option value="NO">NO</mat-option>
+                </mat-select>
+            </mat-form-field>
     
             <button color="primary" type="submit" (click)="saveEncounter()" mat-raised-button [disabled]="!encounterForm.valid">
                 <span *ngIf="mode === 'add'">Add new encounter</span>
@@ -69,8 +67,4 @@
             </button>
         </div>
     </form>
-
-    <div class="map-container">
-        <app-map [enableClicks]="true" [toggleOff]="true" [allowMultipleMarkers]="false" (clickEvent)="fillCoords($event)"></app-map>
-    </div>
 </div>

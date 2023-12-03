@@ -38,7 +38,8 @@ import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/acti
 import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
 import { EncountersManagingComponent } from 'src/app/feature-modules/encounters-managing/encounters-managing/encounters-managing.component';
 import { WalletComponent } from 'src/app/feature-modules/marketplace/wallet/wallet.component';
-
+import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
+import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounters-managing/encounters-tourist-view/encounters-tourist-view.component';
 
 const routes: Routes = [
 
@@ -72,6 +73,8 @@ const routes: Routes = [
   {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
   {path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard]},
   {path: 'wallet', component: WalletComponent, canActivate: [AuthGuard]},
+  {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
+  {path: 'encounters-map', component: EncountersTouristViewComponent, canActivate: [AuthGuard]},
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },

@@ -12,6 +12,7 @@ import { MatOptionModule } from '@angular/material/core';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCard, MatCardModule} from '@angular/material/card';
+import { MatCheckbox, MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [],
@@ -28,7 +29,8 @@ import {MatCard, MatCardModule} from '@angular/material/card';
     MatOptionModule,
     MatDialogModule,
     MatButtonToggleModule,
-    MatCardModule
+    MatCardModule,
+    MatCheckboxModule,
   ],
   exports: [
     MatToolbar,
@@ -44,7 +46,8 @@ import {MatCard, MatCardModule} from '@angular/material/card';
     MatOptionModule,
     MatDialogModule,
     MatButtonToggleModule,
-    MatCard
+    MatCard,
+    MatCheckbox,
   ]
 })
 export class MaterialModule { }
