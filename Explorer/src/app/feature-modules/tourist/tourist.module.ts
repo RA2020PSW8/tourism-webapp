@@ -15,6 +15,7 @@ import { CustomTourFormComponent } from './custom-tour-form/custom-tour-form.com
 import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-form.component';
 
 
 
@@ -28,7 +29,8 @@ import { MapComponent } from 'src/app/shared/map/map.component';
     ClubInvitationComponent,
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent,
-    CustomTourFormComponent
+    CustomTourFormComponent,
+    CampaignTourFormComponent
   ],
   imports: [
     CommonModule,

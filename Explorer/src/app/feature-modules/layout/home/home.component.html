@@ -35,6 +35,11 @@
         Create new custom tour
     </button>
 
+    <h2 *ngIf="!router.url.includes('/home')" style="margin-left: 1rem;">Create campaign:</h2>
+    <button *ngIf="!router.url.includes('/home')" style="margin-left: 1rem;" color="primary" class="btn" (click)="navigateToCampaignCreation()">
+        Create a campaign
+    </button>
+
     <div class="container" *ngIf="!router.url.includes('/home')">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
             <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of customTours">

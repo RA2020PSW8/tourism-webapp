@@ -82,4 +82,10 @@ export class HomeComponent {
       ['/custom-tour', id]
     );
   }
+
+  navigateToCampaignCreation():void{
+    this.router.navigate([
+      ['/campaign']
+    ]);
+  }
 }
