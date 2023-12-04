@@ -155,4 +155,11 @@ export class MarketplaceService {
     return this.http.get<PagedResults<Coupon>>(`${this.couponApiUrl}/getForTourAndTourist/${tourId}/${touristId}`);
   }
   
+  getCouponsForAuthor(authorId: number): Observable<PagedResults<Coupon>>{
+    return this.http.get<PagedResults<Coupon>>(`${this.couponApiUrl}/getForAuthor/${authorId}`);
+  }
+
+  deleteCoupon(id: number) {
+    return this.http.delete<void>(`${this.couponApiUrl}/${id}`);
+  }
 }

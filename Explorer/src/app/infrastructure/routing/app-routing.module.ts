@@ -41,6 +41,7 @@ import { WalletComponent } from 'src/app/feature-modules/marketplace/wallet/wall
 import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
 import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounters-managing/encounters-tourist-view/encounters-tourist-view.component';
 import { CouponCreateComponent } from 'src/app/feature-modules/marketplace/coupon-create/coupon-create.component';
+import { CouponViewComponent } from 'src/app/feature-modules/marketplace/coupon-view/coupon-view.component';
 
 const routes: Routes = [
 
@@ -77,6 +78,7 @@ const routes: Routes = [
   {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
   {path: 'encounters-map', component: EncountersTouristViewComponent, canActivate: [AuthGuard]},
   {path: 'coupon-create', component: CouponCreateComponent, canActivate: [AuthGuard]},
+  {path: 'coupon-view', component: CouponViewComponent, canActivate: [AuthGuard]},
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },

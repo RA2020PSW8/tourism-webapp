@@ -17,6 +17,8 @@ import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.compon
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
 import { CouponCreateComponent } from './coupon-create/coupon-create.component';
+import { CouponViewComponent } from './coupon-view/coupon-view.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { CouponCreateComponent } from './coupon-create/coupon-create.component';
     CartWarningComponent,
     CartSuccessComponent,
     TourKeypointsMapComponent,
-    CouponCreateComponent
+    CouponCreateComponent,
+    CouponViewComponent
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -40,7 +43,8 @@ import { CouponCreateComponent } from './coupon-create/coupon-create.component';
     ReactiveFormsModule,
     MatRadioModule,
     TimePipe,
-    MapComponent
+    MapComponent,
+    RouterModule
   ]
 })
 export class MarketplaceModule { }
