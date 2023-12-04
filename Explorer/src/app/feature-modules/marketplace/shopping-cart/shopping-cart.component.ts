@@ -5,6 +5,8 @@ import { OrderItem } from '../model/order-item.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ShoppingCartOverviewComponent } from '../shopping-cart-overview/shopping-cart-overview.component';
+import { Coupon } from '../model/coupon-model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -15,13 +17,14 @@ export class ShoppingCartComponent implements OnInit {
 
   @Input() order: OrderItem;
   shoppingCart: ShoppingCartOverviewComponent;
-
+  coupons: Coupon[] = [];
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private changeDetectorRef: ChangeDetectorRef){
   }
 
   ngOnInit(): void {
     
   }
+  
   Delete(orderItem: OrderItem): void {
     this.marketplaceService.deleteOrderItem(Number(orderItem.id)).subscribe({
       next: (_) => {

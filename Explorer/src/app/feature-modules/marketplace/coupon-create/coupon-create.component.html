@@ -1,0 +1,36 @@
+<h1 class="heading">Create coupon</h1>
+
+<div class="cont">
+    <form [formGroup]="couponForm">
+        <div class="somediv">
+            <mat-form-field>
+                <mat-label>Discount</mat-label>
+                <input matInput formControlName="discount" type="number" min="0" matInput required/>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Expiry Date</mat-label>
+                <input matInput formControlName="expiryDate" type="date" matInput required/>
+            </mat-form-field>
+        
+            <mat-form-field>
+                <mat-label>Tourist</mat-label>
+                <mat-select formControlName="touristId" matInput required>
+                    <mat-option *ngFor="let tourist of tourists" [value]="tourist.id">{{tourist.username}} {{tourist.email}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Tour</mat-label>
+                <mat-select formControlName="tourId" matInput required>
+                    <mat-option *ngFor="let tour of tours" [value]="tour.id">{{tour.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <button style="background-color: blue; color: white;" (click)="createCoupon()" mat-raised-button>
+                <span>Create</span>
+            </button>
+
+        </div>
+    </form> 
+</div>

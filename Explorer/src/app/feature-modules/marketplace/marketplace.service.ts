@@ -13,6 +13,8 @@ import { Object } from '../tour-authoring/model/object.model';
 import { TourReview } from '../tour-execution/model/tour-review.model';
 import { TourPurchaseToken } from './model/tour-purchase-token.model';
 import { Wallet } from './model/wallet.model';
+import { Tourist } from './model/tourist-model';
+import { Coupon } from './model/coupon-model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,8 @@ export class MarketplaceService {
   private readonly tourApiUrl = `${environment.apiHost}marketplace/tours`;
   private readonly filterApiUrl = `${environment.apiHost}marketplace/tours/filter`
   private readonly tourReviewApiUrl = `${environment.apiHost}tourexecution/tourreview`;
+  private readonly userApiUrl = `${environment.apiHost}administration/users`;
+  private readonly couponApiUrl = `${environment.apiHost}marketplace/coupons`;
 
 
   constructor(private http: HttpClient) { }
@@ -135,4 +139,17 @@ export class MarketplaceService {
     return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}/custom`);
   }
 
+  getAllTourists(): Observable<PagedResults<Tourist>> {
+    return this.http.get<PagedResults<Tourist>>(`${this.userApiUrl}/allTourists`);
+  }
+
+  getAllToursForAuthor(authorId: number): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(`${this.tourApiUrl}/allToursForAuthor/${authorId}`);
+  }
+
+  createCoupon(coupon: Coupon) : Observable<PagedResult<Coupon>>{
+    return this.http.post<PagedResult<Coupon>>(`${this.couponApiUrl}`, coupon);
+  }
+  //getCouponsForUserIdTourId
+  
 }

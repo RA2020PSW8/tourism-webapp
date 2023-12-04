@@ -16,6 +16,7 @@ import { ReviewsComponent } from './dialogs/reviews/reviews.component';
 import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.component';
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
+import { CouponCreateComponent } from './coupon-create/coupon-create.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-key
     ReviewsComponent,
     CartWarningComponent,
     CartSuccessComponent,
-    TourKeypointsMapComponent
+    TourKeypointsMapComponent,
+    CouponCreateComponent
   ],
   exports: [TourCardCompactComponent],
   imports: [
