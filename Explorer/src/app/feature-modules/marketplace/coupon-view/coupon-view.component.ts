@@ -15,6 +15,7 @@ export class CouponViewComponent {
 
   coupons: Coupon[] = [];
   loggedId: number;
+  startDate: Date = new Date();
 
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private router: Router){
     

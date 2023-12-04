@@ -10,13 +10,13 @@
 
             <mat-form-field>
                 <mat-label>Expiry Date</mat-label>
-                <input matInput formControlName="expiryDate" type="date" matInput required/>
+                <input matInput formControlName="expiryDate" type="date" [min]="startDate.valueOf" matInput required/>
             </mat-form-field>
         
             <mat-form-field>
                 <mat-label>Tourist</mat-label>
                 <mat-select formControlName="touristId" matInput required>
-                    <mat-option *ngFor="let tourist of tourists" [value]="tourist.id">{{tourist.username}} {{tourist.email}}</mat-option>
+                    <mat-option *ngFor="let tourist of tourists" [value]="tourist.id">{{tourist.email}}</mat-option>
                 </mat-select>
             </mat-form-field>
 

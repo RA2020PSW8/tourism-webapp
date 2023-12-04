@@ -19,19 +19,31 @@ export class CouponCreateComponent {
   tourists: Tourist[] =  []; 
   tours: Tour[] = [];
   loggedId: number; 
+  startDate: Date = new Date();
 
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService){
     this.coupon = {id: 0, code: '', discount: 0, tourId: 0, touristId:0, authorId: 0, expiryDate: new Date()}
     this.couponForm = new FormGroup({
       discount: new FormControl(1, Validators.min(1)),
-      expiryDate: new FormControl('', Validators.required),
+      expiryDate: new FormControl('', [Validators.required, this.futureDateValidator]),
       tourId: new FormControl(null),
       touristId: new FormControl(null,[Validators.required]),
     });
   }
 
+  futureDateValidator(control: FormControl): { [key: string]: boolean } | null {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
+  
+    if (selectedDate < currentDate) {
+      return { 'pastDate': true };
+    }
+  
+    return null;
+  }
+
   ngOnInit(): void {
-    this.loggedId = this.authService.user$.value.id; 
+    this.loggedId = this.authService.user$.value?.id; 
     this.getTourists(); 
     this.getTours(); 
   }
