@@ -25,8 +25,8 @@ export class CouponCreateComponent {
     this.couponForm = new FormGroup({
       discount: new FormControl(1, Validators.min(1)),
       expiryDate: new FormControl('', Validators.required),
-      tourId: new FormControl(0, [Validators.required]),
-      touristId: new FormControl(0,[Validators.required]),
+      tourId: new FormControl(null),
+      touristId: new FormControl(null,[Validators.required]),
     });
   }
 

@@ -17,12 +17,26 @@ export class ShoppingCartComponent implements OnInit {
 
   @Input() order: OrderItem;
   shoppingCart: ShoppingCartOverviewComponent;
+  loggedId: number;
   coupons: Coupon[] = [];
+
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private changeDetectorRef: ChangeDetectorRef){
   }
 
   ngOnInit(): void {
-    
+    this.loggedId = this.authService.user$.value.id; 
+  }
+
+  getCoupons(tourId: number): void{
+    this.marketplaceService.getCouponsForTourAndTourist(tourId, this.loggedId).subscribe({
+      next: (result:PagedResults<Coupon>) => {
+        this.coupons = result.results;
+         
+      },
+      error:(err: any) => {
+        console.log(err); 
+      }
+    })
   }
   
   Delete(orderItem: OrderItem): void {

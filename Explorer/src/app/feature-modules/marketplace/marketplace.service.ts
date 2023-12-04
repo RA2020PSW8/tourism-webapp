@@ -150,6 +150,9 @@ export class MarketplaceService {
   createCoupon(coupon: Coupon) : Observable<PagedResult<Coupon>>{
     return this.http.post<PagedResult<Coupon>>(`${this.couponApiUrl}`, coupon);
   }
-  //getCouponsForUserIdTourId
+
+  getCouponsForTourAndTourist(tourId: number, touristId: number): Observable<PagedResults<Coupon>>{
+    return this.http.get<PagedResults<Coupon>>(`${this.couponApiUrl}/getForTourAndTourist/${tourId}/${touristId}`);
+  }
   
 }
