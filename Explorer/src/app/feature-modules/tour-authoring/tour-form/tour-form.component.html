@@ -3,7 +3,7 @@
         <h1>Tour information</h1>
         <p><strong>Name:</strong> {{tour.name}}</p>
         <p><strong>Description:</strong> {{tour.description}}</p>
-        <p><strong>Price:</strong> {{tour.price}} &euro;</p>
+        <p><strong>Price:</strong> {{tour.price}} AC</p>
         <p><strong>Type:</strong> {{tour.transportType}}</p>
         <p><strong>Difficulty:</strong> {{tour.difficulty}}</p>
         <p><strong>Status:</strong> {{tour.status}} (Last updated: {{tour.statusUpdateTime | date:'long'}})</p>
@@ -16,6 +16,7 @@
     </div>  
     <div>
         <h1>Keypoints information</h1>
+        <h4>(Edit keypoint to add encounter)</h4>
         <xp-keypoint [keypoints]="keypoints" (keypointDeleted)="getTourKeypoints()" (keypointSelected)="selectKeypoint($event)"></xp-keypoint>
     </div> 
 </div>
@@ -96,6 +97,10 @@
     <div *ngIf="tourId !== 0" style="width: 80%;">
         <xp-keypoint-form [tourId]="tourId" [routeQuery]="routeQuery" [keypointsCount]="keypoints.length"
         [mode]="mode" [selectedKeypoint]="selectedKeypoint" (keypointsUpdated)="getTourKeypoints()" (routeFound)="setTourRoute($event)"></xp-keypoint-form>
+        <br>
+        <div *ngIf="mode === 'edit'">
+            <xp-keypoint-encounters-managing [selectedKeypoint]="selectedKeypoint"></xp-keypoint-encounters-managing>
+        </div>
     </div>
 </div>
 

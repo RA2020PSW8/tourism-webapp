@@ -12,6 +12,7 @@ import { Keypoint } from '../tour-authoring/model/keypoint.model';
 import { Object } from '../tour-authoring/model/object.model';
 import { TourReview } from '../tour-execution/model/tour-review.model';
 import { TourPurchaseToken } from './model/tour-purchase-token.model';
+import { Wallet } from './model/wallet.model';
 
 @Injectable({
   providedIn: 'root'
@@ -80,8 +81,14 @@ export class MarketplaceService {
   addOrderItem(orderItem: OrderItem): Observable<OrderItem> {
     return this.http.post<OrderItem>(environment.apiHost + 'tourist/orderItems', orderItem);
   }
+  createWallet(wallet: Wallet): Observable<Wallet> {
+    return this.http.post<Wallet>(environment.apiHost + 'tourist/wallet', wallet);
+  }
   getAllOrders(): Observable<PagedResult<OrderItem>> {
     return this.http.get<PagedResult<OrderItem>>(`${this.apiUrl}/orderItems`);
+  }
+  getAllWallets(): Observable<PagedResult<OrderItem>> {
+    return this.http.get<PagedResult<OrderItem>>(`${this.apiUrl}/wallet`);
   }
   getOrdersForUser(): Observable<PagedResults<OrderItem>> {
     return this.http.get<PagedResults<OrderItem>>(environment.apiHost + 'tourist/orderItems/byUser');
@@ -91,6 +98,17 @@ export class MarketplaceService {
   }
   getShoppingCartForUser(): Observable<ShoppingCart> {
     return this.http.get<ShoppingCart>(environment.apiHost + 'tourist/shoppingCart/byUser');
+  }
+  getWalletForUser(): Observable<Wallet> {
+    return this.http.get<Wallet>(environment.apiHost + 'tourist/wallet/byUser');
+  }
+  getWalletForUserId(userId: number):Observable<Wallet>{
+    return this.http.get<Wallet>(environment.apiHost + 'tourist/wallet/byUser/'+userId);
+  }
+  addCoins(wallet: Wallet): Observable<Wallet> {
+    const url = `${this.apiUrl}/wallet/addCoins/${wallet.id}`;
+  
+    return this.http.put<Wallet>(url, wallet);
   }
   deleteOrderItem(orderItemId: number): Observable<OrderItem> {
     return this.http.delete<OrderItem>(environment.apiHost + 'tourist/orderItems/' + orderItemId);
@@ -123,6 +141,10 @@ export class MarketplaceService {
 
   getCustomTours(): Observable<PagedResult<Tour>> {
     return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}/custom`);
+  }
+
+  updateWallet(wallet: Wallet): Observable<Wallet> {
+    return this.http.put<Wallet>(environment.apiHost + 'tourist/wallet/' + wallet.id, wallet);
   }
 
 }

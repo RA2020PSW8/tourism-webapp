@@ -1,6 +1,6 @@
 import { outputAst } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
-import { Encounter } from '../encounters-preview/model/encounter.model';
+import { Encounter } from '../model/encounter.model';
 import { EncountersService } from '../encounters.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 

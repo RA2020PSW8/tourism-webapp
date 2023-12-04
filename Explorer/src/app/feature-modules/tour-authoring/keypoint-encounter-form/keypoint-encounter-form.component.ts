@@ -1,33 +1,34 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { Encounter } from '../model/encounter.model';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Encounter, KeypointEncounter } from '../model/keypointEncounter.model';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { EncountersService } from '../encounters.service';
+import { TourAuthoringService } from '../tour-authoring.service';
+import { Keypoint } from '../model/keypoint.model';
 
 @Component({
-  selector: 'xp-encounter-form',
-  templateUrl: './encounter-form.component.html',
-  styleUrls: ['./encounter-form.component.css']
+  selector: 'xp-keypoint-encounter-form',
+  templateUrl: './keypoint-encounter-form.component.html',
+  styleUrls: ['./keypoint-encounter-form.component.css']
 })
-export class EncounterFormComponent implements OnChanges {
-  @Output() encounterUpdated = new EventEmitter<Encounter>();
+export class KeypointEncounterFormComponent {
+  @Output() encounterUpdated = new EventEmitter<KeypointEncounter>();
   
   @Input() mode: string = 'add';
-  @Input() selectedEncounter: Encounter;
+  @Input() selectedEncounter: KeypointEncounter;
+  @Input() keypoint: Keypoint;
 
   public encounterForm: FormGroup;
 
-  constructor(private encounterService: EncountersService) {
+  constructor(private tourAuthoringService: TourAuthoringService) {
     this.encounterForm = new FormGroup ({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
-      latitude: new FormControl(0, [Validators.min(-90), Validators.max(90)]),
-      longitude: new FormControl(0, [Validators.min(-180), Validators.max(180)]),
       xp: new FormControl(0, [Validators.min(1)]),
       status: new FormControl(''), 
       type: new FormControl('', [Validators.required]),
       range: new FormControl('', [Validators.min(1)]),
       image: new FormControl(null),
       peopleCount: new FormControl(0),
+      isRequired: new FormControl(''),
     });
 
     this.encounterForm.controls["peopleCount"].addValidators([this.customPeopleValidator()]);
@@ -38,7 +39,20 @@ export class EncounterFormComponent implements OnChanges {
   ngOnChanges(): void {
     this.encounterForm.reset();
     if(this.mode === 'edit') {
-      this.encounterForm.patchValue(this.selectedEncounter);
+      let encounterValues = {
+        name: this.selectedEncounter.encounter.name || "",
+        description: this.selectedEncounter.encounter.description || "",
+        xp: this.selectedEncounter.encounter.xp || 10,
+        status: this.selectedEncounter.encounter.status || 'DRAFT',
+        type: this.selectedEncounter.encounter.type || 'SOCIAL',
+        range: this.selectedEncounter.encounter.range || 0,
+        image: this.selectedEncounter.encounter.image,
+        peopleCount: this.selectedEncounter.encounter.peopleCount,
+        keypointId: this.selectedEncounter.id,
+        encounterId: this.selectedEncounter.encounter.id,
+        isRequired: (this.selectedEncounter.isRequired === true ? 'YES': 'NO'),
+      };
+      this.encounterForm.patchValue(encounterValues);
     }
   }
   customPeopleValidator(): ValidatorFn {
@@ -75,41 +89,42 @@ export class EncounterFormComponent implements OnChanges {
   }
 
   saveEncounter(): void {
-    let encounter: Encounter = {
+    let formEncounter: Encounter = {
+      id: (this.mode === 'add' ? 0 : (this.selectedEncounter.encounterId || 0)),
       name: this.encounterForm.value.name || "",
       description: this.encounterForm.value.description || "",
-      latitude: this.encounterForm.value.latitude || 0,
-      longitude: this.encounterForm.value.longitude || 0,
+      latitude: this.keypoint.latitude,
+      longitude: this.keypoint.longitude,
       xp: this.encounterForm.value.xp || 10,
-      status: this.encounterForm.value.status || 'DRAFT', 
+      status: this.encounterForm.value.status || 'DRAFT',
       type: this.encounterForm.value.type || 'SOCIAL',
       range: this.encounterForm.value.range || 0,
       image: this.encounterForm.value.image,
       peopleCount: this.encounterForm.value.peopleCount
     };
+    let keypointEncounter: KeypointEncounter = {
+      encounter: formEncounter,
+      keypointId: this.keypoint.id || 0,
+      encounterId: (this.mode === 'add' ? 0 : (this.selectedEncounter.encounterId|| 0)),
+      isRequired: (this.encounterForm.value.isRequired === 'YES' ? true : false),
+    };
     
     if(this.mode === 'add'){
-      this.encounterService.addEncounter(encounter).subscribe({
+      this.tourAuthoringService.addEncounter(keypointEncounter).subscribe({
         next: () => { 
           this.encounterUpdated.emit();
           this.encounterForm.reset();
         }
       });
     }else if( this.mode === 'edit'){
-      encounter.id = this.selectedEncounter.id;
-      this.encounterService.updateEncounter(encounter).subscribe({
+      keypointEncounter.id = this.selectedEncounter.id;
+      this.tourAuthoringService.updateEncounter(keypointEncounter).subscribe({
         next: () => {
           this.encounterUpdated.emit(); 
           this.encounterForm.reset();
         }
       });
-    } 
+    }
   }
 
-  fillCoords(event: number[]): void {
-    this.encounterForm.patchValue({
-      latitude: event[0],
-      longitude: event[1]
-    })
-  }
 }

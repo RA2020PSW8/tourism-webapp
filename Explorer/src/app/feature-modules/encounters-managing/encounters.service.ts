@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
-import { Encounter } from './encounters-preview/model/encounter.model';
+import { Encounter } from './model/encounter.model';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { EncounterCompletion } from './model/encounterCompletion.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,9 @@ export class EncountersService {
     let queryParams = new HttpParams();
     queryParams = queryParams.append("status", status);
     return this.http.get<PagedResults<Encounter>>(`${this.apiUrl}encounter/status`, {params: queryParams});
+  }
+
+  getEncounterCompletionsByUser(): Observable<PagedResults<EncounterCompletion>>{
+    return this.http.get<PagedResults<EncounterCompletion>>(`${this.apiUrl}tourist/encounter`);
   }
 }

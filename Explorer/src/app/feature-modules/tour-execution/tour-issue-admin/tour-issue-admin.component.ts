@@ -71,7 +71,7 @@ export class TourIssueAdminComponent implements OnInit {
   }
 
   disableTour(tourIssue: TourIssue): void {
-    this.service.getTour(parseInt(tourIssue.tourId)).subscribe({
+    this.service.getTour(parseInt(tourIssue.tourId as string)).subscribe({
       next: (result: Tour) => {
         result.status = Status.DISABLED;
         this.service.updateTour(result).subscribe({
