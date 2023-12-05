@@ -36,3 +36,93 @@
     font-weight: bold;
     color: #333;
   }
+
+  .user-profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .profile-image-container {
+    margin-bottom: 20px;
+  }
+  
+  .circular-frame {
+    width: 150px; /* Adjust the size as needed */
+    height: 150px; /* Adjust the size as needed */
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  
+  .profile-name {
+    text-align: center;
+    margin-bottom: 20px;
+    
+  }
+  .profile-name h2{
+    font-size: 14px;
+  }
+  
+  .profile-details {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .profile-section {
+    flex: 1;
+    margin-right: 20px;
+  }
+  
+  .profile-section h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .menu {
+    margin-top: 20px;
+    width: 30%;
+  }
+  
+  .menu-section {
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .menu-section:hover {
+    transform: scale(1.1);
+    background-color: #f0f0f0;
+    cursor: pointer; /* Ensure cursor style is set on hover */
+  }
+  
+  .menu hr {
+    border: none;
+    border-top: 1px solid #ccc;
+    margin: 5px 0;
+  }
+  
+  .menu p {
+    margin: 0;
+    padding-left: 5px;
+  }
+
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: 20% 1fr; /* Adjust the width of the menu column */
+    gap: 5px; /* Reduce the gap between columns */
+    margin-right: 10%;
+  }
+  
+  .content-container {
+    transition: margin-left 0.5s;
+  }
+
+  form{
+    margin-top:5%;
+  }
+
+  
+  
