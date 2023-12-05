@@ -30,6 +30,8 @@ export interface Encounter {
     type: EncounterType,
     range: number,
     image?: string,
+    imageLatitude?: string,
+    imageLongitude?: string,
     peopleCount? : number,
     approvalStatus: EncounterApprovalStatus
 }

@@ -41,6 +41,21 @@ export class EncountersService {
     return this.http.get<PagedResults<EncounterCompletion>>(`${this.apiUrl}tourist/encounter`);
   }
 
+  startEncounter(encounter: Encounter): Observable<EncounterCompletion>{
+    return this.http.post<EncounterCompletion>(`${this.apiUrl}tourist/encounter/startEncounter`, encounter);
+  }
+
+  getNearbyEncounters(): Observable<PagedResults<Encounter>>{
+    return this.http.get<PagedResults<Encounter>>(`${this.apiUrl}encounter/nearbyHidden`);
+  }
+  
+  getEncounterCompletionsByIds(ids: (number | undefined)[]): Observable<EncounterCompletion[]>{
+    return this.http.post<EncounterCompletion[]>(`${this.apiUrl}tourist/encounter/completions`, ids);
+  }
+
+  checkNearbyEncounters(): Observable<PagedResults<EncounterCompletion>>{
+    return this.http.get<PagedResults<EncounterCompletion>>(`${this.apiUrl}tourist/encounter/checkNearbyCompletions`);
+  }
   getEncountersByUser(): Observable<PagedResults<Encounter>>{
     return this.http.get<PagedResults<Encounter>>(`${this.apiUrl}encounter/byUser`);
   }

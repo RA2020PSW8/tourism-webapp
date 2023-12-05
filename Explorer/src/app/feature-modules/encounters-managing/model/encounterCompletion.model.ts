@@ -3,13 +3,15 @@ import { Encounter } from "./encounter.model";
 export enum EncounterCompletionStatus {
     STARTED = "STARTED",
     FAILED = "FAILED",
-    COMPLETED = "COMPLETED"
+    COMPLETED = "COMPLETED",
+    PROGRESSING = "PROGRESSING"
 }
 
 export interface EncounterCompletion {
     id?: number,
     userId?: number,
-    completionTime: Date,
+    lastUpdatedAt: Date,
+    encounterId: number,
     encounter: Encounter,
     xp: number,
     status: EncounterCompletionStatus
