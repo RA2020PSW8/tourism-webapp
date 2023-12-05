@@ -27,17 +27,6 @@ export class ShoppingCartComponent implements OnInit {
     this.loggedId = this.authService.user$.value.id; 
   }
 
-  getCoupons(tourId: number): void{
-    this.marketplaceService.getCouponsForTourAndTourist(tourId, this.loggedId).subscribe({
-      next: (result:PagedResults<Coupon>) => {
-        this.coupons = result.results;
-         
-      },
-      error:(err: any) => {
-        console.log(err); 
-      }
-    })
-  }
   
   Delete(orderItem: OrderItem): void {
     this.marketplaceService.deleteOrderItem(Number(orderItem.id)).subscribe({
