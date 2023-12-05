@@ -71,7 +71,6 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         if(encounterIds != undefined){
           this.encounterService.getEncounterCompletionsByIds(encounterIds).subscribe({
             next: (result: EncounterCompletion[]) => {
-              console.log(result);
               encountersResult.results.forEach(encounter => {
                 var encounterCompletion = result ? result.filter(ec => ec.encounterId === encounter.id)[0] : null;
                 var encounterColor = 'yellow', encounterRange = 0;
@@ -109,11 +108,11 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   checkNearbyEncounters(): void {
     this.encounterService.checkNearbyEncounters().subscribe({
       next: (result: PagedResults<EncounterCompletion>) => {
-        console.log(result);
-        console.log(result.results);
-        result.results.forEach((encounterCompletion) => {
-          alert('WOOO! You completed an encounter' /*+ encounterCompletion.encounter.name*/); // nj
-        });
+        if(result.results){
+          result.results.forEach((encounterCompletion) => {
+            alert('WOOO! You completed an encounter' /*+ encounterCompletion.encounter.name*/); // nj
+          });
+        }
       }
     });
   }
