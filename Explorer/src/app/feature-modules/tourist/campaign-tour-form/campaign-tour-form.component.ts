@@ -91,11 +91,11 @@ export class CampaignTourFormComponent implements OnInit {
     let dummyArray : Equipment[] = []
     this.selectedTours.forEach(t => {
       this.tourAuthoringService.getEquipmentForTour(t.id as number).subscribe((result) =>{
-      dummyArray = dummyArray.concat(result);
+      result.forEach(r => {
+          dummyArray.push(r);
+      });
       });
     })
-    
-    alert(dummyArray.length)
 
    dummyArray.forEach(e => {
       if(!this.equipment.includes(e)){
