@@ -25,7 +25,7 @@ export class EncountersTouristViewComponent implements OnInit {
   public selectedEncounter: Encounter;
   public showForm: boolean;
   public formMode: string;
-  public profile: Profile;
+  public canCreateEncounters: boolean = false;
   @ViewChild(MapComponent) mapComponent: MapComponent;
   
   constructor(private service: EncountersService) { }
@@ -34,6 +34,7 @@ export class EncountersTouristViewComponent implements OnInit {
     this.getActiveEncounters(); 
     this.getTouristEncounterCompletions();    
     this.getTouristEncounters();
+    this.canTouristCreateEncounters();
   }
 
   getActiveEncounters(): void {
@@ -62,6 +63,14 @@ export class EncountersTouristViewComponent implements OnInit {
         this.touristEncounters = result.results;  
         this.setMarkers(this.touristEncounters);
         this.pointsOfInterest = this.markers;                    
+      }
+    });
+  }
+
+  canTouristCreateEncounters(): void {
+    this.service.canTouristCreateEncouters().subscribe({
+      next: (result: boolean) => {
+        this.canCreateEncounters = result;                
       }
     });
   }

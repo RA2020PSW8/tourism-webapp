@@ -96,9 +96,6 @@ export class EncounterFormComponent implements OnChanges {
           this.encounterForm.reset();
         }
         ,error: () => {
-          // change this when profile fields are added on frontend
-          // add that tourist can not see the option to add encoutner if he doesn't have enough XP
-          window.alert("You can not create encounter, because you don't have enough XP points!");
         }
       });
     }else if( this.mode === 'edit'){

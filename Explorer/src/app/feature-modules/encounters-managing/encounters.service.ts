@@ -57,4 +57,8 @@ export class EncountersService {
     return this.http.put<Encounter>(`${this.apiUrl}encounter/decline`, updatedEncounter);
   }
 
+  canTouristCreateEncouters(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}profile/canCreateEncounters`);
+  }
+
 }

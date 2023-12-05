@@ -147,9 +147,7 @@
             </tbody>
         </table>
 
-        <button color="primary" type="submit" (click)="addEncounter()" mat-raised-button>
-            Add new
-        </button>   
+        <button *ngIf="canCreateEncounters" color="primary" type="submit" (click)="addEncounter()" mat-raised-button>Add new</button>   
         
         <xp-encounter-form class="form-container" *ngIf="showForm" [selectedEncounter]="selectedEncounter" (encounterUpdated)="encounterUpdated()" [mode]="formMode"></xp-encounter-form>
 
