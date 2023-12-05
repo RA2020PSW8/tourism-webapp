@@ -3,13 +3,13 @@ import { TourProgress } from '../model/tour-progress.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
-import { Subscription, interval } from 'rxjs';
+import { Subscription, interval, Subject, Observable, of } from 'rxjs';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Encounter, EncounterStatus, KeypointEncounter } from '../../tour-authoring/model/keypointEncounter.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { EncounterCompletion } from '../../encounters-managing/model/encounterCompletion.model';
-
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'xp-active-tour',
@@ -17,7 +17,6 @@ import { EncounterCompletion } from '../../encounters-managing/model/encounterCo
   styleUrls: ['./active-tour.component.css']
 })
 export class ActiveTourComponent implements OnInit, OnDestroy {
-
   activeTour: TourProgress | undefined;
   routeQuery: RouteQuery | undefined;
   currentPosition: MarkerPosition | undefined;
@@ -25,96 +24,96 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   currentKeyPoint: Keypoint | undefined;
   public keypointEncounters: KeypointEncounter[];
   public requiredEncounters: KeypointEncounter[] = [];
-  public passedKeypoints: number = 0;
 
   private updateSubscription: Subscription | undefined;
+  private destroy$ = new Subject<void>();
 
   constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService) { }
 
   ngOnInit(): void {
     this.getActiveTour();
     this.refreshMap = true;
-    this.updateSubscription = interval(10000).subscribe(() => {
-      if(this.activeTour !== undefined){
-        if (this.requiredEncounters.length !== 0)
-        this.getTouristCompletedEncounters();
-      else
+    this.updateSubscription = interval(10000).pipe(
+      switchMap(() => this.activeTour !== undefined ? this.getKeypointActiveEncounters() : []),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      if (this.activeTour !== undefined) {
         this.updatePosition();
       }
     });
-
-
-
   }
-  triggerMapRefresh(): void {
-    this.refreshMap = false;
-    setTimeout(() => {
-      this.refreshMap = true;
-    });
-  }
-
-
 
   ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
 
     if (this.updateSubscription) {
       this.updateSubscription.unsubscribe();
     }
   }
 
-
   updatePosition(): void {
-    this.passedKeypoints += 1;
-    this.service.updateActiveTour(this.passedKeypoints).subscribe({
-      next: (result: TourProgress) => {
-        if (this.currentPosition?.latitude !== result.touristPosition?.latitude || this.currentPosition?.longitude !== result.touristPosition?.longitude) {
+    if (this.requiredEncounters.length !== 0) {
+      // Do something with requiredEncounters if needed
+      return;
+    }
 
-          if (this.currentKeyPoint?.secret !== "") {
-            if (window.confirm(this.currentKeyPoint?.secret)) {
+    this.service.updateActiveTour((this.requiredEncounters.length === 0)).pipe(
+      switchMap((result: TourProgress) => {
+        this.currentPosition = result.touristPosition;
+        let previousSecret = this.currentKeyPoint?.secret;
+        let previousKeypoint = this.currentKeyPoint;
 
+        if (result.status === 'COMPLETED') {
+          this.activeTour = undefined;
+          this.routeQuery = undefined;
+          this.currentPosition = undefined;
+          this.refreshMap = false;
+          this.currentKeyPoint = undefined;
+          window.confirm(previousSecret)
+          window.alert('Tour completed at: ' + result.touristPosition?.updatedAt);
+          return of(null); // Return an observable to continue the chain
+        }
+
+        if (this.activeTour && this.activeTour.status === 'IN_PROGRESS') {
+          this.currentKeyPoint = this.activeTour.tour.keypoints?.find((keypoint) => keypoint.position === result.currentKeyPoint);
+          if (previousKeypoint != this.currentKeyPoint && this.currentKeyPoint?.secret !== "") {
+            if (window.confirm(previousSecret)) {
+              this.triggerMapRefresh();
             }
           }
-
-          if (result.status === 'COMPLETED') {
-            this.activeTour = undefined;
-            this.routeQuery = undefined;
-            this.currentPosition = undefined;
-            this.refreshMap = false;
-            this.currentKeyPoint = undefined;
-            window.alert('Tour completed at: ' + result.touristPosition?.updatedAt);
-            return;
-          }
-
-          this.currentPosition = result.touristPosition;
-
-          if (this.activeTour && this.activeTour.status === 'IN_PROGRESS') {
-
-            this.currentKeyPoint = this.activeTour.tour.keypoints?.find((keypoint) => keypoint.position === result.currentKeyPoint);
-            this.getKeypointActiveEncounters();
-          }
-          this.triggerMapRefresh();
+          return this.getKeypointActiveEncounters();
+        } else {
+          return of(null);
         }
-      }
+      }),
+      takeUntil(this.destroy$)
+    ).subscribe(() => {
+      //this.triggerMapRefresh();
+    });
+  }
 
-    })
-  }
-  getTouristCompletedEncounters(): void {
-    this.service.getTouristCompletedEncounters().subscribe({
-      next: (result: PagedResults<EncounterCompletion>) => {
-        let completedEncouners = (result.results).filter(item => item.status === 'COMPLETED');
-        const compltedIds = completedEncouners.map(r => r.encounter.id);
-        this.requiredEncounters = this.keypointEncounters.filter(item => !compltedIds.includes(item.encounterId))
-        this.requiredEncounters = this.requiredEncounters.filter(item => item.isRequired === true);
-      }
-    });
-  }
-  getKeypointActiveEncounters(): void {
-    this.tourAuthoringService.getKeypointEncounters(this.currentKeyPoint?.id || 0).subscribe({
-      next: (result: PagedResults<KeypointEncounter>) => {
+  getKeypointActiveEncounters(): Observable<any> {
+    return this.tourAuthoringService.getKeypointEncounters(this.currentKeyPoint?.id || 0).pipe(
+      switchMap((result: PagedResults<KeypointEncounter>) => {
         this.keypointEncounters = (result.results).filter((item: any) => item.encounter.status === EncounterStatus.ACTIVE);
-        this.getTouristCompletedEncounters();
-      }
-    });
+        return this.getTouristCompletedEncounters();
+      }),
+      takeUntil(this.destroy$)
+    );
+  }
+
+  getTouristCompletedEncounters(): Observable<any> {
+    return this.service.getTouristCompletedEncounters().pipe(
+      switchMap((result: PagedResults<EncounterCompletion>) => {
+        let completedEncounters = (result.results).filter(item => item.status === 'COMPLETED');
+        const completedIds = completedEncounters.map(r => r.encounter.id);
+        this.requiredEncounters = this.keypointEncounters.filter(item => !completedIds.includes(item.encounterId))
+        this.requiredEncounters = this.requiredEncounters.filter(item => item.isRequired === true);
+        return of(null);
+      }),
+      takeUntil(this.destroy$)
+    );
   }
 
   getActiveTour(): void {
@@ -131,7 +130,6 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         }
 
         if (this.activeTour && this.activeTour.status === 'IN_PROGRESS') {
-
           this.currentKeyPoint = this.activeTour.tour.keypoints?.find((keypoint) => keypoint.position === this.activeTour?.currentKeyPoint);
         }
         this.getKeypointActiveEncounters();
@@ -149,9 +147,14 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         this.activeTour = undefined;
         this.routeQuery = undefined;
         this.currentPosition = undefined;
-
       }
     })
   }
 
+  triggerMapRefresh(): void {
+    this.refreshMap = false;
+    setTimeout(() => {
+      this.refreshMap = true;
+    });
+  }
 }

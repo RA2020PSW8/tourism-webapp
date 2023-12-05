@@ -54,7 +54,8 @@ export class EncountersTouristViewComponent implements OnInit {
             if (window.confirm("You started encounter")) {}
         },
         error: (error) => {
-          if (window.confirm("You have been started this encounter or completed")) {}
+          if(error.status === 404) window.confirm("Set your location first")
+          else window.confirm("You have been started this encounter or completed")
         }
       });
   }
@@ -62,7 +63,8 @@ export class EncountersTouristViewComponent implements OnInit {
   finishEncounter(encounter: Encounter): void {
     this.service.finishEncounter(encounter).subscribe({
       next: () =>{
-          this.getTouristEncounterCompletions();
+        window.confirm("You successfully completed encounter");
+        this.getTouristEncounterCompletions();
       },
       error: (error) => {
         if (window.confirm(error)) {}

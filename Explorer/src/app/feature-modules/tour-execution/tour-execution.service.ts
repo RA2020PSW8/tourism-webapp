@@ -61,8 +61,8 @@ export class TourExecutionService {
     return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/abandonActive`, null);
   }
 
-  updateActiveTour(passedKeypoints: number): Observable<TourProgress> {
-    return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/updateActive`, passedKeypoints);
+  updateActiveTour(areRequiredDone: boolean): Observable<TourProgress> {
+    return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/updateActive`, areRequiredDone);
   }
   
   updateSocialEncounters(): Observable<void> {
