@@ -16,6 +16,7 @@ div {
     position: sticky;
     top: 0;
     background-color: var(--color-foreground);
+    z-index: 9999;
 }
 
 .left-menu {
@@ -46,7 +47,7 @@ div {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 30px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -54,8 +55,9 @@ div {
     width: 100px;
     background: var(--color-foreground);
     border-radius: var(--border-radius);
-    font-size: 24px;
+    font-size: 18px;
     transition: ease 0.3s;
+    box-shadow: 1px 0px 7px 3px #3b352d47;
 }
 
 .sticky-footer:hover {
@@ -69,7 +71,7 @@ div {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 999;
+    z-index: 9999;
     background: none;
 }
 
@@ -118,8 +120,7 @@ div {
     width: 350px;
 }
 
-.icon{
-    padding: 5px;
+.icon {
     margin: 5px;
 }
 
@@ -163,4 +164,8 @@ div {
 
 .date{
     font-size: small;
+}
+
+.notification-icon-container {
+    position: relative;
 }
