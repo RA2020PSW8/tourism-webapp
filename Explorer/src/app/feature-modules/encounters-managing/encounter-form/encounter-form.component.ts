@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { Encounter } from '../model/encounter.model';
+import { Encounter, EncounterApprovalStatus } from '../model/encounter.model';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { EncountersService } from '../encounters.service';
 
@@ -85,7 +85,8 @@ export class EncounterFormComponent implements OnChanges {
       type: this.encounterForm.value.type || 'SOCIAL',
       range: this.encounterForm.value.range || 0,
       image: this.encounterForm.value.image,
-      peopleCount: this.encounterForm.value.peopleCount
+      peopleCount: this.encounterForm.value.peopleCount,
+      approvalStatus: EncounterApprovalStatus.PENDING
     };
     
     if(this.mode === 'add'){
@@ -94,9 +95,13 @@ export class EncounterFormComponent implements OnChanges {
           this.encounterUpdated.emit();
           this.encounterForm.reset();
         }
+        ,error: () => {
+        }
       });
     }else if( this.mode === 'edit'){
       encounter.id = this.selectedEncounter.id;
+      encounter.userId = this.selectedEncounter.userId;
+      encounter.approvalStatus = this.selectedEncounter.approvalStatus;
       this.encounterService.updateEncounter(encounter).subscribe({
         next: () => {
           this.encounterUpdated.emit(); 
