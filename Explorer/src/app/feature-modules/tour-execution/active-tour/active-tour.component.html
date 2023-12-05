@@ -21,13 +21,36 @@
                 <p><b>Keypoint Name:</b> {{ currentKeyPoint.name }}</p>
                 <p><b>Keypoint Position:</b> {{ currentKeyPoint.position }}</p>
                 <p><b>Keypoint Description:</b> {{ currentKeyPoint.description }}</p>
-              </div>
+            </div>
+            <div>
+                <p>Nearby encounters</p>
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Xp</th>
+                        <th>Type</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of nearbyEncounters">
+                            <td>{{e.name}}</td>
+                            <td>{{e.xp}}</td>
+                            <td>{{e.type}}</td>
+                            <td>
+                                <button color="primary" mat-icon-button (click)="startEncounter(e)">
+                                    <mat-icon>start</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="button-container">
                 <button color="primary" (click)="abandonTour()" mat-raised-button>Abandon Tour</button>
             </div>
         </div>
         <div class="active-tour__map-container">
-            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" *ngIf="refreshMap"></app-map>
+            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" *ngIf="refreshMap"></app-map>
         </div>
     </div>
 </div>

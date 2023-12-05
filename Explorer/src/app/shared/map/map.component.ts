@@ -126,6 +126,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
   ngOnChanges(): void {
     if (this.map) {
       this.setRoute();
+      this.clearDrawings();
+      this.clearMarkers();
       if (this.markerPosition) {
         this.setMarker(this.markerPosition.latitude, this.markerPosition.longitude, this.markerPosition.color, '');
         this.map.panTo(L.latLng(this.markerPosition.latitude, this.markerPosition.longitude));
@@ -134,6 +136,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
       if(this.markerPositions && this.markerPositions.length > 0) {
         this.markerPositions.forEach((marker) => {
           this.setMarker(marker.latitude, marker.longitude, marker.color, marker.title);
+          if(marker.radiusSize && marker.radiusSize > 0) 
+            this.setRadius(marker.latitude, marker.longitude, marker.radiusSize, marker.color);
         });
       }
 

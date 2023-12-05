@@ -62,6 +62,16 @@
                 <mat-label>Image</mat-label>
                 <input matInput formControlName="image" type="text"/>
             </mat-form-field>
+
+            <mat-form-field *ngIf="encounterForm.get('type')?.value === 'LOCATION'">
+                <mat-label>Hidden location latitude</mat-label>
+                <input matInput formControlName="imageLatitude" type="text"/>
+            </mat-form-field>
+
+            <mat-form-field *ngIf="encounterForm.get('type')?.value === 'LOCATION'">
+                <mat-label>Hidden location longitude</mat-label>
+                <input matInput formControlName="imageLongitude" type="text"/>
+            </mat-form-field>
     
             <button color="primary" type="submit" (click)="saveEncounter()" mat-raised-button [disabled]="!encounterForm.valid">
                 <span *ngIf="mode === 'add'">Add new encounter</span>
@@ -72,5 +82,9 @@
 
     <div class="map-container">
         <app-map [enableClicks]="true" [toggleOff]="true" [allowMultipleMarkers]="false" (clickEvent)="fillCoords($event)"></app-map>
+        <button (click)="toggleMapControl()" *ngIf="encounterForm.get('type')?.value === 'LOCATION'">
+            <span *ngIf="mapControl === 'encounterLocation'">Change to image location set</span>
+            <span *ngIf="mapControl === 'imageLocation'">Change to encounter location set</span>
+        </button>
     </div>
 </div>
