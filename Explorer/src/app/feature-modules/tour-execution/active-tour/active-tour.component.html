@@ -1,5 +1,8 @@
 <div class="active-tour-container">
-    <div *ngIf="!activeTour || activeTour.status != 'IN_PROGRESS'">
+    <div *ngIf="showBlog" id="blog-form-container">
+        <xp-blog-form id="blog-form-display" [selectedBlog]="newBlog" [tourProgress]="activeTourCopy"></xp-blog-form>
+    </div>
+    <div *ngIf="(!activeTour || activeTour.status != 'IN_PROGRESS') && !showBlog">
         <h2>You don't have active tour</h2>
         <p>Go to the tour market and buy one!</p>
     </div>

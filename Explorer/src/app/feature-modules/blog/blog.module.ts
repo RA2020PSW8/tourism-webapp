@@ -36,7 +36,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   exports: [
     CommentFormComponent,
     CommentsDisplayComponent,
-    BlogListDisplayComponent
+    BlogListDisplayComponent,
+    BlogFormComponent
   ]
 })
 export class BlogModule { }

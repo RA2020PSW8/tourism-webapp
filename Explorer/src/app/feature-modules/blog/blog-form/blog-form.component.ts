@@ -9,6 +9,9 @@ import { PagedResult } from '../shared/model/paged-result.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Equipment } from '../../administration/model/equipment.model';
 import { SelectionModel } from '@angular/cdk/collections';
+import { TourProgress } from '../../tour-execution/model/tour-progress.model';
+import { Tour } from '../../tour-authoring/model/tour.model';
+import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 
 @Component({
   selector: 'xp-blog-form',
@@ -20,6 +23,7 @@ export class BlogFormComponent implements OnChanges, OnInit {
 
   @Output() blogUpdated = new EventEmitter<null>();
   @Input() selectedBlog: Blog;
+  @Input() tourProgress: TourProgress | undefined;
 
   constructor(private blogService: BlogService, private tourAuthoringService: TourAuthoringService) { }
 
@@ -30,6 +34,8 @@ export class BlogFormComponent implements OnChanges, OnInit {
     imageLinks: new FormControl(''),
     status: new FormControl(''),
   });
+  selectedTour : Tour;
+  selectedKeypoints: Keypoint[]
 
   displayedColumns: string[] = ['select', 'name', 'description'];
   allEquipment: Equipment[];
@@ -50,6 +56,19 @@ export class BlogFormComponent implements OnChanges, OnInit {
     this.tourAuthoringService.getEquipment().subscribe((res: PagedResults<Equipment>)=> {
       this.allEquipment = res.results;
     })
+    this.GetTourAndKeypoints();
+  }
+
+  private GetTourAndKeypoints() {
+    if (this.tourProgress !== undefined) {
+      this.tourAuthoringService.getTourById(this.tourProgress.tourId as number).subscribe((res: Tour) => {
+        this.selectedTour = res;
+      });
+
+      this.tourAuthoringService.getKeypointsByTour(this.tourProgress.tourId as number).subscribe((res: PagedResults<Keypoint>) => {
+        this.selectedKeypoints = res.results;
+      });
+    }
   }
 
   addBlog(): void {
@@ -60,13 +79,16 @@ export class BlogFormComponent implements OnChanges, OnInit {
       imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
       systemStatus: this.blogForm.value.status as BlogSystemStatus || ""
     }
+    this.GetTourAndKeypoints();
 
-    //this.refactorNewline(blog);
     this.addEquipment(blog);
+    this.addTourInfo(blog);
+    this.addCheckpoints(blog);
 
     this.blogService.addBlog(blog).subscribe({
       next: (_) => {
         this.blogUpdated.emit();
+        location.reload();
       }
     });
   }
@@ -75,11 +97,25 @@ export class BlogFormComponent implements OnChanges, OnInit {
     const equipment = this.getCheckedItems();
     if(equipment.length > 0)
     {
-      blog.description += "\n\n**Equipment I used for my tour:**"
+      blog.description += "\n\n**Equipment I used for my tour:**";
       equipment.forEach(eq =>{
         blog.description += "\n- " + eq.name + ": " + eq.description;
       })
     } 
+  }
+
+  addTourInfo(blog: Blog): void {
+    blog.description += "\n\nTour duration: " + this.selectedTour.duration + " minutes.";
+    blog.description += "\n\nTour lenght: " + this.selectedTour.distance + " km.";
+  }
+
+  addCheckpoints(blog: Blog): void {
+    blog.description += "\n\n|Name|Description|Lat|Long|Image|\n"
+    blog.description += "|----|-----------|---|----|-----|\n"
+    this.selectedKeypoints.forEach(keypoint=> {
+      blog.description += `|${keypoint.name}|${keypoint.description}|${keypoint.latitude}|`
+      blog.description += `${keypoint.longitude}+|${keypoint.image}|\n`
+    })
   }
 
   updateBlog(): void {
