@@ -28,7 +28,7 @@
             </tr>
             <tr  *ngFor="let bl of blogs">
                 <td><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
-                <td>{{bl.description}}</td>
+                <td><markdown>{{bl.description}}</markdown></td>
                 <td>{{bl.systemStatus}}</td>
                 <td *ngFor="let st of bl.blogStatuses">
                     <div class="status" [ngStyle]="{'background-color':getColor(st.name)}">
