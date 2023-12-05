@@ -90,6 +90,18 @@
           <p>{{ profile.quote }}</p>
         </td>
       </tr>
+      <tr>
+        <th>XP:</th>
+        <td>
+          <p>{{ profile.xp }}</p>
+        </td>
+      </tr>
+      <tr>
+        <th>Level:</th>
+        <td>
+          <p>{{ profile.level }}</p>
+        </td>
+      </tr>
     </table>
     <form [formGroup]="personUpdateForm" (ngSubmit)="onSubmit()">
       <div>
