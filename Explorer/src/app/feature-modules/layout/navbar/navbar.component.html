@@ -136,7 +136,7 @@
                 <h4>Create</h4>
                 <p [routerLink]="['blog']"><span class="link-underline">Write blog</span></p>
                 <p [routerLink]="['tour-review']"><span class="link-underline">Write tour review</span></p>
-                <p [routerLink]="['tourissue']"><span class="link-underline">Report tour issues</span></p>
+                <p [routerLink]="['user/tourissues']"><span class="link-underline">Report tour issues</span></p>
             </div>
         </div>
         <div class="left-drawer__main-content" *ngIf="user && user.role === 'administrator'">
@@ -145,7 +145,7 @@
                 <p [routerLink]="['equipment']"><span class="link-underline">Manage equipment</span></p>
                 <p [routerLink]="['users']"><span class="link-underline">See all users</span></p>
                 <p [routerLink]="['appRatingList']"><span class="link-underline">See all app ratings</span></p>
-                <p [routerLink]="['admin/tourissues']"><span class="link-underline">See active tour </span></p>
+                <p [routerLink]="['admin/tourissues']"><span class="link-underline">See active tour issues</span></p>
                 <p [routerLink]="['publicEntityRequests']"><span class="link-underline">Manage public entity requests</span></p>
                 <p [routerLink]="['encountersManagement']"><span class="link-underline">Manage encounters</span></p>
             </div>
