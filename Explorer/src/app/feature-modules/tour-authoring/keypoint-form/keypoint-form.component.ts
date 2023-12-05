@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Location } from '../model/location.model';
 
 @Component({
   selector: 'xp-keypoint-form',
@@ -24,6 +25,7 @@ export class KeypointFormComponent implements OnChanges, OnInit {
 
   public publicKeypoints: Keypoint[];
   public keypointForm: FormGroup;
+  public locationChanged: boolean = false;
 
   public openPublicKeypointList: boolean;
 
@@ -81,6 +83,17 @@ export class KeypointFormComponent implements OnChanges, OnInit {
         keypoint.id = this.selectedKeypoint.id;
         this.tourAuthoringService.updateKeypoint(keypoint).subscribe({
           next: () => {
+            if(this.locationChanged){
+              let location : Location = {
+                longitude: keypoint.longitude,
+                latitude: keypoint.latitude,
+              };
+              this.tourAuthoringService.updateEncountersLocation(keypoint.id || 0, location).subscribe({
+                  next: () => {
+
+                  }
+              });
+            }
             window.alert(`You have successfuly updated ${keypoint.name}`);
             this.keypointsUpdated.emit(); 
             this.keypointForm.reset();
@@ -105,6 +118,7 @@ export class KeypointFormComponent implements OnChanges, OnInit {
   }
 
   fillCoords(event: number[]): void {
+    this.locationChanged = true;
     this.keypointForm.patchValue({
       latitude: event[0],
       longitude: event[1]

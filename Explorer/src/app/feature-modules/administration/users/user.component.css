@@ -148,6 +148,37 @@ body {
     padding: 10px; 
     margin: 5px 0; 
 }
+.user-data input{
+    width: 4%;
+    background-color: #555; 
+    color: #555;
+    border: 2px solid #3498db; 
+    border-radius: 5px; 
+    padding: 10px; 
+    margin: 5px 0;
+}
+.add-coins-button{
+    height: 25px;
+    width: 37px;
+    background-color: #3498db;
+    color: #fff; 
+    border: none;
+    border-radius: 5px;
+    padding: 5px 5px ;
+    margin-left: 10px;
+}
+.edit-button {
+    height: 25px;
+    width: 60px;
+    background-color: #3498db; 
+    color: #fff; 
+    border: none;
+    padding: 5px 5px; 
+    border-radius: 5px; 
+    cursor: pointer;
+    float: right; 
+    margin-top: -58px; 
+}
 .close-button{
     position: absolute;
     margin-left: 2135px;
@@ -186,18 +217,7 @@ body {
     background-color: #1d72b8; 
 }
 
-.edit-button {
-    height: 25px;
-    width: 60px;
-    background-color: #3498db; 
-    color: #fff; 
-    border: none;
-    padding: 5px 5px; 
-    border-radius: 5px; 
-    cursor: pointer;
-    float: right; 
-    margin-top: -58px; 
-}
+
 .create-button1 {
     background-color: #3498db; 
     color: #fff; 

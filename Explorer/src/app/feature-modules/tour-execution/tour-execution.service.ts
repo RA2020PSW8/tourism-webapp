@@ -63,5 +63,8 @@ export class TourExecutionService {
     return this.http.put<TourProgress>(`${environment.apiHost}tourexecution/updateActive`, null);
   }
   
+  updateSocialEncounters(): Observable<void> {
+    return this.http.post<void>(`${environment.apiHost}tourist/encounter/updateSocialEncounters`, null);
+  }
 }
 

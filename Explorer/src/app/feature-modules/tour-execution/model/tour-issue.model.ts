@@ -8,7 +8,7 @@ export interface TourIssue {
     creationDateTime: Date,
     resolveDateTime?: Date,
     isResolved?: boolean,
-    tourId: string,
+    tourId?: string,
     comments?: TourIssueComment[],
     userId: string,
 }

@@ -16,6 +16,9 @@ import { TourFormComponent } from './tour-form/tour-form.component';
 import { RouterModule } from '@angular/router';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { PublicKeypointComponent } from './public-keypoint/public-keypoint.component';
+import { KeypointEncountersComponent } from './keypoint-encounters/keypoint-encounters.component';
+import { KeypointEncountersManagingComponent } from './keypoint-encounters-managing/keypoint-encounters-managing.component';
+import { KeypointEncounterFormComponent } from './keypoint-encounter-form/keypoint-encounter-form.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,10 @@ import { PublicKeypointComponent } from './public-keypoint/public-keypoint.compo
     ToursPreviewComponent,
     TourComponent,
     TourFormComponent,
-    PublicKeypointComponent
+    PublicKeypointComponent,
+    KeypointEncountersComponent,
+    KeypointEncountersManagingComponent,
+    KeypointEncounterFormComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +43,11 @@ import { PublicKeypointComponent } from './public-keypoint/public-keypoint.compo
     MapComponent,
     RouterModule,
     TimePipe
+  ],
+  exports: [
+    KeypointComponent,
+    KeypointFormComponent,
+    PublicKeypointComponent
   ]
 })
 export class TourAuthoringModule { }

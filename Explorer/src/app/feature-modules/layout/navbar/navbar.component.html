@@ -41,11 +41,13 @@
             <button *ngIf="user && user.role === 'tourist'" color="primary" mat-raised-button [routerLink]="['clubInvitations']">Manage club memberships</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['user/tourissues']">Report tour issues</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['blog']">Write blog</button>
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['wallet']">Wallet</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['shopping-cart-overview']">Shopping cart</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['tour-review']">Write tour review</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['my-position']">My position</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['active-tour']">Active tour</button>
-            
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['encounters-map']">Encounters</button>
+
             <!-- Admin -->
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage equipment</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['users']">See all users</button>

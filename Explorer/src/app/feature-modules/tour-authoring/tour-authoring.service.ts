@@ -9,6 +9,8 @@ import { Equipment } from '../administration/model/equipment.model';
 import { TourEquipment } from './model/tour_equipment';
 import { Tour } from './model/tour.model';
 import { PublicEntityRequest } from './model/public-entity-request.model';
+import { KeypointEncounter } from './model/keypointEncounter.model';
+import { Location } from './model/location.model';
 
 @Injectable({
   providedIn: 'root'
@@ -91,6 +93,10 @@ export class TourAuthoringService {
     return this.http.post<Tour>(`${this.apiUrl}/tours/`, newTour);
   }
 
+  addCustomTour(newTour: Tour): Observable<Tour>{
+    return this.http.post<Tour>(`${this.apiUrl}/tours/custom`, newTour);
+  }
+
   updateTour(updatedTour: Tour): Observable<Tour>{
     return this.http.put<Tour>(`${this.apiUrl}/tours/${updatedTour.id}`, updatedTour);
   }
@@ -105,5 +111,21 @@ export class TourAuthoringService {
   
   getPublicEntityRequestByEntityId(entityId: number, entityType: number): Observable<PublicEntityRequest> {
     return this.http.get<PublicEntityRequest>(`${this.apiUrl}/publicEntityRequests/entity/${entityId}/${entityType}`);
+  }
+  getKeypointEncounters(keypointId: number): Observable<PagedResults<KeypointEncounter>>{
+    return this.http.get<PagedResults<KeypointEncounter>>(`${this.apiUrl}/encounter/${keypointId}`);
+  }
+  deleteEncounter(id: number): Observable<KeypointEncounter>{
+    return this.http.delete<KeypointEncounter>(`${this.apiUrl}/encounter/${id}`);
+  }
+  addEncounter(newEncounter: KeypointEncounter): Observable<KeypointEncounter>{
+    return this.http.post<KeypointEncounter>(`${this.apiUrl}/encounter`, newEncounter);
+  }
+
+  updateEncounter(updatedEncounter: KeypointEncounter): Observable<KeypointEncounter>{
+    return this.http.put<KeypointEncounter>(`${this.apiUrl}/encounter`, updatedEncounter);
+  }
+  updateEncountersLocation(keypointId: number, location: Location): Observable<KeypointEncounter>{
+    return this.http.put<KeypointEncounter>(`${this.apiUrl}/encounter/${keypointId}`, location);
   }
 }

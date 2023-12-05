@@ -5,6 +5,10 @@ import { TourIssue } from '../model/tour-issue.model';
 import { PagedResult } from '../shared/model/paged-result.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
+import { Tour } from '../../tour-authoring/model/tour.model';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { Observable } from 'rxjs';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-tour-issue-tourist',
@@ -14,9 +18,11 @@ import { Router } from '@angular/router';
 export class TourIssueTouristComponent implements OnChanges {
   tourIssues: TourIssue[] = [];
   selectedTourIssue: TourIssue;
+  tours: Tour[];
+  selectedTour : Tour;
+  selectedTourID? : number | null;
 
   tourIssueForm = new FormGroup({
-    tourId: new FormControl('', Validators.required),
     category: new FormControl('', Validators.required),
     priority: new FormControl(''),
     description: new FormControl('', Validators.required)
@@ -24,14 +30,14 @@ export class TourIssueTouristComponent implements OnChanges {
 
   user: any = this.authservice.user$;
 
-  constructor(private service: TourIssueService, private authservice: AuthService, private router: Router) {
+  constructor(private tourIssueService: TourIssueService, private tourService: TourAuthoringService, private authservice: AuthService, private router: Router) {
     if(this.authservice.user$.value.role !== 'tourist') {
       this.router.navigate(['home']);
     }
   }
 
   ngOnInit(): void {
-    this.service.getTourIssueByUserId(this.user.value.id).subscribe({
+    this.tourIssueService.getTourIssueByUserId(this.user.value.id).subscribe({
       next: (result: PagedResult<TourIssue>) => {
         this.tourIssues = result.results;
       },
@@ -39,10 +45,28 @@ export class TourIssueTouristComponent implements OnChanges {
         console.log(err);
       }
     })
+    this.getTours();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.tourIssueForm.patchValue(this.selectedTourIssue);
+  }
+
+  getTours(): void {
+    this.tourService.getTours().subscribe({
+      next: (result: PagedResults<Tour>) => {
+        this.tours = result.results;
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
+
+  radioClicked(tour : Tour): number | undefined {
+    this.selectedTour = tour;
+    this.selectedTourID = this.selectedTour.id;
+    return this.selectedTourID;
   }
 
   addTourIssue(): void {
@@ -52,11 +76,11 @@ export class TourIssueTouristComponent implements OnChanges {
       description: this.tourIssueForm.value.description || "",
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: this.tourIssueForm.value.tourId as string,
+      tourId: this.radioClicked(this.selectedTour) as string | undefined,
       comments: []
     }
 
-    this.service.addTourIssue(tourIssue).subscribe({
+    this.tourIssueService.addTourIssue(tourIssue).subscribe({
       next: (_) => {
         this.clearFormFields();
         this.ngOnInit();
@@ -70,7 +94,7 @@ export class TourIssueTouristComponent implements OnChanges {
   }
 
   onDeleteClicked(tourIssue: TourIssue): void {
-    this.service.deleteTourIssue(Number(tourIssue.id)).subscribe({
+    this.tourIssueService.deleteTourIssue(Number(tourIssue.id)).subscribe({
       next: (_) => {
         this.ngOnInit();
       },
@@ -88,13 +112,13 @@ export class TourIssueTouristComponent implements OnChanges {
       description: this.tourIssueForm.value.description as string,
       creationDateTime: new Date(new Date().toUTCString()),
       userId: this.user.value.id,
-      tourId: this.tourIssueForm.value.tourId as string,
+      tourId: this.selectedTourIssue.tourId,
       comments: []
     }
 
     this.clearFormFields();
 
-    this.service.updateTourIssue(tourIssue).subscribe({
+    this.tourIssueService.updateTourIssue(tourIssue).subscribe({
       next: (_) => {
         this.ngOnInit();
       }
@@ -102,7 +126,6 @@ export class TourIssueTouristComponent implements OnChanges {
   }
 
   clearFormFields(): void {
-    this.tourIssueForm.get('tourId')?.setValue('');
     this.tourIssueForm.get('category')?.setValue('');
     this.tourIssueForm.get('priority')?.setValue('');
     this.tourIssueForm.get('description')?.setValue('');

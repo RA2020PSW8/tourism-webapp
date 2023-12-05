@@ -41,7 +41,6 @@ export class AdministrationService {
   getUsers(): Observable<PagedResults<User>> {
     return this.http.get<PagedResults<User>>(environment.apiHost + 'administration/users');
   }
-
   deleteUser(id: number): Observable<User> {
     return this.http.delete<User>(environment.apiHost + 'administration/users/' + id);
   }

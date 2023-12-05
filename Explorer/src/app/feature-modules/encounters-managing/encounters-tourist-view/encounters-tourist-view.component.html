@@ -1,0 +1,120 @@
+<div class="split">
+<div class="cont">   
+    <div class="menu">
+        <button mat-raised-button (click)="showTableAndSetMarkers('showAll')">All active</button>
+        <button mat-raised-button (click)="showTableAndSetMarkers('showStarted')">Started</button>
+        <button mat-raised-button (click)="showTableAndSetMarkers('showCompleted')">Completed</button>
+        <button mat-raised-button (click)="showTableAndSetMarkers('showFailed')">Failed</button>
+    </div> 
+    <div *ngIf="showContent === 'showAll'">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Xp</th>
+                <th>Status</th>
+                <th>Type</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of allEncounters">
+                    <td>{{e.name}}</td>
+                    <td>{{e.description}}</td>
+                    <td>{{e.latitude}}</td>
+                    <td>{{e.longitude}}</td>
+                    <td>{{e.xp}}</td>
+                    <td>{{e.status}}</td>
+                    <td>{{e.type}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="showContent === 'showStarted'">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Xp</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of startedEncounters">
+                    <td>{{e.encounter.name}}</td>
+                    <td>{{e.encounter.description}}</td>
+                    <td>{{e.encounter.latitude}}</td>
+                    <td>{{e.encounter.longitude}}</td>
+                    <td>{{e.xp}}</td>
+                    <td>{{e.status}}</td>
+                    <td>{{e.encounter.type}}</td>
+                    <td>{{e.completionTime | date:'medium'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="showContent === 'showCompleted'">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Xp</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of completedEncounters">
+                    <td>{{e.encounter.name}}</td>
+                    <td>{{e.encounter.description}}</td>
+                    <td>{{e.encounter.latitude}}</td>
+                    <td>{{e.encounter.longitude}}</td>
+                    <td>{{e.xp}}</td>
+                    <td>{{e.status}}</td>
+                    <td>{{e.encounter.type}}</td>
+                    <td>{{e.completionTime | date:'medium'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div *ngIf="showContent === 'showFailed'">
+        <table>
+            <thead>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
+                <th>Xp</th>
+                <th>Status</th>
+                <th>Type</th>
+                <th>Date</th>
+            </thead>
+            <tbody>
+                <tr *ngFor="let e of failedEncounters">
+                    <td>{{e.encounter.name}}</td>
+                    <td>{{e.encounter.description}}</td>
+                    <td>{{e.encounter.latitude}}</td>
+                    <td>{{e.encounter.longitude}}</td>
+                    <td>{{e.xp}}</td>
+                    <td>{{e.status}}</td>
+                    <td>{{e.encounter.type}}</td>
+                    <td>{{e.completionTime | date:'medium'}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="map-container">
+    <app-map [enableClicks]="false" [toggleOff]="true"
+        [allowMultipleMarkers]="false" [markerPositions]="pointsOfInterest"></app-map>
+</div>
+</div>

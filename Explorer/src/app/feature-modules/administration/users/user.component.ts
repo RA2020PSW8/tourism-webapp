@@ -3,6 +3,8 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AdministrationService } from '../administration.service';
 import { User, UserRole } from '../model/user.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Wallet } from '../../marketplace/model/wallet.model';
+import { MarketplaceService } from '../../marketplace/marketplace.service';
 
 
 
@@ -16,7 +18,7 @@ export class UserComponent implements OnInit {
 
   users: User[] = [];
   showAddUser: boolean = false;
-  
+  coinsToAddMap: { [userId: number]: number } = {};
   newUser: User = {
     username: '',
     password: '',
@@ -27,16 +29,44 @@ export class UserComponent implements OnInit {
     isEditing: false,
   };
 
-  constructor(private service: AdministrationService) {}
+  constructor(private service: AdministrationService, private marketplaceService: MarketplaceService) {}
 
   ngOnInit(): void {
     this.getUsers();
+  }
+
+  addAdventureCoins(user: User): void {
+    const coinsToAdd = this.coinsToAddMap[user.id || 0] || 0;
+    if (user.wallet) {
+      
+      user.wallet.adventureCoins += coinsToAdd;
+
+      this.marketplaceService.addCoins(user.wallet).subscribe({
+        next: (updatedWallet: Wallet) => {
+          console.log('Wallet updated successfully:', updatedWallet);
+        },
+        error: (error) => {
+          console.error('Error updating wallet:', error);
+        }
+      });
+      this.coinsToAddMap[user.id || 0] = 0;
+    }
   }
 
   getUsers(): void {
     this.service.getUsers().subscribe({
       next: (result: PagedResults<User>) => {
         this.users = result.results;
+        this.users.forEach(user => {
+          this.marketplaceService.getWalletForUserId(user.id || 1).subscribe({
+            next: (wallet: Wallet) => {
+              user.wallet = wallet;
+            },
+            error: () => {
+              // Handle error if wallet retrieval fails
+            }
+          });
+        });
         this.initializeIsEditing();
       },
       error: () => {},
