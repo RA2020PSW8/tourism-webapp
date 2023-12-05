@@ -162,4 +162,8 @@ export class MarketplaceService {
   deleteCoupon(id: number) {
     return this.http.delete<void>(`${this.couponApiUrl}/${id}`);
   }
+
+  editCoupon(coupon: Coupon) : Observable<PagedResult<Coupon>>{
+    return this.http.put<PagedResult<Coupon>>(`${this.couponApiUrl}`, coupon);
+  }
 }

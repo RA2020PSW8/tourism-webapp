@@ -6,6 +6,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Tourist } from '../model/tourist-model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -20,8 +21,11 @@ export class CouponCreateComponent {
   tours: Tour[] = [];
   loggedId: number; 
   startDate: Date = new Date();
+  isForUpdate: boolean = false;
+  couponCode: string;
+  couponId : number;
 
-  constructor(private marketplaceService: MarketplaceService, private authService: AuthService){
+  constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private route: ActivatedRoute){
     this.coupon = {id: 0, code: '', discount: 0, tourId: 0, touristId:0, authorId: 0, expiryDate: new Date()}
     this.couponForm = new FormGroup({
       discount: new FormControl(1, Validators.min(1)),
@@ -44,6 +48,20 @@ export class CouponCreateComponent {
 
   ngOnInit(): void {
     this.loggedId = this.authService.user$.value?.id; 
+
+    // Retrieve coupon data from query parameters
+    const queryParams = this.route.snapshot.queryParams;
+    const couponData = queryParams['couponData'];
+
+    if (couponData) {
+      // If there's coupon data, parse it and pre-fill the form
+      const coupon = JSON.parse(couponData);
+      this.couponForm.patchValue(coupon);
+      this.isForUpdate = true;
+      this.couponCode = coupon.code;
+      this.couponId = coupon.id;
+    }
+
     this.getTourists(); 
     this.getTours(); 
   }
@@ -96,5 +114,27 @@ export class CouponCreateComponent {
       }
     })
     
+  }
+
+  updateCoupon() : void{
+    let coupon: Coupon = {
+      id: this.couponId,
+      code: this.couponCode,
+      discount: this.couponForm.value.discount,
+      tourId: this.couponForm.value.tourId,
+      touristId: this.couponForm.value.touristId,
+      authorId: this.loggedId,
+      expiryDate: this.couponForm.value.expiryDate
+    };
+
+    this.marketplaceService.editCoupon(coupon).subscribe({
+      next: () => { 
+        window.alert("You have successfuly edited coupon");
+ 
+      },
+      error:(err: any) => {
+        console.log(err); 
+      }
+    })
   }
 }

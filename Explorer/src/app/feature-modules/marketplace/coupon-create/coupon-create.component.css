@@ -30,3 +30,13 @@
     color: white;
     background-color: #3f51b5;
 }
+
+.updateBtn{
+    color: white;
+    background-color: #3f51b5;
+}
+
+.updateBtn[disabled] {
+    background-color: #cccccc;
+    color: #666666; 
+  }

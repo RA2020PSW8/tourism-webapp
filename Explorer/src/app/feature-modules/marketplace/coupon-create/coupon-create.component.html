@@ -1,4 +1,4 @@
-<h1 class="heading">Create coupon</h1>
+<h1 class="heading">Manage coupon</h1>
 
 <div class="cont">
     <form [formGroup]="couponForm">
@@ -27,7 +27,8 @@
                 </mat-select>
             </mat-form-field>
 
-            <button class="createBtn" [disabled]="!couponForm.valid || !couponForm.get('touristId')?.value || couponForm.get('touristId')?.untouched" (click)="createCoupon()" mat-raised-button>Create</button>
+            <button *ngIf="!isForUpdate" class="createBtn" [disabled]="!couponForm.valid || !couponForm.get('touristId')?.valid || !couponForm.get('touristId')?.touched" (click)="createCoupon()" mat-raised-button>Create</button>
+            <button *ngIf="isForUpdate" class="updateBtn" [disabled]="!couponForm.valid" (click)="updateCoupon()" mat-raised-button>Update</button>
 
         </div>
     </form> 

@@ -61,6 +61,7 @@
             <button *ngIf="user && user.role === 'author'"color = "primary" mat-raised-button [routerLink]="['tours']">Tours</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['objects']">Tour Objects</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['appRatingAuthor']">Rate App</button>
+            <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['coupon-view']">Coupons</button>
         </div>
     </div>
 </mat-toolbar>

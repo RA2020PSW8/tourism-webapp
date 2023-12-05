@@ -15,7 +15,6 @@ export class CouponViewComponent {
 
   coupons: Coupon[] = [];
   loggedId: number;
-  startDate: Date = new Date();
 
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private router: Router){
     
@@ -51,16 +50,8 @@ export class CouponViewComponent {
     })
   }
 
-  updateCoupon(): void {
-    this.marketplaceService.getCouponsForAuthor(this.loggedId).subscribe({
-      next: (result: PagedResults<Coupon>) => {
-        this.coupons = result.results; 
-         
-      },
-      error:(err: any) => {
-        console.log(err); 
-      }
-    })
+  updateCoupon(coupon: Coupon): void {
+    this.router.navigate(['/coupon-create'], { queryParams: { couponData: JSON.stringify(coupon) } });
   }
   
   redirect(actionURL: string): void {

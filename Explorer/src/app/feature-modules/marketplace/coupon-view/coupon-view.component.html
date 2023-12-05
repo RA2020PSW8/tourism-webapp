@@ -1,5 +1,6 @@
 <div class="couponsDiv">
     <h1>My coupons</h1>
+    <button class="createBtn" color="primary" mat-raised-button [routerLink]="['/coupon-create']">Create coupon</button>
     <div>
     <div class="couponsDiv">
         <table>
@@ -19,7 +20,7 @@
                         <button (click)="deleteCoupon(coupon.id)" mat-raised-button>Delete</button>
                     </td>
                     <td>
-                        <button mat-raised-button [routerLink]="['/coupon-create']">Update</button>
+                        <button (click)="updateCoupon(coupon)" mat-raised-button [routerLink]="['/coupon-create']">Update</button>
                     </td>
                 </tr>
             </tbody>
