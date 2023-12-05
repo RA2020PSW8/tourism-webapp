@@ -1,4 +1,4 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component,Input,Output,OnInit,EventEmitter } from '@angular/core';
 import { CommentService } from '../comment.service';
 import { Comment } from './../model/comment.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -12,14 +12,15 @@ export class CommentsDisplayComponent implements OnInit {
   
   @Input() blogId : number
   
+public editMode : boolean
+public comment : Comment
+
   public comments: Comment[] = []
-  public selectedComment: Comment
-  public editMode: boolean
-  public shouldRenderForm : boolean = false
 
   constructor(private commentService: CommentService){}
 
   ngOnInit(): void{
+
     this.commentService.getComments(0,0,this.blogId).subscribe({
       next: (result: PagedResults<Comment>) =>{
         this.comments = result.results;
@@ -35,7 +36,7 @@ export class CommentsDisplayComponent implements OnInit {
     this.commentService.getComments(0,0,this.blogId).subscribe({
       next : (response: PagedResults<Comment>)=>{
         this.comments = response.results;
-        this.shouldRenderForm = false;
+        this.editMode = false;
       },
       error:(err : any)=>{
         console.log(err);
@@ -45,14 +46,8 @@ export class CommentsDisplayComponent implements OnInit {
 
 onUpdateClicked(comment: Comment): void
 {
-  this.shouldRenderForm = true;
- this.editMode = true;
- this.selectedComment = comment;
-}
-
-onAddClicked(): void{
-  this.shouldRenderForm = true;
-  this.editMode = false;
+  this.editMode = true;
+  this.comment = comment;
 }
 
 onDeleteClicked(comment: Comment): void
@@ -63,5 +58,6 @@ onDeleteClicked(comment: Comment): void
     }
   });
 }
+
 
 }

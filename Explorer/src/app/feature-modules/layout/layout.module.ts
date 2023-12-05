@@ -27,6 +27,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatSidenavModule,
     MarketplaceModule,
     MatMenuModule,
+    MarketplaceModule,
   ],
   exports: [
     NavbarComponent,

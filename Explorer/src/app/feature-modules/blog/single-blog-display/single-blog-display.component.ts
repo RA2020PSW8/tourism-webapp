@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Input } from '@angular/core';
 import { BlogService } from '../blog.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Blog, BlogSystemStatus } from '../model/blog.model';
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./single-blog-display.component.css']
 })
 export class SingleBlogDisplayComponent implements OnInit{
+
   public selectedBlog : Blog
   public blogId : number
   public rating : Rating = {
@@ -21,6 +22,7 @@ export class SingleBlogDisplayComponent implements OnInit{
     creationTime:new Date().toISOString().split('T')[0],
     rating: 'a'
   }
+
   constructor(private service: BlogService, private router: Router, private route: ActivatedRoute) {}
 
 ngOnInit(): void {
@@ -56,5 +58,5 @@ rate(x:number): void{
       }
   });
 }
-
+  
 }

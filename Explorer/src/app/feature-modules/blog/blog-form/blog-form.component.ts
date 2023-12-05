@@ -25,6 +25,10 @@ export class BlogFormComponent implements OnChanges {
     status: new FormControl(''),
   });
 
+  dummyForm = new FormGroup({
+    kolko: new FormControl('',Validators.required)
+  });
+
   ngOnChanges(changes: SimpleChanges): void {
         const blog = {
       title: this.selectedBlog.title,

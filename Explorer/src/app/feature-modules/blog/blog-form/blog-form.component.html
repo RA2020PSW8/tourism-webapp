@@ -1,37 +1,38 @@
-<form [formGroup]="blogForm" id="blog-form">
-    <mat-form-field>
-        <mat-label>Title</mat-label>
-        <input matInput type="text" formControlName="title">
-    </mat-form-field>
+<div class="main">
+    <form [formGroup]="blogForm" class="form-container">
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput type="text" formControlName="title">
+        </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Description</mat-label>
-        <textarea matInput cdkTextareaAutosize
-        cdkAutosizeMinRows="1"
-        formControlName="description"
-        cdkAutosizeMaxRows="5"
-        formControlName="description">
-        </textarea>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea matInput cdkTextareaAutosize
+            cdkAutosizeMinRows="2"
+            formControlName="description"
+            cdkAutosizeMaxRows="5"
+            formControlName="description">
+            </textarea>
+        </mat-form-field>
 
+        <mat-form-field>
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status" matInput> 
+                <mat-option value="DRAFT">Draft</mat-option>
+                <mat-option value="PUBLISHED">Published</mat-option>
+                <mat-option value="CLOSED">Closed</mat-option>
+            </mat-select>       
+        </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Image links:</mat-label>
-        <textarea matInput cdkTextareaAutosize
-        cdkAutosizeMinRows="1"
-        formControlName="imageLinks"
-        cdkAutosizeMaxRows="5"></textarea>
-    </mat-form-field>
+        <mat-form-field>
+            <mat-label>Image links:</mat-label>
+            <textarea matInput cdkTextareaAutosize
+            cdkAutosizeMinRows="1"
+            formControlName="imageLinks"
+            cdkAutosizeMaxRows="5"></textarea>
+        </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Status</mat-label>
-        <mat-select formControlName="status" matInput> 
-            <mat-option value="DRAFT">Draft</mat-option>
-            <mat-option value="PUBLISHED">Published</mat-option>
-            <mat-option value="CLOSED">Closed</mat-option>
-        </mat-select>       
-    </mat-form-field>
-
-    <button color="primary" type="submit" (click)="addBlog()" mat-raised-button>Create</button>
-    <button color="primary" type="submit" (click)="updateBlog()" mat-raised-button>Update</button>
-</form>
+        <button color="primary" type="submit" (click)="addBlog()" mat-raised-button>Create</button>
+        <button color="primary" type="submit" (click)="updateBlog()" mat-raised-button>Update</button>
+    </form>
+</div>
