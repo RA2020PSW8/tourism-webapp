@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Encounter, KeypointEncounter } from '../model/keypointEncounter.model';
+import { Encounter, EncounterApprovalStatus, KeypointEncounter } from '../model/keypointEncounter.model';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Keypoint } from '../model/keypoint.model';
@@ -100,7 +100,8 @@ export class KeypointEncounterFormComponent {
       type: this.encounterForm.value.type || 'SOCIAL',
       range: this.encounterForm.value.range || 0,
       image: this.encounterForm.value.image,
-      peopleCount: this.encounterForm.value.peopleCount
+      peopleCount: this.encounterForm.value.peopleCount,
+      approvalStatus: EncounterApprovalStatus.PENDING
     };
     let keypointEncounter: KeypointEncounter = {
       encounter: formEncounter,
@@ -118,6 +119,8 @@ export class KeypointEncounterFormComponent {
       });
     }else if( this.mode === 'edit'){
       keypointEncounter.id = this.selectedEncounter.id;
+      keypointEncounter.encounter.userId = this.selectedEncounter.encounter.userId;
+      keypointEncounter.encounter.approvalStatus = this.selectedEncounter.encounter.approvalStatus;
       this.tourAuthoringService.updateEncounter(keypointEncounter).subscribe({
         next: () => {
           this.encounterUpdated.emit(); 

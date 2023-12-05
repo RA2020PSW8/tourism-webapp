@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TourProgress } from '../model/tour-progress.model';
+import { TourExecutionStatus, TourProgress } from '../model/tour-progress.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
@@ -10,6 +10,7 @@ import { Encounter } from '../../tour-authoring/model/keypointEncounter.model';
 import { PagedResult } from '../shared/model/paged-result.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { EncounterCompletion, EncounterCompletionStatus } from '../../encounters-managing/model/encounterCompletion.model';
+import { Blog, BlogSystemStatus } from '../../blog/model/blog.model';
 
 
 @Component({
@@ -24,6 +25,15 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   currentPosition: MarkerPosition | undefined;
   refreshMap: boolean = false; 
   currentKeyPoint: Keypoint| undefined; 
+  showBlog: boolean = false;
+  activeTourCopy : TourProgress | undefined;
+  newBlog: Blog = {
+    title: '',
+    description: '',
+    imageLinks: [],
+    creationDate: Date.now().toString(),
+    systemStatus: BlogSystemStatus.DRAFT
+  };
   public pointsOfInterest: MarkerPosition[];
   public nearbyEncounters: Encounter[];
   private temporary: MarkerPosition[];
@@ -142,6 +152,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
               this.currentPosition  = undefined; 
               this.refreshMap = false; 
               this.currentKeyPoint = undefined; 
+              this.showBlogForm(result.status);
               window.alert('Tour completed at: '+result.touristPosition?.updatedAt);
               return; 
             }
@@ -168,6 +179,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     this.tourExecutionService.getActiveTour().subscribe({
       next: (result: TourProgress) => {
         this.activeTour = result;
+        this.activeTourCopy = result;
         this.routeQuery = {
           keypoints: this.activeTour.tour.keypoints || [],
           transportType: this.activeTour.tour.transportType || 'WALK'
@@ -201,5 +213,12 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         
       }
     })
+  }
+
+  showBlogForm(status: TourExecutionStatus): void{
+    if(status === 'COMPLETED')
+    {            
+      this.showBlog = confirm("Would you like create a blog?");
+    }
   }
 }

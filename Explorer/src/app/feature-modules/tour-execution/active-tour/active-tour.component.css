@@ -6,7 +6,7 @@
 
 .active-tour__information {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 table {
@@ -44,4 +44,16 @@ tbody tr:last-of-type {
 tbody tr.active-row {
     font-weight: bold;
     color: #3f51b5;
+}
+
+#blog-form-display {
+    width: 50%;
+    display: block;
+    margin: 200px auto;
+    z-index: 1000;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
