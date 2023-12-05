@@ -6,6 +6,8 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { OrderItem } from '../model/order-item.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
+import { Wallet } from '../model/wallet.model';
+import { mergeMap } from 'rxjs';
 
 @Component({
   selector: 'xp-shopping-cart-overview',
@@ -17,10 +19,13 @@ export class ShoppingCartOverviewComponent implements OnInit {
     orders: OrderItem[] =  []; 
   loggedId: number; 
   shoppingCart: ShoppingCart;
+  totalPrice: number;
+  wallet: Wallet;
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.getOrders(); 
+    this.getWallet();
     this.loggedId = this.authService.user$.value.id; 
   }
   getOrders(): void{
@@ -44,18 +49,42 @@ export class ShoppingCartOverviewComponent implements OnInit {
     })
   }
   calculateTotalPrice(): number {
-    return this.orders.reduce((total, order) => total + order.tourPrice, 0);
+    this.totalPrice = this.orders.reduce((total, order) => total + order.tourPrice, 0);
+    return this.totalPrice;
   }
   checkout() : void{
-    this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).subscribe({
-      next: (_) => {
-        window.alert('Successfully purchased');
-        this.getOrders(); 
-      },
-      error: (err: any) => {
-        console.log(err);
-        alert('Error. Some tours were already purchased.');
+    this.getOrders(); 
+    this.calculateTotalPrice(); 
+    if(this.wallet.adventureCoins < this.totalPrice){
+      console.log(this.wallet);
+      console.log('ukupna cena: ' ,this.totalPrice);
+      alert('Error. You dont have enough ACs(adventure coins) in your wallet.');
+    } else{  
+      
+      if(window.confirm('Are you sure that you want to purchase these tours?')){
+        this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).subscribe({  
+          next: (_) => {                                                                   
+            window.alert('Successfully purchased');
+            this.getOrders(); 
+          },
+          error: (err: any) => {
+            console.log(err);
+            alert('Error. Some tours were already purchased.');
+          }
+        })
       }
-    })
+    }
   }
+
+  getWallet(): void {
+    this.marketplaceService.getWalletForUser().subscribe({
+      next:(result:Wallet)=>{
+        this.wallet=result;
+      },
+      error:(err:any)=>{
+        console.log(err);
+      }
+  });
+  }
+  
 }

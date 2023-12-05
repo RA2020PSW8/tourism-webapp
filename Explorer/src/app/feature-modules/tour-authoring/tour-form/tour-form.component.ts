@@ -21,6 +21,7 @@ export class TourFormComponent implements OnChanges, OnInit{
   public selectedKeypoint: Keypoint;
   public mode: string = 'add';
   public routeQuery: RouteQuery;
+  @Output() selectedKeypointChanged = new EventEmitter<Keypoint>();
 
   constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
     this.tour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
@@ -115,6 +116,7 @@ export class TourFormComponent implements OnChanges, OnInit{
 
   selectKeypoint(event: Keypoint): void{
     this.selectedKeypoint = event;
+    this.selectedKeypointChanged.emit();
     this.mode = 'edit';
   }
 

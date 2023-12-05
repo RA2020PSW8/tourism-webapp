@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TourProgress } from '../model/tour-progress.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
-import { Position } from 'src/app/shared/model/position.model';
+import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
 import { Subscription, interval } from 'rxjs';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 
@@ -16,7 +16,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
 
   activeTour: TourProgress | undefined;
   routeQuery: RouteQuery | undefined;
-  currentPosition: Position | undefined;
+  currentPosition: MarkerPosition | undefined;
   refreshMap: boolean = false; 
   currentKeyPoint: Keypoint| undefined; 
 

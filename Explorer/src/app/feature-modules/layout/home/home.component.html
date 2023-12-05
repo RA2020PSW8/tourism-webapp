@@ -28,8 +28,22 @@
         <div *ngIf="!isLoading && tours.length === 0">
             <h1 class=cheapskate>Buy something, you cheapskate.</h1>
         </div>
+    </div>
 
+    <h2 *ngIf="!router.url.includes('/home')" style="margin-left: 1rem; color:green;">Your custom tours:</h2>
+    <button *ngIf="!router.url.includes('/home')" style="margin-left: 1rem;" color="primary" class="btn" (click)="navigateToTourManagement(0)">
+        Create new custom tour
+    </button>
 
+    <div class="container" *ngIf="!router.url.includes('/home')">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of customTours">
+                <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
+            </div>
+        </div>
+        <div *ngIf="!isLoading && tours.length === 0">
+            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
+        </div>
     </div>
 
     <div id="otherContainer" *ngIf="router.url.includes('/home')">

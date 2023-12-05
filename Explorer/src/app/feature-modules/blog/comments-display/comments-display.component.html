@@ -15,7 +15,7 @@
                     <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
-                    <button (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
+                    <button *ngIf="systemStatus !== 'CLOSED' " (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
                         <mat-icon>edit</mat-icon>
                     </button>
                 </div>

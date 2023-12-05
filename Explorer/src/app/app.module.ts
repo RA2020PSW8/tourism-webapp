@@ -18,6 +18,7 @@ import { MarkdownModule, MarkdownService } from 'ngx-markdown';
 import { FormsModule } from '@angular/forms';
 import { MapComponent } from './shared/map/map.component';
 import { TimePipe } from './shared/helpers/time.pipe';
+import { EncountersModule } from './feature-modules/encounters-managing/encounters.module';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { TimePipe } from './shared/helpers/time.pipe';
     HttpClientModule,
     TouristModule,
     MarkdownModule.forRoot({ loader: HttpClientModule }),
-    FormsModule
+    FormsModule,
+    EncountersModule
   ],
   providers: [
     {
