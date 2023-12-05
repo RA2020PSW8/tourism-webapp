@@ -83,8 +83,8 @@ export class HomeComponent {
     );
   }
 
-  navigateToCampaignCreation():void{
+  navigateToCampaignCreation(id:number):void{
     this.router.navigate(
-      ['/campaign/',this.authService.user$.value.id]);
+      ['/campaign/',id]);
   }
 }

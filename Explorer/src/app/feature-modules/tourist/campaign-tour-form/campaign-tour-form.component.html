@@ -1,7 +1,6 @@
 <div class="main">
-    <div>
-        <form [formGroup]="tourForm">
-            <div class="main">
+    <div class="form-container">
+        <form [formGroup]="tourForm" style="display: flex; flex-direction: column;">
                 <mat-form-field>
                     <mat-label>Name</mat-label>
                     <input matInput formControlName="name" type="text"/>
@@ -39,19 +38,82 @@
                 <button color="primary" type="submit" (click)="saveTour()" mat-raised-button [disabled]="!tourForm.valid">
                     <span>Save</span>
                 </button>
-            </div>
         </form>
     </div>
-    <div>
-        <h1>Avaliable keypoints</h1>
+
+    <div class="form-container">
+        <h1>Avaliable tours</h1>
         <div style="display: flex; flex-direction: row;">
-            <xp-keypoint [keypoints]="avaliableKeypoints" [isCampaign]="true" (keypointSelected)="addKeypoint($event)"></xp-keypoint>
+            <table>
+                <thead>
+                    <th>Avaliable tours</th>
+                    <th> </th>
+                    <th> </th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tour of boughtTours">
+                        <td>{{tour.name}}</td>
+                        <td>{{tour.duration}}</td>
+                        <td>{{tour.difficulty}}</td>
+                        <td>
+                            <button color="accent" mat-icon-button (click)="addTour(tour)">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div> 
-    <div>
-        <h1>Selected keypoints</h1>
+    <div class="form-container">
+        <h1>Selected tours</h1>
         <div style="display: flex; flex-direction: row;">
-            <xp-keypoint [keypoints]="selectedKeypoints" [isCampaignSelected]="true" (keypointSelected)="removeKeypoint($event)"></xp-keypoint>
+            <table>
+                <thead>
+                    <th>Selected tours</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tour of selectedTours">
+                        <td>{{tour.name}}</td>
+                        <td>{{tour.duration}}</td>
+                        <td>{{tour.difficulty}}</td>
+                        <td>
+                            <button color="accent" mat-icon-button (click)="removeTour(tour)">
+                                <mat-icon>remove</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+        <button color="accent" mat-stroked-button (click)="loadEquipment()" style="margin-top: 3%;">
+            Create
+        </button>
+    </div>
+    <div class="cont" *ngIf="complete">
+            <h1>Tour information</h1>
+            <p><strong>Name:</strong> {{newTour.name}}</p>
+            <p><strong>Description:</strong> {{newTour.description}}</p>
+            
+            <p *ngIf="newTour.distance"><strong>Travel distance:</strong> {{newTour.distance | number:'1.2-2'}} km</p>
+            <p *ngIf="newTour.duration"><strong>Tour duration:</strong> {{newTour.duration | time}}</p>
+
+            <table>
+                <thead>
+                    <th>Equipment</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let e of equipment">
+                        <td>{{e.name}}</td>
+                    </tr>
+                </tbody>
+            </table>
+    </div>
+    <div class="map-container">
+        <app-map [enableClicks]="false" [toggleOff]="true" [routeQuery]="routeQuery" (routesFoundEvent)="getRouteInfo($event)"></app-map>
     </div>
 </div>
