@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { TourProgress } from '../model/tour-progress.model';
+import { TourExecutionStatus, TourProgress } from '../model/tour-progress.model';
 import { TourExecutionService } from '../tour-execution.service';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
@@ -7,9 +7,12 @@ import { Subscription, interval, Subject, Observable, of } from 'rxjs';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Encounter, EncounterStatus, KeypointEncounter } from '../../tour-authoring/model/keypointEncounter.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { EncounterCompletion } from '../../encounters-managing/model/encounterCompletion.model';
 import { switchMap, takeUntil } from 'rxjs/operators';
+import { EncountersService } from '../../encounters-managing/encounters.service';
+import { PagedResult } from '../shared/model/paged-result.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { EncounterCompletion, EncounterCompletionStatus } from '../../encounters-managing/model/encounterCompletion.model';
+import { Blog, BlogSystemStatus } from '../../blog/model/blog.model';
 
 @Component({
   selector: 'xp-active-tour',
@@ -25,20 +28,111 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   public keypointEncounters: KeypointEncounter[];
   public requiredEncounters: KeypointEncounter[] = [];
 
+  showBlog: boolean = false;
+  activeTourCopy : TourProgress | undefined;
+  newBlog: Blog = {
+    title: '',
+    description: '',
+    imageLinks: [],
+    creationDate: Date.now().toString(),
+    systemStatus: BlogSystemStatus.DRAFT
+  };
+  public pointsOfInterest: MarkerPosition[];
+  public nearbyEncounters: Encounter[];
+  private temporary: MarkerPosition[];
+
   private updateSubscription: Subscription | undefined;
   private destroy$ = new Subject<void>();
 
-  constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService) { }
+  constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService, private encounterService: EncountersService) { }
 
   ngOnInit(): void {
     this.getActiveTour();
     this.refreshMap = true;
+    this.checkNearbyEncounters();
+    this.getNearbyEncounters();
     this.updateSubscription = interval(10000).pipe(
       switchMap(() => this.activeTour !== undefined ? this.getKeypointActiveEncounters() : []),
       takeUntil(this.destroy$)
     ).subscribe(() => {
       if (this.activeTour !== undefined) {
         this.updatePosition();
+        this.checkNearbyEncounters();
+        this.getNearbyEncounters();
+      }
+    });
+  }
+
+  triggerMapRefresh(): void {
+    this.refreshMap = false; 
+    setTimeout(() => {
+      this.refreshMap = true; 
+    });
+  }
+
+  startEncounter(encounter: Encounter): void {
+    this.encounterService.startEncounter(encounter).subscribe({
+      next: (result: EncounterCompletion) =>{
+          alert("Encounter started");
+      },
+      error: (error) => {
+        alert("Cannot start encounter");
+      }
+    });
+}
+
+  getNearbyEncounters(): void {
+    this.temporary = [];
+
+    this.encounterService.getNearbyEncounters().subscribe({
+      next: (encountersResult: PagedResults<Encounter>) => {
+        this.nearbyEncounters = encountersResult.results;
+        var encounterIds = encountersResult.results.map((enc) => enc.id);
+        if(encounterIds != undefined){
+          this.encounterService.getEncounterCompletionsByIds(encounterIds).subscribe({
+            next: (result: EncounterCompletion[]) => {
+              encountersResult.results.forEach(encounter => {
+                var encounterCompletion = result ? result.filter(ec => ec.encounterId === encounter.id)[0] : null;
+                var encounterColor = 'yellow', encounterRange = 0;
+                if(encounterCompletion != null) {
+                  switch(encounterCompletion.status){
+                    case EncounterCompletionStatus.PROGRESSING:
+                    case EncounterCompletionStatus.STARTED:
+                      encounterColor = 'blue';
+                      encounterRange = encounter.range;
+                      break;
+                    case EncounterCompletionStatus.COMPLETED:
+                      encounterColor = 'green';
+                      break;
+                  }
+                }
+
+                this.temporary.push({
+                  longitude: encounter.longitude,
+                  latitude: encounter.latitude,
+                  color: encounterColor,
+                  title: encounter.name,
+                  radiusSize: encounterRange
+                })
+              });
+
+              this.pointsOfInterest = this.temporary;
+            }
+          })
+        }
+      }
+    });
+  }
+
+  // dummy way for updating nearby stuff, can't bother now to do it better on backend
+  checkNearbyEncounters(): void {
+    this.encounterService.checkNearbyEncounters().subscribe({
+      next: (result: PagedResults<EncounterCompletion>) => {
+        if(result.results){
+          result.results.forEach((encounterCompletion) => {
+            alert('WOOO! You completed an encounter' /*+ encounterCompletion.encounter.name*/); // nj
+          });
+        }
       }
     });
   }
@@ -51,7 +145,6 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
       this.updateSubscription.unsubscribe();
     }
   }
-
   updatePosition(): void {
     if (this.requiredEncounters.length !== 0) {
       // Do something with requiredEncounters if needed
@@ -71,6 +164,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           this.refreshMap = false;
           this.currentKeyPoint = undefined;
           window.confirm(previousSecret)
+          this.showBlogForm(result.status);
           window.alert('Tour completed at: ' + result.touristPosition?.updatedAt);
           return of(null); // Return an observable to continue the chain
         }
@@ -79,11 +173,12 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           this.currentKeyPoint = this.activeTour.tour.keypoints?.find((keypoint) => keypoint.position === result.currentKeyPoint);
           if (previousKeypoint != this.currentKeyPoint && this.currentKeyPoint?.secret !== "") {
             if (window.confirm(previousSecret)) {
-              this.triggerMapRefresh();
+              //this.triggerMapRefresh();
             }
           }
           return this.getKeypointActiveEncounters();
         } else {
+          this.triggerMapRefresh();
           return of(null);
         }
       }),
@@ -150,11 +245,11 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
       }
     })
   }
-
-  triggerMapRefresh(): void {
-    this.refreshMap = false;
-    setTimeout(() => {
-      this.refreshMap = true;
-    });
+  showBlogForm(status: TourExecutionStatus): void{
+    if(status === 'COMPLETED')
+    {            
+      this.showBlog = confirm("Would you like create a blog?");
+    }
   }
+ 
 }

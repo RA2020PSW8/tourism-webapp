@@ -11,6 +11,7 @@ import { CommentsDisplayComponent } from './comments-display/comments-display.co
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-display.component';
 import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
@@ -29,11 +30,14 @@ import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.
     MarkdownModule,
     MatInputModule,
     MatFormFieldModule,
+    MatTableModule,
+    MatCheckboxModule
   ],
   exports: [
     CommentFormComponent,
     CommentsDisplayComponent,
-    BlogListDisplayComponent
+    BlogListDisplayComponent,
+    BlogFormComponent
   ]
 })
 export class BlogModule { }

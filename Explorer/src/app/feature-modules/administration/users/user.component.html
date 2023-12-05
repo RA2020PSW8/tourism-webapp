@@ -29,13 +29,17 @@
   <div id="users-details">
       <button class="create-button1" *ngIf="!showAddUser" (click)="showAddUserForm()">Add User</button>
 
-      <div id="user-div">
+      <div id="user-div" class="user-data">
           <div *ngFor="let user of users">
               <div *ngIf="!user.isEditing; else editFields">
                   <p><strong>Username:</strong> {{user.username}}</p>
                   <p><strong>Role:</strong> {{ user.role === 0 ? 'Administrator' : user.role === 1 ? 'Author' : user.role === 2 ? 'Tourist' : 'Unknown' }}</p>
-
                   <p><strong>Email:</strong> {{user.email}}</p>
+
+                  <p><strong>Adventure coins:</strong> {{user.wallet?.adventureCoins}}
+                    <input type="number" id="coinsToAdd" [(ngModel)]="coinsToAddMap[user.id || 0]" />
+                    <button class="add-coins-button" (click)="addAdventureCoins(user)">Add</button>
+                  </p>
                   <button class="delete-button" (click)="deleteUser(user.id || 0)">Delete</button>
                   <button class="edit-button" (click)="enableEditing(user)">Edit</button>
                   <button class="unblock-button" *ngIf="user.isBlocked; else unblockButton" (click)="unblockUser(user)">Unblock</button>

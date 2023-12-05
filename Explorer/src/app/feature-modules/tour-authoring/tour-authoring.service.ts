@@ -81,6 +81,10 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours`);
   }
 
+  getToursByAuthor() : Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours/author`);
+  }
+
   getTourById(tourId: number): Observable<Tour>{
     return this.http.get<Tour>(`${this.apiUrl}/tours/${tourId}`);
   }
