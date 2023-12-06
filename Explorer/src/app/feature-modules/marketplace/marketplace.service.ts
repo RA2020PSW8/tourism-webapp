@@ -13,6 +13,7 @@ import { Object } from '../tour-authoring/model/object.model';
 import { TourReview } from '../tour-execution/model/tour-review.model';
 import { TourPurchaseToken } from './model/tour-purchase-token.model';
 import { Wallet } from './model/wallet.model';
+import {Sale} from "./model/sale.model";
 
 @Injectable({
   providedIn: 'root'
@@ -107,7 +108,6 @@ export class MarketplaceService {
   }
   addCoins(wallet: Wallet): Observable<Wallet> {
     const url = `${this.apiUrl}/wallet/addCoins/${wallet.id}`;
-  
     return this.http.put<Wallet>(url, wallet);
   }
   deleteOrderItem(orderItemId: number): Observable<OrderItem> {
@@ -146,5 +146,30 @@ export class MarketplaceService {
   updateWallet(wallet: Wallet): Observable<Wallet> {
     return this.http.put<Wallet>(environment.apiHost + 'tourist/wallet/' + wallet.id, wallet);
   }
+
+  getToursOnSale(): Observable<number[]>{
+    return this.http.get<number[]>(environment.apiHost + 'marketplace/sales/sorted')
+  }
+
+  addSale(sale: Sale): Observable<Sale>{
+    return this.http.post<Sale>(environment.apiHost + 'marketplace/sales', sale);
+  }
+
+  updateSale(sale: Sale): Observable<Sale>{
+  return this.http.put<Sale>(environment.apiHost + 'marketplace/sales', sale);
+  }
+
+  removeSale() : Observable<Sale>{
+    return this.http.delete<Sale>(environment.apiHost + 'marketplace/sales');
+  }
+
+  getSalesByAuthor(): Observable<PagedResult<Sale>> {
+    return this.http.get<PagedResult<Sale>>(environment.apiHost + 'marketplace/sales/author-sales');
+  }
+
+  getPublishedByAuthor():Observable<PagedResult<Tour>>{
+    return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}/author-published`)
+  }
+
 
 }

@@ -17,6 +17,12 @@ export class HomeComponent {
   public tours: Tour[] = [];
   public customTours: Tour[] = [];
   public isLoading = true;
+  showOnSale: boolean = false;
+  sortOrder: string = 'asc';
+  public filteredTours: Tour[];
+  public isOnSale: boolean = true;
+  public filteredIds: number[] = []
+
   constructor(private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) { }
 
   ngOnInit(): void {
@@ -27,6 +33,12 @@ export class HomeComponent {
       this.loadCustomTours();
       console.log(this.tours);
     }
+  }
+
+  loadSales(): void{
+    this.marketplaceService.getToursOnSale().subscribe((ids => {
+      this.filteredIds = ids;
+    }))
   }
 
   loadArchivedAndPublishedTours(): void {
@@ -81,5 +93,26 @@ export class HomeComponent {
     this.router.navigate(
       ['/custom-tour', id]
     );
+  }
+
+  filterTours() {
+    if (this.showOnSale) {
+      this.tours = this.tours.filter(tour => tour.id != null && this.filteredIds.includes(tour.id));
+    } else {
+      this.loadArchivedAndPublishedTours();
+    }
+  }
+
+  sortTours() {
+    this.filteredTours.sort((a, b) => {
+      const discountA = (a.price - a.price) / a.price;
+      const discountB = (b.price - b.price) / b.price;
+
+      if (this.sortOrder === 'asc') {
+        return discountA - discountB;
+      } else {
+        return discountB - discountA;
+      }
+    });
   }
 }

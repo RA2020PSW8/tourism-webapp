@@ -1,0 +1,43 @@
+<div class="cont">
+  <form [formGroup]="saleForm">
+    <div class="somediv">
+      <mat-form-field>
+        <mat-label>End date</mat-label>
+        <input matInput [matDatepicker]="start" formControlName="startDate">
+        <mat-datepicker-toggle matIconSuffix [for]="start"></mat-datepicker-toggle>
+        <mat-datepicker #start>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>End date</mat-label>
+        <input matInput [matDatepicker]="end" formControlName="endDate">
+        <mat-datepicker-toggle matIconSuffix [for]="end"></mat-datepicker-toggle>
+        <mat-datepicker #end>
+          <mat-datepicker-actions>
+            <button mat-button matDatepickerCancel>Cancel</button>
+            <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+          </mat-datepicker-actions>
+        </mat-datepicker>
+        <mat-hint>MM/DD/YYYY</mat-hint>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Percentage</mat-label>
+        <input matInput formControlName="percentage" type="number" min="0" max="100"/>
+      </mat-form-field>
+    </div>
+
+  </form>
+  <button color="primary" type="submit" (click)="addSale()" mat-raised-button [disabled]="tourId===0 || !saleForm.valid">
+    <span *ngIf="mode === 'add'">Add new sale</span>
+    <span *ngIf="mode === 'edit'">Update sale</span>
+  </button>
+  <p *ngFor="let sale of sales">{{sale.percentage}}</p>
+</div>
+

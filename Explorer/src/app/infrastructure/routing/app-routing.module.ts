@@ -40,6 +40,7 @@ import { EncountersManagingComponent } from 'src/app/feature-modules/encounters-
 import { WalletComponent } from 'src/app/feature-modules/marketplace/wallet/wallet.component';
 import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
 import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounters-managing/encounters-tourist-view/encounters-tourist-view.component';
+import { SalesManagementComponent} from "../../feature-modules/marketplace/sales-management/sales-management.component";
 
 const routes: Routes = [
 
@@ -54,7 +55,7 @@ const routes: Routes = [
 
   // Tourist
   {path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard]},
-  {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]}, 
+  {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]},
   {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
   {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
   {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
@@ -92,6 +93,7 @@ const routes: Routes = [
   { path: 'appRatingAuthorForm', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard] },
   { path: 'appRatingAuthor', component: AppRatingAuthorComponent, canActivate: [AuthGuard] },
   { path: 'tour-management/:id', component: TourFormComponent, canActivate: [AuthGuard] },
+  { path: 'sales-management', component: SalesManagementComponent, canActivate: [AuthGuard] },
 
   // ?
   { path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },

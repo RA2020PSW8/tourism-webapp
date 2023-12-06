@@ -16,6 +16,10 @@ import { ReviewsComponent } from './dialogs/reviews/reviews.component';
 import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.component';
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
+import { SalesManagementComponent } from './sales-management/sales-management.component';
+import {TourAuthoringModule} from "../tour-authoring/tour-authoring.module";
+import {MatNativeDateModule} from "@angular/material/core";
+import {MatDatepickerModule} from "@angular/material/datepicker";
 
 @NgModule({
   declarations: [
@@ -29,7 +33,8 @@ import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-key
     ReviewsComponent,
     CartWarningComponent,
     CartSuccessComponent,
-    TourKeypointsMapComponent
+    TourKeypointsMapComponent,
+    SalesManagementComponent
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -38,7 +43,10 @@ import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-key
     ReactiveFormsModule,
     MatRadioModule,
     TimePipe,
-    MapComponent
+    MapComponent,
+    TourAuthoringModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ]
 })
 export class MarketplaceModule { }

@@ -2,7 +2,7 @@
     <div>
         <p>Explorer</p>
         <div id="buttons">
-            
+
             <!-- All -->
             <button *ngIf="user && user.username === ''" color="accent" mat-raised-button [routerLink]="['login']">Login</button>
             <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
@@ -12,11 +12,11 @@
               Notifications
               <span class="notification-badge" *ngIf="unreadNotificationsCount !== 0 ">{{unreadNotificationsCount}}</span>
             </button>
-            
-            <mat-menu #notificationsMenu="matMenu" class="my-menu">  
-              <span *ngIf="notifications.length !== 0" class="notification-box">    
-                <div *ngFor="let n of notifications">                 
-                  <div class="cloud-container" (click)="redirect(n.actionURL)"> 
+
+            <mat-menu #notificationsMenu="matMenu" class="my-menu">
+              <span *ngIf="notifications.length !== 0" class="notification-box">
+                <div *ngFor="let n of notifications">
+                  <div class="cloud-container" (click)="redirect(n.actionURL)">
                     <mat-icon class="icon">notifications</mat-icon>
                     <span  class="content">
                     <p>{{ n.content }}</p>
@@ -25,9 +25,9 @@
                   </div>
                   <span class="notification-button" *ngIf="n.isRead === false"><button mat-raised-button color="primary" (click)="markAsRead(n)">Mark as Read</button></span>
                   <span class="notification-button"  *ngIf="n.isRead === true"><button  mat-raised-button color="accent" (click)="delete(n.id)">Delete</button></span>
-                </div> 
-              </span>   
-              <div *ngIf="notifications.length === 0" class="no-notifications">There are no new notifications to display.</div>                    
+                </div>
+              </span>
+              <div *ngIf="notifications.length === 0" class="no-notifications">There are no new notifications to display.</div>
             </mat-menu>
 
             <!-- Tourist -->
@@ -55,12 +55,13 @@
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['admin/tourissues']">See active tour issues</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['publicEntityRequests']">Manage public entity requests</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['encountersManagement']">Manage encounters</button>
-        
+
             <!-- Author -->
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['tours-equipment']">Manage tour equipment</button>
             <button *ngIf="user && user.role === 'author'"color = "primary" mat-raised-button [routerLink]="['tours']">Tours</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['objects']">Tour Objects</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['appRatingAuthor']">Rate App</button>
+            <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['sales-management']">Manage tour sales</button>
         </div>
     </div>
 </mat-toolbar>

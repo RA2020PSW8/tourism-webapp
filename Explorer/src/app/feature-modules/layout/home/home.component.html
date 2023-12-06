@@ -18,14 +18,23 @@
             </div>
         </nav>
     </header>
+  <mat-checkbox [(ngModel)]="showOnSale" (change)="filterTours()">Show on Sale</mat-checkbox>
 
+  <!-- Sort by discount percentage -->
+  <mat-form-field *ngIf="router.url.includes('/home')">
+    <mat-label>Sort by Discount</mat-label>
+    <mat-select [(ngModel)]="sortOrder" (change)="sortTours()">
+      <mat-option value="asc">Low to High</mat-option>
+      <mat-option value="desc">High to Low</mat-option>
+    </mat-select>
+  </mat-form-field>
     <div class="container">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
             <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of tours">
                 <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
             </div>
         </div>
-        <div *ngIf="!isLoading && tours.length === 0">
+        <div *ngIf="!isLoading && tours.length === 0 && router.url.includes('/purchased-tours')">
             <h1 class=cheapskate>Buy something, you cheapskate.</h1>
         </div>
     </div>
@@ -40,9 +49,6 @@
             <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of customTours">
                 <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
             </div>
-        </div>
-        <div *ngIf="!isLoading && tours.length === 0">
-            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
         </div>
     </div>
 

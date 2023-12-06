@@ -9,6 +9,7 @@ import { AdministrationModule } from '../administration/administration.module';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MarketplaceModule } from "../marketplace/marketplace.module";
 import { MatMenuModule } from '@angular/material/menu';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatGridListModule,
     MarketplaceModule,
     MatMenuModule,
+    FormsModule,
   ],
   exports: [
     NavbarComponent,
