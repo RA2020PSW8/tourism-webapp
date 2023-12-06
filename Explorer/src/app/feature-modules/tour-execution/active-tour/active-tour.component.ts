@@ -13,6 +13,7 @@ import { PagedResult } from '../shared/model/paged-result.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { EncounterCompletion, EncounterCompletionStatus } from '../../encounters-managing/model/encounterCompletion.model';
 import { Blog, BlogSystemStatus } from '../../blog/model/blog.model';
+import { TouristPosition } from '../model/tourist-position.model';
 
 @Component({
   selector: 'xp-active-tour',
@@ -73,7 +74,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   startEncounter(encounter: Encounter): void {
     this.encounterService.startEncounter(encounter).subscribe({
       next: (result: EncounterCompletion) =>{
-          alert("Encounter started");
+          alert("Encounter started, go to started encounters to finish");
       },
       error: (error) => {
         alert("Cannot start encounter");
@@ -148,6 +149,14 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   updatePosition(): void {
     if (this.requiredEncounters.length !== 0) {
       // Do something with requiredEncounters if needed
+      this.service.getTouristPosition().subscribe({
+          next: (result: TouristPosition) =>{
+            if(this.currentPosition?.longitude !== result.longitude || this.currentPosition.latitude !== result.latitude){
+              this.currentPosition = result;
+              this.triggerMapRefresh();
+            }
+          }
+      });
       return;
     }
 
@@ -173,7 +182,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           this.currentKeyPoint = this.activeTour.tour.keypoints?.find((keypoint) => keypoint.position === result.currentKeyPoint);
           if (previousKeypoint != this.currentKeyPoint && this.currentKeyPoint?.secret !== "") {
             if (window.confirm(previousSecret)) {
-              //this.triggerMapRefresh();
+              this.triggerMapRefresh();
             }
           }
           return this.getKeypointActiveEncounters();
@@ -215,6 +224,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     this.service.getActiveTour().subscribe({
       next: (result: TourProgress) => {
         this.activeTour = result;
+        this.activeTourCopy = result;
         this.routeQuery = {
           keypoints: this.activeTour.tour.keypoints || [],
           transportType: this.activeTour.tour.transportType || 'WALK'

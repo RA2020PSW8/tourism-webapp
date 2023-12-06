@@ -25,7 +25,7 @@
                 <p><b>Keypoint Position:</b> {{ currentKeyPoint.position }}</p>
                 <p><b>Keypoint Description:</b> {{ currentKeyPoint.description }}</p>
             </div>
-            <div>
+            <div *ngIf="activeTour">
                 <p>Nearby encounters</p>
                 <table>
                     <thead>
@@ -52,10 +52,10 @@
                 <button color="primary" (click)="abandonTour()" mat-raised-button>Abandon Tour</button>
             </div>
         </div>
-        <div class="active-tour__map-container">
+        <div class="active-tour__map-container" *ngIf="activeTour">
             <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" *ngIf="refreshMap"></app-map>
         </div>
-        <div>
+        <div *ngIf="activeTour">
             <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters" [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview>
         </div>
     </div>
