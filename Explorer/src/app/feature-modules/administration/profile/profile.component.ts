@@ -32,6 +32,8 @@ export class ProfileComponent implements OnInit {
     password: '',
     email: '',
     userId: 0,
+    xp: 0,
+    level: 0
   }
   constructor(private cd: ChangeDetectorRef, private service: ProfileService, private auth: AuthService, private formBuilder: FormBuilder) {
     this.personUpdateForm = this.formBuilder.group({
@@ -44,7 +46,6 @@ export class ProfileComponent implements OnInit {
       password: new FormControl('', Validators.required),
       email: new FormControl('', Validators.required),
       userId: 0
-
     });
   }
 
@@ -71,6 +72,8 @@ export class ProfileComponent implements OnInit {
             this.profile.profileImage = data.profileImage;
             this.profile.biography = data.biography;
             this.profile.quote = data.quote;
+            this.profile.xp = data.xp;
+            this.profile.level = data.level;
           },
           error: (err: any) => {
             console.log(err);
@@ -161,6 +164,8 @@ export class ProfileComponent implements OnInit {
             password: this.personUpdateForm.value.password,
             email: this.personUpdateForm.value.email,
             userId: user.id,
+            xp: this.profile.xp,
+            level: this.profile.level
           };
 
 

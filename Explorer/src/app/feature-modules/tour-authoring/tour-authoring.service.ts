@@ -81,6 +81,10 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours`);
   }
 
+  getToursByAuthor() : Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(`${this.apiUrl}/tours/author`);
+  }
+
   getTourById(tourId: number): Observable<Tour>{
     return this.http.get<Tour>(`${this.apiUrl}/tours/${tourId}`);
   }
@@ -127,5 +131,9 @@ export class TourAuthoringService {
   }
   updateEncountersLocation(keypointId: number, location: Location): Observable<KeypointEncounter>{
     return this.http.put<KeypointEncounter>(`${this.apiUrl}/encounter/${keypointId}`, location);
+  }
+
+  addCampaignTour(newTour: Tour): Observable<Tour>{
+    return this.http.post<Tour>(`${this.apiUrl}/tours/campaign`, newTour);
   }
 }

@@ -49,7 +49,7 @@ export class TourComponent implements OnInit{
   }
 
   getTours(): void{
-    this.tourAuthoringService.getTours().subscribe({
+    this.tourAuthoringService.getToursByAuthor().subscribe({
       next: (response: PagedResults<Tour>) => {
         this.tours = response.results;
       },

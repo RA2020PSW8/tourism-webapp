@@ -36,7 +36,6 @@ export class BlogListDisplayComponent implements OnInit {
       next: (result: PagedResult<Blog>) => {
         for(let b of result.results)
         {
-          this.prepareBlogForDisplay(b);
           this.blogs.push(b);
           this.allBlogs.push(b);
           for(let bs of b.blogStatuses as BlogStatus[])
@@ -47,10 +46,6 @@ export class BlogListDisplayComponent implements OnInit {
         console.log(err);
       }
     })
-  }
-
-  private prepareBlogForDisplay(b: Blog) {
-    b.description = b.description.replaceAll('\n', '<br>');
   }
 
   onUpdateClicked(blog: Blog): void

@@ -95,6 +95,11 @@ export class HomeComponent {
     );
   }
 
+  navigateToCampaignCreation(id:number):void{
+    this.router.navigate(
+      ['/campaign/',id]);
+  }
+
   filterTours() {
     if (this.showOnSale) {
       this.tours = this.tours.filter(tour => tour.id != null && this.filteredIds.includes(tour.id));
