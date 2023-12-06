@@ -30,7 +30,78 @@
     font-weight: bold;
 }
 
-#cardsContainer {
+.navbar-actions a {
+    text-decoration: none;
+    color: #192655;
+    margin-right: 20px;
+}
+
+header {
+    background: #F5EEC8;
+    padding: 10px;
+}
+nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    display: inline;
+}
+nav ul li {
+    margin-right: 20px;
+}
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+}
+
+#toursContainer
+{
+    height: 450px;
+    width: 90%;
+    padding-top: 3%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.categoryName
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+}
+
+.p-card-label
+{
+    width: 55%;
+    height: 35px;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 1% 5% 1% 5% ;
+    border-radius: 25px;
+}
+
+.p-card-description
+{
+    font-size: 15px;
+    padding: 1% 5% 1% 5% ;
+}
+
+.p-header
+{
+    font-size: 25px;
+    font-weight: 400;
+}
+
+.p-regular
+{
+    font-size: 17px;
+    font-weight: 350;
+}
+
+#cardsContainer 
+{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;

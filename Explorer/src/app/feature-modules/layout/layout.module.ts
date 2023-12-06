@@ -6,7 +6,9 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from '../administration/profile/profile.component';
 import { AdministrationModule } from '../administration/administration.module';
-import { MatGridListModule } from '@angular/material/grid-list';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { FooterComponent } from './footer/footer.component';
+import {MatSidenavModule} from '@angular/material/sidenav';
 import { MarketplaceModule } from "../marketplace/marketplace.module";
 import { MatMenuModule } from '@angular/material/menu';
 import {FormsModule} from "@angular/forms";
@@ -15,7 +17,7 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     HomeComponent,
     NavbarComponent,
-
+    FooterComponent,
   ],
   imports: [
     CommonModule,
@@ -23,6 +25,7 @@ import {FormsModule} from "@angular/forms";
     RouterModule,
     AdministrationModule,
     MatGridListModule,
+    MatSidenavModule,
     MarketplaceModule,
     MatMenuModule,
     FormsModule,
@@ -32,6 +35,7 @@ import {FormsModule} from "@angular/forms";
     HomeComponent,
     AdministrationModule,
     MatGridListModule,
+    FooterComponent
   ]
 })
 export class LayoutModule { }

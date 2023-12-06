@@ -1,4 +1,4 @@
-<div class="somediv">
+<div class="tour-card">
     <h2 style="align-self: center;">{{tour.name}}</h2>
     <p><strong>Description:</strong> {{tour.description}}</p>
     <p><strong>Price:</strong> {{tour.price}} AC</p>
@@ -29,6 +29,6 @@
             </tr>
         </tbody>
     </table>
-    <button (click)="addToCart()">Add to cart</button>
-    <button (click)="startTour(tour.id)">Start tour</button>
+    <button class="button button-primary" (click)="addToCart()">Add to cart</button>
+    <button class="button button-primary" (click)="startTour(tour.id)">Start tour</button>
 </div>

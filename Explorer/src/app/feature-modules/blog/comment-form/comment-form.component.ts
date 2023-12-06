@@ -11,10 +11,10 @@ import { Comment } from '../model/comment.model';
 
 export class CommentFormComponent implements OnChanges {
 
-@Output() commentAdded = new EventEmitter<null>();
 @Input() comment : Comment;
 @Input() editMode: boolean = false;
 @Input() blogId: number
+@Output() commentAdded = new EventEmitter<null>();
 
 constructor(private service: CommentService) {}
  
@@ -51,6 +51,7 @@ ngOnChanges(changes: SimpleChanges): void {
     this.service.createComment(newComment).subscribe({
       next: (_) => {
         this.commentAdded.emit();
+        this.commentForm.reset();
       }
     });
   }
