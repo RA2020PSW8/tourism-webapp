@@ -35,8 +35,7 @@
         Create new custom tour
     </button>
 
-    <h2 *ngIf="!router.url.includes('/home')" style="margin-left: 1rem;">Create campaign:</h2>
-    <button *ngIf="!router.url.includes('/home')" style="margin-left: 1rem;" color="primary" class="btn" (click)="navigateToCampaignCreation(0)">
+    <button *ngIf="!router.url.includes('/home')" style=" height: 45px; width: 180px; margin-left: 4rem;" mat-flat-button color="accent"  (click)="navigateToCampaignCreation(0)">
         Create a campaign
     </button>
 
