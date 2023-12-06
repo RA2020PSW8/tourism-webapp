@@ -9,6 +9,7 @@ import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
 import { Equipment } from '../../administration/model/equipment.model';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'xp-campaign-tour-form',
@@ -27,6 +28,7 @@ export class CampaignTourFormComponent implements OnInit {
   public selectedTours: Tour[] = []
   public keypoints: Keypoint[] = []
   public equipment: Equipment[] = []
+  public dummyArray: Equipment[] = []
   public complete : boolean = false
 
   constructor(private tourAuthoringService: TourAuthoringService,private marketplaceService: MarketplaceService,public authService: AuthService ,private router: Router, private route: ActivatedRoute) {
@@ -87,22 +89,21 @@ export class CampaignTourFormComponent implements OnInit {
     this.selectedTours.splice(this.selectedTours.indexOf(tour));
   }
 
-  loadEquipment():void{
-    let dummyArray : Equipment[] = []
-    this.selectedTours.forEach(t => {
-      this.tourAuthoringService.getEquipmentForTour(t.id as number).subscribe((result) =>{
-      result.forEach(r => {
-          dummyArray.push(r);
+  async loadEquipment(): Promise<void> {
+    for (const t of this.selectedTours) {
+      const result = await this.tourAuthoringService.getEquipmentForTour(t.id as number).toPromise();
+      result?.forEach(r => {
+        this.dummyArray.push(r);
       });
-      });
-    })
-
-   dummyArray.forEach(e => {
-      if(!this.equipment.includes(e)){
-        this.equipment.push(e);
-      }
-    })
+    }
   }
+
+  async x(): Promise<void> {
+    this.equipment = this.dummyArray.filter((equipment, index, self) =>
+      index === self.findIndex((e) => e.name === equipment.name)
+    );
+  }
+  
 
   getTourKeypoints(): void{
     this.tourAuthoringService.getKeypointsByTour(this.tourId as number).subscribe(res => {
@@ -114,7 +115,7 @@ export class CampaignTourFormComponent implements OnInit {
     });
   }
 
-  createKeypoints(){
+  async createKeypoints(){
     this.keypoints.forEach(k => {
         k.id = 0;
         k.tourId = this.newTour.id;
@@ -126,7 +127,7 @@ export class CampaignTourFormComponent implements OnInit {
     });
   }
 
-  makeCampaign():void{
+  async makeCampaign(){
     this.selectedTours.forEach(t =>{
       if(t.keypoints?.[0] !== undefined){
         this.keypoints?.push(t.keypoints?.[0]);
@@ -151,7 +152,7 @@ export class CampaignTourFormComponent implements OnInit {
      }
   }
 
-  saveTour(): void {
+ async saveTour(){
 
     let newTour: Tour = {
       id: this.tourId,
@@ -176,9 +177,10 @@ export class CampaignTourFormComponent implements OnInit {
       });
     }else{
 
-      this.makeCampaign();
-      this.createKeypoints();
-      this.loadEquipment();
+      await this.makeCampaign();
+      await this.createKeypoints();
+      await this.loadEquipment();
+      await this.x();
       newTour.distance = Math.floor(this.newTour.distance as number);
       newTour.duration = this.newTour.duration;
       this.tourAuthoringService.updateTour(newTour).subscribe({
