@@ -14,6 +14,8 @@ export interface Object {
         id? : number,
         name: string,
         description: string, 
+        longitude: number,
+        latitude: number,
         image?: string,
         category: Category,
         status: number

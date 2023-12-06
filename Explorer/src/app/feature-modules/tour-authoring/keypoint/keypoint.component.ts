@@ -13,6 +13,7 @@ export class KeypointComponent implements OnInit{
   @Output() keypointDeleted = new EventEmitter<null>();
   @Output() keypointSelected = new EventEmitter<Keypoint>();
   @Input() keypoints : Keypoint[];
+  @Input() isCustom : Boolean = false;
   public selectedKeypoint: Keypoint;
   publicEntityRequest: PublicEntityRequest;
   newPublicEntityRequest: PublicEntityRequest;
@@ -28,7 +29,11 @@ export class KeypointComponent implements OnInit{
     if(window.confirm('Are you sure that you want to delete this keypoint?')){
       this.tourAuthoringService.deleteKeypoint(id).subscribe({
         next: () => {
-          this.keypointDeleted.emit();
+          this.tourAuthoringService.deleteKeypointEncounters(id).subscribe({
+            next: () => {
+              this.keypointDeleted.emit();
+            }
+          });
         },
         error: () => {
           
@@ -39,6 +44,9 @@ export class KeypointComponent implements OnInit{
 
   onEditClicked(keypoint: Keypoint): void{
     this.keypointSelected.emit(keypoint);
+  }
+  onEncountersClicked(keypointId: number): void{
+    //this.keypointSelected.emit(keypoint);
   }
 
   sendPublicEntityRequest(id: number): void{

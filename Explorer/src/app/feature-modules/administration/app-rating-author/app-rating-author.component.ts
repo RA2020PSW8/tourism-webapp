@@ -33,7 +33,10 @@ export class AppRatingAuthorComponent implements OnInit{
         this.appRating = result; 
         this.appRatingExist = true;
       },
-      error: () => {}
+      error: () => {
+        this.appRatingExist = false;
+        this.showForm = false;
+      }
     })
   }
   

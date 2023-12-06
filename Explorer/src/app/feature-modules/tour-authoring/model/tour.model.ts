@@ -19,7 +19,9 @@ export enum Status {
     DRAFT = 'DRAFT',
     PUBLISHED = 'PUBLISHED',
     ARCHIVED = 'ARCHIVED',
-    DISABLED = 'DISABLED'
+    DISABLED = 'DISABLED',
+    CUSTOM = 'CUSTOM',
+    CAMPAIGN = 'CAMPAIGN'
 }
 
 export interface Tour {

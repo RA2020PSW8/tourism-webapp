@@ -1,5 +1,22 @@
-#blog-form
-{
+.main{
+    width: 100%;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+}
+
+.form-container {
+    width: 60%;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1%;
+}
+
+.mat-icon {
+    vertical-align: middle;
 }

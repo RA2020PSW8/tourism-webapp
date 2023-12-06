@@ -15,6 +15,7 @@ import { TourPurchaseToken } from '../../marketplace/model/tour-purchase-token.m
 
 export class HomeComponent {
   public tours: Tour[] = [];
+  public customTours: Tour[] = [];
   public isLoading = true;
   constructor(private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) { }
 
@@ -23,6 +24,7 @@ export class HomeComponent {
       this.loadArchivedAndPublishedTours();
     } else if (this.router.url === '/purchased-tours') {
       this.loadPurchasedTours();
+      this.loadCustomTours();
       console.log(this.tours);
     }
   }
@@ -42,6 +44,12 @@ export class HomeComponent {
         }
       });
       this.isLoading = false;
+    });
+  }
+
+  loadCustomTours(): void {
+    this.marketplaceService.getCustomTours().subscribe(res => {
+      this.customTours = res.results;
     });
   }
 
@@ -67,5 +75,16 @@ export class HomeComponent {
         window.location.href = 'https://www.youtube.com/watch?v=MMc8AP9KhEM';
       }, 2000);
     }
+  }
+
+  navigateToTourManagement(id: number): void{
+    this.router.navigate(
+      ['/custom-tour', id]
+    );
+  }
+
+  navigateToCampaignCreation(id:number):void{
+    this.router.navigate(
+      ['/campaign/',id]);
   }
 }

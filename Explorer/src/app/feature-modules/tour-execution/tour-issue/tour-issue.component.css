@@ -1,55 +1,83 @@
-#tour-issue-by-tour-container
-{
+#tour-issue-by-tour-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: baseline;
+    gap: 60px;
 }
 
 #infos {
     display: flex;
-    flex-direction: row;
-    gap: 20px;
-    width: 90%;
+    flex-direction: column;
+    width: 40%;
+    height: 610px;
+    gap: 40px;
+    justify-content: space-between;
 }
 
-#tour
-{
+#tour {
     background-color: lightgrey; 
-    width: 50%; 
-    margin-top: 10px;
+    height: 40%;
+    width: 100%;
     border-radius: 5px;
     padding: 10px;
+    align-items: center;
 }
 
-#tour-issue
-{
+tr {
+    height: 40px;
+}
+
+#tour-issue {
     background-color: #fff0e9; 
-    width: 50%; 
-    margin-top: 10px;
+    height: 60%;
+    width: 100%;
     border-radius: 5px;
-    padding: 10px;
+    padding: 10px;   
 }
 
-.comments
-{
+#comment-container {
+    display: flex;
+    flex-direction: column;
+    width: 50%; 
+    height: 590px;
+    align-items: center;
+    margin-top: 20px;
+    background-color:#F8EDE3; 
+    border-radius: 5px;
+    padding: 10px;
+    gap: 10px;
+}
+
+#comments {
     display: flex;
     flex-direction: column;    
-    justify-content: center;
     align-items: center;
-    width: 75%; 
-    margin-top: 10px;
     row-gap: 10px;
+    width: 90%; 
+    height: 300px;
+    overflow: scroll;
+    overflow-x: hidden;
+    
 }
 
 .comment-details {
-    margin-left: 10px;
-    width: 75%; 
-    background-color:#efe5dc; 
+    margin-left: 10px; 
     color: #666;
     display: flex;
     flex-direction: row;
     border-radius: 5px;
+    background-color: #DFD3C3; 
+}
+
+h2 {
+    text-align: center;
+}
+
+table {
+    margin: 0 auto;
+    font-size: 16px;
+    width: 100%;
 }
 
 .comment-details h3 {
@@ -60,23 +88,37 @@
     margin: 0;
 }
 
+.comment-content p {
+    width: 320px;
+    font-size: 16px;
+}
+
+.comment-content label {
+    font-size: 20px;
+}
+
 .comment-date {
-    align-self: flex-end;
-    justify-self: flex-end;
-    margin-bottom: 10px;
+    float: right;
+    width: 128px;
 }
 
 .profile-img {
     display: flex;
     flex-direction: row;
-    width: 200px;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-bottom: 10px;
+    width: 120px;
+    padding: 10px;
+}
+
+img {
+    width: 100px; 
+    height: 100px;
+    border-radius: 50%;
 }
 
 .comment-content {
-    margin-top: 15px;
+    width: 320px;
+    overflow-wrap: break-word;
+    padding: 10px;
 }
 
 .add-new-comment {
@@ -84,15 +126,19 @@
     flex-direction: column;    
     justify-content: center;
     align-items: center;
-    width: 50%; 
-    margin-top: 10px;
     row-gap: 10px;
+    width: 90%;
 }
 
 textarea {
-    width: 100%;
-    height: 100px;
+    width: 70%;
+    resize: none;
+    height: 80px;
     font-size: 20px;
+    overflow: scroll;
+    overflow-x: hidden;
+    border-radius: 5px;
+    margin-top: -5px;
 }
 
 button {
@@ -101,10 +147,8 @@ button {
     border-radius: 5px;
     width: 110px;
     height: 35px;
-    margin-right: -3px;
-    justify-self: flex-end;
-    align-self:flex-end;
     cursor: pointer;
+    float: right;
 }
 
 .addCommentButton {
@@ -114,4 +158,11 @@ button {
 .resolveButton {
     background-color: #d0b8ac;
     float: right;
+    margin-top: 60px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }

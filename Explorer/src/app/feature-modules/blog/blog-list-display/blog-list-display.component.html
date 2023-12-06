@@ -1,51 +1,70 @@
-<div id="blog">
-    <div id="all-blogs">
+<div class="main">
+    <div class="status-container">
         <h2>All tags:</h2>
-        <div id="status-containers">
-            <div *ngFor="let status of allBlogStatus" >
-                <div class="status" [ngStyle]="{'background-color':status.frontColor}" (click)="modifyFilter(status)">
-                    <i class="fa-solid fa-tag"></i>    
+        <div class="status-sub-container">
+            <div *ngFor="let status of allBlogStatus">
+                <div class="status" (click)="modifyFilter(status)">
+                    <div class="circle" [ngStyle]="{'background-color':getColor(status.name)}"></div>
                     {{status.name}}
                 </div>
             </div>
         </div>
         <h2>Selected tags:</h2>
-        <div id="status-containers">
+        <div class="status-sub-container">
             <div *ngFor="let status of selectedBlogStatus">
-                <div  class="status"  [ngStyle]="{'background-color':status.frontColor}" (click)="modifyFilter(status)">
-                    <i class="fa-solid fa-tag"></i>    
+                <div class="status" (click)="modifyFilter(status)">
+                    <div class="circle" [ngStyle]="{'background-color':getColor(status.name)}"></div>
                     {{status.name}}
                 </div>
             </div>
         </div>
+    </div> 
+
+    <div class="blogs-container">
         <table>
-            <tr>
-                <td>Title</td>
-                <td>Description</td>
-                <td>System status</td>
-                <td>Statuses</td>
-                <td>Actions</td>
-            </tr>
-            <tr  *ngFor="let bl of blogs">
-                <td><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
-                <td>{{bl.description}}</td>
-                <td>{{bl.systemStatus}}</td>
-                <td *ngFor="let st of bl.blogStatuses">
-                    <div class="status" [ngStyle]="{'background-color':getColor(st.name)}">
-                        <i class="fa-solid fa-tag"></i>    
-                        {{st.name}}
-                    </div>
-                </td>
-                <td>
-                    <button (click)="onUpdateClicked(bl)" mat-icon-button>
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </td>
-            </tr>
+            <thead>
+                <tr>
+                    <td><p class="p-header">Explore blogs</p></td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let bl of blogs; let i = index;" style="background-color: #FFFBF5;">
+                  <td>
+                    <mat-accordion>
+                        <mat-expansion-panel hideToggle>
+                          <mat-expansion-panel-header style="height: 70px;">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td style="width: 25%; background-color: #CCD5AE;"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
+                                            <td style="width: 14%; background-color: #E9EDC9;"><p class="p-header" style="font-size: 1.5em;">{{bl.systemStatus}}</p></td>
+                                            <td *ngFor="let st of bl.blogStatuses" style="background-color: #F5EFE7;">
+                                                <div class="status">
+                                                    <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
+                                                    {{st.name}}
+                                                </div>
+                                            </td>
+                                            <td style="width: 2%; background-color: #F5EFE7;">
+                                                <button (click)="onUpdateClicked(bl)" mat-icon-button>
+                                                    <mat-icon>edit</mat-icon>
+                                                </button>
+                                            </td>
+                                            <td style="width: 2%; background-color: #F5EFE7;">
+                                                <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
+                                                    <mat-icon>delete</mat-icon>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                          </mat-expansion-panel-header>
+                            <p class="p-description"><markdown>{{bl.description}}</markdown></p>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                  </td>
+                </tr>
+              </tbody>
         </table>
+        </div>
     </div>
-    <xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>
-</div>
+    <!--<xp-blog-form id="blog-form-display" (blogUpdated)="getBlogs()" [selectedBlog]="selectedBlog"></xp-blog-form>-->

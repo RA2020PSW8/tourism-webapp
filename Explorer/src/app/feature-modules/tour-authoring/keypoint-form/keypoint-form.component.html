@@ -44,10 +44,17 @@
                 <span *ngIf="mode === 'add'">Add new keypoint</span>
                 <span *ngIf="mode === 'edit'">Update keypoint</span>
             </button>
+            <button color="primary" type="button" (click)="openPublicKeypointList = true" mat-raised-button>Get info from public keypoints</button>
         </div>
     </form>
     <div class="map-container">
         <app-map [enableClicks]="true" [toggleOff]="true" [routeQuery]="routeQuery" (clickEvent)="fillCoords($event)"
         (routesFoundEvent)="routeFoundEmit($event)"></app-map>
     </div>
+</div>
+
+<div class="popup" [class]="openPublicKeypointList ? 'show' : ''">
+    <h1>Public Keypoints</h1>
+    <xp-public-keypoint [publicKeypoints]="publicKeypoints" (keypointSelected)="selectPublicKeypoint($event)"></xp-public-keypoint>
+    <div class="exit" (click)="openPublicKeypointList = false"><span>X</span></div>
 </div>

@@ -6,6 +6,16 @@
         </mat-form-field>
 
         <mat-form-field>
+            <mat-label>Latitude</mat-label>
+            <input matInput formControlName="latitude" type="number" min="-90" max="90"/>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Longitude</mat-label>
+            <input matInput formControlName="longitude" type="number" min="-180" max="180"/>
+        </mat-form-field>
+
+        <mat-form-field>
             <mat-label>Description</mat-label>
             <textarea matInput
             cdkTextareaAutosize
