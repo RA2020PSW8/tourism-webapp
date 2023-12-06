@@ -20,6 +20,9 @@ import { SalesManagementComponent } from './sales-management/sales-management.co
 import {TourAuthoringModule} from "../tour-authoring/tour-authoring.module";
 import {MatNativeDateModule} from "@angular/material/core";
 import {MatDatepickerModule} from "@angular/material/datepicker";
+import { CouponCreateComponent } from './coupon-create/coupon-create.component';
+import { CouponViewComponent } from './coupon-view/coupon-view.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     CartWarningComponent,
     CartSuccessComponent,
     TourKeypointsMapComponent,
-    SalesManagementComponent
+    SalesManagementComponent,
+    CouponCreateComponent,
+    CouponViewComponent,
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -46,7 +51,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
     MapComponent,
     TourAuthoringModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MapComponent,
+    RouterModule
   ]
 })
 export class MarketplaceModule { }

@@ -18,6 +18,8 @@ export class TouristService {
 
   constructor(private http: HttpClient) { }
 
+  
+
   getEquipmentForSelection(): Observable<EquipmentForSelection[]> {
     return this.http.get<EquipmentForSelection[]>(environment.apiHost + 'tourist/touristEquipment/forSelected/' + parseInt(localStorage.getItem('loggedId')!))
   }

@@ -6,6 +6,8 @@ import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ShoppingCartOverviewComponent } from '../shopping-cart-overview/shopping-cart-overview.component';
 import { ShoppingCart } from '../model/shopping-cart.model';
+import { Coupon } from '../model/coupon-model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -17,13 +19,18 @@ export class ShoppingCartComponent implements OnInit {
   @Input() order: OrderItem;
   shoppingCart: ShoppingCartOverviewComponent;
   shoppingCartForUser: ShoppingCart;
+  loggedId: number;
+  coupons: Coupon[] = [];
 
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private changeDetectorRef: ChangeDetectorRef){
   }
 
   ngOnInit(): void {
     this.getShoppingCart();
+    this.loggedId = this.authService.user$.value.id;
   }
+
+
   Delete(orderItem: OrderItem): void {
     this.marketplaceService.deleteOrderItem(Number(orderItem.id)).subscribe({
       next: (_) => {
@@ -34,16 +41,16 @@ export class ShoppingCartComponent implements OnInit {
         alert('An error occurred while deleting the order item. Please try again later.');
       }
     })
-  } 
+  }
 
   getShoppingCart(): void{
     this.marketplaceService.getShoppingCartForUser().subscribe({
       next: (result:ShoppingCart) => {
         this.shoppingCartForUser = result;
-         
+
       },
       error:(err: any) => {
-        console.log(err); 
+        console.log(err);
       }
     })
   }

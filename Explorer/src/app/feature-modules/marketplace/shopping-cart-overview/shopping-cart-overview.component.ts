@@ -8,6 +8,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Wallet } from '../model/wallet.model';
 import { mergeMap } from 'rxjs';
+import { Coupon } from '../model/coupon-model';
 
 @Component({
   selector: 'xp-shopping-cart-overview',
@@ -16,56 +17,96 @@ import { mergeMap } from 'rxjs';
 })
 export class ShoppingCartOverviewComponent implements OnInit {
 
-    orders: OrderItem[] =  []; 
-  loggedId: number; 
+  orders: OrderItem[] =  [];
+
+  loggedId: number;
   shoppingCart: ShoppingCart;
   totalPrice: number;
   wallet: Wallet;
+  coupons: Coupon[][] = []
+  selectedCoupons: any = {};
+  couponsWithDiscount : Coupon [][] = [];
+  originalPrices: { [key: string]: number } = {};
+
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService){}
 
   ngOnInit(): void {
-    this.getOrders(); 
+    this.getOrders();
     this.getWallet();
-    this.loggedId = this.authService.user$.value.id; 
+    this.loggedId = this.authService.user$.value.id;
+    this.getOrders();
   }
   getOrders(): void{
     this.marketplaceService.getOrdersForUser().subscribe({
       next: (result:PagedResults<OrderItem>) => {
         this.orders = result.results;
-         
+        for(let order of this.orders){
+          this.marketplaceService.getCouponsForTourAndTourist(order.tourId!, this.loggedId).subscribe({
+            next: (result:PagedResults<Coupon>) => {
+              this.coupons.push(result.results);
+              this.couponsWithDiscount.push(result.results);
+              this.originalPrices[order.id] = order.tourPrice;
+            },
+            error:(err: any) => {
+              console.log(err);
+            }
+          })
+        }
       },
       error:(err: any) => {
-        console.log(err); 
+        console.log(err);
       }
     })
+
     this.marketplaceService.getShoppingCartForUser().subscribe({
       next: (result:ShoppingCart) => {
         this.shoppingCart = result;
-         
+
       },
       error:(err: any) => {
-        console.log(err); 
+        console.log(err);
       }
     })
   }
+
+  selectCoupon(i:any, selectedValue: any): void{
+
+    this.selectedCoupons[i] = selectedValue;
+
+    const selectedCoupon = this.couponsWithDiscount[i].find(coupon => coupon.id === selectedValue);
+
+    this.orders[i].tourPrice = this.originalPrices[this.orders[i].id];
+
+    if (selectedCoupon) {
+      const discount = selectedCoupon.discount;
+      const originalTourPrice = this.orders[i].tourPrice;
+
+      this.orders[i].tourPrice = originalTourPrice - (originalTourPrice * (discount / 100));
+    }
+  }
+
+  isCouponSelected(couponId: any): boolean {
+    return  Object.values(this.selectedCoupons).includes(couponId);
+  }
+
   calculateTotalPrice(): number {
     this.totalPrice = this.orders.reduce((total, order) => total + order.tourPrice, 0);
     return this.totalPrice;
   }
   checkout() : void{
-    this.getOrders(); 
-    this.calculateTotalPrice(); 
+    this.getOrders();
+    this.calculateTotalPrice();
     if(this.wallet.adventureCoins < this.totalPrice){
       console.log(this.wallet);
       console.log('ukupna cena: ' ,this.totalPrice);
       alert('Error. You dont have enough ACs(adventure coins) in your wallet.');
-    } else{  
-      
+    } else{
+
       if(window.confirm('Are you sure that you want to purchase these tours?')){
-        this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).subscribe({  
-          next: (_) => {                                                                   
+        this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).subscribe({
+          next: (_) => {
             window.alert('Successfully purchased');
-            this.getOrders(); 
+            this.getOrders();
           },
           error: (err: any) => {
             console.log(err);
@@ -86,5 +127,5 @@ export class ShoppingCartOverviewComponent implements OnInit {
       }
   });
   }
-  
+
 }
