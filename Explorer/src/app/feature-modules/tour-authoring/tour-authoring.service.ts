@@ -122,6 +122,9 @@ export class TourAuthoringService {
   deleteEncounter(id: number): Observable<KeypointEncounter>{
     return this.http.delete<KeypointEncounter>(`${this.apiUrl}/encounter/${id}`);
   }
+  deleteKeypointEncounters(id: number): Observable<KeypointEncounter>{
+    return this.http.delete<KeypointEncounter>(`${this.apiUrl}/encounter/keypoint/${id}`);
+  }
   addEncounter(newEncounter: KeypointEncounter): Observable<KeypointEncounter>{
     return this.http.post<KeypointEncounter>(`${this.apiUrl}/encounter`, newEncounter);
   }
