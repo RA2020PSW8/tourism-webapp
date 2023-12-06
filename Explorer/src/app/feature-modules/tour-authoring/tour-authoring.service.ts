@@ -132,4 +132,8 @@ export class TourAuthoringService {
   updateEncountersLocation(keypointId: number, location: Location): Observable<KeypointEncounter>{
     return this.http.put<KeypointEncounter>(`${this.apiUrl}/encounter/${keypointId}`, location);
   }
+
+  addCampaignTour(newTour: Tour): Observable<Tour>{
+    return this.http.post<Tour>(`${this.apiUrl}/tours/campaign`, newTour);
+  }
 }
