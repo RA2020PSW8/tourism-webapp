@@ -11,9 +11,9 @@ import { CommentsDisplayComponent } from './comments-display/comments-display.co
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-display.component';
 import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import {MatStepperModule} from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-
-
 
 @NgModule({
   declarations: [
@@ -30,8 +30,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MarkdownModule,
     MatInputModule,
     MatFormFieldModule,
+    MatExpansionModule,
+    MatStepperModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   exports: [
     CommentFormComponent,
