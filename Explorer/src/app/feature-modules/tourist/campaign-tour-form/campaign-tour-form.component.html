@@ -1,5 +1,5 @@
 <div class="main">
-    <div class="form-container">
+    <div class="form-container" *ngIf="!complete">
         <form [formGroup]="tourForm" style="display: flex; flex-direction: column;">
                 <mat-form-field>
                     <mat-label>Name</mat-label>
@@ -31,7 +31,7 @@
         </form>
     </div>
 
-    <div class="tables-container">
+    <div class="tables-container" *ngIf="!complete">
         <h1>Avaliable tours</h1>
         <div class="table-container">
             <table>
@@ -39,31 +39,37 @@
                     <td>Name</td>
                     <td>Duration</td>
                     <td>Difficulty</td>
-                    <td>A</td>
                 </tr>
                 <tr *ngFor="let tour of boughtTours">
                     <td>{{tour.name}}</td>
                     <td>{{tour.duration}}</td>
                     <td>{{tour.difficulty}}</td>
                     <td>
-                        <button color="accent" mat-icon-button (click)="addTour(tour)">
+                        <button color="accent" mat-button (click)="addTour(tour)">
                             <mat-icon>add</mat-icon>
+                            Add
                         </button>
                     </td>
                 </tr>
             </table>
         </div>
-        <h1>Selected tours</h1>
+        <h1 style="padding-left: 2%;">Selected tours</h1>
         <div class="table-container">
             <table>
+                <tr>
+                    <td>Name</td>
+                    <td>Duration</td>
+                    <td>Difficulty</td>
+                </tr>
                 <tbody>
                     <tr *ngFor="let tour of selectedTours">
                         <td>{{tour.name}}</td>
                         <td>{{tour.duration}}</td>
                         <td>{{tour.difficulty}}</td>
                         <td>
-                            <button color="accent" mat-icon-button (click)="removeTour(tour)">
+                            <button color="accent" mat-button (click)="removeTour(tour)">
                                 <mat-icon>remove</mat-icon>
+                                Remove
                             </button>
                         </td>
                     </tr>
@@ -71,7 +77,7 @@
             </table>
         </div>
     </div>
-    <button color="accent" mat-stroked-button (click)="saveTour()" style=" width: 50%;align-self: center; margin-top: 3%;">
+    <button *ngIf="!complete" color="accent" mat-flat-button (click)="saveTour()" style="width: 80%; align-self: center; margin-top: 3%;">
         Create
     </button>
     <div class="cont" *ngIf="complete">
@@ -84,9 +90,6 @@
             <p *ngIf="newTour.difficulty"><strong>Tour difficulty</strong> {{newTour.difficulty}}</p>
 
             <table>
-                <thead>
-                    <th>Equipment</th>
-                </thead>
                 <tbody>
                     <tr *ngFor="let e of equipment">
                         <td>{{e.name}}</td>
@@ -95,7 +98,7 @@
                 </tbody>
             </table>
     </div>
-    <div class="map-container">
-        <app-map [enableClicks]="false" [toggleOff]="true" [routeQuery]="routeQuery" (routesFoundEvent)="getRouteInfo($event)"></app-map>
+    <div class="map-container" *ngIf="complete">
+        <app-map [enableClicks]="false" [toggleOff]="false" [routeQuery]="routeQuery" (routesFoundEvent)="getRouteInfo($event)"></app-map>
     </div>
 </div>

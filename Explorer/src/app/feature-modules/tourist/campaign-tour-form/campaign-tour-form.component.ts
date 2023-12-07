@@ -91,7 +91,7 @@ export class CampaignTourFormComponent implements OnInit {
   }
 
   removeTour(tour : Tour):void{
-    this.selectedTours.splice(this.selectedTours.indexOf(tour));
+    this.selectedTours.splice(this.selectedTours.indexOf(tour),1);
   }
 
   async loadEquipment(): Promise<void> {
