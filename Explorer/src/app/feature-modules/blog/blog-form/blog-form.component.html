@@ -1,5 +1,53 @@
 <div class="main">
-    <form [formGroup]="blogForm" class="form-container">
+        <mat-stepper *ngIf="creationMode"  [linear]="true" class="stepper-container" #stepper>
+            <mat-step [stepControl]="titleForm">
+                <form [formGroup]="titleForm" class="stepper-form">
+                    <ng-template matStepLabel>What's your blog's name?</ng-template>
+                    <mat-form-field style="width: 70%;">
+                        <mat-label>Title</mat-label>
+                        <input matInput type="text" formControlName="title">
+                    </mat-form-field>
+                    <div>
+                        <button mat-flat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="descriptionForm">
+                <form [formGroup]="descriptionForm" class="stepper-form">
+                    <ng-template matStepLabel>What's your blog about?</ng-template>
+                    <mat-form-field style="width: 70%;">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput cdkTextareaAutosize
+                        cdkAutosizeMinRows="5"
+                        formControlName="description"
+                        cdkAutosizeMaxRows="15">
+                        </textarea>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button mat-flat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="imageLinksForm">
+                <form [formGroup]="imageLinksForm" class="stepper-form">
+                    <ng-template matStepLabel>Upload images</ng-template>
+                    <mat-form-field style="width: 70%;">
+                        <mat-label>Image links:</mat-label>
+                        <textarea matInput cdkTextareaAutosize
+                        cdkAutosizeMinRows="5"
+                        formControlName="imageLinks"
+                        cdkAutosizeMaxRows="10"></textarea>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button color="primary" type="submit" (click)="addBlog()" mat-raised-button>Create</button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
+
+    <form *ngIf="!creationMode" [formGroup]="blogForm" class="form-container">
         <mat-form-field>
             <mat-label>Title</mat-label>
             <input matInput type="text" formControlName="title">
@@ -40,8 +88,8 @@
                 <mat-option value="CLOSED">Closed</mat-option>
             </mat-select>       
         </mat-form-field>
-    
-        <mat-table id="equipment-list" [dataSource]="allEquipment">
+
+        <mat-table id="equipment-list" [dataSource]="allEquipment" *ngIf="tourProgress">
             <ng-container matColumnDef="select">
                 <th mat-header-cell *matHeaderCellDef>
                   <mat-checkbox (change)="masterToggle()"></mat-checkbox>
@@ -65,7 +113,6 @@
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </mat-table>
 
-        <button color="primary" type="submit" (click)="addBlog()" mat-raised-button>Create</button>
         <button color="primary" type="submit" (click)="updateBlog()" mat-raised-button>Update</button>
     </form>
 </div>

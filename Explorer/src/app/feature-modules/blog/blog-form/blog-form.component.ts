@@ -24,6 +24,13 @@ export class BlogFormComponent implements OnChanges, OnInit {
   @Output() blogUpdated = new EventEmitter<null>();
   @Input() selectedBlog: Blog;
   @Input() tourProgress: TourProgress | undefined;
+  @Input() creationMode: boolean = false /* true bude forma za kreiranje, false bude za prikaz info i update */
+
+  selectedTour : Tour;
+  selectedKeypoints: Keypoint[]
+  displayedColumns: string[] = ['select', 'name', 'description'];
+  allEquipment: Equipment[];
+  selection = new SelectionModel<any>(true, []);
 
   constructor(private blogService: BlogService, private tourAuthoringService: TourAuthoringService) { }
 
@@ -34,19 +41,21 @@ export class BlogFormComponent implements OnChanges, OnInit {
     imageLinks: new FormControl(''),
     status: new FormControl(''),
   });
-  selectedTour : Tour;
-  selectedKeypoints: Keypoint[]
 
-  displayedColumns: string[] = ['select', 'name', 'description'];
-  allEquipment: Equipment[];
-  selection = new SelectionModel<any>(true, []);
+  titleForm = new FormGroup({
+    title: new FormControl('',Validators.required),
+  });
 
-  dummyForm = new FormGroup({
-    kolko: new FormControl('',Validators.required)
+  descriptionForm = new FormGroup({
+    description: new FormControl('',Validators.required),
+  });
+
+  imageLinksForm = new FormGroup({
+    imageLinks: new FormControl('')
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-        const blog = {
+      const blog = {
       title: this.selectedBlog.title,
       description: this.selectedBlog.description,
       creationDate: this.selectedBlog.creationDate,
@@ -77,11 +86,11 @@ export class BlogFormComponent implements OnChanges, OnInit {
 
   addBlog(): void {
     const blog: Blog = {
-      title: this.blogForm.value.title || "",
-      description: this.blogForm.value.description || "",
+      title: this.titleForm.value.title || "",
+      description: this.descriptionForm.value.description || "",
       creationDate: new Date().toISOString().split('T')[0] as string,
-      imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
-      systemStatus: this.blogForm.value.status as BlogSystemStatus || ""
+      imageLinks: this.imageLinksForm.value.imageLinks?.split('\n') as string[],
+      systemStatus: BlogSystemStatus.PUBLISHED as BlogSystemStatus || ""
     }
     this.GetTourAndKeypoints();
 
