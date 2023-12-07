@@ -36,6 +36,8 @@ import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-
 import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
+import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-form.component';
+
 import { EncountersManagingComponent } from 'src/app/feature-modules/encounters-managing/encounters-managing/encounters-managing.component';
 import { WalletComponent } from 'src/app/feature-modules/marketplace/wallet/wallet.component';
 import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
@@ -73,6 +75,7 @@ const routes: Routes = [
   {path: 'comments', component:CommentsDisplayComponent},
   {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
   {path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard]},
+  {path: 'nip',component:BlogFormComponent},
   {path: 'wallet', component: WalletComponent, canActivate: [AuthGuard]},
   {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
   {path: 'encounters-map', component: EncountersTouristViewComponent, canActivate: [AuthGuard]},

@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class NavbarComponent implements OnInit {
 
   user: User | undefined;
+  showOldToolbar: boolean = false;
   notifications: NotificationModel[] = [];
   unreadNotificationsCount: number = 0;
 
@@ -28,6 +29,10 @@ export class NavbarComponent implements OnInit {
 
   onLogout(): void {
     this.authService.logout();
+  }
+
+  toggleOldToolbar(): void {
+    this.showOldToolbar = !this.showOldToolbar;
   }
 
   getNotifications(): void {

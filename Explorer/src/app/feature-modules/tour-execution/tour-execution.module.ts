@@ -11,6 +11,7 @@ import { TourIssueTouristComponent } from './tour-issue-tourist/tour-issue-touri
 import { TourIssueComponent } from './tour-issue/tour-issue.component';
 import { ActiveTourComponent } from './active-tour/active-tour.component';
 import { TimePipe } from 'src/app/shared/helpers/time.pipe';
+import { KeypointEncountersPreviewComponent } from './keypoint-encounters-preview/keypoint-encounters-preview.component';
 import { BlogModule } from '../blog/blog.module';
 import { BlogFormComponent } from '../blog/blog-form/blog-form.component';
 
@@ -22,7 +23,8 @@ import { BlogFormComponent } from '../blog/blog-form/blog-form.component';
     TourIssueAdminComponent,
     TourIssueTouristComponent,
     TourIssueComponent,
-    ActiveTourComponent
+    ActiveTourComponent,
+    KeypointEncountersPreviewComponent
   ],
   imports: [
     CommonModule,

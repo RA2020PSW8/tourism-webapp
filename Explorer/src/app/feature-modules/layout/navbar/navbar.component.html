@@ -1,6 +1,7 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="old-toolbar" [class]="showOldToolbar ? '' : 'hidden'">
     <div>
         <p>Explorer</p>
+        <button class="button button-primary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
         <div id="buttons">
             
             <!-- All -->
@@ -64,3 +65,117 @@
         </div>
     </div>
 </mat-toolbar>
+
+
+<mat-toolbar class='heading new-toolbar' role="heading" [class]="showOldToolbar ? 'hidden' : ''">
+    <div class="left-menu">
+        <span class="icon" (click)="leftDrawer.toggle()">
+            <mat-icon>menu</mat-icon>
+        </span>
+        <button class="button button-primary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
+    </div>
+    <div class="logo" [routerLink]="['home']">
+        <p>Tutours</p>
+    </div>
+    <div class="right-menu">
+        <span class="icon">
+            <div *ngIf="user && user.username !== '' && user.role !== 'administrator'" class="notification-icon-container" [matMenuTriggerFor]="notificationsMenu">
+                <span class="notification-badge" *ngIf="unreadNotificationsCount !== 0 ">{{unreadNotificationsCount}}</span>
+                <mat-icon>notifications</mat-icon>
+            </div>
+            
+            <mat-menu #notificationsMenu="matMenu" class="my-menu">  
+            <span *ngIf="notifications.length !== 0" class="notification-box">    
+                <div *ngFor="let n of notifications">                 
+                <div class="cloud-container" (click)="redirect(n.actionURL)"> 
+                    <mat-icon class="icon">notifications</mat-icon>
+                    <span  class="content">
+                    <p>{{ n.content }}</p>
+                    <p class="date">{{ n.creationDateTime | date:'medium' }}</p>
+                    </span>
+                </div>
+                <span class="notification-button" *ngIf="n.isRead === false"><button mat-raised-button color="primary" (click)="markAsRead(n)">Mark as Read</button></span>
+                <span class="notification-button"  *ngIf="n.isRead === true"><button  mat-raised-button color="accent" (click)="delete(n.id)">Delete</button></span>
+                </div> 
+            </span>   
+                <div *ngIf="notifications.length === 0" class="no-notifications">There are no new notifications to display.</div>                    
+            </mat-menu>
+        </span>
+
+        <span class="icon" [routerLink]="user ? ['profile'] : ['login']">
+            <mat-icon>account_circle</mat-icon>
+        </span>
+        <span class="icon" [routerLink]="user ? ['shopping-cart-overview'] : ['login']">
+            <mat-icon>shopping_cart</mat-icon>
+        </span>
+    </div>
+</mat-toolbar>
+
+<mat-drawer-container hasBackdrop="true" class="left-drawer-container" [class]="leftDrawer.opened ? '' : 'hidden'">
+    <mat-drawer class="left-drawer custom-scrollbar" #leftDrawer mode="over">
+        <div class="left-drawer__main-content" *ngIf="user && user.role === 'tourist'">
+            <div>
+                <h4>Travel</h4>
+                <p [routerLink]="['toursMarketplace']"><span class="link-underline">Tours marketplace</span></p>
+                <p [routerLink]="['touristSelectingEquipment']"><span class="link-underline">Manage my equipment</span></p>
+                <p [routerLink]="['tourPreference']"><span class="link-underline">My preferences</span></p>
+                <p [routerLink]="['my-position']"><span class="link-underline">My position</span></p>
+                <p [routerLink]="['active-tour']"><span class="link-underline">Active tour</span></p>
+                <p [routerLink]="['wallet']"><span class="link-underline">Wallet</span></p>
+                <p routerLink="/purchased-tours"><span class="link-underline">Purchased Tours</span></p>
+            </div>
+            <div>
+                <h4>Socilize</h4>
+                <p [routerLink] = "['clubs']"><span class="link-underline">See clubs</span></p>
+                <p [routerLink]="['clubJoinRequests']"><span class="link-underline">My join requests</span></p>
+                <p [routerLink]="['clubInvitations']"><span class="link-underline">Manage club memberships</span></p>
+                <p [routerLink]="['clubInvitations']"><span class="link-underline">Manage club invitations</span></p>
+                <p [routerLink]="['encounters-map']"><span class="link-underline">Encounters</span></p>
+            </div>
+            <div>
+                <h4>Create</h4>
+                <p [routerLink]="['blog']"><span class="link-underline">Write blog</span></p>
+                <p [routerLink]="['tour-review']"><span class="link-underline">Write tour review</span></p>
+                <p [routerLink]="['user/tourissues']"><span class="link-underline">Report tour issues</span></p>
+            </div>
+        </div>
+        <div class="left-drawer__main-content" *ngIf="user && user.role === 'administrator'">
+            <div>
+                <h4>Admin Panel</h4>
+                <p [routerLink]="['equipment']"><span class="link-underline">Manage equipment</span></p>
+                <p [routerLink]="['users']"><span class="link-underline">See all users</span></p>
+                <p [routerLink]="['appRatingList']"><span class="link-underline">See all app ratings</span></p>
+                <p [routerLink]="['admin/tourissues']"><span class="link-underline">See active tour issues</span></p>
+                <p [routerLink]="['publicEntityRequests']"><span class="link-underline">Manage public entity requests</span></p>
+                <p [routerLink]="['encountersManagement']"><span class="link-underline">Manage encounters</span></p>
+            </div>
+        </div>
+        <div class="left-drawer__main-content" *ngIf="user && user.role === 'author'">
+            <div>
+                <h4>Manage Tours</h4>
+                <p [routerLink]="['toursMarketplace']"><span class="link-underline">Tours marketplace</span></p>
+                <p [routerLink]="['tours-equipment']"><span class="link-underline">Manage tour equipment</span></p>
+                <p [routerLink]="['tours']"><span class="link-underline">Tours</span></p>
+                <p [routerLink]="['objects']"><span class="link-underline">Tour Objects</span></p>
+            </div>
+        </div>
+        <div class="left-drawer__main-content" *ngIf="user && user.username === ''">
+            <div>
+                <h4>Travel</h4>
+                <p [routerLink]="['toursMarketplace']"><span class="link-underline">Tours marketplace</span></p>
+            </div>
+        </div>
+        <div class="left-drawer__footer">
+            <p *ngIf="user && user.username === ''" [routerLink]="['login']"><span class="link-underline">Login</span></p>
+            <p *ngIf="user && user.username !== ''" [routerLink]="['profile']"><span class="link-underline">My Account</span></p>
+            <p *ngIf="user && user.username !== ''" (click)="onLogout()"><span class="link-underline">Logout</span></p>
+        </div>
+    </mat-drawer>
+</mat-drawer-container>
+
+<div class="sticky-footer" *ngIf="user && user.role === 'tourist'" [routerLink]="['appRatingTourist']">
+    <span class="icon">
+        <mat-icon>stars</mat-icon>
+    </span>
+    Rate App
+</div>

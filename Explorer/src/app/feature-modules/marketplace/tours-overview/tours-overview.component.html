@@ -2,10 +2,7 @@
     <h1>Tours marketplace</h1>
 </div>
 <div class="cont">
-    <div class="button-container">
-        <button type="button" (click)="toggleForm()">Open map search</button>
-        <button type="button" (click)="getFilteredTours()" *ngIf="showForm">Get Nearby Tours</button>
-    </div>
+    <button class="button button-secondary" type="button" (click)="toggleForm()">Filter tours by location</button>
     <form [formGroup]="tourFilterForm" *ngIf="showForm">
         <label for="longitude">Longitude</label>
         <input type="text" id="longitude" name="longitude" formControlName="longitude">

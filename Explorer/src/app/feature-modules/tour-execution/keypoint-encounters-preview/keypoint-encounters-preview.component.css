@@ -1,26 +1,17 @@
-.split {
-    display: grid;
-    grid-template-columns: 3fr 2fr;
-    margin: 10px;
-}
-
-.map-container {
-    margin: 10px;
-}
-
 .cont{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 50px;
+    align-items: flex-start;
+    margin-top: 10px;
 }
 
 table {
     border-collapse: collapse;
-    font-size: 0.9em;
+    font-size: 1.1em;
     font-family: sans-serif;
+    min-width: 300px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    table-layout: auto;
-    min-width: 100%;
 }
 
 thead tr {

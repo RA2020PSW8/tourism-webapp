@@ -1,11 +1,11 @@
-<form [formGroup]="commentForm">
-    <div>
-        <mat-form-field>
-            <mat-label>Comment</mat-label>
-            <input matInput formControlName="comment" type="text">
-        </mat-form-field>
-
-        <button *ngIf="!editMode" mat-raised-button type="submit" color="primary" (click)="createComment()">Create</button>
-        <button *ngIf="editMode" mat-raised-button type="submit" color="primary" (click)="updateComment()">Update</button>
-    </div>
-</form>
+<div class="main">
+    <form [formGroup]="commentForm" class="form-container">
+            <mat-form-field style="width: 80%;">
+                <mat-label>{{ editMode ? 'Edit a comment' : 'Leave a comment' }}</mat-label>
+                <input matInput formControlName="comment" type="text">
+            </mat-form-field>
+            <button mat-raised-button type="submit" color="primary" (click)="editMode ? updateComment() : createComment()">
+                {{ editMode ? 'Edit' : 'Post' }}
+            </button>              
+    </form>
+</div>
