@@ -8,6 +8,7 @@ import { ShoppingCartOverviewComponent } from '../shopping-cart-overview/shoppin
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Coupon } from '../model/coupon-model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import {Sale} from "../model/sale.model";
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -22,12 +23,17 @@ export class ShoppingCartComponent implements OnInit {
   loggedId: number;
   coupons: Coupon[] = [];
 
+  sales: Sale[] = [];
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private changeDetectorRef: ChangeDetectorRef){
   }
 
   ngOnInit(): void {
     this.getShoppingCart();
     this.loggedId = this.authService.user$.value.id;
+    this.marketplaceService.getAllSales().subscribe(result => {
+      this.sales = result.results;
+      console.log(this.sales);
+    });
   }
 
 
@@ -53,5 +59,50 @@ export class ShoppingCartComponent implements OnInit {
         console.log(err);
       }
     })
+  }
+
+  calculateNewPrice(order: OrderItem): number {
+    let newPrice = 0;
+
+    this.sales.forEach(sale => {
+      sale.tourSales?.forEach(tourSale => {
+        if (tourSale.tourId === order.tourId) {
+          newPrice = order.tourPrice - (order.tourPrice * (sale.percentage / 100));
+        }
+      });
+    });
+
+    return newPrice;
+  }
+
+  isOnSale(order: OrderItem): boolean {
+    let isSale = false;
+    let newPrice = 0;
+
+    this.sales.forEach(sale => {
+      sale.tourSales?.forEach(tourSale => {
+        if (tourSale.tourId === order.tourId) {
+          isSale = true;
+          newPrice = order.tourPrice - (order.tourPrice * (sale.percentage / 100));
+          console.log(`The tour is on sale! The new price is: ${newPrice}`);
+        }
+      });
+    });
+
+    return isSale;
+  }
+
+  getDiscountPercentage(order: OrderItem): number {
+    let discountPercentage = 0;
+
+    this.sales.forEach(sale => {
+      sale.tourSales?.forEach(tourSale => {
+        if (tourSale.tourId === order.tourId) {
+          discountPercentage = sale.percentage;
+        }
+      });
+    });
+
+    return discountPercentage;
   }
 }

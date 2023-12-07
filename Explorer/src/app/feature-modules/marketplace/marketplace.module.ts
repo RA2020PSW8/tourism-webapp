@@ -23,6 +23,9 @@ import {MatDatepickerModule} from "@angular/material/datepicker";
 import { CouponCreateComponent } from './coupon-create/coupon-create.component';
 import { CouponViewComponent } from './coupon-view/coupon-view.component';
 import { RouterModule } from '@angular/router';
+import {MatTableModule} from "@angular/material/table";
+import {MatMenuModule} from "@angular/material/menu";
+import { TourManagementComponent } from './dialogs/tour-management/tour-management.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,7 @@ import { RouterModule } from '@angular/router';
     SalesManagementComponent,
     CouponCreateComponent,
     CouponViewComponent,
+    TourManagementComponent,
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -52,7 +56,8 @@ import { RouterModule } from '@angular/router';
     TourAuthoringModule,
     MatNativeDateModule,
     MatDatepickerModule,
-    MapComponent,
+    MatTableModule,
+    MatMenuModule,
     RouterModule
   ]
 })

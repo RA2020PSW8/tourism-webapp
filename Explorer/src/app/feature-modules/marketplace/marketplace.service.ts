@@ -16,6 +16,7 @@ import { Wallet } from './model/wallet.model';
 import {Sale} from "./model/sale.model";
 import { Tourist } from './model/tourist-model';
 import { Coupon } from './model/coupon-model';
+import {TourSale} from "./model/tour-sale.model";
 
 @Injectable({
   providedIn: 'root'
@@ -156,15 +157,15 @@ export class MarketplaceService {
   }
 
   addSale(sale: Sale): Observable<Sale>{
-    return this.http.post<Sale>(environment.apiHost + 'marketplace/sales', sale);
+    return this.http.post<Sale>(`${environment.apiHost}marketplace/sales`, sale);
   }
 
   updateSale(sale: Sale): Observable<Sale>{
   return this.http.put<Sale>(environment.apiHost + 'marketplace/sales', sale);
   }
 
-  removeSale() : Observable<Sale>{
-    return this.http.delete<Sale>(environment.apiHost + 'marketplace/sales');
+  removeSale(id: number) : Observable<Sale>{
+    return this.http.delete<Sale>(`${environment.apiHost}marketplace/sales/${id}`);
   }
 
   getSalesByAuthor(): Observable<PagedResult<Sale>> {
@@ -175,6 +176,9 @@ export class MarketplaceService {
     return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}/author-published`)
   }
 
+  getAllSales(): Observable<PagedResult<Sale>>{
+    return this.http.get<PagedResult<Sale>>(environment.apiHost + 'marketplace/sales');
+  }
 
   getAllTourists(): Observable<PagedResults<Tourist>> {
     return this.http.get<PagedResults<Tourist>>(`${this.userApiUrl}/allTourists`);
@@ -203,4 +207,13 @@ export class MarketplaceService {
   editCoupon(coupon: Coupon) : Observable<PagedResult<Coupon>>{
     return this.http.put<PagedResult<Coupon>>(`${this.couponApiUrl}`, coupon);
   }
+
+  addTourToSale(tourSale: TourSale): Observable<TourSale> {
+    return this.http.post<TourSale>(environment.apiHost + 'marketplace/tour-sale', tourSale )
+  }
+
+    removeTourFromSale(tourId: number): Observable<any> {
+        return this.http.delete(environment.apiHost + `marketplace/tour-sale/${tourId}`);
+    }
+
 }

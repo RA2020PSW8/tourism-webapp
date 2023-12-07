@@ -9,6 +9,7 @@ import { ShoppingCart } from '../model/shopping-cart.model';
 import { Wallet } from '../model/wallet.model';
 import { mergeMap } from 'rxjs';
 import { Coupon } from '../model/coupon-model';
+import {Sale} from "../model/sale.model";
 
 @Component({
   selector: 'xp-shopping-cart-overview',
@@ -18,11 +19,11 @@ import { Coupon } from '../model/coupon-model';
 export class ShoppingCartOverviewComponent implements OnInit {
 
   orders: OrderItem[] =  [];
-
   loggedId: number;
   shoppingCart: ShoppingCart;
   totalPrice: number;
   wallet: Wallet;
+  sales: Sale[] = [];
   coupons: Coupon[][] = []
   selectedCoupons: any = {};
   couponsWithDiscount : Coupon [][] = [];
@@ -32,9 +33,9 @@ export class ShoppingCartOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.getOrders();
+    this.getSales();
     this.getWallet();
     this.loggedId = this.authService.user$.value.id;
-    this.getOrders();
   }
   getOrders(): void{
     this.marketplaceService.getOrdersForUser().subscribe({
@@ -68,6 +69,40 @@ export class ShoppingCartOverviewComponent implements OnInit {
       }
     })
   }
+  getSales(): void {
+    this.marketplaceService.getAllSales().subscribe(result => {
+      this.sales = result.results;
+    });
+  }
+
+  isOnSale(order: OrderItem): boolean {
+    let isSale = false;
+
+    this.sales.forEach(sale => {
+      sale.tourSales?.forEach(tourSale => {
+        if (tourSale.tourId === order.tourId) {
+          isSale = true;
+        }
+      });
+    });
+
+    return isSale;
+  }
+
+  calculateNewPrice(order: OrderItem): number {
+    let newPrice = order.tourPrice;
+
+    this.sales.forEach(sale => {
+      sale.tourSales?.forEach(tourSale => {
+        if (tourSale.tourId === order.tourId) {
+          newPrice -= newPrice * (sale.percentage / 100);
+        }
+      });
+    });
+
+    return newPrice;
+  }
+
 
   selectCoupon(i:any, selectedValue: any): void{
 
@@ -90,9 +125,14 @@ export class ShoppingCartOverviewComponent implements OnInit {
   }
 
   calculateTotalPrice(): number {
-    this.totalPrice = this.orders.reduce((total, order) => total + order.tourPrice, 0);
+    this.totalPrice = this.orders.reduce((total, order) => {
+      let price = this.isOnSale(order) ? this.calculateNewPrice(order) : order.tourPrice;
+      return total + price;
+    }, 0);
+  console.log(this.totalPrice)
     return this.totalPrice;
   }
+
   checkout() : void{
     this.getOrders();
     this.calculateTotalPrice();
@@ -127,5 +167,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
       }
   });
   }
+
+
 
 }

@@ -1,0 +1,57 @@
+.cont {
+  font-family: Arial, sans-serif;
+  max-width: 800px;
+  margin: auto;
+}
+body{
+  color: #fdf8ef
+}
+h1{
+  text-align: center;
+  margin-top: 5%;
+  font-size: 50px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  margin-top: 10%;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background-color: #4CAF50;
+  color: Red;
+}
+
+button {
+  background-color: #3b352d;
+  color: white;
+  padding: 10px 24px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+form {
+  background-color: #fdf8ef;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.mat-form-field {
+  width: 100%;
+  margin-bottom: 15px;
+}

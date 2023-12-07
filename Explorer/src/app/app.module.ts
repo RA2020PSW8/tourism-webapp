@@ -22,6 +22,7 @@ import { EncountersModule } from './feature-modules/encounters-managing/encounte
 import { MatNativeDateModule, NativeDateAdapter, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
