@@ -9,8 +9,7 @@ import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
 import { Equipment } from '../../administration/model/equipment.model';
-import { filter } from 'rxjs/operators';
-import { asyncScheduler } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'xp-campaign-tour-form',
@@ -32,10 +31,11 @@ export class CampaignTourFormComponent implements OnInit {
   public keypoints: Keypoint[] = []
   public equipment: Equipment[] = []
   public dummyArray: Equipment[] = []
+  public draftMade: boolean = false
   public complete : boolean = false
   public difficulty: TourDifficulty
 
-  constructor(private tourAuthoringService: TourAuthoringService,private marketplaceService: MarketplaceService,public authService: AuthService ,private router: Router, private route: ActivatedRoute) {
+  constructor(private tourAuthoringService: TourAuthoringService,private marketplaceService: MarketplaceService,public authService: AuthService ,private router: Router, private route: ActivatedRoute,private snackBar:MatSnackBar) {
     this.newTour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
 
     this.nameForm = new FormGroup({
@@ -91,7 +91,7 @@ export class CampaignTourFormComponent implements OnInit {
 
   addTour(tour : Tour):void{
     if(this.selectedTours.some(t => t.id === tour.id)){
-      alert('This tour has already been selected')
+      this.openSnackBar('This tour has already been selected')
     }else{
     this.selectedTours.push(tour);
     }
@@ -195,7 +195,7 @@ export class CampaignTourFormComponent implements OnInit {
     }
   }
 
- async saveTour(){
+ async saveTourDraft(){
 
     let newTour: Tour = {
       id: this.tourId,
@@ -213,39 +213,68 @@ export class CampaignTourFormComponent implements OnInit {
     if(this.tourId === 0){
       this.tourAuthoringService.addCampaignTour(newTour).subscribe({
         next: (newTour) => { 
-          window.alert("You have successfuly saved your campaign tour");
+          this.openSnackBar('You have successfuly saved your campaign tour');
           this.newTour = newTour;
           this.tourId = newTour.id as number;
         }
       });
-    }else{
 
-      if(this.selectedTours.length < 2){
-        alert('Please select at least two tours for your campaign.');
-        return;
-      }
-      await this.makeCampaign();
-      await this.createKeypoints();
-      await this.loadEquipment();
-      await this.setEquipment();
-      await this.setCampaignDifficulty();
-
-      newTour.distance = Math.floor(this.newTour.distance as number);
-      newTour.duration = this.newTour.duration;
-      newTour.difficulty = this.difficulty;
-
-      this.tourAuthoringService.updateTour(newTour).subscribe({
-        next: (updatedTour) => { 
-          window.alert("You have successfuly updated your tour");
-          this.newTour = updatedTour;
-          this.routeQuery = {
-            keypoints: this.keypoints,
-            transportType: this.newTour.transportType
-          }
-        }
-      });
-
-      this.complete = true;
+      this.draftMade = true;
     }
+  }
+
+  async saveTour(){
+
+    let newTour: Tour = {
+      id: this.tourId,
+      userId: -1,
+      name: this.nameForm.value.name || "",
+      description: this.descriptionForm.value.description || "",
+      price: 999,
+      difficulty: TourDifficulty.MEDIUM || "",
+      transportType: this.transportForm.value.transportType || "",
+      status: Status.CAMPAIGN,
+      statusUpdateTime: new Date(),
+      tags: []
+    };
+
+    if(this.tourId === 0){
+      return;
+    }
+
+    if(this.selectedTours.length < 2){
+      this.openSnackBar('Please select at least two tours for your campaign.');
+      return;
+    }
+    await this.makeCampaign();
+    await this.createKeypoints();
+    await this.loadEquipment();
+    await this.setEquipment();
+    await this.setCampaignDifficulty();
+
+    newTour.distance = Math.floor(this.newTour.distance as number);
+    newTour.duration = this.newTour.duration;
+    newTour.difficulty = this.difficulty;
+
+    this.tourAuthoringService.updateTour(newTour).subscribe({
+      next: (updatedTour) => { 
+        this.newTour = updatedTour;
+        this.routeQuery = {
+          keypoints: this.keypoints,
+          transportType: this.newTour.transportType
+        }
+        window.alert("You have successfuly updated your tour");
+      }
+    });
+
+    this.complete = true;
+  }
+
+  openSnackBar(message:string,action:string = 'OK'){
+    this.snackBar.open(message,action,{
+      duration : 3000,
+      verticalPosition:'bottom',
+      panelClass: 'snackBar'
+    });
   }
 }

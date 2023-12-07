@@ -1,39 +1,39 @@
 <div class="main">
-    <div class="form-container" *ngIf="!complete">
+    <div class="form-container" *ngIf="!draftMade && !complete">
         <mat-stepper [linear]="true">
             <mat-step [stepControl]="nameForm">
-                <form [formGroup]="nameForm">
+                <form [formGroup]="nameForm" class="stepper-form">
                     <ng-template matStepLabel>What's your tour's name?</ng-template>
-                    <mat-form-field>
+                    <mat-form-field style="width: 70%;">
                         <mat-label>Name</mat-label>
                         <input matInput formControlName="name" type="text"/>
                     </mat-form-field>
                     <div>
-                        <button mat-button matStepperNext>Next</button>
+                        <button color="accent" mat-flat-button matStepperNext>Next</button>
                     </div>
                 </form>
             </mat-step>
             <mat-step [stepControl]="descriptionForm">
-                <form [formGroup]="descriptionForm">
+                <form [formGroup]="descriptionForm" class="stepper-form">
                     <ng-template matStepLabel>Describe your tour</ng-template>
-                    <mat-form-field>
+                    <mat-form-field style="width: 70%;">
                         <mat-label>Description</mat-label>
                         <textarea matInput
                         cdkTextareaAutosize
                         cdkAutosizeMinRows="2"
                         formControlName="description"
-                        cdkAutosizeMaxRows="5"></textarea>
+                        cdkAutosizeMaxRows="10"></textarea>
                         </mat-form-field>
                         <div>
                             <button mat-button matStepperPrevious>Back</button>
-                            <button mat-button matStepperNext>Next</button>
+                            <button color="accent" mat-flat-button matStepperNext>Next</button>
                         </div>
                 </form>
             </mat-step>
             <mat-step [stepControl]="transportForm">
-                <form [formGroup]="transportForm">
-                    <ng-template matStepLabel>What is the best way to?</ng-template>
-                    <mat-form-field>
+                <form [formGroup]="transportForm" class="stepper-form">
+                    <ng-template matStepLabel>What's the best way of transportation?</ng-template>
+                    <mat-form-field style="width: 70%;">
                         <mat-label>Transport type</mat-label>
                         <mat-select formControlName="transportType" matInput required>
                             <mat-option value="WALK">Walk</mat-option>
@@ -44,7 +44,7 @@
                     </mat-form-field>
                     <div>
                         <button mat-button matStepperPrevious>Back</button>
-                        <button color="primary" type="submit" (click)="saveTour()" mat-raised-button>
+                        <button color="primary" type="submit" (click)="saveTourDraft()" mat-raised-button>
                             <span>Save</span>
                         </button>
                     </div>
@@ -53,7 +53,7 @@
         </mat-stepper>
     </div>
 
-    <div class="tables-container" *ngIf="!complete">
+    <div class="tables-container" *ngIf="draftMade && !complete">
         <h1>Avaliable tours</h1>
         <div class="table-container">
             <table>
@@ -99,7 +99,7 @@
             </table>
         </div>
     </div>
-    <button *ngIf="!complete" color="accent" mat-flat-button (click)="saveTour()" style="width: 80%; align-self: center; margin-top: 3%;">
+    <button *ngIf="draftMade && !complete" color="accent" mat-flat-button (click)="saveTour()" style="width: 80%; align-self: center; margin-top: 3%;">
         Create
     </button>
     <div class="cont" *ngIf="complete">

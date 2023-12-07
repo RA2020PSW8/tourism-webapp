@@ -23,6 +23,18 @@
     align-self: center;
 }
 
+.stepper-container{
+    width: 60%;
+    height: 100%;
+}
+
+.stepper-form{
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .map-container{
     width: 70%;
     height: 25%;
@@ -79,4 +91,8 @@ tbody tr:last-of-type {
 tbody tr.active-row {
     font-weight: bold;
     color: #3f51b5;
+}
+
+.snackBar{
+    z-index: 11000;
 }

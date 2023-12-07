@@ -18,6 +18,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-form.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatStepperModule } from '@angular/material/stepper';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     TimePipe,
     MapComponent,
     MarketplaceModule,
-    MatStepperModule
+    MatStepperModule,
+    MatSnackBarModule
   ],
   exports: [
     ClubsComponent,
