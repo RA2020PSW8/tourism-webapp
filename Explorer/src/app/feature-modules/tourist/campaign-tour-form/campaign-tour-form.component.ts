@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
 import { Equipment } from '../../administration/model/equipment.model';
 import { filter } from 'rxjs/operators';
+import { asyncScheduler } from 'rxjs';
 
 @Component({
   selector: 'xp-campaign-tour-form',
@@ -30,6 +31,7 @@ export class CampaignTourFormComponent implements OnInit {
   public equipment: Equipment[] = []
   public dummyArray: Equipment[] = []
   public complete : boolean = false
+  public difficulty: TourDifficulty
 
   constructor(private tourAuthoringService: TourAuthoringService,private marketplaceService: MarketplaceService,public authService: AuthService ,private router: Router, private route: ActivatedRoute) {
     this.newTour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
@@ -37,7 +39,6 @@ export class CampaignTourFormComponent implements OnInit {
     this.tourForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
-      difficulty: new FormControl(''),
       transportType: new FormControl(''),
     });
   }
@@ -82,7 +83,11 @@ export class CampaignTourFormComponent implements OnInit {
   }
 
   addTour(tour : Tour):void{
+    if(this.selectedTours.some(t => t.id === tour.id)){
+      alert('This tour has already been selected')
+    }else{
     this.selectedTours.push(tour);
+    }
   }
 
   removeTour(tour : Tour):void{
@@ -98,7 +103,7 @@ export class CampaignTourFormComponent implements OnInit {
     }
   }
 
-  async x(): Promise<void> {
+  async setEquipment(): Promise<void> {
     this.equipment = this.dummyArray.filter((equipment, index, self) =>
       index === self.findIndex((e) => e.name === equipment.name)
     );
@@ -152,6 +157,37 @@ export class CampaignTourFormComponent implements OnInit {
      }
   }
 
+  calculateCampaignDifficulty():number{
+    let avg = 0;
+    this.selectedTours.forEach(t => {
+      if(t.difficulty === 'EXTREME'){
+        avg += 3;
+      }else if(t.difficulty === 'HARD'){
+        avg += 2;
+      }else if(t.difficulty === 'MEDIUM'){
+        avg += 1;
+      }else{
+      }
+    })
+
+    return Math.ceil(avg/this.selectedTours.length);
+  }
+
+  async setCampaignDifficulty(){
+
+    let difficulty = this.calculateCampaignDifficulty();
+
+    if(difficulty === 0){
+      this.difficulty = TourDifficulty.EASY;
+    }else if(difficulty === 1){
+      this.difficulty = TourDifficulty.MEDIUM;
+    }else if(difficulty === 2){
+      this.difficulty = TourDifficulty.HARD;
+    }else{
+      this.difficulty = TourDifficulty.EXTREME;
+    }
+  }
+
  async saveTour(){
 
     let newTour: Tour = {
@@ -177,12 +213,20 @@ export class CampaignTourFormComponent implements OnInit {
       });
     }else{
 
+      if(this.selectedTours.length < 2){
+        alert('Please select at least two tours for your campaign.');
+        return;
+      }
       await this.makeCampaign();
       await this.createKeypoints();
       await this.loadEquipment();
-      await this.x();
+      await this.setEquipment();
+      await this.setCampaignDifficulty();
+
       newTour.distance = Math.floor(this.newTour.distance as number);
       newTour.duration = this.newTour.duration;
+      newTour.difficulty = this.difficulty;
+
       this.tourAuthoringService.updateTour(newTour).subscribe({
         next: (updatedTour) => { 
           window.alert("You have successfuly updated your tour");

@@ -16,16 +16,6 @@
                 </mat-form-field>
         
                 <mat-form-field>
-                    <mat-label>Difficulty</mat-label>
-                    <mat-select formControlName="difficulty" matInput required>
-                        <mat-option value="EASY">Easy</mat-option>
-                        <mat-option value="MEDIUM">Medium</mat-option>
-                        <mat-option value="HARD">Hard</mat-option>
-                        <mat-option value="EXTREME">Extreme</mat-option>
-                    </mat-select>
-                </mat-form-field>
-        
-                <mat-form-field>
                     <mat-label>Transport type</mat-label>
                     <mat-select formControlName="transportType" matInput required>
                         <mat-option value="WALK">Walk</mat-option>
@@ -41,41 +31,31 @@
         </form>
     </div>
 
-    <div class="form-container">
+    <div class="tables-container">
         <h1>Avaliable tours</h1>
-        <div style="display: flex; flex-direction: row;">
+        <div class="table-container">
             <table>
-                <thead>
-                    <th>Avaliable tours</th>
-                    <th> </th>
-                    <th> </th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let tour of boughtTours">
-                        <td>{{tour.name}}</td>
-                        <td>{{tour.duration}}</td>
-                        <td>{{tour.difficulty}}</td>
-                        <td>
-                            <button color="accent" mat-icon-button (click)="addTour(tour)">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>Duration</td>
+                    <td>Difficulty</td>
+                    <td>A</td>
+                </tr>
+                <tr *ngFor="let tour of boughtTours">
+                    <td>{{tour.name}}</td>
+                    <td>{{tour.duration}}</td>
+                    <td>{{tour.difficulty}}</td>
+                    <td>
+                        <button color="accent" mat-icon-button (click)="addTour(tour)">
+                            <mat-icon>add</mat-icon>
+                        </button>
+                    </td>
+                </tr>
             </table>
         </div>
-    </div> 
-    <div class="form-container">
         <h1>Selected tours</h1>
-        <div style="display: flex; flex-direction: row;">
+        <div class="table-container">
             <table>
-                <thead>
-                    <th>Selected tours</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </thead>
                 <tbody>
                     <tr *ngFor="let tour of selectedTours">
                         <td>{{tour.name}}</td>
@@ -90,10 +70,10 @@
                 </tbody>
             </table>
         </div>
-        <button color="accent" mat-stroked-button (click)="saveTour()" style="margin-top: 3%;">
-            Create
-        </button>
     </div>
+    <button color="accent" mat-stroked-button (click)="saveTour()" style=" width: 50%;align-self: center; margin-top: 3%;">
+        Create
+    </button>
     <div class="cont" *ngIf="complete">
             <h1>Tour information</h1>
             <p><strong>Name:</strong> {{newTour.name}}</p>
@@ -101,6 +81,7 @@
             
             <p *ngIf="newTour.distance"><strong>Travel distance:</strong> {{newTour.distance | number:'1.2-2'}} km</p>
             <p *ngIf="newTour.duration"><strong>Tour duration:</strong> {{newTour.duration | time}}</p>
+            <p *ngIf="newTour.difficulty"><strong>Tour difficulty</strong> {{newTour.difficulty}}</p>
 
             <table>
                 <thead>
