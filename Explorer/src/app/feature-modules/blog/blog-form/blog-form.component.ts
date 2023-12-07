@@ -31,8 +31,13 @@ export class BlogFormComponent implements OnChanges, OnInit {
   displayedColumns: string[] = ['select', 'name', 'description'];
   allEquipment: Equipment[];
   selection = new SelectionModel<any>(true, []);
+  titleForm: FormGroup
 
-  constructor(private blogService: BlogService, private tourAuthoringService: TourAuthoringService) { }
+  constructor(private blogService: BlogService, private tourAuthoringService: TourAuthoringService) { 
+    this.titleForm = new FormGroup({
+      title: new FormControl('',Validators.required),
+    });
+  }
 
   blogForm = new FormGroup({
     title: new FormControl('',Validators.required),
@@ -42,9 +47,7 @@ export class BlogFormComponent implements OnChanges, OnInit {
     status: new FormControl(''),
   });
 
-  titleForm = new FormGroup({
-    title: new FormControl('',Validators.required),
-  });
+
 
   descriptionForm = new FormGroup({
     description: new FormControl('',Validators.required),
