@@ -20,7 +20,9 @@ import { asyncScheduler } from 'rxjs';
 export class CampaignTourFormComponent implements OnInit {
 
   public newTour: Tour
-  public tourForm: FormGroup
+  public nameForm:FormGroup
+  public descriptionForm:FormGroup
+  public transportForm:FormGroup
   public tourId: number | undefined
   public routeQuery: RouteQuery
   public routeInfo: RouteInfo
@@ -35,10 +37,16 @@ export class CampaignTourFormComponent implements OnInit {
 
   constructor(private tourAuthoringService: TourAuthoringService,private marketplaceService: MarketplaceService,public authService: AuthService ,private router: Router, private route: ActivatedRoute) {
     this.newTour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
-    
-    this.tourForm = new FormGroup({
+
+    this.nameForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
+    });
+
+    this.descriptionForm = new FormGroup({
       description: new FormControl(''),
+    });
+
+    this.transportForm = new FormGroup({
       transportType: new FormControl(''),
     });
   }
@@ -51,7 +59,6 @@ export class CampaignTourFormComponent implements OnInit {
       if(this.tourId !== 0){
         this.tourAuthoringService.getTourById(this.tourId).subscribe((res: Tour) => {
           this.newTour = res;
-          this.tourForm.patchValue(this.newTour);
           this.getTourKeypoints();
         });
       }else{
@@ -193,11 +200,11 @@ export class CampaignTourFormComponent implements OnInit {
     let newTour: Tour = {
       id: this.tourId,
       userId: -1,
-      name: this.tourForm.value.name || "",
-      description: this.tourForm.value.description || "",
+      name: this.nameForm.value.name || "",
+      description: this.descriptionForm.value.description || "",
       price: 999,
-      difficulty: this.tourForm.value.difficulty || "",
-      transportType: this.tourForm.value.transportType || "",
+      difficulty: TourDifficulty.MEDIUM || "",
+      transportType: this.transportForm.value.transportType || "",
       status: Status.CAMPAIGN,
       statusUpdateTime: new Date(),
       tags: []
