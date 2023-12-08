@@ -133,17 +133,27 @@ export class ShoppingCartOverviewComponent implements OnInit {
     return this.totalPrice;
   }
 
-  checkout() : void{
+  checkout(): void {
     this.getOrders();
     this.calculateTotalPrice();
-    if(this.wallet.adventureCoins < this.totalPrice){
+  
+    if (this.wallet.adventureCoins < this.totalPrice) {
       console.log(this.wallet);
-      console.log('ukupna cena: ' ,this.totalPrice);
+      console.log('ukupna cena: ', this.totalPrice);
       alert('Error. You dont have enough ACs(adventure coins) in your wallet.');
-    } else{
-
-      if(window.confirm('Are you sure that you want to purchase these tours?')){
-        this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).subscribe({
+    } else {
+      if (window.confirm('Are you sure that you want to purchase these tours?')) {
+        this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).pipe(
+          
+          mergeMap(() => {
+            
+            const couponDeletionPromises = Object.values(this.selectedCoupons).map((couponId: any) => {
+              return this.marketplaceService.deleteCoupon(couponId).toPromise();
+            });
+  
+            return Promise.all(couponDeletionPromises);
+          })
+        ).subscribe({
           next: (_) => {
             window.alert('Successfully purchased');
             this.getOrders();
@@ -152,10 +162,11 @@ export class ShoppingCartOverviewComponent implements OnInit {
             console.log(err);
             alert('Error. Some tours were already purchased.');
           }
-        })
+        });
       }
     }
   }
+  
 
   getWallet(): void {
     this.marketplaceService.getWalletForUser().subscribe({
