@@ -8,6 +8,7 @@
                 <tr>
                     <th>Code</th>
                     <th>Expiration</th>
+                    <th>Discount</th>
                     <th>Delete</th>
                     <th>Update</th>
                 </tr>
@@ -16,6 +17,7 @@
                 <tr *ngFor="let coupon of coupons">
                     <td>{{coupon.code}}</td>
                     <td>{{coupon.expiryDate}}</td>
+                    <td>{{coupon.discount}}%</td>
                     <td>
                         <button (click)="deleteCoupon(coupon.id)" mat-raised-button>Delete</button>
                     </td>
