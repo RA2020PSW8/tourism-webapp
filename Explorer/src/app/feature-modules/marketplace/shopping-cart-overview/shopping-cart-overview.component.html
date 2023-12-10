@@ -8,7 +8,7 @@
                 <xp-shopping-cart [order]="orders[i]"></xp-shopping-cart>
                 <mat-form-field class="couponField">
                     <mat-label>Coupons</mat-label>
-                    <mat-select (valueChange)="selectCoupon(i, $event)" formControlName="couponId" matInput>
+                    <mat-select (valueChange)="selectCoupon(i, $event,orders[i].tourId!)" formControlName="couponId" matInput>
                         <mat-option *ngFor="let coupon of coupons[i]" [value]="coupon.id" [disabled]="isCouponSelected(coupon.id)">{{coupon.code}} {{coupon.expiryDate}}</mat-option>
                     </mat-select>
                 </mat-form-field>

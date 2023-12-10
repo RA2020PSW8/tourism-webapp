@@ -28,6 +28,8 @@ export class ShoppingCartOverviewComponent implements OnInit {
   selectedCoupons: any = {};
   couponsWithDiscount : Coupon [][] = [];
   originalPrices: { [key: string]: number } = {};
+  selectedCouponObjects: Coupon[] = []; 
+
 
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService){}
 
@@ -104,7 +106,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
   }
 
 
-  selectCoupon(i:any, selectedValue: any): void{
+  selectCoupon(i:any, selectedValue: any, orderItemTourId: number): void{
 
     this.selectedCoupons[i] = selectedValue;
 
@@ -117,6 +119,20 @@ export class ShoppingCartOverviewComponent implements OnInit {
       const originalTourPrice = this.orders[i].tourPrice;
 
       this.orders[i].tourPrice = originalTourPrice - (originalTourPrice * (discount / 100));
+
+      const order = this.orders.find(order => order.tourId === orderItemTourId);
+      if (order) {
+        selectedCoupon.tourId = order.tourId;
+      }
+
+      const existingCouponIndex = this.selectedCouponObjects.findIndex(c => c.id === selectedCoupon.id);
+
+      if (existingCouponIndex !== -1) {
+        this.selectedCouponObjects[existingCouponIndex] = selectedCoupon;
+      } else {
+        this.selectedCouponObjects.push(selectedCoupon);
+      }
+      
     }
   }
 
@@ -143,16 +159,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
       alert('Error. You dont have enough ACs(adventure coins) in your wallet.');
     } else {
       if (window.confirm('Are you sure that you want to purchase these tours?')) {
-        this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id)).pipe(
-          
-          mergeMap(() => {
-            
-            const couponDeletionPromises = Object.values(this.selectedCoupons).map((couponId: any) => {
-              return this.marketplaceService.deleteCoupon(couponId).toPromise();
-            });
-  
-            return Promise.all(couponDeletionPromises);
-          })
+        this.marketplaceService.buyShoppingCart(Number(this.shoppingCart.id), this.selectedCouponObjects).pipe(
         ).subscribe({
           next: (_) => {
             window.alert('Successfully purchased');

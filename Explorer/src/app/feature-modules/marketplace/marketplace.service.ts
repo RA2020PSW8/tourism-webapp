@@ -128,8 +128,8 @@ export class MarketplaceService {
     return this.http.get<PagedResults<TourReview>>(`${this.tourReviewApiUrl}/tour/${tourId}`);
   }
 
-  buyShoppingCart(shoppingCartId: number): Observable<void> {
-    return this.http.put<void>(this.tourApiUrl + '/token/' + shoppingCartId, null);
+  buyShoppingCart(id: number, selectedCoupons: Coupon[]): Observable<void> {
+    return this.http.post<void>(`${this.tourApiUrl}/token/${id}`, selectedCoupons);
   }
 
   calculateAverageRate(tourReviews: TourReview[]): Observable<number> {
