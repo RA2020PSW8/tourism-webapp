@@ -36,8 +36,8 @@ export class CampaignTourFormComponent implements OnInit {
   public difficulty: TourDifficulty
 
   constructor(private tourAuthoringService: TourAuthoringService,private marketplaceService: MarketplaceService,public authService: AuthService ,private router: Router, private route: ActivatedRoute,private snackBar:MatSnackBar) {
+    window.scrollTo(0, 0);
     this.newTour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
-
     this.nameForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
     });
@@ -120,6 +120,7 @@ export class CampaignTourFormComponent implements OnInit {
   getTourKeypoints(): void{
     this.tourAuthoringService.getKeypointsByTour(this.tourId as number).subscribe(res => {
       this.newTour.keypoints = res.results;
+     
       this.routeQuery = {
         keypoints: this.keypoints,
         transportType: this.newTour.transportType
@@ -151,7 +152,7 @@ export class CampaignTourFormComponent implements OnInit {
     })
   }
 
-  getRouteInfo(event : RouteInfo):void{
+  getRouteInfo(event : RouteInfo){
     if(this.newTour.duration !== event.duration || this.newTour.distance !== event.distance){
       this.newTour.duration = event.duration;
       this.newTour.distance = event.distance;
@@ -213,7 +214,7 @@ export class CampaignTourFormComponent implements OnInit {
     if(this.tourId === 0){
       this.tourAuthoringService.addCampaignTour(newTour).subscribe({
         next: (newTour) => { 
-          this.openSnackBar('You have successfuly saved your campaign tour');
+          this.openSnackBar('Please select tours for your campaign');
           this.newTour = newTour;
           this.tourId = newTour.id as number;
         }
@@ -259,11 +260,12 @@ export class CampaignTourFormComponent implements OnInit {
     this.tourAuthoringService.updateTour(newTour).subscribe({
       next: (updatedTour) => { 
         this.newTour = updatedTour;
+        this.openSnackBar('You have successfuly made your campaign. Congrats!');
+
         this.routeQuery = {
-          keypoints: this.keypoints,
+          keypoints: updatedTour.keypoints || [],
           transportType: this.newTour.transportType
         }
-        window.alert("You have successfuly updated your tour");
       }
     });
 
@@ -272,9 +274,8 @@ export class CampaignTourFormComponent implements OnInit {
 
   openSnackBar(message:string,action:string = 'OK'){
     this.snackBar.open(message,action,{
-      duration : 3000,
-      verticalPosition:'bottom',
-      panelClass: 'snackBar'
+      duration : 2500,
+      verticalPosition:'bottom'
     });
   }
 }
