@@ -39,10 +39,13 @@ export class TourCardCompactComponent {
       return (kp1.position || 0) - (kp2.position || 0);
     });
     if (this.tour.keypoints) {
-      this.startingKeypoint = this.tour.keypoints[0] ? this.tour.keypoints[0] : {name: '', latitude: 0, longitude: 0};
-    }
-    for (let keypoint of this.tour.keypoints ?? []) {
-      this.images.push(keypoint.image ?? "");
+      this.startingKeypoint = this.tour.keypoints[0];
+      for (let keypoint of this.tour.keypoints) {
+        if(keypoint.name !== '')
+          this.images.push(keypoint.image ?? "");
+      }
+    }else{
+      this.startingKeypoint = {name: '', latitude: 0, longitude: 0};
     }
   }
 
