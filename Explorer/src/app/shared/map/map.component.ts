@@ -11,6 +11,19 @@ import { RouteInfo } from '../model/routeInfo.model';
 import { TransportType } from 'src/app/feature-modules/tour-authoring/model/tour.model';
 import { MarkerPosition } from '../model/markerPosition.model';
 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+// 
+
 @Component({
   standalone: true,
   selector: 'app-map',
@@ -19,6 +32,7 @@ import { MarkerPosition } from '../model/markerPosition.model';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit, OnChanges {
+  private readonly markersPath = "assets/map-markers";
 
   private map: any;
   private routeControl: L.Routing.Control;
@@ -43,26 +57,122 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() moveMarkers: boolean;
   @Input() drawRadiusOnClick: boolean;
 
-  /* Icons */
-  yellowIcon = L.icon({
-    iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
-    iconSize: [32, 32], 
-    iconAnchor: [16, 16], 
-  });
-  blueIcon = L.icon({
+  //#region Icons
+  customIconSize: L.PointExpression = [48, 48];
+  customIconAnchor: L.PointExpression = [24, 46];
+
+  // there is probably an easier way for this
+  oldBlueIcon = L.icon({
     iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
   });
+  yellowIcon = L.icon({
+    iconUrl: `${this.markersPath}/yellow-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
   redIcon = L.icon({
-    iconUrl: 'https://static.vecteezy.com/system/resources/previews/023/554/762/original/red-map-pointer-icon-on-a-transparent-background-free-png.png',
-    iconSize: [48, 48], 
-    iconAnchor: [16, 16],
+    iconUrl: `${this.markersPath}/red-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
   });
   greenIcon = L.icon({
-    iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Map_pin_icon_green.svg/1504px-Map_pin_icon_green.svg.png',
-    iconSize: [22.5, 32], 
-    iconAnchor: [16, 16],
-  })
-  /* Icons end */
+    iconUrl: `${this.markersPath}/green-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  blueIcon = L.icon({
+    iconUrl: `${this.markersPath}/blue-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+
+  gamblingIcon = L.icon({
+    iconUrl: `${this.markersPath}/gambling-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  gamblingStartedIcon = L.icon({
+    iconUrl: `${this.markersPath}/gambling-started-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  gamblingCompletedIcon = L.icon({
+    iconUrl: `${this.markersPath}/gambling-completed-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  locationIcon = L.icon({
+    iconUrl: `${this.markersPath}/location-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  locationStartedIcon = L.icon({
+    iconUrl: `${this.markersPath}/location-started-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  locationCompletedIcon = L.icon({
+    iconUrl: `${this.markersPath}/location-completed-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  miscIcon = L.icon({
+    iconUrl: `${this.markersPath}/misc-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  miscStartedIcon = L.icon({
+    iconUrl: `${this.markersPath}/misc-started-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  miscCompletedIcon = L.icon({
+    iconUrl: `${this.markersPath}/misc-completed-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  socialIcon = L.icon({
+    iconUrl: `${this.markersPath}/social-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  socialStartedIcon = L.icon({
+    iconUrl: `${this.markersPath}/social-started-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  socialCompletedIcon = L.icon({
+    iconUrl: `${this.markersPath}/social-completed-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+
+  objectIcon = L.icon({
+    iconUrl: `${this.markersPath}/object-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  parkingIcon = L.icon({
+    iconUrl: `${this.markersPath}/parking-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  restaurantIcon = L.icon({
+    iconUrl: `${this.markersPath}/restaurant-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  walkingIcon = L.icon({
+    iconUrl: `${this.markersPath}/walking-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  wcIcon = L.icon({
+    iconUrl: `${this.markersPath}/wc-marker.png`,
+    iconSize: this.customIconSize, 
+    iconAnchor: this.customIconAnchor, 
+  });
+  //#endregion
 
   constructor(private mapService: MapService) {
     this.enableClicks = true;
@@ -181,7 +291,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
       if (this.markType == 'Object') {
         const customIcon = L.icon({
           iconUrl: 'https://www.pngall.com/wp-content/uploads/2017/05/Map-Marker-Free-Download-PNG.png',
-          iconSize: [32, 32],
+          iconSize: this.customIconSize,
           iconAnchor: [16, 16],
         });
         this.clickMarker = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
@@ -273,20 +383,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
   setMarker(lat: number, lng: number, color: string = 'blue', title: string = ''): void {
     let markerIcon = this.blueIcon;
-    switch(color){
-      case 'blue': 
-        markerIcon = this.blueIcon;
-        break;
-      case 'yellow':
-        markerIcon = this.yellowIcon;
-        break;
-      case 'red':
-        markerIcon = this.redIcon;
-        break;
-      case 'green':
-        markerIcon = this.greenIcon;
-        break;
-    }
+    markerIcon = this.getMarkerIcon(color);
     
     let newMarker = new L.Marker([lat, lng], {icon: markerIcon});
     if(title && title !== '') {
@@ -302,5 +399,37 @@ export class MapComponent implements AfterViewInit, OnChanges {
       fillOpacity: 0.2,
       radius: radius * 1000
     }).addTo(this.drawLayer);
+  }
+
+  getMarkerIcon(color: string):L.Icon {
+    // would be clean if this could work:
+    // const iconName = `${color}Icon`
+    // return this[iconName]; // this['redIcon'] works -.-
+
+    switch(color)
+    {
+      case 'red': return this.redIcon;
+      case 'yellow': return this.yellowIcon;
+      case 'green': return this.greenIcon;
+      case 'blue': return this.blueIcon;
+      case 'gambling': return this.gamblingIcon;
+      case 'gambling-started': return this.gamblingStartedIcon;
+      case 'gambling-completed': return this.gamblingCompletedIcon;
+      case 'location': return this.locationIcon;
+      case 'location-started': return this.locationStartedIcon;
+      case 'location-completed': return this.locationCompletedIcon;
+      case 'misc': return this.miscIcon;
+      case 'misc-started': return this.miscStartedIcon;
+      case 'misc-completed': return this.miscCompletedIcon;
+      case 'social': return this.socialIcon;
+      case 'social-started': return this.socialStartedIcon;
+      case 'social-completed': return this.socialCompletedIcon;
+      case 'object': return this.objectIcon;
+      case 'parking': return this.parkingIcon;
+      case 'restaurant': return this.restaurantIcon;
+      case 'walking': return this.walkingIcon;
+      case 'wc': return this.wcIcon;
+      default: return this.blueIcon;
+    }
   }
 }
