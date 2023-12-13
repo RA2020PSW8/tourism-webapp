@@ -41,7 +41,7 @@
     <div class="container" *ngIf="!router.url.includes('/home')">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
             <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of customTours">
-                <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
+                <xp-tour-card-compact [tour]="tour" [isCustom]="true"></xp-tour-card-compact>
             </div>
         </div>
         <div *ngIf="!isLoading && tours.length === 0">

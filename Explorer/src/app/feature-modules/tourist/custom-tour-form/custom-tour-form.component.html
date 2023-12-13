@@ -12,6 +12,7 @@
     </div>  
     <div>
         <h1>Keypoints information</h1>
+        <p *ngIf="keypoints.length < 2" style="color: red">To complete your custom tour you have to add at least 2 keypoints.</p>
         <div style="display: flex; flex-direction: row;">
             <xp-keypoint [keypoints]="keypoints" [isCustom]="true" (keypointDeleted)="getTourKeypoints()"></xp-keypoint>
             <button style="margin-left: 1rem;" color="primary" type="button" mat-raised-button (click)="openPublicKeypointList = true">Select public keypoints</button>
