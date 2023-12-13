@@ -56,7 +56,7 @@ export class CustomTourFormComponent {
   ngOnChanges(): void {
   }
 
-  saveTour(feedback: Boolean = true): void {
+  saveTour(statusChange: string = ''): void {
     let tour: Tour = {
       id: this.tourId,
       userId: -1,
@@ -65,7 +65,7 @@ export class CustomTourFormComponent {
       price: 0,
       difficulty: this.tourForm.value.difficulty || "",
       transportType: this.tourForm.value.transportType || "",
-      status: this.keypoints.length < 2 ? Status.CUSTOM : Status.DRAFT,
+      status: Status.CUSTOM,
       tags: [],
     };
 
@@ -84,8 +84,7 @@ export class CustomTourFormComponent {
       tour.duration = this.tour.duration;
       this.tourAuthoringService.updateTour(tour).subscribe({
         next: (updatedTour) => { 
-          if(feedback)
-            window.alert("You have successfuly saved your tour");
+          window.alert("You have successfuly saved your tour");
           this.tour = updatedTour;
           this.routeQuery = {
             keypoints: this.keypoints,
@@ -105,7 +104,6 @@ export class CustomTourFormComponent {
       }
     });
     this.mode = 'add';
-    this.saveTour(false)
   }
 
   setTourRoute(event: RouteInfo){

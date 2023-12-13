@@ -6,7 +6,7 @@ import { MarketplaceService } from '../marketplace.service';
 import { MatDialog } from '@angular/material/dialog';
 import { CartSuccessComponent } from '../dialogs/cart-success/cart-success.component';
 import { CartWarningComponent } from '../dialogs/cart-warning/cart-warning.component';
-import { Status, Tour, TourDifficulty, TransportType } from '../../tour-authoring/model/tour.model';
+import { Tour } from '../../tour-authoring/model/tour.model';
 import { TourReview } from '../../tour-execution/model/tour-review.model';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Input, Output, EventEmitter } from '@angular/core';
@@ -28,7 +28,6 @@ export class TourCardCompactComponent {
   public currentIndex = 0;
   public keypoints: Keypoint[] = [];
   private lastOrderId: number;
-  @Input() isCustom: Boolean = false;
 
   constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) {
     this.lastOrderId = 0;
@@ -39,13 +38,10 @@ export class TourCardCompactComponent {
       return (kp1.position || 0) - (kp2.position || 0);
     });
     if (this.tour.keypoints) {
-      this.startingKeypoint = this.tour.keypoints[0];
-      for (let keypoint of this.tour.keypoints) {
-        if(keypoint.name !== '')
-          this.images.push(keypoint.image ?? "");
-      }
-    }else{
-      this.startingKeypoint = {name: '', latitude: 0, longitude: 0};
+      this.startingKeypoint = this.tour.keypoints[0] ? this.tour.keypoints[0] : {name: '', latitude: 0, longitude: 0};
+    }
+    for (let keypoint of this.tour.keypoints ?? []) {
+      this.images.push(keypoint.image ?? "");
     }
   }
 
@@ -116,9 +112,4 @@ export class TourCardCompactComponent {
     });
   }
 
-  editTour(): void{
-    this.router.navigate(
-      ['/custom-tour', this.tour.id]
-    )
-  }
 }

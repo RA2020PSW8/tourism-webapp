@@ -29,14 +29,11 @@ export class KeypointComponent implements OnInit{
     if(window.confirm('Are you sure that you want to delete this keypoint?')){
       this.tourAuthoringService.deleteKeypoint(id).subscribe({
         next: () => {
-          if(!this.isCustom){
-            this.tourAuthoringService.deleteKeypointEncounters(id).subscribe({
-              next: () => {
-                this.keypointDeleted.emit();
-              }
-            });
-          }
-          this.keypointDeleted.emit();
+          this.tourAuthoringService.deleteKeypointEncounters(id).subscribe({
+            next: () => {
+              this.keypointDeleted.emit();
+            }
+          });
         },
         error: () => {
           
