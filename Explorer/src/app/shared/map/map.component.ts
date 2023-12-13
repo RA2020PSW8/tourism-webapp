@@ -56,6 +56,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() allowMultipleMarkers: boolean;
   @Input() moveMarkers: boolean;
   @Input() drawRadiusOnClick: boolean;
+  @Input() fitSelectedRoutes: boolean;
 
   //#region Icons
   customIconSize: L.PointExpression = [48, 48];
@@ -180,6 +181,7 @@ export class MapComponent implements AfterViewInit, OnChanges {
     this.toggleOff = false;
     this.allowMultipleMarkers = true;
     this.drawRadiusOnClick = false;
+    this.fitSelectedRoutes = false;
   }
 
   public handleButtonClick(): void {
@@ -366,7 +368,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
 
       this.routeControl = L.Routing.control({
         waypoints: lwaypoints,
-        router: L.routing.mapbox(environment.mapBoxApiKey, { profile: profile })
+        router: L.routing.mapbox(environment.mapBoxApiKey, { profile: profile }),
+        fitSelectedRoutes: this.fitSelectedRoutes
       }).addTo(this.map);
 
       this.routeControl.on('routesfound', function (e: any) {
@@ -381,13 +384,13 @@ export class MapComponent implements AfterViewInit, OnChanges {
     }
   }
 
-  setMarker(lat: number, lng: number, color: string = 'blue', title: string = ''): void {
+  setMarker(lat: number, lng: number, color: string = 'blue', title: string = '', isTitlePermanent: boolean = false) {
     let markerIcon = this.blueIcon;
     markerIcon = this.getMarkerIcon(color);
     
     let newMarker = new L.Marker([lat, lng], {icon: markerIcon});
     if(title && title !== '') {
-      newMarker.bindTooltip(title, { permanent: false }).openTooltip();
+      newMarker.bindTooltip(title, { permanent: isTitlePermanent }).openTooltip();
     }
     newMarker.addTo(this.markerLayer);
   }

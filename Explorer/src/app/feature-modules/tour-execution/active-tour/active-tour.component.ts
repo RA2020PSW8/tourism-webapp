@@ -95,7 +95,6 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
               encountersResult.results.forEach(encounter => {
                 var encounterCompletion = result ? result.filter(ec => ec.encounterId === encounter.id)[0] : null;
                 var encounterColor = encounter.type.toString().toLowerCase(), encounterRange = 0;
-                console.log("encounterColor");
                 if(encounterCompletion != null) {
                   switch(encounterCompletion.status){
                     case EncounterCompletionStatus.PROGRESSING:
