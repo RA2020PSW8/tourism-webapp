@@ -56,7 +56,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
   @Input() allowMultipleMarkers: boolean;
   @Input() moveMarkers: boolean;
   @Input() drawRadiusOnClick: boolean;
-  @Input() fitSelectedRoutes: boolean;
+  @Input() fitSelectedRoutes: boolean; // when 'true', map will always focus found route to be on the center
+  @Input() rememberClick: boolean; // when 'true' the current marker (the one that appears on click) will be shown even after the map refresh. It will only disappear in case user clicks again on the map
 
   //#region Icons
   customIconSize: L.PointExpression = [48, 48];
@@ -181,7 +182,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
     this.toggleOff = false;
     this.allowMultipleMarkers = true;
     this.drawRadiusOnClick = false;
-    this.fitSelectedRoutes = false;
+    this.fitSelectedRoutes = true;
+    this.rememberClick = false;
   }
 
   public handleButtonClick(): void {
@@ -251,6 +253,10 @@ export class MapComponent implements AfterViewInit, OnChanges {
           if(marker.radiusSize && marker.radiusSize > 0) 
             this.setRadius(marker.latitude, marker.longitude, marker.radiusSize, marker.color);
         });
+      }
+
+      if(this.rememberClick) {
+        this.drawPreviousClickMarker();
       }
 
       if(this.drawRadiusOnClick && this.radiusSize && this.radiusSize > 0) {
