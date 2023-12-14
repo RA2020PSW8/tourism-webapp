@@ -11,19 +11,6 @@ import { RouteInfo } from '../model/routeInfo.model';
 import { TransportType } from 'src/app/feature-modules/tour-authoring/model/tour.model';
 import { MarkerPosition } from '../model/markerPosition.model';
 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-// 
-
 @Component({
   standalone: true,
   selector: 'app-map',
@@ -37,19 +24,19 @@ export class MapComponent implements AfterViewInit, OnChanges {
   private map: any;
   private routeControl: L.Routing.Control;
   private clickMarker: L.Marker; // saving just so we can access current lng/lat when needed
-  private markerLayer: L.LayerGroup;
-  private drawLayer: L.LayerGroup;
+  private markerLayer: L.LayerGroup; // layer that contains all markers (except markers that are part of the route)
+  private drawLayer: L.LayerGroup; // layer that contains all drawings (radiuses)
 
   @Output() clickEvent = new EventEmitter<number[]>();
   @Output() routesFoundEvent = new EventEmitter<RouteInfo>();
 
-  @Input() selectedTour: TestTour; //?
-  @Input() markType: string;
+  @Input() selectedTour: TestTour; // ??
+  @Input() markType: string; // ??
 
   @Input() routeQuery: RouteQuery | undefined;
-  @Input() markerPosition: MarkerPosition | undefined;
-  @Input() markerPositions: MarkerPosition[];
-  @Input() radiusSize: number;
+  @Input() markerPosition: MarkerPosition | undefined; // one marker that will be shown, separated from the rest for displaying current location or similar
+  @Input() markerPositions: MarkerPosition[]; // list of markers that will be shown, use 'color' property to change marker Icon look
+  @Input() radiusSize: number; // radius that's drawn around the marker that appears on click
 
   @Input() enableClicks: boolean;
   @Input() toggleOff: boolean;
