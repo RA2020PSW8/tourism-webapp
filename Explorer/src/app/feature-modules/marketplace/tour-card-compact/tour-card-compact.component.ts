@@ -28,6 +28,7 @@ export class TourCardCompactComponent {
   public currentIndex = 0;
   public keypoints: Keypoint[] = [];
   private lastOrderId: number;
+  @Input() isCustom: Boolean = false;
 
   constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) {
     this.lastOrderId = 0;
@@ -112,4 +113,9 @@ export class TourCardCompactComponent {
     });
   }
 
+  editTour(): void{
+    this.router.navigate(
+      ['/custom-tour', this.tour.id]
+    )
+  }
 }

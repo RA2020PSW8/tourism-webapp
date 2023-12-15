@@ -16,6 +16,7 @@
   <!-- Card body for other information -->
   <div class="card-body">
     <h5 class="card-title">{{tour.name}}</h5>
+    <p class="card-text" *ngIf="isCustom && tour.status === 'DRAFT'"><span style="color: red">This tour is unfinished. Add at least 2 keypoints to complete your custom tour.</span></p>
     <p class="card-text">{{tour.description}}</p>
     <p class="card-text"><strong>Duration:</strong> {{tour.duration}} minutes</p>
     <p class="card-text"><strong>Time:</strong> {{tour.statusUpdateTime| date:'dd.MM.yyyy'}}</p>
@@ -23,12 +24,13 @@
     <p class="card-text"><strong>Starting location:</strong> {{startingKeypoint.name}}</p>
     <!-- Buttons to open modals for reviews and add to cart-->
     <div style="display: flex; justify-content: space-between;">
-      <button mat-raised-button color="primary" (click)="openReviews(tour.id??0)">View Reviews</button>
+      <button *ngIf="!isCustom" mat-raised-button color="primary" (click)="openReviews(tour.id??0)">View Reviews</button>
+      <button *ngIf="isCustom" mat-raised-button color="primary" (click)="editTour()">Edit</button>
       <button mat-raised-button class="add-to-cart-button"
         *ngIf="router.url.includes('/home') && tour.status == 'PUBLISHED' && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'"
         (click)="addToCart()">Add to cart</button>
       <button mat-raised-button class="show-keypoints-button"
-        *ngIf="router.url.includes('/purchased-tours') && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'"
+        *ngIf="router.url.includes('/purchased-tours') && !isCustom && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'"
         (click)="showKeypoints()">Show Keypoints</button>
     </div>
   </div>
