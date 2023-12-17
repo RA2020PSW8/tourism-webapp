@@ -17,7 +17,8 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-form.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
-
+import { MatStepperModule } from '@angular/material/stepper';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -41,7 +42,9 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
     TourAuthoringModule,
     TimePipe,
     MapComponent,
-    MarketplaceModule
+    MarketplaceModule,
+    MatStepperModule,
+    MatSnackBarModule
   ],
   exports: [
     ClubsComponent,
