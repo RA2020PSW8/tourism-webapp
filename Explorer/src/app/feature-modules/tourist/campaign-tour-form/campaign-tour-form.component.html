@@ -1,99 +1,107 @@
 <div class="main">
-    <div class="form-container">
-        <form [formGroup]="tourForm" style="display: flex; flex-direction: column;">
-                <mat-form-field>
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName="name" type="text"/>
-                </mat-form-field>
-        
-                <mat-form-field>
-                <mat-label>Description</mat-label>
-                <textarea matInput
-                cdkTextareaAutosize
-                cdkAutosizeMinRows="2"
-                formControlName="description"
-                cdkAutosizeMaxRows="5"></textarea>
-                </mat-form-field>
-        
-                <mat-form-field>
-                    <mat-label>Difficulty</mat-label>
-                    <mat-select formControlName="difficulty" matInput required>
-                        <mat-option value="EASY">Easy</mat-option>
-                        <mat-option value="MEDIUM">Medium</mat-option>
-                        <mat-option value="HARD">Hard</mat-option>
-                        <mat-option value="EXTREME">Extreme</mat-option>
-                    </mat-select>
-                </mat-form-field>
-        
-                <mat-form-field>
-                    <mat-label>Transport type</mat-label>
-                    <mat-select formControlName="transportType" matInput required>
-                        <mat-option value="WALK">Walk</mat-option>
-                        <mat-option value="BIKE">Bike</mat-option>
-                        <mat-option value="CAR">Car</mat-option>
-                        <mat-option value="BOAT">Boat</mat-option>
-                    </mat-select>
-                </mat-form-field>
-        
-                <button color="primary" type="submit" (click)="saveTour()" mat-raised-button [disabled]="!tourForm.valid">
-                    <span>Save</span>
-                </button>
-        </form>
+    <div class="form-container" *ngIf="!draftMade && !complete">
+        <mat-stepper [linear]="true">
+            <mat-step [stepControl]="nameForm">
+                <form [formGroup]="nameForm" class="stepper-form">
+                    <ng-template matStepLabel>What's your tour's name?</ng-template>
+                    <mat-form-field style="width: 70%;">
+                        <mat-label>Name</mat-label>
+                        <input matInput formControlName="name" type="text"/>
+                    </mat-form-field>
+                    <div>
+                        <button color="accent" mat-flat-button matStepperNext>Next</button>
+                    </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="descriptionForm">
+                <form [formGroup]="descriptionForm" class="stepper-form">
+                    <ng-template matStepLabel>Describe your tour</ng-template>
+                    <mat-form-field style="width: 70%;">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput
+                        cdkTextareaAutosize
+                        cdkAutosizeMinRows="2"
+                        formControlName="description"
+                        cdkAutosizeMaxRows="10"></textarea>
+                        </mat-form-field>
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button color="accent" mat-flat-button matStepperNext>Next</button>
+                        </div>
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="transportForm">
+                <form [formGroup]="transportForm" class="stepper-form">
+                    <ng-template matStepLabel>What's the best way of transportation?</ng-template>
+                    <mat-form-field style="width: 70%;">
+                        <mat-label>Transport type</mat-label>
+                        <mat-select formControlName="transportType" matInput required>
+                            <mat-option value="WALK">Walk</mat-option>
+                            <mat-option value="BIKE">Bike</mat-option>
+                            <mat-option value="CAR">Car</mat-option>
+                            <mat-option value="BOAT">Boat</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div>
+                        <button mat-button matStepperPrevious>Back</button>
+                        <button color="primary" type="submit" (click)="saveTourDraft()" mat-raised-button>
+                            <span>Save</span>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
     </div>
 
-    <div class="form-container">
+    <div class="tables-container" *ngIf="draftMade && !complete">
         <h1>Avaliable tours</h1>
-        <div style="display: flex; flex-direction: row;">
+        <div class="table-container">
             <table>
-                <thead>
-                    <th>Avaliable tours</th>
-                    <th> </th>
-                    <th> </th>
-                    <th></th>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let tour of boughtTours">
-                        <td>{{tour.name}}</td>
-                        <td>{{tour.duration}}</td>
-                        <td>{{tour.difficulty}}</td>
-                        <td>
-                            <button color="accent" mat-icon-button (click)="addTour(tour)">
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
+                <tr>
+                    <td>Name</td>
+                    <td>Duration</td>
+                    <td>Difficulty</td>
+                </tr>
+                <tr *ngFor="let tour of boughtTours">
+                    <td>{{tour.name}}</td>
+                    <td>{{tour.duration}}</td>
+                    <td>{{tour.difficulty}}</td>
+                    <td>
+                        <button color="accent" mat-button (click)="addTour(tour)">
+                            <mat-icon>add</mat-icon>
+                            Add
+                        </button>
+                    </td>
+                </tr>
             </table>
         </div>
-    </div> 
-    <div class="form-container">
-        <h1>Selected tours</h1>
-        <div style="display: flex; flex-direction: row;">
+        <h1 style="padding-left: 2%;">Selected tours</h1>
+        <div class="table-container">
             <table>
-                <thead>
-                    <th>Selected tours</th>
-                    <th></th>
-                    <th></th>
-                    <th></th>
-                </thead>
+                <tr>
+                    <td>Name</td>
+                    <td>Duration</td>
+                    <td>Difficulty</td>
+                </tr>
                 <tbody>
                     <tr *ngFor="let tour of selectedTours">
                         <td>{{tour.name}}</td>
                         <td>{{tour.duration}}</td>
                         <td>{{tour.difficulty}}</td>
                         <td>
-                            <button color="accent" mat-icon-button (click)="removeTour(tour)">
+                            <button color="accent" mat-button (click)="removeTour(tour)">
                                 <mat-icon>remove</mat-icon>
+                                Remove
                             </button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <button color="accent" mat-stroked-button (click)="saveTour()" style="margin-top: 3%;">
-            Create
-        </button>
     </div>
+    <button *ngIf="draftMade && !complete" color="accent" mat-flat-button (click)="saveTour()" style="width: 80%; align-self: center; margin-top: 3%;">
+        Create
+    </button>
     <div class="cont" *ngIf="complete">
             <h1>Tour information</h1>
             <p><strong>Name:</strong> {{newTour.name}}</p>
@@ -101,19 +109,18 @@
             
             <p *ngIf="newTour.distance"><strong>Travel distance:</strong> {{newTour.distance | number:'1.2-2'}} km</p>
             <p *ngIf="newTour.duration"><strong>Tour duration:</strong> {{newTour.duration | time}}</p>
+            <p *ngIf="newTour.difficulty"><strong>Tour difficulty</strong> {{newTour.difficulty}}</p>
 
             <table>
-                <thead>
-                    <th>Equipment</th>
-                </thead>
                 <tbody>
                     <tr *ngFor="let e of equipment">
                         <td>{{e.name}}</td>
+                        <td>{{e.description}}</td>
                     </tr>
                 </tbody>
             </table>
     </div>
-    <div class="map-container">
-        <app-map [enableClicks]="false" [toggleOff]="true" [routeQuery]="routeQuery" (routesFoundEvent)="getRouteInfo($event)"></app-map>
+    <div class="map-container" *ngIf="complete">
+        <app-map style="width: 100%;" [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" (routesFoundEvent)="getRouteInfo($event)"></app-map>
     </div>
 </div>

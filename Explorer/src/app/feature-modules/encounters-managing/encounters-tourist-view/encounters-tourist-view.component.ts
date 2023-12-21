@@ -107,10 +107,10 @@ export class EncountersTouristViewComponent implements OnInit {
     
     switch (this.showContent) {
       case 'showStarted':
-        this.setMarkers(this.startedEncounters);
+        this.setMarkers(this.startedEncounters, '-started');
         break;
       case 'showCompleted':
-        this.setMarkers(this.completedEncounters);
+        this.setMarkers(this.completedEncounters, '-completed');
         break;
       case 'showFailed':
         this.setMarkers(this.failedEncounters);
@@ -125,13 +125,13 @@ export class EncountersTouristViewComponent implements OnInit {
     this.pointsOfInterest = this.markers;
   }
 
-  setMarkers(encounters: any[]): void {
+  setMarkers(encounters: any[], status: string = ''): void {
     encounters.forEach((obj) => {
       const encounter = (obj.encounter) ? obj.encounter : obj;
       this.markers.push({
         longitude: encounter.longitude,
         latitude: encounter.latitude,
-        color: 'yellow',
+        color: encounter.type.toString().toLowerCase() + status,
         title: encounter.name
       });
     });

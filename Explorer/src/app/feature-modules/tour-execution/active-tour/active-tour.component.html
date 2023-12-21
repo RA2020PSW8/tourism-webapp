@@ -53,7 +53,7 @@
             </div>
         </div>
         <div class="active-tour__map-container" *ngIf="activeTour">
-            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" *ngIf="refreshMap"></app-map>
+            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" [fitSelectedRoutes]="false" *ngIf="refreshMap"></app-map>
         </div>
         <div *ngIf="activeTour">
             <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters" [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview>
