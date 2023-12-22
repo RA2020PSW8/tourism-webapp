@@ -7,25 +7,60 @@ footer{
 }
 
 .first-footer-row {
-    display: flex;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 3fr repeat(3, 2fr);
+    gap: 25px;
+    width: 90%;
+    margin: 0 auto;
 }
 
 .second-footer-row {
     display: flex;
     justify-content: center;
+    margin-top: 50px;
 }
 
 .bottom-panel {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    border-top: 2px solid black;
-    margin: 0.5% 0% 0% 3%;
-    padding-left: 2%;
-    flex-basis: 30%;
+    border-top: 2px solid var(--color-foreground);
+    margin-top: 10px;
+    padding-top: 10px;
 }
 
 .p-footer {
     font-family: 'Montserrat', sans-serif;
+}
+
+.linkList {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    display: flex;
+    gap: 10px;
+}
+
+.linkListTitle {
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.linkList a {
+    color: var(--color-foreground);
+}
+
+.linkList a:hover {
+    opacity: 0.8;
+}
+
+.bottom-panel--slogan {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bottom-panel--slogan > h3 {
+    font-size: 32px;
+    line-height: initial;
 }
