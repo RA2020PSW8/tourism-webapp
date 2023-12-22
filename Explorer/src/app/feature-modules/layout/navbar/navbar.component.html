@@ -1,23 +1,22 @@
 <mat-toolbar color="primary" class="old-toolbar" [class]="showOldToolbar ? '' : 'hidden'">
-    <div>
+    <div class="old-navbar">
         <p>Explorer</p>
         <button class="button button-secondary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
         <div id="buttons">
-            
+
             <!-- All -->
             <button *ngIf="user && user.username === ''" color="accent" mat-raised-button [routerLink]="['login']">Login</button>
-            <button *ngIf="user && user.username !== ''" color="accent" mat-raised-button (click)="onLogout()">Logout</button>
             <button color="primary" mat-raised-button [routerLink]="['home']">Home</button>
             <button *ngIf="user && user.username !== '' && user.role !== 'administrator'" color="primary" mat-raised-button [routerLink]="['profile']">Profile</button>
             <button *ngIf="user && user.username !== '' && user.role !== 'administrator'" color="primary" mat-raised-button [matMenuTriggerFor]="notificationsMenu">
               Notifications
               <span class="notification-badge" *ngIf="unreadNotificationsCount !== 0 ">{{unreadNotificationsCount}}</span>
             </button>
-            
-            <mat-menu #notificationsMenu="matMenu" class="my-menu">  
-              <span *ngIf="notifications.length !== 0" class="notification-box">    
-                <div *ngFor="let n of notifications">                 
-                  <div class="cloud-container" (click)="redirect(n.actionURL)"> 
+
+            <mat-menu #notificationsMenu="matMenu" class="my-menu">
+              <span *ngIf="notifications.length !== 0" class="notification-box">
+                <div *ngFor="let n of notifications">
+                  <div class="cloud-container" (click)="redirect(n.actionURL)">
                     <mat-icon class="icon">notifications</mat-icon>
                     <span  class="content">
                     <p>{{ n.content }}</p>
@@ -26,9 +25,9 @@
                   </div>
                   <span class="notification-button" *ngIf="n.isRead === false"><button mat-raised-button color="primary" (click)="markAsRead(n)">Mark as Read</button></span>
                   <span class="notification-button"  *ngIf="n.isRead === true"><button  mat-raised-button color="accent" (click)="delete(n.id)">Delete</button></span>
-                </div> 
-              </span>   
-              <div *ngIf="notifications.length === 0" class="no-notifications">There are no new notifications to display.</div>                    
+                </div>
+              </span>
+              <div *ngIf="notifications.length === 0" class="no-notifications">There are no new notifications to display.</div>
             </mat-menu>
 
             <!-- Tourist -->
@@ -56,7 +55,7 @@
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['admin/tourissues']">See active tour issues</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['publicEntityRequests']">Manage public entity requests</button>
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['encountersManagement']">Manage encounters</button>
-        
+
             <!-- Author -->
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['tours-equipment']">Manage tour equipment</button>
             <button *ngIf="user && user.role === 'author'"color = "primary" mat-raised-button [routerLink]="['tours']">Tours</button>
@@ -84,11 +83,11 @@
                 <span class="notification-badge" *ngIf="unreadNotificationsCount !== 0 ">{{unreadNotificationsCount}}</span>
                 <mat-icon>notifications</mat-icon>
             </div>
-            
-            <mat-menu #notificationsMenu="matMenu" class="my-menu">  
-            <span *ngIf="notifications.length !== 0" class="notification-box">    
-                <div *ngFor="let n of notifications">                 
-                <div class="cloud-container" (click)="redirect(n.actionURL)"> 
+
+            <mat-menu #notificationsMenu="matMenu" class="my-menu">
+            <span *ngIf="notifications.length !== 0" class="notification-box">
+                <div *ngFor="let n of notifications">
+                <div class="cloud-container" (click)="redirect(n.actionURL)">
                     <mat-icon class="icon">notifications</mat-icon>
                     <span  class="content">
                     <p>{{ n.content }}</p>
@@ -97,18 +96,22 @@
                 </div>
                 <span class="notification-button" *ngIf="n.isRead === false"><button mat-raised-button color="primary" (click)="markAsRead(n)">Mark as Read</button></span>
                 <span class="notification-button"  *ngIf="n.isRead === true"><button  mat-raised-button color="accent" (click)="delete(n.id)">Delete</button></span>
-                </div> 
-            </span>   
-                <div *ngIf="notifications.length === 0" class="no-notifications">There are no new notifications to display.</div>                    
+                </div>
+            </span>
+                <div *ngIf="notifications.length === 0" class="no-notifications">There are no new notifications to display.</div>
             </mat-menu>
         </span>
 
-        <span class="icon" [routerLink]="user ? ['profile'] : ['login']">
-            <mat-icon>account_circle</mat-icon>
-        </span>
         <span class="icon" [routerLink]="user ? ['shopping-cart-overview'] : ['login']">
             <mat-icon>shopping_cart</mat-icon>
         </span>
+
+      <span class="icon" [routerLink]="['login']" *ngIf="user && user.username === ''">
+            <mat-icon>account_circle</mat-icon>
+      </span>
+      <span>
+        <img src="assets/burgundy.jpg" alt="Profile Picture" class="navbar-picture"  (click)="toggleMenu($event)" *ngIf="user && user.username !== ''">
+      </span>
     </div>
 </mat-toolbar>
 
@@ -180,3 +183,52 @@
     </span>
     Rate App
 </div>
+
+<div #overlayContainer class="overlay-container" [class.open]="isOverlayOpen">
+  <div class="overlay-content">
+    <div class="user-profile">
+      <img src="assets/burgundy.jpg"  alt="Profile Picture" class="profile-picture">
+      <div class="user-info" *ngIf="user">
+        <p><b>{{user.username}}</b></p>
+        <p>{{user.role}}</p>
+      </div>
+    </div>
+    <div class="options">
+      <div class="option">
+        <!-- Tourist -->
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['toursMarketplace']">Tours marketplace</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['touristSelectingEquipment']">Manage my equipment</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink] = "['clubs']">See clubs</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['tourPreference']">My preferences</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['clubInvitations']">Manage club invitations</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['appRatingTourist']">Rate App</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['clubJoinRequests']">My join requests</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['clubInvitations']">Manage club memberships</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['user/tourissues']">Report tour issues</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['blog']">Write blog</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['wallet']">Wallet</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['shopping-cart-overview']">Shopping cart</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['tour-review']">Write tour review</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['my-position']">My position</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['active-tour']">Active tour</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['encounters-map']">Encounters</button>
+        <hr>
+        <!-- Admin -->
+        <button *ngIf="user && user.role === 'administrator'" class="btn-option" mat-flat-button [routerLink]="['equipment']">Manage equipment</button>
+        <button *ngIf="user && user.role === 'administrator'" class="btn-option" mat-flat-button [routerLink]="['users']">See all users</button>
+        <button *ngIf="user && user.role === 'administrator'" class="btn-option" mat-flat-button [routerLink]="['appRatingList']">See all app ratings</button>
+        <button *ngIf="user && user.role === 'administrator'" class="btn-option" mat-flat-button [routerLink]="['admin/tourissues']">See active tour issues</button>
+        <button *ngIf="user && user.role === 'administrator'" class="btn-option" mat-flat-button [routerLink]="['publicEntityRequests']">Manage public entity requests</button>
+        <button *ngIf="user && user.role === 'administrator'" class="btn-option" mat-flat-button [routerLink]="['encountersManagement']">Manage encounters</button>
+
+        <!-- Author -->
+        <button *ngIf="user && user.role === 'author'" class="btn-option" mat-flat-button [routerLink]="['tours-equipment']">Manage tour equipment</button>
+        <button *ngIf="user && user.role === 'author'" class="btn-option" mat-flat-button [routerLink]="['tours']">Tours</button>
+        <button *ngIf="user && user.role === 'author'" class="btn-option" mat-flat-button [routerLink]="['objects']">Tour Objects</button>
+        <button *ngIf="user && user.role === 'author'" class="btn-option" mat-flat-button [routerLink]="['appRatingAuthor']">Rate App</button>
+        <button *ngIf="user && user.username !== ''" class="btn-option" mat-flat-button (click)="onLogout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
