@@ -2,7 +2,8 @@ footer{
     width: 100%;
     display: flex;
     flex-direction: column;
-    background-color: var(--color-foreground);
+    background-color: var(--color-accent-contrast);
+    color: var(--color-foreground);
 }
 
 .first-footer-row {

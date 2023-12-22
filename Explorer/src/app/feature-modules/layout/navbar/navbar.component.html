@@ -1,7 +1,7 @@
 <mat-toolbar color="primary" class="old-toolbar" [class]="showOldToolbar ? '' : 'hidden'">
     <div>
         <p>Explorer</p>
-        <button class="button button-primary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
+        <button class="button button-secondary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
         <div id="buttons">
             
             <!-- All -->
@@ -75,7 +75,8 @@
         <button class="button button-primary" (click)="toggleOldToolbar()">Toggle old toolbar</button>
     </div>
     <div class="logo" [routerLink]="['home']">
-        <p>Tutours</p>
+        <!-- <p>Tutours</p> -->
+        <img src="assets/logo.png" height="300">
     </div>
     <div class="right-menu">
         <span class="icon">
