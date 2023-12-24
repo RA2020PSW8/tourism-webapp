@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { EncountersTouristViewComponent } from './encounters-tourist-view/encounters-tourist-view.component';
 import { EncountersRequestsComponent } from './encounters-requests/encounters-requests.component';
+import { HighchartsChartModule  } from 'highcharts-angular';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { EncountersRequestsComponent } from './encounters-requests/encounters-re
     MaterialModule,
     MatButtonModule,
     ReactiveFormsModule,
-    MapComponent
+    MapComponent,
+    HighchartsChartModule
   ]
 })
 export class EncountersModule { }

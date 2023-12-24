@@ -5,8 +5,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
 import { EncounterCompletion, EncounterCompletionStatus } from '../model/encounterCompletion.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { Profile } from '../../administration/model/profile.model';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import Highcharts from 'highcharts/es-modules/masters/highcharts.src';
+import { EncounterStats } from '../model/encounter-stats.model';
 
 @Component({
   selector: 'xp-encounter-map',
@@ -27,15 +27,59 @@ export class EncountersTouristViewComponent implements OnInit {
   public formMode: string;
   public canCreateEncounters: boolean = false;
   @ViewChild(MapComponent) mapComponent: MapComponent;
+
+  public completedCount: number = 0;
+  public failedCount: number = 0;
+  public encountersHighchart = Highcharts;
+  public chartOptions:  Highcharts.Options | null = null;
   
   constructor(private service: EncountersService) { }
-
+  
   ngOnInit(): void {
     this.getActiveEncounters(); 
     this.getTouristEncounterCompletions();    
     this.getTouristEncounters();
     this.canTouristCreateEncounters();
+    this.getStatistics();
   }
+
+  getStatistics(): void {
+    this.service.getEncounterStats().subscribe({
+      next: (result: EncounterStats) => {
+        this.completedCount = result.completedCount;
+        this.failedCount = result.failedCount;
+        console.log(this.failedCount)
+        this.chartOptions = {
+          chart: {
+            type: 'pie',
+          },
+          title: {
+            text: 'Encounter Completions',
+          },
+          series: [
+            {
+              type: 'pie',
+              name: 'Encounter Status',
+              data: [
+                {
+                  name: 'Completed',
+                  y: this.completedCount,
+                },
+                {
+                  name: 'Failed',
+                  y: this.failedCount,
+                },
+              ],
+            },
+          ],
+        };
+      },
+      error: (error) => {
+        
+      },
+    });  
+   }
+  
 
   getActiveEncounters(): void {
     this.service.getEncountersByStatus('ACTIVE').subscribe({

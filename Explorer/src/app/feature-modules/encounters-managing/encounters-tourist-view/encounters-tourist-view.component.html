@@ -1,5 +1,6 @@
 <div class="split">
 <div class="cont">   
+
     <div class="menu">
         <button mat-raised-button (click)="showTableAndSetMarkers('showAll')">All active</button>
         <button mat-raised-button (click)="showTableAndSetMarkers('showStarted')">Started</button>
@@ -169,4 +170,15 @@
     <app-map [enableClicks]="false" [toggleOff]="true"
         [allowMultipleMarkers]="false" [markerPositions]="pointsOfInterest"></app-map>
 </div>
+
+
+
+<div *ngIf="chartOptions">
+    <highcharts-chart
+    [Highcharts] = "encountersHighchart" 
+    [options] = "chartOptions" 
+    style = "width: 100%; height: 400px; display: block;">
+    </highcharts-chart>
+</div>
+
 </div>
