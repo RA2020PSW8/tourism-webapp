@@ -4,6 +4,8 @@ import { TourExecutionService } from '../tour-execution.service';
 import { TourReview } from '../model/tour-review.model';
 import { TourReviewString } from '../model/tour-review-string.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-tour-review-form',
@@ -11,14 +13,18 @@ import { Tour } from '../../tour-authoring/model/tour.model';
   styleUrls: ['./tour-review-form.component.css']
 })
 export class TourReviewFormComponent implements OnChanges {
+  tours: Tour[];
+  selectedTour : Tour;
+  selectedTourID? : number | null;
 
   @Output() tourReviewUpdated = new EventEmitter<null>(); 
   @Input() tourReview: TourReview;
   @Input() shouldEdit: boolean = false;
 
-  constructor(private service: TourExecutionService) {}
+  constructor(private service: TourExecutionService, private tourService: TourAuthoringService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    this.getTours();
     this.tourReviewForm.reset();
     if(this.shouldEdit) {
       this.tourReviewForm.patchValue(this.tourReview);
@@ -40,7 +46,7 @@ export class TourReviewFormComponent implements OnChanges {
       visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
       ratingDate: new Date().toISOString(),
       imageLinks: this.tourReviewForm.value.imageLinks?.split('\n') as string[],
-      tourId: "1",
+      tourId: this.radioClicked(this.selectedTour) as string | undefined,
       userId: localStorage.getItem('loggedId')??'1'
     }
     
@@ -81,6 +87,23 @@ export class TourReviewFormComponent implements OnChanges {
     this.tourReviewForm.value.comment = "";
     this.tourReviewForm.value.visitDate = "";
     this.tourReviewForm.value.imageLinks = "";
+  }
+
+  getTours(): void {
+    this.tourService.getTours().subscribe({
+      next: (result: PagedResults<Tour>) => {
+        this.tours = result.results;
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
+
+  radioClicked(tour : Tour): number | undefined {
+    this.selectedTour = tour;
+    this.selectedTourID = this.selectedTour.id;
+    return this.selectedTourID;
   }
 
 }
