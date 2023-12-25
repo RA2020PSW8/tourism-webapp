@@ -71,4 +71,8 @@ export class TouristService {
     return this.http.delete<Club>(environment.apiHost+'tourist/clubs/'+club.id); 
   }
 
+  getClubById(id: number): Observable<Club>{
+    return this.http.get<Club>(`${this.apiUrl}/clubs/${id}`);
+  }
+
 }

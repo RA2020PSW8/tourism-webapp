@@ -19,6 +19,7 @@ import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-fo
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ClubDetailsComponent } from './club-details/club-details.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
-    CampaignTourFormComponent
+    CampaignTourFormComponent,
+    ClubDetailsComponent
   ],
   imports: [
     CommonModule,
