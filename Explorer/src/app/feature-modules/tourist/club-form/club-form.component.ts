@@ -42,8 +42,8 @@ export class ClubFormComponent implements OnChanges {
       name: this.clubForm.value.name || "", 
       description: this.clubForm.value.description || "",  
       image: this.clubForm.value.image ||"", 
-      userId: this.authService.user$.value.id, 
-      memberIds: [] 
+      ownerId: this.authService.user$.value.id, 
+      members: [] 
     } 
     
     this.service.addClub(club).subscribe({
@@ -61,8 +61,8 @@ export class ClubFormComponent implements OnChanges {
         name: this.clubForm.value.name || "", 
         description: this.clubForm.value.description || "",  
         image: this.clubForm.value.image ||"", 
-        userId: this.club.userId, 
-        memberIds: this.club.memberIds
+        ownerId: this.club.ownerId, 
+        // memberIds: this.club.memberIds
         
       }
    

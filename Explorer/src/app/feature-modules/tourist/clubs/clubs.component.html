@@ -26,15 +26,15 @@
                         <img src="{{c.image}}" alt="{{c.name}} Image" width="50" height="50">
                     </td>
                     <td>
-                        <button *ngIf="c.userId === loggedId"(click) = "onEditClicked(c)" color="primary" mat-icon-button>
+                        <button *ngIf="c.ownerId === loggedId"(click) = "onEditClicked(c)" color="primary" mat-icon-button>
                                 <mat-icon>edit</mat-icon>
                         </button>
-                        <button *ngIf="c.userId === loggedId"(click) = "onDeleteClicked(c)" color="primary" mat-icon-button>
+                        <button *ngIf="c.ownerId === loggedId"(click) = "onDeleteClicked(c)" color="primary" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
                     <td>
-                        <button *ngIf="c.userId !== loggedId"(click) = "onJoinClicked(c)" color="primary" aria-label="Join Request" type="submit" 
+                        <button *ngIf="c.ownerId !== loggedId"(click) = "onJoinClicked(c)" color="primary" aria-label="Join Request" type="submit" 
                          mat-raised-button>join</button>
                     </td>
                 </tr>
