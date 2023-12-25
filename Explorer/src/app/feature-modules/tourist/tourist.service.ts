@@ -73,10 +73,10 @@ export class TouristService {
   }
 
   getNewsletterPreference(userid: number): Observable<NewsletterPreference>{
-    return this.http.get<NewsletterPreference>(`${environment.apiHost}tourist/newsletter/${userid}`); 
+    return this.http.get<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference/${userid}`); 
   }
 
   updateNewsletterPrefence(np: NewsletterPreference): Observable<NewsletterPreference>{
-    return this.http.post<NewsletterPreference>(`${environment.apiHost}tourist/newsletter/${np.userid}`, np); 
+    return this.http.post<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference`, np); 
   }
 }
