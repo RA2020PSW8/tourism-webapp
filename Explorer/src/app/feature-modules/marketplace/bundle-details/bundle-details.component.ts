@@ -20,7 +20,7 @@ export class BundleDetailsComponent implements OnInit {
   newName:string = '';
   price:number;
   bundlePrice: BundlePrice;
-  newPrice: number = 1500;
+  newPrice: number = 0;
   
 
   constructor(private route: ActivatedRoute, private service:MarketplaceService) {}
