@@ -1,0 +1,26 @@
+<div class="container">
+    <h1>Clubs rankings</h1>
+  
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Wins</th>
+          <th>Members</th>
+          <th>Achievements</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let club of clubs; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td><img src="{{ club.image }}" alt="Image" /></td>
+          <td>{{ club.name }}</td>
+          <td>{{ club.fightsWon }}</td>
+          <td>{{ club.members.length}}</td>
+          <td>{{ club.achievements.length}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

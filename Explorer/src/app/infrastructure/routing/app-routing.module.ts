@@ -43,6 +43,7 @@ import { WalletComponent } from 'src/app/feature-modules/marketplace/wallet/wall
 import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
 import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounters-managing/encounters-tourist-view/encounters-tourist-view.component';
 import { CampaignTourFormComponent } from 'src/app/feature-modules/tourist/campaign-tour-form/campaign-tour-form.component';
+import { ClubsRankingComponent } from 'src/app/feature-modules/tourist/clubs-ranking/clubs-ranking.component';
 
 const routes: Routes = [
 
@@ -80,6 +81,7 @@ const routes: Routes = [
   {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
   {path: 'encounters-map', component: EncountersTouristViewComponent, canActivate: [AuthGuard]},
   {path: 'campaign/:id',component: CampaignTourFormComponent,canActivate: [AuthGuard]},
+  {path: 'clubs-ranking',component: ClubsRankingComponent,canActivate: [AuthGuard]},
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },
