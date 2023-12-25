@@ -196,6 +196,9 @@ export class MarketplaceService {
   updateWallet(wallet: Wallet): Observable<Wallet> {
     return this.http.put<Wallet>(environment.apiHost + 'tourist/wallet/' + wallet.id, wallet);
   }
-
+  
+  calculateBundlePrice(bundleId:number) : Observable<number> {
+    return this.http.get<number>(`https://localhost:44333/api/bundles/calculate?bundleId=${bundleId}`);
+  }
 
 }

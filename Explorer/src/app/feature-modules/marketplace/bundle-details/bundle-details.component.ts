@@ -20,7 +20,7 @@ export class BundleDetailsComponent implements OnInit {
   newName:string = '';
   price:number;
   bundlePrice: BundlePrice;
-  newPrice: number = 0;
+  newPrice: number = 1500;
   
 
   constructor(private route: ActivatedRoute, private service:MarketplaceService) {}
@@ -92,12 +92,22 @@ export class BundleDetailsComponent implements OnInit {
     }
 
     addToBundle(tourId: number, bundleId: number) {
-      // Call your service method to add the tour to the bundle
       this.service.addTourToBundle(tourId, bundleId).subscribe(
         (result) => {
           console.log('Tour added to bundle successfully:', result);
           // Refresh the tours in the bundle after adding a new one
           this.getBundle(bundleId);
+  
+          // Recalculate the bundle price after adding a tour
+          this.service.calculateBundlePrice(bundleId).subscribe(
+            (calculatedPrice) => {
+              this.bundlePrice.totalPrice = calculatedPrice;
+              // Handle the calculated price as needed
+            },
+            (error) => {
+              console.error('Error calculating bundle price:', error);
+            }
+          );
         },
         (error) => {
           console.error('Error adding tour to bundle:', error);
@@ -112,6 +122,15 @@ export class BundleDetailsComponent implements OnInit {
           console.log('Tour added to bundle successfully:', result);
           // Refresh the tours in the bundle after adding a new one
           this.getBundle(bundleId);
+          this.service.calculateBundlePrice(bundleId).subscribe(
+            (calculatedPrice) => {
+              this.bundlePrice.totalPrice = calculatedPrice;
+              // Handle the calculated price as needed
+            },
+            (error) => {
+              console.error('Error calculating bundle price:', error);
+            }
+          );
         },
         (error) => {
           console.error('Error adding tour to bundle:', error);
@@ -120,36 +139,46 @@ export class BundleDetailsComponent implements OnInit {
     }
 
     createBundlePrice() {
-      // Skip creation if bundlePrice already exists or bundle is not defined
-      if (this.bundlePrice || !this.bundle || this.bundle.id === undefined) {
+      // Skip creation if bundle is not defined
+      if (!this.bundle || this.bundle.id === undefined) {
         return;
       }
-    
+  
       // Ensure that bundle.id is defined
       const bundleId: number = this.bundle.id;
-    
-      // Ensure that newPrice is a defined number, using 0 as the default value
-      const newPrice: number = this.newPrice !== undefined ? this.newPrice : 0;
-    
-      // If bundlePrice doesn't exist, create a new one with the default value
-      const newBundlePrice: BundlePrice = {
-        bundleId: bundleId,
-        totalPrice: newPrice,
-      };
-    
-      this.service.createPriceForBundle(newBundlePrice).subscribe(
-        (createdBundlePrice) => {
-          console.log('Bundle price created successfully:', createdBundlePrice);
-          this.bundlePrice = createdBundlePrice;
+  
+      // Call the calculateBundlePrice method from the service to get an Observable<number>
+      const totalPriceObservable = this.service.calculateBundlePrice(bundleId);
+  
+      // Subscribe to the observable to get the calculated total price
+      totalPriceObservable.subscribe(
+        (totalBundlePrice) => {
+          // Create a new BundlePrice object with the calculated total price
+          const newBundlePrice: BundlePrice = {
+            bundleId: bundleId,
+            totalPrice: totalBundlePrice,
+          };
+  
+          // Create or update the BundlePrice
+          this.service.createPriceForBundle(newBundlePrice).subscribe(
+            (createdBundlePrice) => {
+              console.log('Bundle price created/updated successfully:', createdBundlePrice);
+              this.bundlePrice = createdBundlePrice;
+  
+              // After creating or updating the bundle price, you may not need to do anything else
+            },
+            (error) => {
+              if (error.status === 409) {
+                console.error('Duplicate key violation. The bundle price already exists.');
+                // You can show a message to the user or handle it as needed
+              } else {
+                console.error('Error creating/updating bundle price:', error);
+              }
+            }
+          );
         },
         (error) => {
-          if (error.status === 409) {
-            // HTTP status code 409 (Conflict) indicates a duplicate key violation
-            console.error('Duplicate key violation. The bundle price already exists.');
-            // You can show a message to the user or handle it as needed
-          } else {
-            console.error('Error creating bundle price:', error);
-          }
+          console.error('Error calculating bundle price:', error);
         }
       );
     }

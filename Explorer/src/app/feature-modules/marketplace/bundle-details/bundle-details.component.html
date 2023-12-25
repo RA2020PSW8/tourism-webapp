@@ -2,7 +2,7 @@
     <h2>Bundle Details</h2>
     <div class="bundle-info">
         <p><strong>Name:</strong> {{ bundle.name }}</p>
-        <button *ngIf="!bundlePrice" (click)="createBundlePrice()">Create</button>
+        <button  (click)="createBundlePrice()">Create</button>
         <p *ngIf="bundlePrice"> 
             <strong>Bundle Price:</strong> {{ bundlePrice.totalPrice || 0 }}
           </p>    
@@ -12,6 +12,7 @@
             <tr>
                 <th>Tour name</th>
                 <th>Description</th>
+                <th>Price</th>
                 <th></th>
             </tr>
         </thead>
@@ -19,6 +20,7 @@
             <tr *ngFor="let tour of bundle.tours">
                 <td>{{ tour.name }}</td>
                 <td>{{ tour.description }}</td>
+                <td>{{tour.price}}</td>
                 <td><button (click)="deleteFromBundle(tour.id ?? 0, bundle?.id ?? 0)">Delete From Bundle</button></td>
 
             </tr>
@@ -40,6 +42,7 @@
                 <tr>
                     <th>Tour name</th>
                     <th>Description</th>
+                    <th>Price</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -47,6 +50,7 @@
                 <tr *ngFor="let tour of toursByAuthor">
                     <td>{{ tour.name }}</td>
                     <td>{{ tour.description }}</td>
+                    <td>{{ tour.price }}</td>
                     <td><button (click)="addToBundle(tour.id ?? 0, bundle?.id ?? 0)">Add To Bundle</button></td>
                 </tr>
             </tbody>
