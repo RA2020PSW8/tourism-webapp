@@ -19,11 +19,7 @@
                 <td>{{t.name}}</td>
                 <td>{{t.description}}</td>
 
-                <td>
-                    <i *ngIf="t.price <= 20" class="fa-solid fa-piggy-bank fa-2xl" style="color: #5bd643;"></i>
-                    <i *ngIf="t.price < 55 && t.price > 20" class="fa-solid fa-piggy-bank fa-2xl" style="color: #d6d143;"></i>
-                    <i *ngIf="t.price >= 55" class="fa-solid fa-piggy-bank fa-2xl" style="color: #d64343;"></i>
-                </td>
+                <td>{{t.price}}</td>
                 <td>
                     <i *ngIf="t.transportType == 'WALK'" class="fa-solid fa-person-walking fa-2xl" style="color: #000000;"></i>
                     <i *ngIf="t.transportType == 'BIKE'" class="fa-solid fa-bicycle fa-2xl" style="color: #000000;"></i>
@@ -40,9 +36,9 @@
         </tbody>
     </table> 
 </div>
-<br><br><br><br><br>
+<br><br>
 <form [formGroup]="tourReviewForm">
-    <div>
+    <div id="tourReviewForm">
         <mat-form-field>
             <mat-label>Rating</mat-label>
             <input matInput formControlName="rating" type="number" min="1" max="5"/>
@@ -68,7 +64,7 @@
             cdkAutosizeMaxRows="5"></textarea>
         </mat-form-field>
 
-        <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTourReview()"> Create tour review</button>
-        <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourReview()"> Update tour review</button>
+        <button id="buttons" *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTourReview()"> Create tour review</button>
+        <button id="buttons" *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourReview()"> Update tour review</button>
     </div>
 </form>

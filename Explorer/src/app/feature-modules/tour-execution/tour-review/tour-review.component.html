@@ -1,7 +1,7 @@
 <h1>Tour review</h1>
 <hr>
 <div id="tourReviewPage">
-    <table>
+    <table id="tourReviews">
         <thead>
             <tr>
                 <th>Rating</th>
@@ -25,18 +25,18 @@
                     </div>
                 </td>
                 <td>
-                    <button (click)="deleteTourReview(rev)" color="accent" mat-icon-button>
+                    <button id="buttonsAction" (click)="deleteTourReview(rev)" color="accent" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>
                 <td>
-                    <button (click)="onEditClicked(rev)" color="primary" mat-icon-button>
+                    <button id="buttonsAction" style="color: #bb886f;" (click)="onEditClicked(rev)" color="primary" mat-icon-button>
                         <mat-icon>edit</mat-icon>
                     </button>
                 </td>
             </tr>
             <tr>
-                <button (click)="onAddClicked()" color="primary" mat-icon-button>
+                <button id="buttonsAction" (click)="onAddClicked()" color="primary" mat-icon-button>
                     <mat-icon>add</mat-icon>
                 </button>
             </tr>
