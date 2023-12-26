@@ -34,4 +34,8 @@ export class ClubDetailsComponent implements OnInit{
       this.user = user;
     });
   }
+
+  public switchTab(tab: string): void{
+    this.selectedTab = tab;
+  }
 }
