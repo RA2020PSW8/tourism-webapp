@@ -1,7 +1,7 @@
 <div class="fight-container">
     <div class="fight-info" *ngIf="clubFight">
         <h2>CLUB FIGHT</h2>
-        <div>Winner: {{ clubFight.winnerId ? clubFight.winnerId : "???"}}</div>
+        <div [class]="clubFight.winnerId ? 'winner' : ''">Winner: {{ clubFight.winnerId ? clubFight.winnerId == clubFight.club1.id ? clubFight.club1.name : clubFight.club2.name : "???"}}</div>
         <div class="timer">{{ clubFight.winnerId ? 'Fight ended' : 'Fight ends in: ' + tillFightEnd.days + 'days ' + tillFightEnd.hours + "hours "  + tillFightEnd.minutes + "minutes "}}</div>
     </div>
 
