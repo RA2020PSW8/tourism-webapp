@@ -22,6 +22,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ClubDetailsComponent } from './club-details/club-details.component';
 import { AdministrationModule } from '../administration/administration.module';
 import { ClubMembersComponent } from './club-members/club-members.component';
+import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-challenge-requests.component';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { ClubMembersComponent } from './club-members/club-members.component';
     CustomTourFormComponent,
     CampaignTourFormComponent,
     ClubDetailsComponent,
-    ClubMembersComponent
+    ClubMembersComponent,
+    ClubChallengeRequestsComponent
   ],
   imports: [
     CommonModule,

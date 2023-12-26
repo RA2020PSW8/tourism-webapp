@@ -4,6 +4,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Club } from '../model/club.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { ClubChallengeRequest } from '../model/club-challenge-request';
 
 @Component({
   selector: 'xp-club-details',
@@ -16,22 +17,27 @@ export class ClubDetailsComponent implements OnInit{
   public clubId: number;
   public club: Club = {} as Club;
   public selectedTab: string = 'members';
+  public requests: ClubChallengeRequest[] = [];
 
   constructor(private touristService: TouristService, private route: ActivatedRoute, private authService: AuthService){}
 
   ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+    
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.clubId = Number(params.get('id'));
 
       if(this.clubId !== 0){
         this.touristService.getClubById(this.clubId).subscribe((res: Club) => {
           this.club = res;
+
+          this.touristService.getClubChallenges(this.clubId).subscribe(res => {
+            this.requests = res;
+          });
         });
       }
-    });
-
-    this.authService.user$.subscribe(user => {
-      this.user = user;
     });
   }
 
