@@ -15,7 +15,6 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background-color: #D0E7D2;
     border-radius: 10px 10px 0px 0px;
 }
 
@@ -27,7 +26,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #FFF3DA;
 }
 
 .blog-info{
@@ -44,7 +42,6 @@
     display: flex;
     width: 75%;
     height: 92%;
-    background-color: #FFF3DA;
     border-radius: 10px;
     font-size: 1.6vw;
     margin-bottom: 0.4em;
@@ -57,7 +54,6 @@
     border-radius: 10px;
     display: flex;
     justify-content: flex-start;
-    background-color: #A1CCD1;
 }
 
 .comments-container{
@@ -87,7 +83,6 @@
     align-items: flex-start;
     border-radius: 10px;
     gap: 0.7em;
-    background-color: #E3F4F4;
 }
 
 .rating-buttons{
@@ -95,7 +90,6 @@
     padding-bottom: 0.5em;
     display: flex;
     justify-content: space-around;
-    border-bottom: 0.5em solid #A1CCD1;
 }
 
 .rating-button{
@@ -133,11 +127,13 @@
     margin: auto;
     font-size: 38px;
     padding-top: 1%;
+    color: #5989DF;
 }
 
 .p-blog-date {
     font-style: italic;
     font-size: 15px;
+    color: #5989DF;
 }
 
 .p-container-header{
@@ -149,13 +145,13 @@
 
 .p-header{
     font-weight: 450;
-    color: whitesmoke;
+    color: #5989DF;;
     font-size: 2.5vw;
     padding: 0.5em 0em 0em 1.5em;
 }
 
 .p-rating-header{
-    color: white;
+    color: #5989DF;;
     font-size: 24px;
     padding: 0.2em 0.8em 0em 0.8em;
 }
