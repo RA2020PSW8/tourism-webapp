@@ -6,6 +6,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { EncounterCompletion } from './model/encounterCompletion.model';
 import { EncounterStats } from './model/encounter-stats.model';
+import { EncounterYearStats } from './model/encounter-year-stats.model';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +81,18 @@ export class EncountersService {
   }
 
   getEncounterStats(): Observable<EncounterStats>{
-    return this.http.get<EncounterStats>(`${this.apiUrl}tourist/statistics/encounterCompletions`);
+    return this.http.get<EncounterStats>(`${this.apiUrl}tourist/encounterStatistics/completions`);
+  }
+
+  getEncounterYearStats(year: number): Observable<EncounterYearStats>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+    return this.http.get<EncounterYearStats>(`${this.apiUrl}tourist/encounterStatistics/yearCompletions`, {params: queryParams});
+  }
+
+  getTourYearStats(year: number): Observable<EncounterYearStats>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("year", year);
+    return this.http.get<EncounterYearStats>(`${this.apiUrl}tourist/tourStatistics/yearCompletions`, {params: queryParams});
   }
 }

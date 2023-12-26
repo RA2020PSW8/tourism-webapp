@@ -10,6 +10,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { EncountersTouristViewComponent } from './encounters-tourist-view/encounters-tourist-view.component';
 import { EncountersRequestsComponent } from './encounters-requests/encounters-requests.component';
 import { HighchartsChartModule  } from 'highcharts-angular';
+import { EncountersStatisticsComponent } from './encounters-statistics/encounters-statistics.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HighchartsChartModule  } from 'highcharts-angular';
     EncounterFormComponent,
     EncountersManagingComponent,
     EncountersTouristViewComponent,
-    EncountersRequestsComponent
+    EncountersRequestsComponent,
+    EncountersStatisticsComponent
   ],
   imports: [
     CommonModule,
