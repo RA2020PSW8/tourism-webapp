@@ -16,6 +16,14 @@ h1 {
     margin-left: 20px;
 }
 
+.textWrap {
+    flex-wrap: wrap;
+    max-width: 100px;
+    max-height: fit-content;
+    white-space: normal;
+    overflow: hidden;
+}
+
 table {
     border-collapse: collapse;
     font-size: 0.9em;
@@ -23,7 +31,9 @@ table {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
     font-family: sans-serif;
     font-size: 15px;
-    width: 700px;
+    max-width: 700px;
+    word-wrap: break-word;
+    table-layout: fixed;
 }
 
 thead tr {

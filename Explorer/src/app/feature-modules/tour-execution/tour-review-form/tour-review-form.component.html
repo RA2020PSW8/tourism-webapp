@@ -1,14 +1,13 @@
-<div id="toursList">
+<div id="toursList" *ngIf="!shouldEdit">
     <p>From the table below, choose one tour to write a review.</p>
     <table>
         <thead>
             <tr>
-                <th style="width: 50px;">Choose</th>
+                <th style="width: 100px;">Choose</th>
                 <th style="width: 100px;">Name</th>
-                <th style="width: 100px;">Description</th>
-                <th style="width: 107px;">Price</th>
-                <th style="width: 107px;">Transport type</th>
-                <th style="width: 107px;">Difficulty</th>
+                <th style="width: 200px;">Description</th>
+                <th style="width: 100px;">Price</th>
+                <th style="width: 100px;">Transport type</th>
             </tr>
         </thead>
         <tbody>
@@ -26,12 +25,7 @@
                     <i *ngIf="t.transportType == 'CAR'" class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>
                     <i *ngIf="t.transportType == 'BOAT'" class="fa-solid fa-sailboat fa-2xl" style="color: #000000;"></i>
                 </td>
-                <td>
-                    <i *ngIf="t.difficulty == 'EASY'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #5bd643;"></i>
-                    <i *ngIf="t.difficulty == 'MEDIUM'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d6d143;"></i>
-                    <i *ngIf="t.difficulty == 'HARD'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #ff9500;"></i>
-                    <i *ngIf="t.difficulty == 'EXTREME'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d64343;"></i>
-                </td>
+                
             </tr>
         </tbody>
     </table> 

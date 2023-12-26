@@ -27,6 +27,8 @@ export class TourReviewFormComponent implements OnChanges {
     this.getTours();
     this.tourReviewForm.reset();
     if(this.shouldEdit) {
+      console.log(this.tourReview)
+      this.tourReview.visitDate = this.tourReview.visitDate.split('T')[0]
       this.tourReviewForm.patchValue(this.tourReview);
     }
   }
@@ -64,10 +66,10 @@ export class TourReviewFormComponent implements OnChanges {
     const tourReview: TourReviewString = {
       rating: Number(this.tourReviewForm.value.rating),
       comment: this.tourReviewForm.value.comment || "",
-      visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
+      visitDate: this.tourReviewForm.value.visitDate + "T00:00:00.000Z",
       ratingDate: new Date().toISOString(),
       imageLinks: this.tourReviewForm.value.imageLinks as unknown as string[],
-      tourId: "1",
+      tourId: this.tourReview.tourId.toString(),
       userId: localStorage.getItem('loggedId')??'1'
     }
 
