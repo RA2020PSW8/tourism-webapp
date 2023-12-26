@@ -20,6 +20,7 @@ import { BundleCardComponent } from './bundle-card/bundle-card.component';
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDetailsComponent } from './bundle-details/bundle-details.component';
+import { WishListComponent } from './wish-list/wish-list.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { BundleDetailsComponent } from './bundle-details/bundle-details.componen
     BundleCardComponent,
     BundleOverviewComponent,
     BundleFormComponent,
-    BundleDetailsComponent
+    BundleDetailsComponent,
+    WishListComponent,
   ],
   exports: [TourCardCompactComponent],
   imports: [

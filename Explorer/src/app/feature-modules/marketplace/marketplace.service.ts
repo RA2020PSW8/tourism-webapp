@@ -17,6 +17,8 @@ import { Bundle } from './model/bundle.model';
 import { BundlePrice } from './model/bundle-price.model';
 
 import { Wallet } from './model/wallet.model';
+import { WishListItem } from './model/wish-list-item.model';
+import { WishList } from './model/wish-list.model';
 
 
 @Injectable({
@@ -199,6 +201,14 @@ export class MarketplaceService {
   
   calculateBundlePrice(bundleId:number) : Observable<number> {
     return this.http.get<number>(`https://localhost:44333/api/bundles/calculate?bundleId=${bundleId}`);
+  }
+
+  getWishListItemsForUser(): Observable<PagedResults<WishListItem>> {
+    return this.http.get<PagedResults<WishListItem>>(environment.apiHost + 'tourist/itemswishlist/byUser');
+  }
+
+  getWishListForUser(): Observable<WishList> {
+    return this.http.get<WishList>(environment.apiHost + 'tourist/wishlist/byUser');
   }
 
 }

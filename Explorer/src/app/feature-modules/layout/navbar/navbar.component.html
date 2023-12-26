@@ -48,6 +48,9 @@
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['my-position']">My position</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['active-tour']">Active tour</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['encounters-map']">Encounters</button>
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['wishlist']">My wish list</button>
+
+            
 
             <!-- Admin -->
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage equipment</button>
@@ -127,6 +130,9 @@
                 <p [routerLink]="['active-tour']"><span class="link-underline">Active tour</span></p>
                 <p [routerLink]="['wallet']"><span class="link-underline">Wallet</span></p>
                 <p routerLink="/purchased-tours"><span class="link-underline">Purchased Tours</span></p>
+                <p [routerLink]="['wishlist']"><span class="link-underline">My wish list</span></p>
+
+
             </div>
             <div>
                 <h4>Socilize</h4>
