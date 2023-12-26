@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TouristService } from '../tourist.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Club } from '../model/club.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
   selector: 'xp-club-details',
@@ -10,10 +12,12 @@ import { Club } from '../model/club.model';
 })
 export class ClubDetailsComponent implements OnInit{
 
+  public user: User | undefined;
   public clubId: number;
   public club: Club = {} as Club;
+  public selectedTab: string = 'members';
 
-  constructor(private touristService: TouristService, private route: ActivatedRoute){}
+  constructor(private touristService: TouristService, private route: ActivatedRoute, private authService: AuthService){}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params: ParamMap) => {
@@ -24,6 +28,10 @@ export class ClubDetailsComponent implements OnInit{
           this.club = res;
         });
       }
+    });
+
+    this.authService.user$.subscribe(user => {
+      this.user = user;
     });
   }
 }

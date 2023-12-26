@@ -1,4 +1,4 @@
-import { Person } from "../../administration/model/person.model";
+import { Profile } from "../../administration/model/profile.model";
 
 export interface Club {
   id: number,
@@ -6,7 +6,7 @@ export interface Club {
   description?: string,
   image?: string,
   ownerId: number,
-  owner?: Person,
+  owner?: Profile,
   fightsWon?: number,
-  members?: Person[]
+  members?: Profile[]
 }

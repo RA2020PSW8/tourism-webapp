@@ -29,8 +29,7 @@
         </div>
         <br>
         <div class="tab-selection">
-            <p>This panel serves to display what is selected by the tab above. Default will be list of members. BACKGROUND-COLOR SHOULD BE REMOVED OR CHANGED</p>
-            <!-- List of members -->
+            <xp-club-members *ngIf="selectedTab === 'members'" [ownerId]="user?.id" [members]="club.members" [ownerPanel]="club.ownerId === user?.id"></xp-club-members>
             <!-- Maybe something else  -->
             <!-- Club statistics  -->
         </div>
