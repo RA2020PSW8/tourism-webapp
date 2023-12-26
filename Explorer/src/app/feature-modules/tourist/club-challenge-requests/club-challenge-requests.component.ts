@@ -26,6 +26,7 @@ export class ClubChallengeRequestsComponent {
       this.touristService.declineChallenge(request).subscribe({
         next: (res) => {
           window.alert('Challenge accepted. The fight has begun');
+          // TODO: Redirektovati na club fight panel
         },
 
         error: (err) => {
