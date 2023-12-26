@@ -20,6 +20,7 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ClubDetailsComponent } from './club-details/club-details.component';
+import { ClubFightDetailsComponent } from './club-fight-details/club-fight-details.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ClubDetailsComponent } from './club-details/club-details.component';
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
     CampaignTourFormComponent,
-    ClubDetailsComponent
+    ClubDetailsComponent,
+    ClubFightDetailsComponent
   ],
   imports: [
     CommonModule,
