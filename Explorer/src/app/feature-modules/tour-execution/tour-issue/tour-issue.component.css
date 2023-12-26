@@ -29,14 +29,13 @@
 }
 
 .table-wrapper {
-    height: 180px; /* Prilagodite visinu prema potrebama */
-    overflow-y: auto; /* Dodavanje vertikalnog skrolbara */
+    height: 180px;
+    overflow-y: auto;
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    /* Ostali stilovi vaše tabele */
 }
 
 tr {
