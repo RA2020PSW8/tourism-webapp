@@ -4,7 +4,7 @@
           <div class="blog-title">
               <p class="p-blog-title">{{selectedBlog.title}}</p>
               <p class="p-blog-date">Created: {{selectedBlog.creationDate}}</p>
-              <p *ngIf="selectedBlog.systemStatus === 'CLOSED'">{{selectedBlog.systemStatus}}</p>
+              <p style="margin-left: 35%; font-size: 20px; color: red;" *ngIf="selectedBlog.systemStatus === 'CLOSED'">{{selectedBlog.systemStatus}}</p>
           </div>
           <div class="rating-buttons">
               <button (click)="rate(1)" mat-flat-button type="submit" color="primary" [ngStyle]="{'background-color':'#74C69D'}" class="rating-button">U</button>
@@ -47,11 +47,9 @@
             <xp-comments-display [blogId]="blogId" style="display: flex; flex-direction: column; width: 70%; height: auto;margin-left: 5%; margin-top: 1.7em; padding-bottom: 1em;"></xp-comments-display>
         </div>
         <div class="rating-container">
-           <!--<p class="p-container-header">Leave a rating</p>
-            <div class="rating-buttons">
-                <button (click)="rate(1)"  mat-raised-button type="submit" color="primary" [ngStyle]="{'background-color':'#74C69D'}" class="rating-button">UP</button>
-                <button (click)="rate(2)" mat-raised-button type="submit" color="primary" [ngStyle]="{'background-color':'#E74646'}" class="rating-button">DOWN</button>
-            </div>-->
+          <p class="p-rating">Ratings</p>
+          <br>
+          <br>
             <div *ngFor="let r of selectedBlog.blogRatings" class="rating">
                 <div class="rating-header">
                     <p class="p-rating-header">{{r.username}}</p>
