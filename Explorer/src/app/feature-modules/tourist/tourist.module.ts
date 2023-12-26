@@ -4,7 +4,7 @@ import { TouristEquipmentComponent } from './tourist-equipment/tourist-equipment
 import { ClubInvitationComponent } from './club-invitation/club-invitation.component';
 import { ClubInvitationFormComponent } from './club-invitation-form/club-invitation-form.component';
 import { MaterialModule } from '../../infrastructure/material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClubOwnerRequestsComponent } from './club-owner-requests/club-owner-requests.component';
 import { ClubJoinRequestFormComponent } from './club-join-request-form/club-join-request-form.component';
 import { ClubJoinRequestsComponent } from './club-join-requests/club-join-requests.component';
@@ -20,6 +20,7 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ClubsRankingComponent } from './clubs-ranking/clubs-ranking.component';
+import { ClubDetailsComponent } from './club-details/club-details.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { ClubsRankingComponent } from './clubs-ranking/clubs-ranking.component';
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
     CampaignTourFormComponent,
-    ClubsRankingComponent
+    ClubsRankingComponent,
+    ClubDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -46,7 +48,8 @@ import { ClubsRankingComponent } from './clubs-ranking/clubs-ranking.component';
     MapComponent,
     MarketplaceModule,
     MatStepperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule
   ],
   exports: [
     ClubsComponent,

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from '../../shared/model/paged-results.model';
 import { ClubInvitation } from './model/club-invitation.model';
 import { environment } from '../../../env/environment';
-import { Club, ClubUpdatedModel } from './model/club.model';
+import { Club } from './model/club.model';
 import { ClubJoinRequest } from './model/club-join-request.model';
 
 @Injectable({
@@ -70,8 +70,12 @@ export class TouristService {
   deleteClub(club: Club): Observable<Club>{
     return this.http.delete<Club>(environment.apiHost+'tourist/clubs/'+club.id); 
   }
-  getClubsUpdatedModel(): Observable<PagedResults<ClubUpdatedModel>> {
-    return this.http.get<PagedResults<ClubUpdatedModel>>(environment.apiHost + 'tourist/clubs');
+  getClubsUpdatedModel(): Observable<PagedResults<Club>> {
+    return this.http.get<PagedResults<Club>>(environment.apiHost + 'tourist/clubs');
+  }
+
+  getClubById(id: number): Observable<Club>{
+    return this.http.get<Club>(`${this.apiUrl}/clubs/${id}`);
   }
 
 }

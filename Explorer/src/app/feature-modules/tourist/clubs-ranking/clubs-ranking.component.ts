@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Club, ClubUpdatedModel } from '../model/club.model';
+import { Club } from '../model/club.model';
 import { TouristService } from '../tourist.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
@@ -10,7 +10,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class ClubsRankingComponent implements OnInit{
 
-  clubs: ClubUpdatedModel[] =  [];  
+  public clubs: Club[] =  [];
+  public sortOrder: string = 'wins';  
 
   constructor(private service: TouristService) {}
 
@@ -21,13 +22,24 @@ export class ClubsRankingComponent implements OnInit{
   getClubs(): void{
 
     this.service.getClubsUpdatedModel().subscribe({
-      next:(result:PagedResults<ClubUpdatedModel>) => {
+      next:(result:PagedResults<Club>) => {
         this.clubs = result.results;
       },
       error:(err: any) => {
         console.log(err); 
       }
     })
+  }
+  getXP(club: Club): number{
+    return club?.members?.reduce((sum, person) => sum + (person?.xp || 0), 0) || 0;
+  }
+  updateSortOrder(value: string): void {
+    this.sortOrder = value;
+    if (value === 'wins') {
+      this.clubs = this.clubs.sort((a, b) => ((b.fightsWon || 0)- (a.fightsWon || 0)));
+    } else {
+       this.clubs = this.clubs.sort((a, b) => this.getXP(b) - this.getXP(a));
+    }
   }
 
 }

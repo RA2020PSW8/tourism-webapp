@@ -7,4 +7,5 @@ export interface Person{
     biography?: string,
     quote?: string,
     email?: string,
+    xp?: number,
 }
