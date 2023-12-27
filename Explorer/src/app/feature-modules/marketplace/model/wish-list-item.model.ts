@@ -1,5 +1,5 @@
 export interface WishListItem{
-    id: number;
+    id?: number;
     tourId: number;
     userId: number;
     tourName: string

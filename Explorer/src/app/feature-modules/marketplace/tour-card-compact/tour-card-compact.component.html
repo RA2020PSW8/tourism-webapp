@@ -9,6 +9,9 @@
     </div>
     <div style="display: flex; justify-content: space-between;">
       <button mat-raised-button (click)="prevImage()" style="margin-right: 10px;">Prev</button>
+      <button mat-raised-button class="add-to-wishlist-button"
+      *ngIf="router.url.includes('/home') && tour.status == 'PUBLISHED' && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'"
+      (click)="addToWishList()">Add to wish list</button>
       <button mat-raised-button (click)="nextImage()" style="margin-left: 10px;">Next</button>
     </div>
   </div>

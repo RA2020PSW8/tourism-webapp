@@ -214,4 +214,13 @@ export class MarketplaceService {
   getTourById(tourId: number): Observable<Tour>{
     return this.http.get<Tour>(`https://localhost:44333/api/tourist/tours/${tourId}`);
   }
+
+  getAllWishListItems(): Observable<PagedResult<WishListItem>> {
+    return this.http.get<PagedResult<WishListItem>>(environment.apiHost + 'tourist/itemswishlist');
+  }
+
+  addWishListItem(wishListItem: WishListItem): Observable<WishListItem> {
+    return this.http.post<WishListItem>(environment.apiHost + 'tourist/itemswishlist', wishListItem);
+  }
+
 }
