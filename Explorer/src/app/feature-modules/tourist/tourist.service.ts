@@ -11,6 +11,7 @@ import { ClubJoinRequest } from './model/club-join-request.model';
 import { ClubFight } from './model/club-fight.model';
 import { ClubFightXPInfo } from './model/club-fight-xp-info.model';
 import { ClubChallengeRequest } from './model/club-challenge-request';
+import { NewsletterPreference } from './model/newsletter-preference.model';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,8 @@ export class TouristService {
   private readonly apiUrl = `${environment.apiHost}tourist`;
 
   constructor(private http: HttpClient) { }
+
+  
 
   getEquipmentForSelection(): Observable<EquipmentForSelection[]> {
     return this.http.get<EquipmentForSelection[]>(environment.apiHost + 'tourist/touristEquipment/forSelected/' + parseInt(localStorage.getItem('loggedId')!))
@@ -111,5 +114,13 @@ export class TouristService {
 
   updateFights(): any {
     return this.http.get(`${environment.apiHost}xp/fight/update`);
+  }
+  
+  getNewsletterPreference(userid: number): Observable<NewsletterPreference>{
+    return this.http.get<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference/${userid}`); 
+  }
+
+  updateNewsletterPrefence(np: NewsletterPreference): Observable<NewsletterPreference>{
+    return this.http.post<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference`, np); 
   }
 }

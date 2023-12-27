@@ -12,6 +12,7 @@ import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { TourKeypointsMapComponent } from '../dialogs/tour-keypoints-map/tour-keypoints-map.component';
+import { WishListItem } from '../model/wish-list-item.model';
 
 @Component({
   selector: 'xp-tour-card-compact',
@@ -29,9 +30,12 @@ export class TourCardCompactComponent {
   public keypoints: Keypoint[] = [];
   private lastOrderId: number;
   @Input() isCustom: Boolean = false;
+  private lastWishListItemId: number;
+  @Output() wishListIpdated = new EventEmitter<null>();
 
   constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) {
     this.lastOrderId = 0;
+    this.lastWishListItemId = 0;
   }
 
   ngOnInit(): void {
@@ -117,5 +121,56 @@ export class TourCardCompactComponent {
     this.router.navigate(
       ['/custom-tour', this.tour.id]
     )
+  }
+
+  addToWishList(): void{
+    this.marketplaceService.getAllWishListItems().subscribe((items) => {
+      if (items.results && items.results.length > 0) {
+        const lastWishListItem = items.results[items.results.length - 1];
+        this.lastWishListItemId = lastWishListItem.id || 1;
+        this.lastWishListItemId = this.lastWishListItemId +1;
+      } else {
+
+        this.lastWishListItemId = 1;
+      }
+
+
+      const wishListItem: WishListItem = {
+        //id: this.lastWishListItemId,
+        tourId: this.tour.id || 0,
+        userId: this.authService.user$.value.id,
+        tourName: this.tour.name,
+        tourDescription: this.tour.description,
+        tourPrice: this.tour.price,
+        tourType: this.tour.transportType,
+        tourDifficulty: this.tour.difficulty,
+        tourDuration: this.tour.duration || 0,
+        travelDistance: this.tour.distance || 0
+      };
+
+
+      this.marketplaceService.addWishListItem(wishListItem).subscribe({
+        next: (_) => {
+          window.alert("Tour added to wish list!");
+          //this.wishListUpdated.emit();
+        },
+        error: (error) => {
+            window.alert("Error adding tour to wish list!");
+        }
+      });
+    });
+  }
+
+  loadGmap(tour: Tour)
+  {
+    let link = "https://www.google.com/maps/dir/"
+    if(tour.keypoints !== undefined)
+    {
+      tour.keypoints.forEach(kp => {
+        link += kp.latitude + ",";
+        link += kp.longitude + "/"
+      });
+      window.location.href = link
+    }
   }
 }

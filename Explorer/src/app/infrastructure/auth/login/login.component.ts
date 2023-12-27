@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { Login } from '../model/login.model';
+import { MatDialog } from '@angular/material/dialog';
+import { RegisterMessageComponent } from 'src/app/feature-modules/marketplace/dialogs/register/register-message.component';
 
 @Component({
   selector: 'xp-login',
@@ -13,7 +15,8 @@ export class LoginComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   loginForm = new FormGroup({
@@ -31,6 +34,11 @@ export class LoginComponent {
       this.authService.login(login).subscribe({
         next: () => {
           this.router.navigate(['/']);
+        },
+        error:(err)=>{
+          if(err.status===403){
+            this.dialog.open(RegisterMessageComponent);
+          }
         },
       });
     }

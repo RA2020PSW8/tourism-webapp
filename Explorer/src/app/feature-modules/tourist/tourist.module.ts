@@ -27,6 +27,11 @@ import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-challenge-requests.component';
 import { ClubFightListComponent } from './club-fight-list/club-fight-list.component';
 import { ClubCardComponent } from './club-card/club-card.component';
+import { NewsletterPreferenceComponent } from './newsletter-preference/newsletter-preference.component';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
+
 
 @NgModule({
   declarations: [
@@ -46,7 +51,8 @@ import { ClubCardComponent } from './club-card/club-card.component';
     ClubMembersComponent,
     ClubChallengeRequestsComponent,
     ClubFightListComponent,
-    ClubCardComponent
+    ClubCardComponent,
+    NewsletterPreferenceComponent
   ],
   imports: [
     CommonModule,
@@ -60,11 +66,15 @@ import { ClubCardComponent } from './club-card/club-card.component';
     MatStepperModule,
     MatSnackBarModule,
     FormsModule,
-    AdministrationModule
+    AdministrationModule,
+    MatRadioModule,
+    MatCardModule,
+    MatTooltipModule,
   ],
   exports: [
     ClubsComponent,
-    TouristEquipmentComponent
+    TouristEquipmentComponent,
+    NewsletterPreferenceComponent
   ]
 })
 export class TouristModule { }
