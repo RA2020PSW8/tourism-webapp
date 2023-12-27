@@ -79,9 +79,6 @@
       </div>
     </div>
       
-    <div *ngIf="activeSection ==='showEdit'"  class="account-settings">
-      <div class="profile-info">
-        <div class="profile-left">
           <div class="profile-image-container">
             <img [src]="profile.profileImage" alt="Profile Image">
           </div>
@@ -91,7 +88,6 @@
             </div>
             <button class="custom-button" mat-raised-button (click)="showUpdateForm()">Change Profile Info</button>
           </div>
-        </div>
       
         <div class="profile-details">
           <div class="profile-header">
@@ -115,7 +111,6 @@
             <span>{{ profile.quote }}</span>
           </div>
         </div>
-      </div>
 
       <!-- ADD Modal window for update -->
       <div class="form-container">
@@ -180,10 +175,7 @@
               </div>
             
             </form>
-          </div>
         </div>
-
-    </div>
+      </div>
   </div>
-  
 </div>

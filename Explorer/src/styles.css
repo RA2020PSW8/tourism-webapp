@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 :root {
+<<<<<<< HEAD
   /* blue color scheme */
   --blue-light: #DAEAF1;
   --blue-medium: #A7CDE3;
@@ -31,15 +32,27 @@
   --color-button-primary: var(--color-foreground);
   --color-button-secondary: var(--color-accent-dark);
   --color-button-ternary: var(--color-accent-contrast);
+=======
+  --color-background: #f1f1f1;
+  --color-foreground: #dfccc1;
+  --color-accent-light: #fdf8ef;
+  --color-accent-dark: #3b352d;
+  --color-text: var(--color-accent-dark);
+>>>>>>> develop
 
   --font-body-size: 16px;
   --font-heading-size: 32px;
 
+<<<<<<< HEAD
   --border-radius: 2px;
+=======
+  --border-radius: 7px;
+>>>>>>> develop
   --content-top-padding: 80px;
 
   --max-page-width: 1440px;
   --min-page-height: 1080px;
+<<<<<<< HEAD
 
   --heading-height: 70px;
   --heading-mobile-height: 50px;
@@ -47,6 +60,12 @@
 
 .hidden {
     display: none !important;
+=======
+}
+
+.hidden {
+  display: none !important;
+>>>>>>> develop
 }
 
 /* */

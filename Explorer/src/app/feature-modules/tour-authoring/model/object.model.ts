@@ -1,4 +1,4 @@
-export enum Category {
+export enum Category { // rename to object category -.-
     RESTAURANT = 'RESTAURANT',
     PARKING = 'PARKING',
     WC = 'WC',

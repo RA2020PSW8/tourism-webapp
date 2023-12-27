@@ -5,7 +5,7 @@ import { PagedResult } from '../../tour-execution/shared/model/paged-result.mode
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
-import { Object } from '../../tour-authoring/model/object.model';
+import { Category, Object } from '../../tour-authoring/model/object.model';
 
 @Component({
   selector: 'xp-tours-overview',
@@ -73,11 +73,12 @@ export class ToursOverviewComponent implements OnInit {
 
     this.marketplaceService.getPublicObjects(0, 0, latitude, longitude, this.tourFilterForm.value.filterRadius || 1).subscribe({
       next: (result: PagedResult<Object>) => {
+        console.log(result);
         result.results.forEach((obj) => {
           this.temporary.push({
             longitude: obj.longitude,
             latitude: obj.latitude,
-            color: 'yellow',
+            color: obj.category == Category.OTHER ? 'object' : obj.category.toString().toLowerCase(),
             title: obj.name
           })
         });

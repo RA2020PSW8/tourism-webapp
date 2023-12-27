@@ -14,6 +14,7 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { KeypointEncountersPreviewComponent } from './keypoint-encounters-preview/keypoint-encounters-preview.component';
 import { BlogModule } from '../blog/blog.module';
 import { BlogFormComponent } from '../blog/blog-form/blog-form.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { BlogFormComponent } from '../blog/blog-form/blog-form.component';
     ReactiveFormsModule,
     MapComponent,
     BlogModule,
-    TimePipe
+    TimePipe,
+    MatTooltipModule
   ],
   exports: [
     TourReviewComponent

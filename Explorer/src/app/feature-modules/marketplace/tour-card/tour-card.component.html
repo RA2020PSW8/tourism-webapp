@@ -31,4 +31,5 @@
     </table>
     <button class="button button-primary" (click)="addToCart()">Add to cart</button>
     <button class="button button-primary" (click)="startTour(tour.id)">Start tour</button>
+    <button *ngIf="isInWishList"  class="button button-primary" (click)="removeFromWishList()">Remove from wish list</button>
 </div>
