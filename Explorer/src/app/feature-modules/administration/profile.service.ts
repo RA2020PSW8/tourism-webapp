@@ -21,6 +21,10 @@ export class ProfileService {
     return this.http.get<Profile>(`${environment.apiHost}profile/${userId}`);
   }
 
+  getPerson(userId: number): Observable<Profile> {
+    return this.http.get<Profile>(`${environment.apiHost}profile/zelimdaumrem/${userId}`);
+  }
+
   getFollowers(): Observable<PagedResults<Profile>> {
     return this.http.get<PagedResults<Profile>>(`${environment.apiHost}profile/followers`);
   }

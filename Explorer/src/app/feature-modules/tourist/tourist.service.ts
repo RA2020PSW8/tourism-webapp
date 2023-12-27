@@ -8,6 +8,9 @@ import { ClubInvitation } from './model/club-invitation.model';
 import { environment } from '../../../env/environment';
 import { Club } from './model/club.model';
 import { ClubJoinRequest } from './model/club-join-request.model';
+import { ClubFight } from './model/club-fight.model';
+import { ClubFightXPInfo } from './model/club-fight-xp-info.model';
+import { ClubChallengeRequest } from './model/club-challenge-request';
 import { NewsletterPreference } from './model/newsletter-preference.model';
 
 @Injectable({
@@ -73,7 +76,46 @@ export class TouristService {
   deleteClub(club: Club): Observable<Club>{
     return this.http.delete<Club>(environment.apiHost+'tourist/clubs/'+club.id); 
   }
+  getClubsUpdatedModel(): Observable<PagedResults<Club>> {
+    return this.http.get<PagedResults<Club>>(environment.apiHost + 'tourist/clubs');
+  }
 
+  getClubById(id: number): Observable<Club>{
+    return this.http.get<Club>(`${this.apiUrl}/clubs/${id}`);
+  }
+
+  getFightById(id: number): Observable<ClubFight> {
+    return this.http.get<ClubFight>(`${this.apiUrl}/fight/${id}`);
+  }
+
+  getFightXPInfo(fightId: number): Observable<ClubFightXPInfo> {
+    return this.http.get<ClubFightXPInfo>(`${environment.apiHost}xp/fight/${fightId}`);
+  }
+  
+  getClubChallenges(id: number): Observable<ClubChallengeRequest[]>{
+    return this.http.get<ClubChallengeRequest[]>(`${environment.apiHost}club-challenge-request/club/${id}`);
+  }
+
+  acceptChallenge(request: ClubChallengeRequest): Observable<ClubChallengeRequest>{
+    return this.http.put<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request/accept`, request);
+  }
+
+  declineChallenge(request: ClubChallengeRequest): Observable<ClubChallengeRequest>{
+    return this.http.put<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request/decline`, request);
+  }
+
+  getFightsByClub(clubId: number): Observable<ClubFight[]> {
+    return this.http.get<ClubFight[]>(`${this.apiUrl}/fight/all/${clubId}`);
+  }
+  
+  createChallenge(request: ClubChallengeRequest): Observable<ClubChallengeRequest>{
+    return this.http.post<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request`, request);
+  }
+
+  updateFights(): any {
+    return this.http.get(`${environment.apiHost}xp/fight/update`);
+  }
+  
   getNewsletterPreference(userid: number): Observable<NewsletterPreference>{
     return this.http.get<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference/${userid}`); 
   }

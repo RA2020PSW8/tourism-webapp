@@ -19,7 +19,7 @@ export class ClubOwnerRequestsComponent {
     request.status = 0;
     this.touristService.updateRequest(request).subscribe({
       next: () => {
-        this.club.memberIds.push(request.userId);
+        // this.club.memberIds.push(request.userId);
         this.touristService.updateClub(this.club).subscribe({});
       },
       error: () => { }

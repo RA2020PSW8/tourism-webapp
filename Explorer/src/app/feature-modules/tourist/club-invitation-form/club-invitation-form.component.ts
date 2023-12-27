@@ -34,10 +34,10 @@ export class ClubInvitationFormComponent implements OnChanges {
     this.errorMessage = '';
     const userIdToAdd = this.clubInvitationForm.value.userId || 0;
 
-    if (this.club.memberIds.includes(userIdToAdd)) {
-      this.errorMessage = 'User is already a member of the club';
-      return;
-    }
+    // if (this.club.memberIds.includes(userIdToAdd)) {
+    //   this.errorMessage = 'User is already a member of the club';
+    //   return;
+    // }
 
     const clubInvitation: ClubInvitation = {
       clubId: this.club.id || 0,
@@ -51,7 +51,7 @@ export class ClubInvitationFormComponent implements OnChanges {
     });
 
     //auto add without accepting invitations - JUST TEMPORARY
-    this.club.memberIds.push(clubInvitation.userId);
+    // this.club.memberIds.push(clubInvitation.userId);
     this.service.updateClub(this.club).subscribe({});
   }
 }
