@@ -19,12 +19,10 @@ import { FormsModule } from '@angular/forms';
 import { MapComponent } from './shared/map/map.component';
 import { TimePipe } from './shared/helpers/time.pipe';
 import { EncountersModule } from './feature-modules/encounters-managing/encounters.module';
-
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -42,7 +40,8 @@ import { EncountersModule } from './feature-modules/encounters-managing/encounte
     TouristModule,
     MarkdownModule.forRoot({ loader: HttpClientModule }),
     FormsModule,
-    EncountersModule
+    EncountersModule,
+    ToastModule,
   ],
   providers: [
     {
@@ -51,6 +50,6 @@ import { EncountersModule } from './feature-modules/encounters-managing/encounte
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

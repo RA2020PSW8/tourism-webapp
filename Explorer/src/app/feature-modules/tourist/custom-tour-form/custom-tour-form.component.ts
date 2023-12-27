@@ -1,16 +1,23 @@
 import { Component } from '@angular/core';
-import { Status, Tour, TourDifficulty, TransportType } from '../../tour-authoring/model/tour.model';
+import {
+  Status,
+  Tour,
+  TourDifficulty,
+  TransportType,
+} from '../../tour-authoring/model/tour.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { RouteInfo } from 'src/app/shared/model/routeInfo.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'xp-custom-tour-form',
   templateUrl: './custom-tour-form.component.html',
-  styleUrls: ['./custom-tour-form.component.css']
+  styleUrls: ['./custom-tour-form.component.css'],
+  providers: [MessageService],
 })
 export class CustomTourFormComponent {
   public tour: Tour;
@@ -20,12 +27,26 @@ export class CustomTourFormComponent {
   public selectedKeypoint: Keypoint;
   public mode: string = 'add';
   public routeQuery: RouteQuery;
-  
+
   public openPublicKeypointList: boolean = false;
   public publicKeypoints: Keypoint[];
 
-  constructor(private tourAuthoringService: TourAuthoringService, private router: Router, private route: ActivatedRoute) {
-    this.tour = { description: '', difficulty: TourDifficulty.EASY, status: Status.DRAFT, name: '', price: 0, transportType: TransportType.WALK, userId: 0, id:0}
+  constructor(
+    private tourAuthoringService: TourAuthoringService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private messageService: MessageService,
+  ) {
+    this.tour = {
+      description: '',
+      difficulty: TourDifficulty.EASY,
+      status: Status.DRAFT,
+      name: '',
+      price: 0,
+      transportType: TransportType.WALK,
+      userId: 0,
+      id: 0,
+    };
     this.tourForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
@@ -38,85 +59,95 @@ export class CustomTourFormComponent {
     this.route.paramMap.subscribe((params: ParamMap) => {
       this.tourId = Number(params.get('id'));
 
-      if(this.tourId !== 0){
-        this.tourAuthoringService.getTourById(this.tourId).subscribe((res: Tour) => {
-          this.tour = res;
-          this.tourForm.patchValue(this.tour);
-          
-          this.getTourKeypoints();
-        });
+      if (this.tourId !== 0) {
+        this.tourAuthoringService
+          .getTourById(this.tourId)
+          .subscribe((res: Tour) => {
+            this.tour = res;
+            this.tourForm.patchValue(this.tour);
 
-        this.tourAuthoringService.getPublicKeypoints().subscribe(res => {
+            this.getTourKeypoints();
+          });
+
+        this.tourAuthoringService.getPublicKeypoints().subscribe((res) => {
           this.publicKeypoints = res.results;
-        })
+        });
       }
     });
   }
 
-  ngOnChanges(): void {
-  }
+  ngOnChanges(): void {}
 
   saveTour(statusChange: string = ''): void {
     let tour: Tour = {
       id: this.tourId,
       userId: -1,
-      name: this.tourForm.value.name || "",
-      description: this.tourForm.value.description || "",
+      name: this.tourForm.value.name || '',
+      description: this.tourForm.value.description || '',
       price: 0,
-      difficulty: this.tourForm.value.difficulty || "",
-      transportType: this.tourForm.value.transportType || "",
+      difficulty: this.tourForm.value.difficulty || '',
+      transportType: this.tourForm.value.transportType || '',
       status: Status.CUSTOM,
       tags: [],
     };
 
-    if(this.tourId === 0){
+    if (this.tourId === 0) {
       tour.statusUpdateTime = new Date();
       this.tourAuthoringService.addCustomTour(tour).subscribe({
-        next: (newTour) => { 
-          window.alert("You have successfuly saved your custom tour");
-          this.router.navigate(
-            ['/custom-tour', newTour.id]
-          );
-        }
+        next: (newTour) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'You have successfully saved your custom tour',
+          });
+          this.router.navigate(['/custom-tour', newTour.id]);
+        },
       });
-    }else{
+    } else {
       tour.distance = this.tour.distance;
       tour.duration = this.tour.duration;
       this.tourAuthoringService.updateTour(tour).subscribe({
-        next: (updatedTour) => { 
-          window.alert("You have successfuly saved your tour");
+        next: (updatedTour) => {
+          this.messageService.add({
+            severity: 'success',
+            summary: 'You have successfully saved your tour',
+          });
           this.tour = updatedTour;
           this.routeQuery = {
             keypoints: this.keypoints,
-            transportType: this.tour.transportType
-          }
-        }
+            transportType: this.tour.transportType,
+          };
+        },
       });
-    } 
+    }
   }
 
-  getTourKeypoints(): void{
-    this.tourAuthoringService.getKeypointsByTour(this.tourId).subscribe(res => {
-      this.keypoints = res.results;
-      this.routeQuery = {
-        keypoints: this.keypoints,
-        transportType: this.tour.transportType
-      }
-    });
+  getTourKeypoints(): void {
+    this.tourAuthoringService
+      .getKeypointsByTour(this.tourId)
+      .subscribe((res) => {
+        this.keypoints = res.results;
+        this.routeQuery = {
+          keypoints: this.keypoints,
+          transportType: this.tour.transportType,
+        };
+      });
     this.mode = 'add';
   }
 
-  setTourRoute(event: RouteInfo){
-    if(this.tour.duration !== event.duration || this.tour.distance !== event.distance){
+  setTourRoute(event: RouteInfo) {
+    if (
+      this.tour.duration !== event.duration ||
+      this.tour.distance !== event.distance
+    ) {
       this.tour.duration = event.duration;
       this.tour.distance = event.distance;
 
       this.tourAuthoringService.updateTour(this.tour).subscribe({
-        next: (updatedTour) => { 
+        next: (updatedTour) => {
           this.tour = updatedTour;
-        }
+        },
       });
-     }
+    }
   }
 
   selectPublicKeypoint(keypoint: Keypoint) {
@@ -124,9 +155,9 @@ export class CustomTourFormComponent {
     keypoint.id = 0;
     keypoint.tourId = this.tour.id;
     this.tourAuthoringService.addKeypoint(keypoint).subscribe({
-      next: () => { 
+      next: () => {
         this.getTourKeypoints();
-      }
+      },
     });
   }
 }

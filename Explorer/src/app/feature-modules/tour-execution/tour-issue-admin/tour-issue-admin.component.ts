@@ -6,15 +6,22 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Status, Tour } from '../../tour-authoring/model/tour.model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'xp-tour-issue-admin',
   templateUrl: './tour-issue-admin.component.html',
-  styleUrls: ['./tour-issue-admin.component.css']
+  styleUrls: ['./tour-issue-admin.component.css'],
+  providers: [MessageService],
 })
 export class TourIssueAdminComponent implements OnInit {
-  constructor(private service: TourIssueService, private authservice: AuthService, private router: Router) {
-    if(this.authservice.user$.value.role !== 'administrator') {
+  constructor(
+    private service: TourIssueService,
+    private authservice: AuthService,
+    private router: Router,
+    private messageService: MessageService,
+  ) {
+    if (this.authservice.user$.value.role !== 'administrator') {
       this.router.navigate(['home']);
     }
   }
@@ -22,7 +29,7 @@ export class TourIssueAdminComponent implements OnInit {
   tourIssues: TourIssue[] = [];
   selectedTourIssue: TourIssue;
   td = new Date().getTime();
-  
+
   ngOnInit(): void {
     this.service.getTourIssues().subscribe({
       next: (result: PagedResult<TourIssue>) => {
@@ -30,8 +37,8 @@ export class TourIssueAdminComponent implements OnInit {
       },
       error: (err: any) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 
   onChange(event: any, index: number) {
@@ -46,27 +53,32 @@ export class TourIssueAdminComponent implements OnInit {
       },
       error: (err: any) => {
         console.log(err);
-      }
-    })
+      },
+    });
   }
 
   calculateDifference(creationDate: Date): number {
     const today = new Date();
-    const daysDifference = Math.floor((today.getTime() - new Date(creationDate).getTime()) / (1000 * 60 * 60 * 24));
+    const daysDifference = Math.floor(
+      (today.getTime() - new Date(creationDate).getTime()) /
+        (1000 * 60 * 60 * 24),
+    );
     console.log(daysDifference);
     return daysDifference;
   }
 
   setResolveDateTime(tourIssue: TourIssue): void {
     this.selectedTourIssue = tourIssue;
-    this.selectedTourIssue.resolveDateTime = new Date(tourIssue.resolveDateTime as Date);
+    this.selectedTourIssue.resolveDateTime = new Date(
+      tourIssue.resolveDateTime as Date,
+    );
     this.service.setResolveDateTime(tourIssue).subscribe({
       next: () => {
         this.ngOnInit();
       },
       error: (err: any) => {
         console.log(err);
-      }
+      },
     });
   }
 
@@ -76,31 +88,33 @@ export class TourIssueAdminComponent implements OnInit {
         result.status = Status.DISABLED;
         this.service.updateTour(result).subscribe({
           next: () => {
-            alert("Successfully disabled tour! ඞ");
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Successfully disabled tour! ඞ',
+            });
           },
           error: (err: any) => {
             console.log(err);
-          }
+          },
         });
-      }
-    })
+      },
+    });
   }
 
-  public resolveButtonDisabled(tourIssue: TourIssue): boolean
-  {
-    if(tourIssue.isResolved === true)
-      return true;
-    
-    if(tourIssue.resolveDateTime == undefined || tourIssue.resolveDateTime == null)
-    {
+  public resolveButtonDisabled(tourIssue: TourIssue): boolean {
+    if (tourIssue.isResolved === true) return true;
+
+    if (
+      tourIssue.resolveDateTime == undefined ||
+      tourIssue.resolveDateTime == null
+    ) {
       return true;
     }
 
-    if(new Date(tourIssue.resolveDateTime).getTime() < new Date().getTime())
-    {
+    if (new Date(tourIssue.resolveDateTime).getTime() < new Date().getTime()) {
       return false;
     }
-  
+
     return true;
   }
 }

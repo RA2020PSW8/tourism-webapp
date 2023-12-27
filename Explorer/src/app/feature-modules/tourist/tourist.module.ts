@@ -17,8 +17,7 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-form.component';
 import { MarketplaceModule } from '../marketplace/marketplace.module';
-
-
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -31,7 +30,7 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
-    CampaignTourFormComponent
+    CampaignTourFormComponent,
   ],
   imports: [
     CommonModule,
@@ -41,11 +40,9 @@ import { MarketplaceModule } from '../marketplace/marketplace.module';
     TourAuthoringModule,
     TimePipe,
     MapComponent,
-    MarketplaceModule
+    MarketplaceModule,
+    ToastModule,
   ],
-  exports: [
-    ClubsComponent,
-    TouristEquipmentComponent
-  ]
+  exports: [ClubsComponent, TouristEquipmentComponent],
 })
-export class TouristModule { }
+export class TouristModule {}

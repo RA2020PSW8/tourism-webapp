@@ -4,21 +4,19 @@ import { OrderItem } from '../model/order-item.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { MarketplaceService } from '../marketplace.service';
 import { MatDialog } from '@angular/material/dialog';
-import { CartSuccessComponent } from '../dialogs/cart-success/cart-success.component';
-import { CartWarningComponent } from '../dialogs/cart-warning/cart-warning.component';
 import { Tour } from '../../tour-authoring/model/tour.model';
 import { TourReview } from '../../tour-execution/model/tour-review.model';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { TourKeypointsMapComponent } from '../dialogs/tour-keypoints-map/tour-keypoints-map.component';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'xp-tour-card-compact',
   templateUrl: './tour-card-compact.component.html',
-  styleUrls: ['./tour-card-compact.component.css']
+  styleUrls: ['./tour-card-compact.component.css'],
+  providers: [MessageService],
 })
-
 export class TourCardCompactComponent {
   @Output() orderUpdated = new EventEmitter<null>();
   @Input() tour: Tour;
@@ -29,7 +27,13 @@ export class TourCardCompactComponent {
   public keypoints: Keypoint[] = [];
   private lastOrderId: number;
 
-  constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) {
+  constructor(
+    private dialog: MatDialog,
+    private marketplaceService: MarketplaceService,
+    public authService: AuthService,
+    public router: Router,
+    private messageService: MessageService,
+  ) {
     this.lastOrderId = 0;
   }
 
@@ -41,15 +45,14 @@ export class TourCardCompactComponent {
       this.startingKeypoint = this.tour.keypoints[0];
     }
     for (let keypoint of this.tour.keypoints ?? []) {
-      this.images.push(keypoint.image ?? "");
+      this.images.push(keypoint.image ?? '');
     }
   }
 
   prevImage() {
     if (this.currentIndex > 0) {
       this.currentIndex--;
-    }
-    else {
+    } else {
       this.currentIndex = this.images.length - 1;
     }
   }
@@ -57,8 +60,7 @@ export class TourCardCompactComponent {
   nextImage() {
     if (this.currentIndex < this.images.length - 1) {
       this.currentIndex++;
-    }
-    else {
+    } else {
       this.currentIndex = 0;
     }
   }
@@ -66,7 +68,7 @@ export class TourCardCompactComponent {
   openReviews(tourId: number): void {
     this.dialog.open(ReviewsComponent, {
       data: tourId,
-      panelClass: 'reviews-dialog-container'
+      panelClass: 'reviews-dialog-container',
     });
   }
 
@@ -76,10 +78,8 @@ export class TourCardCompactComponent {
         const lastOrder = orders.results[orders.results.length - 1];
         this.lastOrderId = lastOrder.id + 1;
       } else {
-
         this.lastOrderId = 1;
       }
-
 
       const orderItem: OrderItem = {
         id: this.lastOrderId,
@@ -87,29 +87,26 @@ export class TourCardCompactComponent {
         userId: this.authService.user$.value.id,
         tourName: this.tour.name,
         tourDescription: this.tour.description,
-        tourPrice: this.tour.price
+        tourPrice: this.tour.price,
       };
-
 
       this.marketplaceService.addOrderItem(orderItem).subscribe({
         next: (_) => {
-          this.dialog.open(CartSuccessComponent);
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Success',
+            detail: 'Item added to cart',
+          });
           this.orderUpdated.emit();
         },
         error: (error) => {
-          if (error.status === 409) {
-            this.dialog.open(CartWarningComponent)
-          }
-        }
+          this.messageService.add({
+            severity: 'warn',
+            summary: 'Warning',
+            detail: 'Item already exists in the cart',
+          });
+        },
       });
     });
   }
-
-  showKeypoints(): void {
-    this.dialog.open(TourKeypointsMapComponent, {
-      data: this.tour,
-      panelClass: 'keypoints-map-dialog'
-    });
-  }
-
 }

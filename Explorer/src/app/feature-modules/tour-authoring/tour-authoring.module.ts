@@ -19,6 +19,7 @@ import { PublicKeypointComponent } from './public-keypoint/public-keypoint.compo
 import { KeypointEncountersComponent } from './keypoint-encounters/keypoint-encounters.component';
 import { KeypointEncountersManagingComponent } from './keypoint-encounters-managing/keypoint-encounters-managing.component';
 import { KeypointEncounterFormComponent } from './keypoint-encounter-form/keypoint-encounter-form.component';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { KeypointEncounterFormComponent } from './keypoint-encounter-form/keypoi
     PublicKeypointComponent,
     KeypointEncountersComponent,
     KeypointEncountersManagingComponent,
-    KeypointEncounterFormComponent
+    KeypointEncounterFormComponent,
   ],
   imports: [
     CommonModule,
@@ -42,12 +43,9 @@ import { KeypointEncounterFormComponent } from './keypoint-encounter-form/keypoi
     ReactiveFormsModule,
     MapComponent,
     RouterModule,
-    TimePipe
+    TimePipe,
+    ToastModule,
   ],
-  exports: [
-    KeypointComponent,
-    KeypointFormComponent,
-    PublicKeypointComponent
-  ]
+  exports: [KeypointComponent, KeypointFormComponent, PublicKeypointComponent],
 })
-export class TourAuthoringModule { }
+export class TourAuthoringModule {}
