@@ -1,6 +1,5 @@
 <div class="main">
     <div class="blog-header">
-<<<<<<< HEAD
       <div class="blog-title-row">
           <div class="blog-title">
               <p class="p-blog-title">{{selectedBlog.title}}</p>
@@ -15,16 +14,6 @@
         <div class="blog-info">
             <div class="blog-description">
                 <markdown ngPreserveWhitespaces style="color: #262F44 ;padding: 15px;line-height: 1.2;margin-top: 5px;">
-=======
-        <div class="blog-title-row">
-            <p class="p-blog-title">{{selectedBlog.title}}</p>
-            <p class="blog-date">Created: {{selectedBlog.creationDate}}</p>
-            <p *ngIf="selectedBlog.systemStatus === 'CLOSED'">{{selectedBlog.systemStatus}}</p>
-        </div>
-        <div class="blog-info">
-            <div class="blog-description">
-                <markdown ngPreserveWhitespaces style="padding: 15px; margin-top: 5px;">
->>>>>>> develop
                   {{selectedBlog.description}}
                 </markdown>
             </div>
