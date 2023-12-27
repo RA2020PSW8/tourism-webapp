@@ -14,7 +14,6 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { KeypointEncountersPreviewComponent } from './keypoint-encounters-preview/keypoint-encounters-preview.component';
 import { BlogModule } from '../blog/blog.module';
 import { BlogFormComponent } from '../blog/blog-form/blog-form.component';
-import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,7 @@ import { ToastModule } from 'primeng/toast';
     TourIssueTouristComponent,
     TourIssueComponent,
     ActiveTourComponent,
-    KeypointEncountersPreviewComponent,
+    KeypointEncountersPreviewComponent
   ],
   imports: [
     CommonModule,
@@ -33,9 +32,10 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     MapComponent,
     BlogModule,
-    TimePipe,
-    ToastModule,
+    TimePipe
   ],
-  exports: [TourReviewComponent],
+  exports: [
+    TourReviewComponent
+  ]
 })
-export class TourExecutionModule {}
+export class TourExecutionModule { }

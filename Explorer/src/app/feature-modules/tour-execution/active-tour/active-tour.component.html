@@ -1,66 +1,62 @@
 <div class="active-tour-container">
-  <div *ngIf="showBlog" id="blog-form-container">
-    <xp-blog-form id="blog-form-display" [selectedBlog]="newBlog" [tourProgress]="activeTourCopy"></xp-blog-form>
-  </div>
-  <div *ngIf="(!activeTour || activeTour.status != 'IN_PROGRESS') && !showBlog">
-    <h2>You don't have active tour</h2>
-    <p>Go to the tour market and buy one!</p>
-  </div>
-  <div>
-    <h2 *ngIf="activeTour">Active tour information</h2>
-    <div class="active-tour__information">
-      <div *ngIf="activeTour">
-        <p><b>Tour name:</b> {{ activeTour.tour.name }}</p>
-        <p><b>Tour distance:</b> {{ activeTour.tour.distance | number:'1.2-2' }}km</p>
-        <p><b>Tour difficulty:</b> {{ activeTour.tour.difficulty }}</p>
-      </div>
-      <div *ngIf="activeTour">
-        <p><b>Tour duration:</b> {{ activeTour.tour.duration || 0 | time }}</p>
-        <p><b>Start time:</b> {{ activeTour.startTime | date:"MMM dd, yyyy 'at' hh:mm a" }}</p>
-        <p><b>Your current location:</b> {{ activeTour.touristPosition?.longitude }}
-          °, {{ activeTour.touristPosition?.latitude }}°</p>
-      </div>
-      <div *ngIf="activeTour && currentKeyPoint">
-
-        <p><b>Keypoint Name:</b> {{ currentKeyPoint.name }}</p>
-        <p><b>Keypoint Position:</b> {{ currentKeyPoint.position }}</p>
-        <p><b>Keypoint Description:</b> {{ currentKeyPoint.description }}</p>
-      </div>
-      <div *ngIf="activeTour">
-        <p>Nearby encounters</p>
-        <table>
-          <thead>
-          <th>Name</th>
-          <th>Xp</th>
-          <th>Type</th>
-          <th></th>
-          </thead>
-          <tbody>
-          <tr *ngFor="let e of nearbyEncounters">
-            <td>{{ e.name }}</td>
-            <td>{{ e.xp }}</td>
-            <td>{{ e.type }}</td>
-            <td>
-              <button color="primary" mat-icon-button (click)="startEncounter(e)">
-                <mat-icon>start</mat-icon>
-              </button>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="button-container" *ngIf="activeTour">
-        <button color="primary" (click)="abandonTour()" mat-raised-button>Abandon Tour</button>
-      </div>
+    <div *ngIf="showBlog" id="blog-form-container">
+        <xp-blog-form id="blog-form-display" [selectedBlog]="newBlog" [tourProgress]="activeTourCopy"></xp-blog-form>
     </div>
-    <div class="active-tour__map-container" *ngIf="activeTour">
-      <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery"
-               [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" *ngIf="refreshMap"></app-map>
+    <div *ngIf="(!activeTour || activeTour.status != 'IN_PROGRESS') && !showBlog">
+        <h2>You don't have active tour</h2>
+        <p>Go to the tour market and buy one!</p>
     </div>
-    <div *ngIf="activeTour">
-      <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters"
-                                      [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview>
+    <div>
+        <h2 *ngIf="activeTour">Active tour information</h2>
+        <div class="active-tour__information">
+            <div *ngIf="activeTour">
+                <p><b>Tour name:</b> {{ activeTour.tour.name }}</p>
+                <p><b>Tour distance:</b> {{ activeTour.tour.distance | number:'1.2-2'}}km</p>
+                <p><b>Tour difficulty:</b> {{ activeTour.tour.difficulty }}</p>
+            </div>
+            <div *ngIf="activeTour">
+                <p><b>Tour duration:</b> {{ activeTour.tour.duration || 0 | time}}</p>
+                <p><b>Start time:</b> {{ activeTour.startTime | date:"MMM dd, yyyy 'at' hh:mm a" }}</p>
+                <p><b>Your current location:</b> {{ activeTour.touristPosition?.longitude }}°, {{ activeTour.touristPosition?.latitude }}°</p>
+            </div>
+            <div *ngIf="activeTour && currentKeyPoint">
+           
+                <p><b>Keypoint Name:</b> {{ currentKeyPoint.name }}</p>
+                <p><b>Keypoint Position:</b> {{ currentKeyPoint.position }}</p>
+                <p><b>Keypoint Description:</b> {{ currentKeyPoint.description }}</p>
+            </div>
+            <div *ngIf="activeTour">
+                <p>Nearby encounters</p>
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Xp</th>
+                        <th>Type</th>
+                        <th></th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let e of nearbyEncounters">
+                            <td>{{e.name}}</td>
+                            <td>{{e.xp}}</td>
+                            <td>{{e.type}}</td>
+                            <td>
+                                <button color="primary" mat-icon-button (click)="startEncounter(e)">
+                                    <mat-icon>start</mat-icon>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="button-container" *ngIf="activeTour">
+                <button color="primary" (click)="abandonTour()" mat-raised-button>Abandon Tour</button>
+            </div>
+        </div>
+        <div class="active-tour__map-container" *ngIf="activeTour">
+            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" *ngIf="refreshMap"></app-map>
+        </div>
+        <div *ngIf="activeTour">
+            <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters" [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview>
+        </div>
     </div>
-  </div>
 </div>
-<p-toast position="top-right"></p-toast>

@@ -16,7 +16,9 @@ import { ChatMessagesViewComponent } from './chat-messages-view/chat-messages-vi
 import { MatSelectModule } from '@angular/material/select';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { PublicEntityRequestsComponent } from './public-entity-requests/public-entity-requests.component';
-import { ToastModule } from 'primeng/toast';
+
+
+
 
 @NgModule({
   declarations: [
@@ -31,7 +33,7 @@ import { ToastModule } from 'primeng/toast';
     ChatViewComponent,
     ChatCardComponent,
     ChatMessagesViewComponent,
-    PublicEntityRequestsComponent,
+    PublicEntityRequestsComponent
   ],
   imports: [
     CommonModule,
@@ -39,8 +41,7 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     FormsModule,
     MatSelectModule,
-    NgxMatSelectSearchModule,
-    ToastModule,
+    NgxMatSelectSearchModule
   ],
   exports: [
     EquipmentComponent,
@@ -51,7 +52,7 @@ import { ToastModule } from 'primeng/toast';
     AppRatingTouristComponent,
     AppRatingAuthorComponent,
     AppRatingFormTouristComponent,
-    PublicEntityRequestsComponent,
-  ],
+    PublicEntityRequestsComponent
+  ]
 })
-export class AdministrationModule {}
+export class AdministrationModule { }

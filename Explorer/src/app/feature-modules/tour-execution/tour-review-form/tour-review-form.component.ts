@@ -1,37 +1,26 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  Output,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourExecutionService } from '../tour-execution.service';
 import { TourReview } from '../model/tour-review.model';
 import { TourReviewString } from '../model/tour-review-string.model';
 import { Tour } from '../../tour-authoring/model/tour.model';
-import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'xp-tour-review-form',
   templateUrl: './tour-review-form.component.html',
-  styleUrls: ['./tour-review-form.component.css'],
-  providers: [MessageService],
+  styleUrls: ['./tour-review-form.component.css']
 })
 export class TourReviewFormComponent implements OnChanges {
-  @Output() tourReviewUpdated = new EventEmitter<null>();
+
+  @Output() tourReviewUpdated = new EventEmitter<null>(); 
   @Input() tourReview: TourReview;
   @Input() shouldEdit: boolean = false;
 
-  constructor(
-    private service: TourExecutionService,
-    private messageService: MessageService,
-  ) {}
+  constructor(private service: TourExecutionService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.tourReviewForm.reset();
-    if (this.shouldEdit) {
+    if(this.shouldEdit) {
       this.tourReviewForm.patchValue(this.tourReview);
     }
   }
@@ -40,47 +29,41 @@ export class TourReviewFormComponent implements OnChanges {
     rating: new FormControl('', [Validators.required]),
     comment: new FormControl('', [Validators.required]),
     visitDate: new FormControl('', [Validators.required]),
-    imageLinks: new FormControl('', [Validators.required]),
-  });
+    imageLinks: new FormControl('', [Validators.required])
+  })
 
   addTourReview(): void {
+  
     const tourReview: TourReviewString = {
       rating: Number(this.tourReviewForm.value.rating),
-      comment: this.tourReviewForm.value.comment || '',
-      visitDate: new Date(this.tourReviewForm.value.visitDate as string)
-        .toISOString()
-        .toString(),
+      comment: this.tourReviewForm.value.comment || "",
+      visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
       ratingDate: new Date().toISOString(),
       imageLinks: this.tourReviewForm.value.imageLinks?.split('\n') as string[],
-      tourId: '1',
-      userId: localStorage.getItem('loggedId') ?? '1',
-    };
-
+      tourId: "1",
+      userId: localStorage.getItem('loggedId')??'1'
+    }
+    
     this.clearFormFields();
 
     this.service.addTourReview(tourReview).subscribe({
       next: (_) => {
         this.tourReviewUpdated.emit();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successfully added tour review',
-        });
-      },
+        alert('Successfully added tour review!');
+      }
     });
   }
 
   updateTourReview(): void {
     const tourReview: TourReviewString = {
       rating: Number(this.tourReviewForm.value.rating),
-      comment: this.tourReviewForm.value.comment || '',
-      visitDate: new Date(this.tourReviewForm.value.visitDate as string)
-        .toISOString()
-        .toString(),
+      comment: this.tourReviewForm.value.comment || "",
+      visitDate: new Date(this.tourReviewForm.value.visitDate as string).toISOString().toString(),
       ratingDate: new Date().toISOString(),
       imageLinks: this.tourReviewForm.value.imageLinks as unknown as string[],
-      tourId: '1',
-      userId: localStorage.getItem('loggedId') ?? '1',
-    };
+      tourId: "1",
+      userId: localStorage.getItem('loggedId')??'1'
+    }
 
     tourReview.id = this.tourReview.id;
     this.clearFormFields();
@@ -88,18 +71,16 @@ export class TourReviewFormComponent implements OnChanges {
     this.service.updateTourReview(tourReview).subscribe({
       next: (_) => {
         this.tourReviewUpdated.emit();
-        this.messageService.add({
-          severity: 'success',
-          summary: 'Successfully updated tour review',
-        });
-      },
+        alert('Successfully updated tour review!');
+      }
     });
   }
 
   clearFormFields(): void {
-    this.tourReviewForm.value.rating = '';
-    this.tourReviewForm.value.comment = '';
-    this.tourReviewForm.value.visitDate = '';
-    this.tourReviewForm.value.imageLinks = '';
+    this.tourReviewForm.value.rating = "";
+    this.tourReviewForm.value.comment = "";
+    this.tourReviewForm.value.visitDate = "";
+    this.tourReviewForm.value.imageLinks = "";
   }
+
 }
