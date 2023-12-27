@@ -1,184 +1,184 @@
 .old-navbar {
-  width: 100%;
-  display: flex;
-  gap: 10px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
 }
 
 #buttons {
-  width: auto;
-  margin-left: auto;
+    width: auto;
+    margin-left: auto;
 }
 
 .heading {
-  display: grid;
-  grid-template-columns: 3fr 1fr 3fr;
-  padding: 0 96px;
-  position: sticky;
-  top: 0;
-  background-color: var(--color-foreground);
-  z-index: 99;
-  height: var(--heading-height);
-  box-shadow: 0px 2px 10px 0px #00000026;
+    display: grid;
+    grid-template-columns: 3fr 1fr 3fr;
+    padding: 0 96px;
+    position: sticky;
+    top: 0;
+    background-color: var(--color-foreground);
+    z-index: 9999;
+    height: var(--heading-height);
+    box-shadow: 0px 2px 10px 0px #00000026;
 }
 
 .left-menu {
-  display: flex;
-  justify-content: left;
-  gap: 20px;
+    display: flex;
+    justify-content: left;
+    gap: 20px;
 }
 
 .logo {
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
 }
 
 .logo img {
-  height: calc(var(--heading-height) - 20px);
+    height: calc(var(--heading-height) - 20px);
 }
 
 .logo p {
-  margin: 0;
-  font-size: 32px;
-  font-weight: 700;
-  letter-spacing: 2px;
+    margin: 0;
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 2px;
 }
 
 .right-menu {
-  display: flex;
-  justify-content: right;
-  gap: 16px;
+    display: flex;
+    justify-content: right;
+    gap: 16px;
 }
 
 .sticky-footer {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100px;
-  background: var(--color-foreground);
-  border-radius: var(--border-radius);
-  font-size: 18px;
-  transition: ease 0.3s;
-  box-shadow: 1px 0px 7px 3px #3b352d47;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    background: var(--color-foreground);
+    border-radius: var(--border-radius);
+    font-size: 18px;
+    transition: ease 0.3s;
+    box-shadow: 1px 0px 7px 3px #3b352d47;
 }
 
 .sticky-footer:hover {
-  transform: scale(1.1);
-  cursor: pointer;
+    transform: scale(1.1);
+    cursor: pointer;
 }
 
 .left-drawer-container {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  background: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: none;
 }
 
 .left-drawer {
-  width: 33vw;
-  padding: 30px 50px;
-  background-color: var(--color-foreground);
+    width: 33vw;
+    padding: 30px 50px;
+    background-color: var(--color-foreground);
 }
 
 .left-drawer__footer {
-  margin-top: 30px;
-  padding-top: 30px;
-  font-size: 16px;
-  border-top: dashed 1px var(--color-accent-dark);
-  align-items: center;
+    margin-top: 30px;
+    padding-top: 30px;
+    font-size: 16px;
+    border-top: dashed 1px var(--color-accent-dark);
+    align-items: center;
 }
 
 .left-drawer,
 .left-drawer__main-content,
 .left-drawer__main-content > *,
 .left-drawer__footer {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .left-drawer__main-content h4 {
-  margin-top: 20px;
-  border-bottom: dashed 1px var(--color-accent-dark);
-  max-width: 50%;
-  font-weight: 700;
-  font-size: 24px;
-  padding-bottom: 10px;
+    margin-top: 20px;
+    border-bottom: dashed 1px var(--color-accent-dark);
+    max-width: 50%;
+    font-weight: 700;
+    font-size: 24px;
+    padding-bottom: 10px;
 }
 
 .left-drawer__main-content p {
-  margin-bottom: 3px;
-  font-size: 20px;
+    margin-bottom: 3px;
+    font-size: 20px;
 }
 
 ::ng-deep .cdk-overlay-pane .my-menu {
-  min-width: 550px;
-  max-height: 80vh;
+    min-width: 550px;
+    max-height: 80vh;
 }
 
 .content {
-  width: 350px;
+    width: 350px;
 }
 
 .icon {
-  margin: 5px;
+    margin: 5px;
 }
 
 .cloud-container {
-  background-color: #f0f0f0;
-  border-radius: 5px;
-  margin: 5px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    margin: 5px;
 }
 
 .notification-button {
-  padding-top: 15px;
-  padding-right: 5px;
-  width: 120px;
+    padding-top: 15px;
+    padding-right: 5px;
+    width: 120px;
 }
 
 .no-notifications {
-  text-align: center;
-  font-size: 14px;
-  font-weight: bolder;
-  justify-content: center;
-}
+    text-align: center;
+    font-size: 14px;
+    font-weight: bolder;
+    justify-content: center;
+  }
 
 .notification-box {
-  padding-bottom: 5px;
+    padding-bottom: 5px;
 }
 
 .notification-badge {
-  position: absolute;
-  top: -10px;
-  right: -5px;
-  width: 20px;
-  height: 20px;
-  background-color: #f73a98;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  font-size: 12px;
-}
+    position: absolute;
+    top: -10px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: #f73a98;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 12px;
+  }
 
-.date {
-  font-size: small;
+.date{
+    font-size: small;
 }
 
 .notification-icon-container {
-  position: relative;
+    position: relative;
 }
 
 .overlay-container {
-  display: block;
+  display:block;
   position: fixed;
   top: 0;
   right: -300px;
@@ -187,7 +187,7 @@
   background-color: white;
   color: black;
   transition: right 0.3s ease-out;
-  border-radius: 10px;
+  border-radius:10px;
   z-index: 9999;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
@@ -222,7 +222,6 @@
 .user-info {
   margin-left: 10px;
 }
-
 .user-info p {
   margin: 0;
   padding: 0;
@@ -232,8 +231,8 @@
   display: inline-block;
   width: 95%;
   margin-bottom: 5px;
-  background-color: white !important;
-  text-align: left;
+  background-color: white!important;
+  text-align:left;
   font-family: Ubuntu, serif
 }
 
@@ -241,32 +240,32 @@
   background-color: #f19292 !important;
 }
 
-.navbar-icon {
-  width: 45px;
-  height: 45px;
+.navbar-icon{
+  width:45px;
+  height:45px;
 }
 
-.menu-icon {
-  width: 30px;
-  height: 30px;
+.menu-icon{
+  width:30px;
+  height:30px;
 }
 
-.nav-btn {
-  width: 15%;
-  margin-left: 20px;
+.nav-btn{
+  width:15%;
+  margin-left:20px;
 }
 
-.app-name {
-  width: 100%;
+.app-name{
+  width:100%;
   font-family: Ubuntu, serif
 }
 
-.app-name:hover {
+.app-name:hover{
   color: #e599c2;
   cursor: default;
 }
 
-.navbar-picture {
+.navbar-picture{
   border-radius: 50%;
   width: 40px;
   height: 40px;

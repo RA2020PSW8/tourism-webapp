@@ -1,39 +1,75 @@
 <div id="mainContainer">
-  <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
-    <p-progressSpinner class="spinner" styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)"
-                       animationDuration=".5s"></p-progressSpinner>
-  </div>
+    <!-- <header>
+        <nav>
+            <div class="navbar">
+                <div class="navbar-modules">
+                    <a href="#">Tours</a>
+                    <a href="#">Blogs</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="app-name">TourTravel</div>
 
-  <div class="container">
-    <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-      <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of tours">
-        <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
-      </div>
+                <div class="navbar-modules">
+
+                    <a href="#">Sign In</a>
+                    <a href="#">Search</a>
+                </div>
+            </div>
+        </nav>
+    </header> -->
+
+    <div class="container">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of tours">
+                <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
+            </div>
+        </div>
+        <div *ngIf="!isLoading && tours.length === 0">
+            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
+        </div>
     </div>
-  </div>
 
+    <h2 *ngIf="!router.url.includes('/home')" style="margin-left: 1rem; color:green;">Your custom tours:</h2>
+    <button *ngIf="!router.url.includes('/home')" style="margin-left: 1rem;" color="primary" class="btn" (click)="navigateToTourManagement(0)">
+        Create new custom tour
+    </button>
 
-  <!-- Color pallette test / samples -->
-  <div id="otherContainer">
-    <div class="panel" style="background-color: var(--color-accent-dark); color: var(--color-foreground);">
-      <p class="p-header">Discover New Experiences</p>
-      <p class="p-regular">Explore breathtaking destinations, uncover hidden gems, and make memories that last a
-        lifetime.</p>
-      <button class="button button-primary">Discover your adventure</button>
+    <button *ngIf="!router.url.includes('/home')" style=" height: 45px; width: 180px; margin-left: 4rem;" mat-flat-button color="accent"  (click)="navigateToCampaignCreation(0)">
+        Create a campaign
+    </button>
+
+    <div class="container" *ngIf="!router.url.includes('/home')">
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+            <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of customTours">
+                <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
+            </div>
+        </div>
+        <div *ngIf="!isLoading && tours.length === 0">
+            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
+        </div>
     </div>
 
-    <div class="panel" style="background-color: var(--color-accent-light); color: var(--color-accent-contrast);">
-      <p class="p-header">Embark on Adventures through Captivating Narratives</p>
-      <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
-        gems to travel tips, our blog has it all.</p>
-      <button class="button button-ternary">Read Our Blog</button>
-    </div>
+    <!-- Color pallette test / samples -->
+    <div id="otherContainer"*ngIf="router.url.includes('/home')">
+        <div class="panel" style="background-color: var(--color-accent-dark); color: var(--color-foreground);" >
+            <p class="p-header">Discover New Experiences</p>
+            <p class="p-regular">Explore breathtaking destinations, uncover hidden gems, and make memories that last a
+                lifetime.</p>
+            <button class="button button-primary">Discover your adventure</button>
+        </div>
 
-    <div class="panel" style="background-color: var(--color-accent-contrast); color: var(--color-foreground);">
-      <p class="p-header">Embark on Adventures through Captivating Narratives</p>
-      <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
-        gems to travel tips, our blog has it all.</p>
-      <button class="button button-secondary">Read Our Blog</button>
+        <div class="panel" style="background-color: var(--color-accent-light); color: var(--color-accent-contrast);" *ngIf="router.url.includes('/home')">
+            <p class="p-header">Embark on Adventures through Captivating Narratives</p>
+            <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
+                gems to travel tips, our blog has it all.</p>
+            <button class="button button-ternary">Read Our Blog</button>
+        </div>
+
+        <div class="panel" style="background-color: var(--color-accent-contrast); color: var(--color-foreground);" *ngIf="router.url.includes('/home')">
+            <p class="p-header">Embark on Adventures through Captivating Narratives</p>
+            <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
+                gems to travel tips, our blog has it all.</p>
+            <button class="button button-secondary">Read Our Blog</button>
+        </div>
     </div>
-  </div>
 </div>

@@ -13,11 +13,9 @@ import { TimePipe } from 'src/app/shared/helpers/time.pipe';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourCardCompactComponent } from './tour-card-compact/tour-card-compact.component';
 import { ReviewsComponent } from './dialogs/reviews/reviews.component';
+import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.component';
+import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
-import { ToastModule } from 'primeng/toast';
-import { PurchasedTourCardComponent } from './purchased-tour-card/purchased-tour-card.component';
-import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
-import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [
@@ -29,9 +27,9 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ShoppingCartOverviewComponent,
     TourCardCompactComponent,
     ReviewsComponent,
-    TourKeypointsMapComponent,
-    PurchasedTourCardComponent,
-    PurchasedToursComponent,
+    CartWarningComponent,
+    CartSuccessComponent,
+    TourKeypointsMapComponent
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -40,9 +38,7 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     ReactiveFormsModule,
     MatRadioModule,
     TimePipe,
-    MapComponent,
-    ToastModule,
-    ProgressSpinnerModule,
-  ],
+    MapComponent
+  ]
 })
-export class MarketplaceModule {}
+export class MarketplaceModule { }
