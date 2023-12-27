@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { PagedResult } from '../../tour-execution/shared/model/paged-result.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { endWith } from 'rxjs';
+import { Tour } from '../../tour-authoring/model/tour.model';
 
 @Component({
   selector: 'xp-wish-list',
@@ -16,11 +17,28 @@ export class WishListComponent implements OnInit {
 
   wishListItems: WishListItem[] = [];
   wishList: WishList;
+  public tours: Tour[] = [];
+  public wishedTours: Tour[] = [];
 
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.getWishlistItems();
+    this.getTours();
+  }
+
+  getTours(): void{
+    this.marketplaceService.getPublishedTours().subscribe({
+      next: (result: PagedResult<Tour>) => {
+        this.tours = result.results;
+
+        // filter tours by toursId u wishListItems.TourId
+        this.wishedTours = this.tours.filter(tour =>
+          this.wishListItems.some(item => item.tourId === tour.id)
+        );
+      }
+    });
+
   }
 
   getWishlistItems(): void{
@@ -29,6 +47,8 @@ export class WishListComponent implements OnInit {
         this.wishListItems = value.results;
         console.log(this.wishListItems);
         console.log(value.results);
+
+        /*filtriraj get all po user id*/ 
 
       },
       error:(err: any) => {

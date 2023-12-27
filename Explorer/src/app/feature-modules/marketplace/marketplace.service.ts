@@ -211,4 +211,7 @@ export class MarketplaceService {
     return this.http.get<WishList>(environment.apiHost + 'tourist/wishlist/byUser');
   }
 
+  getTourById(tourId: number): Observable<Tour>{
+    return this.http.get<Tour>(`https://localhost:44333/api/tourist/tours/${tourId}`);
+  }
 }

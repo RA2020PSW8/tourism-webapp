@@ -21,6 +21,7 @@ import { BundleOverviewComponent } from './bundle-overview/bundle-overview.compo
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDetailsComponent } from './bundle-details/bundle-details.component';
 import { WishListComponent } from './wish-list/wish-list.component';
+import { WishListItemsComponent } from './wish-list-items/wish-list-items.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { WishListComponent } from './wish-list/wish-list.component';
     BundleFormComponent,
     BundleDetailsComponent,
     WishListComponent,
+    WishListItemsComponent,
   ],
   exports: [TourCardCompactComponent],
   imports: [
