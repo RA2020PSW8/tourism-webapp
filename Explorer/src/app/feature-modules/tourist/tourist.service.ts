@@ -8,6 +8,7 @@ import { ClubInvitation } from './model/club-invitation.model';
 import { environment } from '../../../env/environment';
 import { Club } from './model/club.model';
 import { ClubJoinRequest } from './model/club-join-request.model';
+import { ClubChallengeRequest } from './model/club-challenge-request';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +77,18 @@ export class TouristService {
 
   getClubById(id: number): Observable<Club>{
     return this.http.get<Club>(`${this.apiUrl}/clubs/${id}`);
+  }
+
+  getClubChallenges(id: number): Observable<ClubChallengeRequest[]>{
+    return this.http.get<ClubChallengeRequest[]>(`${environment.apiHost}club-challenge-request/club/${id}`);
+  }
+
+  acceptChallenge(request: ClubChallengeRequest): Observable<ClubChallengeRequest>{
+    return this.http.put<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request/accept`, request);
+  }
+
+  declineChallenge(request: ClubChallengeRequest): Observable<ClubChallengeRequest>{
+    return this.http.put<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request/decline`, request);
   }
 
 }

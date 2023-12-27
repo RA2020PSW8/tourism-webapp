@@ -8,4 +8,5 @@ export interface Person{
     quote?: string,
     email?: string,
     xp?: number,
+    level?: number
 }
