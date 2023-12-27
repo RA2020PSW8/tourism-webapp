@@ -1,8 +1,17 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../blog.service';
 import { Blog, BlogSystemStatus } from '../model/blog.model';
 import { toArray } from 'rxjs';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { TourEquipment } from '../../tour-authoring/model/tour_equipment';
+import { PagedResult } from '../shared/model/paged-result.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Equipment } from '../../administration/model/equipment.model';
+import { SelectionModel } from '@angular/cdk/collections';
+import { TourProgress } from '../../tour-execution/model/tour-progress.model';
+import { Tour } from '../../tour-authoring/model/tour.model';
+import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 
 @Component({
   selector: 'xp-blog-form',
@@ -10,12 +19,25 @@ import { toArray } from 'rxjs';
   styleUrls: ['./blog-form.component.css']
 })
 
-export class BlogFormComponent implements OnChanges {
+export class BlogFormComponent implements OnChanges, OnInit {
 
   @Output() blogUpdated = new EventEmitter<null>();
   @Input() selectedBlog: Blog;
+  @Input() tourProgress: TourProgress | undefined;
+  @Input() creationMode: boolean = false /* true bude forma za kreiranje, false bude za prikaz info i update */
 
-  constructor(private service: BlogService) { }
+  selectedTour : Tour;
+  selectedKeypoints: Keypoint[]
+  displayedColumns: string[] = ['select', 'name', 'description'];
+  allEquipment: Equipment[];
+  selection = new SelectionModel<any>(true, []);
+  titleForm: FormGroup
+
+  constructor(private blogService: BlogService, private tourAuthoringService: TourAuthoringService) { 
+    this.titleForm = new FormGroup({
+      title: new FormControl('',Validators.required),
+    });
+  }
 
   blogForm = new FormGroup({
     title: new FormControl('',Validators.required),
@@ -25,12 +47,22 @@ export class BlogFormComponent implements OnChanges {
     status: new FormControl(''),
   });
 
+
+
+  descriptionForm = new FormGroup({
+    description: new FormControl('',Validators.required),
+  });
+
+  imageLinksForm = new FormGroup({
+    imageLinks: new FormControl('')
+  });
+
   dummyForm = new FormGroup({
     kolko: new FormControl('',Validators.required)
   });
 
   ngOnChanges(changes: SimpleChanges): void {
-        const blog = {
+      const blog = {
       title: this.selectedBlog.title,
       description: this.selectedBlog.description,
       creationDate: this.selectedBlog.creationDate,
@@ -40,22 +72,70 @@ export class BlogFormComponent implements OnChanges {
     this.blogForm.patchValue(blog);
   }
 
+  ngOnInit(){
+    this.tourAuthoringService.getEquipment().subscribe((res: PagedResults<Equipment>)=> {
+      this.allEquipment = res.results;
+    })
+    this.GetTourAndKeypoints();
+  }
+
+  private GetTourAndKeypoints() {
+    if (this.tourProgress !== undefined) {
+      this.tourAuthoringService.getTourById(this.tourProgress.tourId as number).subscribe((res: Tour) => {
+        this.selectedTour = res;
+      });
+
+      this.tourAuthoringService.getKeypointsByTour(this.tourProgress.tourId as number).subscribe((res: PagedResults<Keypoint>) => {
+        this.selectedKeypoints = res.results;
+      });
+    }
+  }
+
   addBlog(): void {
     const blog: Blog = {
-      title: this.blogForm.value.title || "",
-      description: this.blogForm.value.description || "",
+      title: this.titleForm.value.title || "",
+      description: this.descriptionForm.value.description || "",
       creationDate: new Date().toISOString().split('T')[0] as string,
-      imageLinks: this.blogForm.value.imageLinks?.split('\n') as string[],
-      systemStatus: this.blogForm.value.status as BlogSystemStatus || ""
+      imageLinks: this.imageLinksForm.value.imageLinks?.split('\n') as string[],
+      systemStatus: BlogSystemStatus.PUBLISHED as BlogSystemStatus || ""
     }
+    this.GetTourAndKeypoints();
 
-    this.prepareBlogForSending(blog);
+    this.addEquipment(blog);
+    this.addTourInfo(blog);
+    this.addCheckpoints(blog);
 
-    this.service.addBlog(blog).subscribe({
+    this.blogService.addBlog(blog).subscribe({
       next: (_) => {
         this.blogUpdated.emit();
+        location.reload();
       }
     });
+  }
+
+  addEquipment(blog: Blog): void {
+    const equipment = this.getCheckedItems();
+    if(equipment.length > 0)
+    {
+      blog.description += "\n\n**Equipment I used for my tour:**";
+      equipment.forEach(eq =>{
+        blog.description += "\n- " + eq.name + ": " + eq.description;
+      })
+    } 
+  }
+
+  addTourInfo(blog: Blog): void {
+    blog.description += "\n\nTour duration: " + this.selectedTour.duration + " minutes.";
+    blog.description += "\n\nTour lenght: " + this.selectedTour.distance + " km.";
+  }
+
+  addCheckpoints(blog: Blog): void {
+    blog.description += "\n\n|Name|Description|Lat|Long|Image|\n"
+    blog.description += "|----|-----------|---|----|-----|\n"
+    this.selectedKeypoints.forEach(keypoint=> {
+      blog.description += `|${keypoint.name}|${keypoint.description}|${keypoint.latitude}|`
+      blog.description += `${keypoint.longitude}+|${keypoint.image}|\n`
+    })
   }
 
   updateBlog(): void {
@@ -77,16 +157,41 @@ export class BlogFormComponent implements OnChanges {
     }
 
 
-    this.prepareBlogForSending(blog);
+    this.refactorNewline(blog);
 
-    this.service.updateBlog(blog).subscribe({
+    this.blogService.updateBlog(blog).subscribe({
       next: (_) => {
         this.blogUpdated.emit();
       }
     });
   }
 
-  private prepareBlogForSending(b: Blog) {
+  private refactorNewline(b: Blog) {
     b.description = b.description.replaceAll('\n', '<br>');
+  }
+
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.allEquipment.forEach(row => {
+        //console.log(row);
+        this.selection.select(row)
+      });
+
+  }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.allEquipment.length;
+    return numSelected === numRows;
+  }
+
+  toggleCheckbox(row: any) {
+    this.selection.toggle(row);
+    this.getCheckedItems();
+  }
+
+  getCheckedItems(): Equipment[] {
+    return this.selection.selected;
   }
 }

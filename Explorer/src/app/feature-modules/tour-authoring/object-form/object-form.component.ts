@@ -21,7 +21,9 @@ export class ObjectFormComponent implements OnChanges{
       name: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       image: new FormControl(''),
-      category: new FormControl('')
+      category: new FormControl(''),
+      latitude: new FormControl(0, [Validators.min(-90), Validators.max(90)]),
+      longitude: new FormControl(0, [Validators.min(-180), Validators.max(180)])
     });
   }
 
@@ -37,6 +39,8 @@ export class ObjectFormComponent implements OnChanges{
       id: 0,
       name: this.objectForm.value.name || "",
       description: this.objectForm.value.description || "",
+      latitude: this.objectForm.value.latitude || "",
+      longitude: this.objectForm.value.longitude || "",
       image: this.objectForm.value.image || "",
       category: this.objectForm.value.category || "",
       status: 0

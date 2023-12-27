@@ -13,6 +13,7 @@ import { SingleBlogDisplayComponent } from './single-blog-display/single-blog-di
 import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -30,12 +31,15 @@ import {MatStepperModule} from '@angular/material/stepper';
     MatInputModule,
     MatFormFieldModule,
     MatExpansionModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTableModule,
+    MatCheckboxModule,
   ],
   exports: [
     CommentFormComponent,
     CommentsDisplayComponent,
-    BlogListDisplayComponent
+    BlogListDisplayComponent,
+    BlogFormComponent
   ]
 })
 export class BlogModule { }

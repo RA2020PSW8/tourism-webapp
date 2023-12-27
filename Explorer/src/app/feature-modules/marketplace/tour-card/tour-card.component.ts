@@ -23,7 +23,7 @@ export class TourCardComponent implements OnInit, OnChanges {
   private lastOrderId: number;
 
   constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, private tourExecutionService: TourExecutionService, private authService: AuthService) {
-    this.lastOrderId = 0; 
+    this.lastOrderId = 0;
   }
 
   ngOnChanges(): void {
@@ -45,11 +45,11 @@ export class TourCardComponent implements OnInit, OnChanges {
         const lastOrder = orders.results[orders.results.length - 1];
         this.lastOrderId = lastOrder.id + 1;
       } else {
-        
+
         this.lastOrderId = 1;
       }
 
-      
+
       const orderItem: OrderItem = {
         id: this.lastOrderId,
         tourId: this.tour.id,
@@ -59,15 +59,15 @@ export class TourCardComponent implements OnInit, OnChanges {
         tourPrice: this.tour.price
       };
 
-      
+
       this.marketplaceService.addOrderItem(orderItem).subscribe({
         next: (_) => {
-          this.dialog.open(CartSuccessComponent, {panelClass: 'success-dialog-container'});
+          this.dialog.open(CartSuccessComponent, { panelClass: 'success-dialog-container' });
           this.orderUpdated.emit();
         },
-        error:(error)=>{
-          if(error.status===409){
-            this.dialog.open(CartWarningComponent, {panelClass: 'warning-dialog-container'});
+        error: (error) => {
+          if (error.status === 409) {
+            this.dialog.open(CartWarningComponent, { panelClass: 'warning-dialog-container' });
           }
         }
       });
@@ -75,13 +75,24 @@ export class TourCardComponent implements OnInit, OnChanges {
   }
 
   startTour(tourId?: number): void {
-    this.tourExecutionService.startTour(tourId || 0).subscribe({
-      next: (result: TourProgress) => {
-        alert("Tour started, check it out in active tour section!");
+    this.marketplaceService.checkIfPurchased(tourId || 0).subscribe({
+      next: (purchased: boolean) => {
+        if (purchased) {
+          this.tourExecutionService.startTour(tourId || 0).subscribe({
+            next: (result: TourProgress) => {
+              alert("Tour started, check it out in active tour section!");
+            },
+            error: (error) => {
+              alert(error.error.detail); // show better
+            }
+          });
+        } else {
+          alert("Tour is not purchased. Please purchase the tour before starting.");
+        }
       },
       error: (error) => {
-        alert(error.error.detail); // show better
+        alert("Error checking if the tour is purchased. Please try again later.");
       }
-    })
+    });
   }
 }
