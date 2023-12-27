@@ -19,6 +19,10 @@ import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-fo
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { NewsletterPreferenceComponent } from './newsletter-preference/newsletter-preference.component';
+import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -32,7 +36,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
-    CampaignTourFormComponent
+    CampaignTourFormComponent,
+    NewsletterPreferenceComponent
   ],
   imports: [
     CommonModule,
@@ -44,11 +49,15 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MapComponent,
     MarketplaceModule,
     MatStepperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule,
+    MatCardModule,
+    MatTooltipModule,
   ],
   exports: [
     ClubsComponent,
-    TouristEquipmentComponent
+    TouristEquipmentComponent,
+    NewsletterPreferenceComponent
   ]
 })
 export class TouristModule { }

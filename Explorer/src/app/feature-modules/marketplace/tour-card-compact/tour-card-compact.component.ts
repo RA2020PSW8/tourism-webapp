@@ -118,4 +118,17 @@ export class TourCardCompactComponent {
       ['/custom-tour', this.tour.id]
     )
   }
+
+  loadGmap(tour: Tour)
+  {
+    let link = "https://www.google.com/maps/dir/"
+    if(tour.keypoints !== undefined)
+    {
+      tour.keypoints.forEach(kp => {
+        link += kp.latitude + ",";
+        link += kp.longitude + "/"
+      });
+      window.location.href = link
+    }
+  }
 }
