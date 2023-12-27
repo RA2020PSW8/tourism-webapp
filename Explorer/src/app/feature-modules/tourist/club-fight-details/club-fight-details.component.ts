@@ -18,7 +18,11 @@ export class ClubFightDetailsComponent implements OnInit {
   constructor(private touristService: TouristService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getFight();
+    this.touristService.updateFights().subscribe({
+      next: () => {
+        this.getFight();
+      }
+    })
   }
 
   getFight() {

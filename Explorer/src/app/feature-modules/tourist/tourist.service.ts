@@ -101,4 +101,7 @@ export class TouristService {
     return this.http.put<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request/decline`, request);
   }
 
+  updateFights(): any {
+    return this.http.get(`${environment.apiHost}xp/fight/update`);
+  }
 }
