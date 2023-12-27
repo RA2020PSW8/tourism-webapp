@@ -16,7 +16,14 @@ export class ClubsRankingComponent implements OnInit{
   constructor(private service: TouristService) {}
 
   ngOnInit(): void {
-    this.getClubs(); 
+    this.service.updateFights().subscribe({
+      next: () => {
+        this.getClubs(); 
+      },
+      error: () => {
+        this.getClubs(); 
+      }
+    });
   }
   
   getClubs(): void{

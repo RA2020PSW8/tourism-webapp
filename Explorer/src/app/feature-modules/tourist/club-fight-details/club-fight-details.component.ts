@@ -21,8 +21,11 @@ export class ClubFightDetailsComponent implements OnInit {
     this.touristService.updateFights().subscribe({
       next: () => {
         this.getFight();
+      },
+      error: () => {
+        this.getFight();
       }
-    })
+    });
   }
 
   getFight() {
