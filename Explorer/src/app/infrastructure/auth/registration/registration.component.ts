@@ -5,6 +5,9 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
 import { Wallet } from 'src/app/feature-modules/marketplace/model/wallet.model';
+import { MatDialog } from '@angular/material/dialog';
+import { CartWarningComponent } from 'src/app/feature-modules/marketplace/dialogs/cart-warning/cart-warning.component';
+import { RegisterMessageComponent } from 'src/app/feature-modules/marketplace/dialogs/register/register-message.component';
 
 @Component({
   selector: 'xp-registration',
@@ -19,6 +22,7 @@ export class RegistrationComponent {
     private authService: AuthService,
     private marketplaceService: MarketplaceService,
     private router: Router,
+    private dialog: MatDialog,
   ) { this.lastWalletId = 0; }
 
   registrationForm = new FormGroup({
@@ -61,8 +65,10 @@ export class RegistrationComponent {
             };
             this.marketplaceService.createWallet(wallet).subscribe({
               next: () => {
-                this.walletUpdated.emit();
-                this.router.navigate(['home']);
+                this.walletUpdated.emit(); 
+                //this.router.navigate(['home']);
+                this.dialog.open(RegisterMessageComponent);
+                this.router.navigate(['login']);
               },
             });
           });

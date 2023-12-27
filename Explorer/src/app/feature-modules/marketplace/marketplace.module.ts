@@ -16,6 +16,7 @@ import { ReviewsComponent } from './dialogs/reviews/reviews.component';
 import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.component';
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
+import { RegisterMessageComponent } from './dialogs/register/register-message.component';
 import { BundleCardComponent } from './bundle-card/bundle-card.component';
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
@@ -34,6 +35,7 @@ import { BundleDetailsComponent } from './bundle-details/bundle-details.componen
     CartWarningComponent,
     CartSuccessComponent,
     TourKeypointsMapComponent,
+    RegisterMessageComponent,
     BundleCardComponent,
     BundleOverviewComponent,
     BundleFormComponent,
