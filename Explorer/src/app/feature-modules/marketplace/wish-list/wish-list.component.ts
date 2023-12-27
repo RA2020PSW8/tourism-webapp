@@ -16,6 +16,7 @@ import { Tour } from '../../tour-authoring/model/tour.model';
 export class WishListComponent implements OnInit {
 
   wishListItems: WishListItem[] = [];
+  wishListItemsAll: WishListItem[] = [];
   wishList: WishList;
   public tours: Tour[] = [];
   public wishedTours: Tour[] = [];
@@ -44,11 +45,12 @@ export class WishListComponent implements OnInit {
   getWishlistItems(): void{
     this.marketplaceService.getWishListItemsForUser().subscribe({
       next: (value : PagedResults<WishListItem>) => {
-        this.wishListItems = value.results;
+        this.wishListItemsAll = value.results;
         console.log(this.wishListItems);
         console.log(value.results);
 
-        /*filtriraj get all po user id*/ 
+        const userId = this.authService.user$.value.id;
+        this.wishListItems = this.wishListItemsAll.filter(item => item.userId === userId);
 
       },
       error:(err: any) => {

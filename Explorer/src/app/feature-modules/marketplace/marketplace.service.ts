@@ -223,4 +223,8 @@ export class MarketplaceService {
     return this.http.post<WishListItem>(environment.apiHost + 'tourist/itemswishlist', wishListItem);
   }
 
+  deleteWishListItem(wishListItemId: number): Observable<WishListItem> {
+    return this.http.delete<WishListItem>(environment.apiHost + 'tourist/itemswishlist/' + wishListItemId);
+  }
+
 }
