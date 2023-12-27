@@ -62,8 +62,11 @@
             <button *ngIf="user && user.role === 'author'"color = "primary" mat-raised-button [routerLink]="['tours']">Tours</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['objects']">Tour Objects</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['appRatingAuthor']">Rate App</button>
-            <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['sales-management']">Manage tour sales</button>
             <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['coupon-view']">Coupons</button>
+            <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['bundle-form']">Bundle</button>
+
+            <button *ngIf="user && user.role === 'author'"color="primary" mat-raised-button [routerLink]="['all-bundles']">All Bundles</button>
+
         </div>
     </div>
 </mat-toolbar>
@@ -159,7 +162,6 @@
                 <p [routerLink]="['tours-equipment']"><span class="link-underline">Manage tour equipment</span></p>
                 <p [routerLink]="['tours']"><span class="link-underline">Tours</span></p>
                 <p [routerLink]="['objects']"><span class="link-underline">Tour Objects</span></p>
-                <p [routerLink]="['sales-management']"><span class="link-underline">Manage discounts</span></p>
                 <p [routerLink]="['coupon-view']"><span class="link-underline">Coupons</span></p>
 
             </div>
