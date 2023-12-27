@@ -17,8 +17,16 @@
             </button>
         </div>
     </div>
+    <br>
+    <br>
+    <p class="achievement-text">Achievements:</p>
     <div class="achievements-panel">
-        <p>This panel serves to display club wins, achievements etc. BACKGROUND-COLOR SHOULD BE REMOVED OR CHANGED</p>
+      <ul class="achievements-inline">
+        <li *ngFor="let achievement of club.achievements">
+          <img src="assets/images/achievement_{{ achievement.type }}.png" class="achievement-img" alt="{{ achievement.name }}" title="{{ achievement.description }}" />
+          <p class="achievement-text">{{ achievement.name }}</p>
+        </li>
+      </ul>
     </div>
     <hr>
     <div class="other-panel">

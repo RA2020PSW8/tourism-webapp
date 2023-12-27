@@ -1,3 +1,5 @@
+import { Person } from "../../administration/model/person.model";
+import { Achievement } from "./achievement.model";
 import { Profile } from "../../administration/model/profile.model";
 
 export interface Club {
@@ -8,5 +10,6 @@ export interface Club {
   ownerId: number,
   owner?: Profile,
   fightsWon?: number,
-  members?: Profile[]
+  members?: Person[],
+  achievements?: Achievement[]
 }
