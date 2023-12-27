@@ -28,6 +28,7 @@ import {FormsModule} from "@angular/forms";
     MatSidenavModule,
     MarketplaceModule,
     MatMenuModule,
+    MarketplaceModule,
     FormsModule,
   ],
   exports: [

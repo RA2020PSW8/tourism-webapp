@@ -36,20 +36,20 @@
                                 <table>
                                     <tbody>
                                         <tr>
-                                            <td style="width: 25%; background-color: #CCD5AE;"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
-                                            <td style="width: 14%; background-color: #E9EDC9;"><p class="p-header" style="font-size: 1.5em;">{{bl.systemStatus}}</p></td>
-                                            <td *ngFor="let st of bl.blogStatuses" style="background-color: #F5EFE7;">
+                                            <td style="min-width: 21%; background-color: #5989DF;"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
+                                            <td style="min-width: 14%; background-color: #A7CDE3;"><p class="p-header" style="font-size: 1.5em;">{{bl.systemStatus}}</p></td>
+                                            <td *ngFor="let st of bl.blogStatuses" style="background-color: #F2F2F2;">
                                                 <div class="status">
                                                     <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
                                                     {{st.name}}
                                                 </div>
                                             </td>
-                                            <td style="width: 2%; background-color: #F5EFE7;">
+                                            <td style="min-width: 2%; background-color: #F2F2F2;">
                                                 <button (click)="onUpdateClicked(bl)" mat-icon-button>
-                                                    <mat-icon>edit</mat-icon>
+                                                    <mat-icon [ngStyle]="{'color':'#5989DF'}">edit</mat-icon>
                                                 </button>
                                             </td>
-                                            <td style="width: 2%; background-color: #F5EFE7;">
+                                            <td style="min-width: 2%; background-color: #F2F2F2;">
                                                 <button (click)="onDeleteClicked(bl)" color="accent" mat-icon-button>
                                                     <mat-icon>delete</mat-icon>
                                                 </button>
