@@ -6,18 +6,15 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { RouterModule } from '@angular/router';
 import { ProfileComponent } from '../administration/profile/profile.component';
 import { AdministrationModule } from '../administration/administration.module';
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { FooterComponent } from './footer/footer.component';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import { MarketplaceModule } from "../marketplace/marketplace.module";
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatMenuModule } from '@angular/material/menu';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 
 @NgModule({
-  declarations: [
-    HomeComponent,
-    NavbarComponent,
-    FooterComponent,
-  ],
+  declarations: [HomeComponent, NavbarComponent, FooterComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -28,13 +25,14 @@ import { MatMenuModule } from '@angular/material/menu';
     MarketplaceModule,
     MatMenuModule,
     MarketplaceModule,
+    ProgressSpinnerModule,
   ],
   exports: [
     NavbarComponent,
     HomeComponent,
     AdministrationModule,
     MatGridListModule,
-    FooterComponent
-  ]
+    FooterComponent,
+  ],
 })
-export class LayoutModule { }
+export class LayoutModule {}

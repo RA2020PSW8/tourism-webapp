@@ -1,0 +1,35 @@
+<div id="mainContainer">
+  <div *ngIf="isLoading" style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+    <p-progressSpinner class="spinner" styleClass="w-4rem h-4rem" strokeWidth="8" fill="var(--surface-ground)"
+                       animationDuration=".5s"></p-progressSpinner>
+  </div>
+  <div class="container">
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+      <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of tours">
+        <xp-purchased-tour-card [tour]="tour"></xp-purchased-tour-card>
+      </div>
+    </div>
+    <div *ngIf="!isLoading && tours.length === 0">
+      <h1 class=cheapskate>Buy something, you cheapskate.</h1>
+    </div>
+  </div>
+
+  <h2 style="margin-left: 1rem; color:green;">Your custom tours:</h2>
+  <button style="margin-left: 1rem;" color="primary" class="btn" (click)="navigateToTourManagement(0)">
+    Create new custom tour
+  </button>
+
+  <button style=" height: 45px; width: 180px; margin-left: 4rem;" mat-flat-button color="accent"
+          (click)="navigateToCampaignCreation(0)">
+    Create a campaign
+  </button>
+
+  <div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
+      <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of customTours">
+        <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
+      </div>
+    </div>
+  </div>
+
+</div>

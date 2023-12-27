@@ -31,7 +31,7 @@ import { TourIssueAdminComponent } from 'src/app/feature-modules/tour-execution/
 import { TourIssueTouristComponent } from 'src/app/feature-modules/tour-execution/tour-issue-tourist/tour-issue-tourist.component';
 import { TourIssueComponent } from 'src/app/feature-modules/tour-execution/tour-issue/tour-issue.component';
 import { PublicEntityRequestsComponent } from 'src/app/feature-modules/administration/public-entity-requests/public-entity-requests.component';
-import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component'
+import { ShoppingCartOverviewComponent } from 'src/app/feature-modules/marketplace/shopping-cart-overview/shopping-cart-overview.component';
 import { CommentsDisplayComponent } from 'src/app/feature-modules/blog/comments-display/comments-display.component';
 import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-blog-display/single-blog-display.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
@@ -43,9 +43,10 @@ import { WalletComponent } from 'src/app/feature-modules/marketplace/wallet/wall
 import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
 import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounters-managing/encounters-tourist-view/encounters-tourist-view.component';
 import { CampaignTourFormComponent } from 'src/app/feature-modules/tourist/campaign-tour-form/campaign-tour-form.component';
+import { PurchasedTourCardComponent } from '../../feature-modules/marketplace/purchased-tour-card/purchased-tour-card.component';
+import { PurchasedToursComponent } from '../../feature-modules/marketplace/purchased-tours/purchased-tours.component';
 
 const routes: Routes = [
-
   // S1
 
   // All
@@ -53,62 +54,173 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard], },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
 
   // Tourist
-  {path: 'touristSelectingEquipment', component: TouristEquipmentComponent, canActivate: [AuthGuard]},
-  {path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard]}, 
-  {path: 'clubInvitations', component: ClubInvitationComponent, canActivate: [AuthGuard], },
-  {path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
-  {path: 'tourPreference', component: TourPreferenceComponent, canActivate: [AuthGuard],},
-  {path: 'admin/tourissues', component: TourIssueAdminComponent, canActivate: [AuthGuard]},
-  {path: 'user/tourissues', component: TourIssueTouristComponent, canActivate: [AuthGuard]},
-  {path: 'tourissue/:id', component: TourIssueComponent, canActivate: [AuthGuard]},
-  {path: 'blog', component:BlogListDisplayComponent, canActivate: [AuthGuard]},
-  {path: 'blog/:id', component:SingleBlogDisplayComponent, canActivate: [AuthGuard]},
-  {path: 'tour-review', component: TourReviewComponent},
-  {path: 'appRatingTouristForm', component: AppRatingFormTouristComponent, canActivate: [AuthGuard]},
-  {path: 'appRatingTourist', component: AppRatingTouristComponent, canActivate: [AuthGuard]},
-  {path: 'toursMarketplace', component: ToursOverviewComponent, canActivate: [AuthGuard]},
-  {path: 'my-position', component: TouristPositionComponent, canActivate: [AuthGuard]},
-  {path: 'shopping-cart-overview', component: ShoppingCartOverviewComponent, canActivate: [AuthGuard]},
-  {path: 'comments', component:CommentsDisplayComponent},
-  {path: 'active-tour', component: ActiveTourComponent, canActivate: [AuthGuard]},
-  {path: 'purchased-tours', component: HomeComponent, canActivate: [AuthGuard]},
-  {path: 'nip',component:BlogFormComponent},
-  {path: 'wallet', component: WalletComponent, canActivate: [AuthGuard]},
-  {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
-  {path: 'encounters-map', component: EncountersTouristViewComponent, canActivate: [AuthGuard]},
-  {path: 'campaign/:id',component: CampaignTourFormComponent,canActivate: [AuthGuard]},
+  {
+    path: 'touristSelectingEquipment',
+    component: TouristEquipmentComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'clubs', component: ClubsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'clubInvitations',
+    component: ClubInvitationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'clubJoinRequests',
+    component: ClubJoinRequestsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tourPreference',
+    component: TourPreferenceComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'admin/tourissues',
+    component: TourIssueAdminComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'user/tourissues',
+    component: TourIssueTouristComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tourissue/:id',
+    component: TourIssueComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'blog',
+    component: BlogListDisplayComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'blog/:id',
+    component: SingleBlogDisplayComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'tour-review', component: TourReviewComponent },
+  {
+    path: 'appRatingTouristForm',
+    component: AppRatingFormTouristComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'appRatingTourist',
+    component: AppRatingTouristComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'toursMarketplace',
+    component: ToursOverviewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'my-position',
+    component: TouristPositionComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'shopping-cart-overview',
+    component: ShoppingCartOverviewComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'comments', component: CommentsDisplayComponent },
+  {
+    path: 'active-tour',
+    component: ActiveTourComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'purchased-tours',
+    component: PurchasedToursComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'nip', component: BlogFormComponent },
+  { path: 'wallet', component: WalletComponent, canActivate: [AuthGuard] },
+  {
+    path: 'custom-tour/:id',
+    component: CustomTourFormComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'encounters-map',
+    component: EncountersTouristViewComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'campaign/:id',
+    component: CampaignTourFormComponent,
+    canActivate: [AuthGuard],
+  },
 
   // Admin
-  { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },
-  { path: 'users', component: UserComponent, canActivate: [AuthGuard], },
-  { path: 'appRatingList', component: AppRatingComponent, canActivate: [AuthGuard] },
-  { path: 'clubJoinRequests', component: ClubJoinRequestsComponent, canActivate: [AuthGuard], },
-  { path: 'publicEntityRequests', component: PublicEntityRequestsComponent, canActivate: [AuthGuard] },
-  { path: 'encountersManagement', component: EncountersManagingComponent, canActivate: [AuthGuard] },
+  {
+    path: 'equipment',
+    component: EquipmentComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'users', component: UserComponent, canActivate: [AuthGuard] },
+  {
+    path: 'appRatingList',
+    component: AppRatingComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'clubJoinRequests',
+    component: ClubJoinRequestsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'publicEntityRequests',
+    component: PublicEntityRequestsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'encountersManagement',
+    component: EncountersManagingComponent,
+    canActivate: [AuthGuard],
+  },
 
   // Author
   //{path: 'appRatingAuthor', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard]},
   { path: 'tours', component: TourComponent, canActivate: [AuthGuard] },
-  { path: 'tours-equipment', component: ToursPreviewComponent, canActivate: [AuthGuard], },
+  {
+    path: 'tours-equipment',
+    component: ToursPreviewComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'objects', component: ObjectComponent, canActivate: [AuthGuard] },
-  { path: 'appRatingAuthorForm', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard] },
-  { path: 'appRatingAuthor', component: AppRatingAuthorComponent, canActivate: [AuthGuard] },
-  { path: 'tour-management/:id', component: TourFormComponent, canActivate: [AuthGuard] },
+  {
+    path: 'appRatingAuthorForm',
+    component: AppRatingFormAuthorComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'appRatingAuthor',
+    component: AppRatingAuthorComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'tour-management/:id',
+    component: TourFormComponent,
+    canActivate: [AuthGuard],
+  },
 
   // ?
-  { path: 'tours/maptest', component: ToursTestModuleComponent, /*canActivate: [AuthGuard]*/ },
-
+  {
+    path: 'tours/maptest',
+    component: ToursTestModuleComponent /*canActivate: [AuthGuard]*/,
+  },
 ];
 
-
 @NgModule({
-  declarations: [
-    UserComponent
-  ],
+  declarations: [UserComponent],
   imports: [RouterModule.forRoot(routes), CommonModule, FormsModule],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
