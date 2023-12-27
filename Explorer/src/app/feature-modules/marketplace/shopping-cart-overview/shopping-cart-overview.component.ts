@@ -9,7 +9,7 @@ import { ShoppingCart } from '../model/shopping-cart.model';
 import { Wallet } from '../model/wallet.model';
 import { mergeMap } from 'rxjs';
 import { Coupon } from '../model/coupon-model';
-import {Sale} from "../model/sale.model";
+import {Discount} from "../model/discount.model";
 
 @Component({
   selector: 'xp-shopping-cart-overview',
@@ -23,19 +23,19 @@ export class ShoppingCartOverviewComponent implements OnInit {
   shoppingCart: ShoppingCart;
   totalPrice: number;
   wallet: Wallet;
-  sales: Sale[] = [];
+  discounts: Discount[] = [];
   coupons: Coupon[][] = []
   selectedCoupons: any = {};
   couponsWithDiscount : Coupon [][] = [];
   originalPrices: { [key: string]: number } = {};
-  selectedCouponObjects: Coupon[] = []; 
+  selectedCouponObjects: Coupon[] = [];
 
 
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService){}
 
   ngOnInit(): void {
     this.getOrders();
-    this.getSales();
+    this.getDiscounts();
     this.getWallet();
     this.loggedId = this.authService.user$.value.id;
   }
@@ -71,33 +71,33 @@ export class ShoppingCartOverviewComponent implements OnInit {
       }
     })
   }
-  getSales(): void {
-    this.marketplaceService.getAllSales().subscribe(result => {
-      this.sales = result.results;
+  getDiscounts(): void {
+    this.marketplaceService.getAllDiscounts().subscribe(result => {
+      this.discounts = result.results;
     });
   }
 
-  isOnSale(order: OrderItem): boolean {
-    let isSale = false;
+  isOnDiscount(order: OrderItem): boolean {
+    let isDiscount = false;
 
-    this.sales.forEach(sale => {
-      sale.tourSales?.forEach(tourSale => {
-        if (tourSale.tourId === order.tourId) {
-          isSale = true;
+    this.discounts.forEach(discount => {
+      discount.tourDiscounts?.forEach(tourDiscount => {
+        if (tourDiscount.tourId === order.tourId) {
+          isDiscount = true;
         }
       });
     });
 
-    return isSale;
+    return isDiscount;
   }
 
   calculateNewPrice(order: OrderItem): number {
     let newPrice = order.tourPrice;
 
-    this.sales.forEach(sale => {
-      sale.tourSales?.forEach(tourSale => {
-        if (tourSale.tourId === order.tourId) {
-          newPrice -= newPrice * (sale.percentage / 100);
+    this.discounts.forEach(discount => {
+      discount.tourDiscounts?.forEach(tourDiscount => {
+        if (tourDiscount.tourId === order.tourId) {
+          newPrice -= newPrice * (discount.percentage / 100);
         }
       });
     });
@@ -132,7 +132,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
       } else {
         this.selectedCouponObjects.push(selectedCoupon);
       }
-      
+
     }
   }
 
@@ -142,7 +142,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
 
   calculateTotalPrice(): number {
     this.totalPrice = this.orders.reduce((total, order) => {
-      let price = this.isOnSale(order) ? this.calculateNewPrice(order) : order.tourPrice;
+      let price = this.isOnDiscount(order) ? this.calculateNewPrice(order) : order.tourPrice;
       return total + price;
     }, 0);
   console.log(this.totalPrice)
@@ -152,7 +152,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
   checkout(): void {
     this.getOrders();
     this.calculateTotalPrice();
-  
+
     if (this.wallet.adventureCoins < this.totalPrice) {
       console.log(this.wallet);
       console.log('ukupna cena: ', this.totalPrice);
@@ -173,7 +173,7 @@ export class ShoppingCartOverviewComponent implements OnInit {
       }
     }
   }
-  
+
 
   getWallet(): void {
     this.marketplaceService.getWalletForUser().subscribe({

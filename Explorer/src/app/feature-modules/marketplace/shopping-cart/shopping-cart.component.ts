@@ -8,7 +8,7 @@ import { ShoppingCartOverviewComponent } from '../shopping-cart-overview/shoppin
 import { ShoppingCart } from '../model/shopping-cart.model';
 import { Coupon } from '../model/coupon-model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import {Sale} from "../model/sale.model";
+import {Discount} from "../model/discount.model";
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -23,16 +23,16 @@ export class ShoppingCartComponent implements OnInit {
   loggedId: number;
   coupons: Coupon[] = [];
 
-  sales: Sale[] = [];
+  discounts: Discount[] = [];
   constructor(private marketplaceService: MarketplaceService, private authService: AuthService, private changeDetectorRef: ChangeDetectorRef){
   }
 
   ngOnInit(): void {
     this.getShoppingCart();
     this.loggedId = this.authService.user$.value.id;
-    this.marketplaceService.getAllSales().subscribe(result => {
-      this.sales = result.results;
-      console.log(this.sales);
+    this.marketplaceService.getAllDiscounts().subscribe(result => {
+      this.discounts = result.results;
+      console.log(this.discounts);
     });
   }
 
@@ -64,10 +64,10 @@ export class ShoppingCartComponent implements OnInit {
   calculateNewPrice(order: OrderItem): number {
     let newPrice = 0;
 
-    this.sales.forEach(sale => {
-      sale.tourSales?.forEach(tourSale => {
-        if (tourSale.tourId === order.tourId) {
-          newPrice = order.tourPrice - (order.tourPrice * (sale.percentage / 100));
+    this.discounts.forEach(discount => {
+      discount.tourDiscounts?.forEach(tourDiscount => {
+        if (tourDiscount.tourId === order.tourId) {
+          newPrice = order.tourPrice - (order.tourPrice * (discount.percentage / 100));
         }
       });
     });
@@ -75,30 +75,30 @@ export class ShoppingCartComponent implements OnInit {
     return newPrice;
   }
 
-  isOnSale(order: OrderItem): boolean {
-    let isSale = false;
+  isOnDiscount(order: OrderItem): boolean {
+    let isDiscount = false;
     let newPrice = 0;
 
-    this.sales.forEach(sale => {
-      sale.tourSales?.forEach(tourSale => {
-        if (tourSale.tourId === order.tourId) {
-          isSale = true;
-          newPrice = order.tourPrice - (order.tourPrice * (sale.percentage / 100));
-          console.log(`The tour is on sale! The new price is: ${newPrice}`);
+    this.discounts.forEach(discount => {
+      discount.tourDiscounts?.forEach(tourDiscount => {
+        if (tourDiscount.tourId === order.tourId) {
+          isDiscount = true;
+          newPrice = order.tourPrice - (order.tourPrice * (discount.percentage / 100));
+          console.log(`The tour is on discount! The new price is: ${newPrice}`);
         }
       });
     });
 
-    return isSale;
+    return isDiscount;
   }
 
   getDiscountPercentage(order: OrderItem): number {
     let discountPercentage = 0;
 
-    this.sales.forEach(sale => {
-      sale.tourSales?.forEach(tourSale => {
-        if (tourSale.tourId === order.tourId) {
-          discountPercentage = sale.percentage;
+    this.discounts.forEach(discount => {
+      discount.tourDiscounts?.forEach(tourDiscount => {
+        if (tourDiscount.tourId === order.tourId) {
+          discountPercentage = discount.percentage;
         }
       });
     });

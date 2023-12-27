@@ -2,7 +2,7 @@
   <h2>Name: {{order.tourName}}</h2>
   <p><strong>Description:</strong> {{order.tourDescription}}</p>
   <p><strong>Price:</strong>
-    <span *ngIf="isOnSale(order); else regularPrice">
+    <span *ngIf="isOnDiscount(order); else regularPrice">
             <s>AC{{order.tourPrice}}</s> AC{{calculateNewPrice(order)}} ({{getDiscountPercentage(order)}}% off)
         </span>
     <ng-template #regularPrice>AC{{order.tourPrice}}</ng-template>

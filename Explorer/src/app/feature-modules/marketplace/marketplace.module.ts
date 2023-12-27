@@ -16,18 +16,19 @@ import { ReviewsComponent } from './dialogs/reviews/reviews.component';
 import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.component';
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
+import { DiscountsManagementComponent } from './discounts-management/discounts-management.component';
+import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { BundleCardComponent } from './bundle-card/bundle-card.component';
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDetailsComponent } from './bundle-details/bundle-details.component';
-import {TourAuthoringModule} from "../tour-authoring/tour-authoring.module";
-import {MatNativeDateModule} from "@angular/material/core";
-import {MatDatepickerModule} from "@angular/material/datepicker";
 import { CouponCreateComponent } from './coupon-create/coupon-create.component';
 import { CouponViewComponent } from './coupon-view/coupon-view.component';
 import { RouterModule } from '@angular/router';
-import {MatTableModule} from "@angular/material/table";
-import {MatMenuModule} from "@angular/material/menu";
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
 import { TourManagementComponent } from './dialogs/tour-management/tour-management.component';
 
 @NgModule({
@@ -43,6 +44,7 @@ import { TourManagementComponent } from './dialogs/tour-management/tour-manageme
     CartWarningComponent,
     CartSuccessComponent,
     TourKeypointsMapComponent,
+    DiscountsManagementComponent,
     BundleCardComponent,
     BundleOverviewComponent,
     BundleFormComponent,
@@ -60,13 +62,13 @@ import { TourManagementComponent } from './dialogs/tour-management/tour-manageme
     MatRadioModule,
     TimePipe,
     MapComponent,
-    FormsModule,
     TourAuthoringModule,
     MatNativeDateModule,
     MatDatepickerModule,
     MatTableModule,
     MatMenuModule,
-    RouterModule
-  ]
+    RouterModule,
+    FormsModule,
+  ],
 })
-export class MarketplaceModule { }
+export class MarketplaceModule {}

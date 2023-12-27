@@ -17,10 +17,10 @@ export class HomeComponent {
   public tours: Tour[] = [];
   public customTours: Tour[] = [];
   public isLoading = true;
-  showOnSale: boolean = false;
+  showOnDiscount: boolean = false;
   sortOrder: string = 'asc';
   public filteredTours: Tour[];
-  public isOnSale: boolean = true;
+  public isOnDiscount: boolean = true;
   public filteredIds: number[] = []
 
   constructor(private marketplaceService: MarketplaceService, public authService: AuthService, public router: Router) { }
@@ -35,8 +35,8 @@ export class HomeComponent {
     }
   }
 
-  loadSales(): void{
-    this.marketplaceService.getToursOnSale().subscribe((ids => {
+  loadDiscounts(): void{
+    this.marketplaceService.getToursOnDiscount().subscribe((ids => {
       this.filteredIds = ids;
     }))
   }
@@ -101,7 +101,7 @@ export class HomeComponent {
   }
 
   filterTours() {
-    if (this.showOnSale) {
+    if (this.showOnDiscount) {
       this.tours = this.tours.filter(tour => tour.id != null && this.filteredIds.includes(tour.id));
     } else {
       this.loadArchivedAndPublishedTours();

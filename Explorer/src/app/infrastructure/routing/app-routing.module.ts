@@ -37,18 +37,15 @@ import { SingleBlogDisplayComponent } from 'src/app/feature-modules/blog/single-
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 import { BlogListDisplayComponent } from 'src/app/feature-modules/blog/blog-list-display/blog-list-display.component';
 import { BlogFormComponent } from 'src/app/feature-modules/blog/blog-form/blog-form.component';
-
 import { EncountersManagingComponent } from 'src/app/feature-modules/encounters-managing/encounters-managing/encounters-managing.component';
-
 import { BundleFormComponent } from 'src/app/feature-modules/marketplace/bundle-form/bundle-form.component';
 import { BundleCardComponent } from 'src/app/feature-modules/marketplace/bundle-card/bundle-card.component';
 import { BundleOverviewComponent } from 'src/app/feature-modules/marketplace/bundle-overview/bundle-overview.component';
 import { BundleDetailsComponent } from 'src/app/feature-modules/marketplace/bundle-details/bundle-details.component';
-
-
 import { WalletComponent } from 'src/app/feature-modules/marketplace/wallet/wallet.component';
 import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-tour-form/custom-tour-form.component';
 import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounters-managing/encounters-tourist-view/encounters-tourist-view.component';
+import { DiscountsManagementComponent} from "../../feature-modules/marketplace/discounts-management/discounts-management.component";
 import { CampaignTourFormComponent } from 'src/app/feature-modules/tourist/campaign-tour-form/campaign-tour-form.component';
 import { CouponCreateComponent } from 'src/app/feature-modules/marketplace/coupon-create/coupon-create.component';
 import { CouponViewComponent } from 'src/app/feature-modules/marketplace/coupon-view/coupon-view.component';
@@ -108,6 +105,7 @@ const routes: Routes = [
   { path: 'appRatingAuthorForm', component: AppRatingFormAuthorComponent, canActivate: [AuthGuard] },
   { path: 'appRatingAuthor', component: AppRatingAuthorComponent, canActivate: [AuthGuard] },
   { path: 'tour-management/:id', component: TourFormComponent, canActivate: [AuthGuard] },
+  { path: 'discounts-management', component: DiscountsManagementComponent, canActivate: [AuthGuard] },
   { path: 'bundle-form' ,component : BundleFormComponent },
   { path: 'bundle-card' , component : BundleCardComponent },
   { path: 'all-bundles', component:BundleOverviewComponent},
