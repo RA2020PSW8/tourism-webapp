@@ -133,6 +133,7 @@
     <div class="options">
       <div class="option">
         <!-- Tourist -->
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['profile']">My profile</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['touristSelectingEquipment']">Manage my equipment</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink] = "['clubs']">See clubs</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['tourPreference']">My preferences</button>
