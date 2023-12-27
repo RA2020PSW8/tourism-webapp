@@ -37,7 +37,7 @@ import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-c
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
-    CampaignTourFormComponent
+    CampaignTourFormComponent,
     ClubFightDetailsComponent,
     ClubsRankingComponent,
     ClubDetailsComponent,

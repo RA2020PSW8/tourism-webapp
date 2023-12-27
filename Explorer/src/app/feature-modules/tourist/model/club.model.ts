@@ -10,6 +10,6 @@ export interface Club {
   ownerId: number,
   owner?: Profile,
   fightsWon?: number,
-  members?: Person[],
+  members?: Profile[],
   achievements?: Achievement[]
 }
