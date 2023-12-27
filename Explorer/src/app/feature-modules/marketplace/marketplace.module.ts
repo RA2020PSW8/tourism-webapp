@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TourPreferenceComponent } from './tour-preference/tour-preference.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { MatRadioModule } from '@angular/material/radio';
 import { TourPreferenceFormComponent } from './tour-preference-form/tour-preference-form.component';
@@ -17,6 +17,10 @@ import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.compon
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
 import { RegisterMessageComponent } from './dialogs/register/register-message.component';
+import { BundleCardComponent } from './bundle-card/bundle-card.component';
+import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
+import { BundleFormComponent } from './bundle-form/bundle-form.component';
+import { BundleDetailsComponent } from './bundle-details/bundle-details.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,11 @@ import { RegisterMessageComponent } from './dialogs/register/register-message.co
     CartWarningComponent,
     CartSuccessComponent,
     TourKeypointsMapComponent,
-    RegisterMessageComponent
+    RegisterMessageComponent,
+    BundleCardComponent,
+    BundleOverviewComponent,
+    BundleFormComponent,
+    BundleDetailsComponent
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -40,7 +48,8 @@ import { RegisterMessageComponent } from './dialogs/register/register-message.co
     ReactiveFormsModule,
     MatRadioModule,
     TimePipe,
-    MapComponent
+    MapComponent,
+    FormsModule,
   ]
 })
 export class MarketplaceModule { }

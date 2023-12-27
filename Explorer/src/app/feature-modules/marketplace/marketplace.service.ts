@@ -12,7 +12,12 @@ import { Keypoint } from '../tour-authoring/model/keypoint.model';
 import { Object } from '../tour-authoring/model/object.model';
 import { TourReview } from '../tour-execution/model/tour-review.model';
 import { TourPurchaseToken } from './model/tour-purchase-token.model';
+
+import { Bundle } from './model/bundle.model';
+import { BundlePrice } from './model/bundle-price.model';
+
 import { Wallet } from './model/wallet.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -139,12 +144,61 @@ export class MarketplaceService {
     return this.http.get<boolean>(`${this.tourApiUrl}/token/check-purchase/${tourId}`);
   }
 
+
+  createBundle(bundle:Bundle) : Observable<Bundle>{
+    return this.http.post<Bundle>(`https://localhost:44333/api/bundles`, bundle);
+  }
+  getToursByAuthor(): Observable<PagedResult<Tour>>{
+    return this.http.get<PagedResult<Tour>>(`https://localhost:44333/api/author/tours/author?page=0&pageSize=0`);
+  }
+
+  getBundle(id:number): Observable<Bundle>{
+    return this.http.get<Bundle>(`https://localhost:44333/api/bundles/${id}`);
+  }
+
+  getAllBundles(): Observable<PagedResult<Bundle>>{
+    return this.http.get<PagedResult<Bundle>>(`https://localhost:44333/api/bundles?page=0&pageSize=0`);
+  }
+
+  updateBundle(): Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/bundles`,null);
+  }
+
+  createPriceForBundle(price:BundlePrice) : Observable<BundlePrice>{
+    return this.http.post<BundlePrice>(`https://localhost:44333/api/bundlePrice`, price);
+
+  }
+  getPriceForBundle(bundleId:number) : Observable<BundlePrice>{
+    return this.http.get<BundlePrice>(`https://localhost:44333/api/bundlePrice/${bundleId}`);
+  }
+  addTourToBundle(tourId:number, bundleId:number) : Observable<Bundle>{
+    return this.http.post<Bundle>(`https://localhost:44333/api/bundles/AddTourToBundle/${tourId}/${bundleId}`, null);
+  }
+  deleteTourFromBundle(tourId:number, bundleId:number): Observable<Bundle>{
+    return this.http.delete<Bundle>(`https://localhost:44333/api/bundles/RemoveTourFromBundle?tourId=${tourId}&bundleId=${bundleId}`);
+  }
+
+  deleteBundle(id:number) :Observable<Bundle>{
+    return this.http.delete<Bundle>(`https://localhost:44333/api/bundles/${id}`);
+  }
+
+  publishBundle(id:number) : Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/bundles/publish/${id}`, null);
+  }
+  archiveBundle(id:number) : Observable<Bundle>{
+    return this.http.put<Bundle>(`https://localhost:44333/api/bundles/archive/${id}`, null);
+  }
+
   getCustomTours(): Observable<PagedResult<Tour>> {
     return this.http.get<PagedResult<Tour>>(`${this.tourApiUrl}/custom`);
   }
 
   updateWallet(wallet: Wallet): Observable<Wallet> {
     return this.http.put<Wallet>(environment.apiHost + 'tourist/wallet/' + wallet.id, wallet);
+  }
+  
+  calculateBundlePrice(bundleId:number) : Observable<number> {
+    return this.http.get<number>(`https://localhost:44333/api/bundles/calculate?bundleId=${bundleId}`);
   }
 
 }
