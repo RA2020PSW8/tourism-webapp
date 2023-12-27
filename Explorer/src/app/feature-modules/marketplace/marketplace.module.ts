@@ -20,6 +20,7 @@ import { DiscountsManagementComponent } from './discounts-management/discounts-m
 import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { RegisterMessageComponent } from './dialogs/register/register-message.component';
 import { BundleCardComponent } from './bundle-card/bundle-card.component';
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
@@ -45,6 +46,7 @@ import { TourManagementComponent } from './dialogs/tour-management/tour-manageme
     CartSuccessComponent,
     TourKeypointsMapComponent,
     DiscountsManagementComponent,
+    RegisterMessageComponent,
     BundleCardComponent,
     BundleOverviewComponent,
     BundleFormComponent,

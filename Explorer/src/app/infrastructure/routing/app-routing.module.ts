@@ -49,6 +49,8 @@ import { DiscountsManagementComponent} from "../../feature-modules/marketplace/d
 import { CampaignTourFormComponent } from 'src/app/feature-modules/tourist/campaign-tour-form/campaign-tour-form.component';
 import { CouponCreateComponent } from 'src/app/feature-modules/marketplace/coupon-create/coupon-create.component';
 import { CouponViewComponent } from 'src/app/feature-modules/marketplace/coupon-view/coupon-view.component';
+import { NewsletterPreferenceComponent } from 'src/app/feature-modules/tourist/newsletter-preference/newsletter-preference.component';
+
 
 const routes: Routes = [
 
@@ -88,6 +90,7 @@ const routes: Routes = [
   {path: 'campaign/:id',component: CampaignTourFormComponent,canActivate: [AuthGuard]},
   {path: 'coupon-create', component: CouponCreateComponent, canActivate: [AuthGuard]},
   {path: 'coupon-view', component: CouponViewComponent, canActivate: [AuthGuard]},
+  {path: 'newsletter', component: NewsletterPreferenceComponent, canActivate: [AuthGuard]},
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },

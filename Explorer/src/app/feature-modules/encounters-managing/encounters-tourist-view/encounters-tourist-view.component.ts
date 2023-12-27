@@ -5,8 +5,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
 import { EncounterCompletion, EncounterCompletionStatus } from '../model/encounterCompletion.model';
 import { MapComponent } from 'src/app/shared/map/map.component';
-import { Profile } from '../../administration/model/profile.model';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { EncountersStatisticsComponent } from '../encounters-statistics/encounters-statistics.component';
 
 @Component({
   selector: 'xp-encounter-map',
@@ -27,16 +27,16 @@ export class EncountersTouristViewComponent implements OnInit {
   public formMode: string;
   public canCreateEncounters: boolean = false;
   @ViewChild(MapComponent) mapComponent: MapComponent;
-  
-  constructor(private service: EncountersService) { }
 
+  constructor(private service: EncountersService, private dialog: MatDialog) { }
+  
   ngOnInit(): void {
     this.getActiveEncounters(); 
     this.getTouristEncounterCompletions();    
     this.getTouristEncounters();
     this.canTouristCreateEncounters();
   }
-
+  
   getActiveEncounters(): void {
     this.service.getEncountersByStatus('ACTIVE').subscribe({
       next: (result: PagedResults<Encounter>) => {
@@ -169,5 +169,11 @@ export class EncountersTouristViewComponent implements OnInit {
     this.getActiveEncounters();
     this.getTouristEncounterCompletions();
     this.showForm = false;
+  }
+
+  openStatisticsModal(): void {
+    const dialogRef = this.dialog.open(EncountersStatisticsComponent, {
+      width: '50%', height: '60%'
+    });
   }
 }
