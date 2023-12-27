@@ -16,12 +16,23 @@ import { ReviewsComponent } from './dialogs/reviews/reviews.component';
 import { CartWarningComponent } from './dialogs/cart-warning/cart-warning.component';
 import { CartSuccessComponent } from './dialogs/cart-success/cart-success.component';
 import { TourKeypointsMapComponent } from './dialogs/tour-keypoints-map/tour-keypoints-map.component';
+import { DiscountsManagementComponent } from './discounts-management/discounts-management.component';
+import { TourAuthoringModule } from '../tour-authoring/tour-authoring.module';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { RegisterMessageComponent } from './dialogs/register/register-message.component';
 import { BundleCardComponent } from './bundle-card/bundle-card.component';
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDetailsComponent } from './bundle-details/bundle-details.component';
 import { WishListComponent } from './wish-list/wish-list.component';
 import { WishListItemsComponent } from './wish-list-items/wish-list-items.component';
+import { CouponCreateComponent } from './coupon-create/coupon-create.component';
+import { CouponViewComponent } from './coupon-view/coupon-view.component';
+import { RouterModule } from '@angular/router';
+import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { TourManagementComponent } from './dialogs/tour-management/tour-management.component';
 
 @NgModule({
   declarations: [
@@ -36,12 +47,18 @@ import { WishListItemsComponent } from './wish-list-items/wish-list-items.compon
     CartWarningComponent,
     CartSuccessComponent,
     TourKeypointsMapComponent,
+    DiscountsManagementComponent,
+    RegisterMessageComponent,
     BundleCardComponent,
     BundleOverviewComponent,
     BundleFormComponent,
     BundleDetailsComponent,
     WishListComponent,
     WishListItemsComponent,
+    TourKeypointsMapComponent,
+    CouponCreateComponent,
+    CouponViewComponent,
+    TourManagementComponent,
   ],
   exports: [TourCardCompactComponent],
   imports: [
@@ -51,7 +68,13 @@ import { WishListItemsComponent } from './wish-list-items/wish-list-items.compon
     MatRadioModule,
     TimePipe,
     MapComponent,
+    TourAuthoringModule,
+    MatNativeDateModule,
+    MatDatepickerModule,
+    MatTableModule,
+    MatMenuModule,
+    RouterModule,
     FormsModule,
-  ]
+  ],
 })
-export class MarketplaceModule { }
+export class MarketplaceModule {}

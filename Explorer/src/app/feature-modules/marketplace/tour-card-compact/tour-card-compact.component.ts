@@ -12,7 +12,6 @@ import { Keypoint } from '../../tour-authoring/model/keypoint.model';
 import { Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { TourKeypointsMapComponent } from '../dialogs/tour-keypoints-map/tour-keypoints-map.component';
-import { WishList } from '../model/wish-list.model';
 import { WishListItem } from '../model/wish-list-item.model';
 
 @Component({
@@ -160,5 +159,18 @@ export class TourCardCompactComponent {
         }
       });
     });
+  }
+
+  loadGmap(tour: Tour)
+  {
+    let link = "https://www.google.com/maps/dir/"
+    if(tour.keypoints !== undefined)
+    {
+      tour.keypoints.forEach(kp => {
+        link += kp.latitude + ",";
+        link += kp.longitude + "/"
+      });
+      window.location.href = link
+    }
   }
 }

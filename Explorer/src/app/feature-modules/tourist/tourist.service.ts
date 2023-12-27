@@ -8,6 +8,7 @@ import { ClubInvitation } from './model/club-invitation.model';
 import { environment } from '../../../env/environment';
 import { Club } from './model/club.model';
 import { ClubJoinRequest } from './model/club-join-request.model';
+import { NewsletterPreference } from './model/newsletter-preference.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,8 @@ export class TouristService {
   private readonly apiUrl = `${environment.apiHost}tourist`;
 
   constructor(private http: HttpClient) { }
+
+  
 
   getEquipmentForSelection(): Observable<EquipmentForSelection[]> {
     return this.http.get<EquipmentForSelection[]>(environment.apiHost + 'tourist/touristEquipment/forSelected/' + parseInt(localStorage.getItem('loggedId')!))
@@ -71,4 +74,11 @@ export class TouristService {
     return this.http.delete<Club>(environment.apiHost+'tourist/clubs/'+club.id); 
   }
 
+  getNewsletterPreference(userid: number): Observable<NewsletterPreference>{
+    return this.http.get<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference/${userid}`); 
+  }
+
+  updateNewsletterPrefence(np: NewsletterPreference): Observable<NewsletterPreference>{
+    return this.http.post<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference`, np); 
+  }
 }
