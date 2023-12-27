@@ -34,12 +34,14 @@
             <div class="tab" (click)="switchTab('members')">List of members</div>
             <div class="tab" (click)="switchTab('statistics')">Club statistics</div>
             <div class="tab" (click)="switchTab('challenges')">Challenges</div>
+            <div class="tab" (click)="switchTab('fights')">All Fights</div>
         </div>
         <br>
         <div class="tab-selection">
             <xp-club-members *ngIf="selectedTab === 'members'" [ownerId]="user?.id" [members]="club.members" [ownerPanel]="club.ownerId === user?.id"></xp-club-members>
             <img *ngIf="selectedTab === 'statistics'" src="../../../../assets/images/club-stats.jpg" width="100%" height="100%" alt="">
             <xp-club-challenge-requests *ngIf="selectedTab === 'challenges'" [requests]="requests" [ownerPanel]="club.ownerId === user?.id"></xp-club-challenge-requests>
+            <xp-club-fight-list *ngIf="selectedTab === 'fights'" [fights]="fights" [club]="club"></xp-club-fight-list>
         </div>
     </div>
 </div>

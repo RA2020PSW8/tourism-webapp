@@ -5,6 +5,7 @@ import { Club } from '../model/club.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { ClubChallengeRequest } from '../model/club-challenge-request';
+import { ClubFight } from '../model/club-fight.model';
 
 @Component({
   selector: 'xp-club-details',
@@ -18,6 +19,7 @@ export class ClubDetailsComponent implements OnInit{
   public club: Club = {} as Club;
   public selectedTab: string = 'members';
   public requests: ClubChallengeRequest[] = [];
+  public fights: ClubFight[] = [];
 
   constructor(private touristService: TouristService, private route: ActivatedRoute, private authService: AuthService){}
 
@@ -38,6 +40,10 @@ export class ClubDetailsComponent implements OnInit{
               this.touristService.getClubChallenges(this.clubId).subscribe(res => {
                 this.requests = res;
               });
+
+              this.touristService.getFightsByClub(this.clubId).subscribe(res => {
+                this.fights = res;
+              });
             });
           },
           error: () => {
@@ -46,6 +52,10 @@ export class ClubDetailsComponent implements OnInit{
     
               this.touristService.getClubChallenges(this.clubId).subscribe(res => {
                 this.requests = res;
+              });
+
+              this.touristService.getFightsByClub(this.clubId).subscribe(res => {
+                this.fights = res;
               });
             });
           }

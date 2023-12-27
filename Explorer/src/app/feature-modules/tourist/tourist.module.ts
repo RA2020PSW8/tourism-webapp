@@ -25,6 +25,7 @@ import { ClubFightDetailsComponent } from './club-fight-details/club-fight-detai
 import { AdministrationModule } from '../administration/administration.module';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-challenge-requests.component';
+import { ClubFightListComponent } from './club-fight-list/club-fight-list.component';
 import { ClubCardComponent } from './club-card/club-card.component';
 
 @NgModule({
@@ -44,6 +45,7 @@ import { ClubCardComponent } from './club-card/club-card.component';
     ClubDetailsComponent,
     ClubMembersComponent,
     ClubChallengeRequestsComponent,
+    ClubFightListComponent,
     ClubCardComponent
   ],
   imports: [

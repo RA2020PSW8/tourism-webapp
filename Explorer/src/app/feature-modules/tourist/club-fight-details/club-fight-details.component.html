@@ -7,8 +7,15 @@
 
     <div class="clubs-info" *ngIf="clubFight && clubFightXPInfo">
         <div class="club-info">
-            <h5>{{ clubFight.club1.name }}</h5>
-            <div class="total-xp">{{ clubFightXPInfo.club1TotalXp }}XP</div>
+            <div class="club-heading">
+                <div>
+                    <img [src]="clubFight.club1.image" height="80" width="80">
+                </div>
+                <div>
+                    <h5>{{ clubFight.club1.name }}</h5>
+                    <div class="total-xp">{{ clubFightXPInfo.club1TotalXp }}XP</div>
+                </div>
+            </div>
             <div class="participants">
                 <div class="participant" *ngFor="let participant of clubFightXPInfo.club1ParticipantsInfo"> 
                     <div class="image-container">
@@ -22,8 +29,15 @@
         </div>
         <div class="middle">{{ clubFightXPInfo.club1TotalXp > clubFightXPInfo.club2TotalXp ? ">" : "<" }}</div>
         <div class="club-info">
-            <h5>{{ clubFight.club2.name }}</h5>
-            <div class="total-xp">{{ clubFightXPInfo.club2TotalXp }}XP</div>
+            <div class="club-heading">
+                <div>
+                    <img [src]="clubFight.club2.image" height="80" width="80">
+                </div>
+                <div>
+                    <h5>{{ clubFight.club2.name }}</h5>
+                    <div class="total-xp">{{ clubFightXPInfo.club2TotalXp }}XP</div>
+                </div>
+            </div>
             <div class="participants">
                 <div class="participant" *ngFor="let participant of clubFightXPInfo.club2ParticipantsInfo"> 
                     <div class="image-container">
