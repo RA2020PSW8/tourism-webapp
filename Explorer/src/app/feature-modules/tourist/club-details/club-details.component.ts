@@ -30,12 +30,25 @@ export class ClubDetailsComponent implements OnInit{
       this.clubId = Number(params.get('id'));
 
       if(this.clubId !== 0){
-        this.touristService.getClubById(this.clubId).subscribe((res: Club) => {
-          this.club = res;
-
-          this.touristService.getClubChallenges(this.clubId).subscribe(res => {
-            this.requests = res;
-          });
+        this.touristService.updateFights().subscribe({
+          next: () => {
+            this.touristService.getClubById(this.clubId).subscribe((res: Club) => {
+              this.club = res;
+    
+              this.touristService.getClubChallenges(this.clubId).subscribe(res => {
+                this.requests = res;
+              });
+            });
+          },
+          error: () => {
+            this.touristService.getClubById(this.clubId).subscribe((res: Club) => {
+              this.club = res;
+    
+              this.touristService.getClubChallenges(this.clubId).subscribe(res => {
+                this.requests = res;
+              });
+            });
+          }
         });
       }
     });
