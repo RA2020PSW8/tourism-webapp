@@ -145,6 +145,7 @@
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['profile']">My profile</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['touristSelectingEquipment']">Manage my equipment</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink] = "['clubs']">See clubs</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink] = "['clubs-ranking']">Club Ratings</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['tourPreference']">My preferences</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['clubInvitations']">Manage club invitations</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['clubJoinRequests']">My join requests</button>
@@ -157,6 +158,7 @@
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['active-tour']">Active tour</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button routerLink="/purchased-tours">Purchased Tours</button>
         <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['encounters-map']">Encounters</button>
+        <button *ngIf="user && user.role === 'tourist'" class="btn-option" mat-flat-button [routerLink]="['wishlist']">My Wish List</button>
         <hr>
         <!-- Admin -->
         <button *ngIf="user && user.role === 'administrator'" class="btn-option" mat-flat-button [routerLink]="['equipment']">Manage equipment</button>
