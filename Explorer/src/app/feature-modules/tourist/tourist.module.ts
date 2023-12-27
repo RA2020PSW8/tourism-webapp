@@ -4,7 +4,7 @@ import { TouristEquipmentComponent } from './tourist-equipment/tourist-equipment
 import { ClubInvitationComponent } from './club-invitation/club-invitation.component';
 import { ClubInvitationFormComponent } from './club-invitation-form/club-invitation-form.component';
 import { MaterialModule } from '../../infrastructure/material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ClubOwnerRequestsComponent } from './club-owner-requests/club-owner-requests.component';
 import { ClubJoinRequestFormComponent } from './club-join-request-form/club-join-request-form.component';
 import { ClubJoinRequestsComponent } from './club-join-requests/club-join-requests.component';
@@ -19,9 +19,12 @@ import { CampaignTourFormComponent } from './campaign-tour-form/campaign-tour-fo
 import { MarketplaceModule } from '../marketplace/marketplace.module';
 import { MatStepperModule } from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { ClubsRankingComponent } from './clubs-ranking/clubs-ranking.component';
 import { ClubDetailsComponent } from './club-details/club-details.component';
 import { ClubFightDetailsComponent } from './club-fight-details/club-fight-details.component';
-
+import { AdministrationModule } from '../administration/administration.module';
+import { ClubMembersComponent } from './club-members/club-members.component';
+import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-challenge-requests.component';
 
 @NgModule({
   declarations: [
@@ -34,9 +37,12 @@ import { ClubFightDetailsComponent } from './club-fight-details/club-fight-detai
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
-    CampaignTourFormComponent,
+    CampaignTourFormComponent
+    ClubFightDetailsComponent,
+    ClubsRankingComponent,
     ClubDetailsComponent,
-    ClubFightDetailsComponent
+    ClubMembersComponent,
+    ClubChallengeRequestsComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +54,9 @@ import { ClubFightDetailsComponent } from './club-fight-details/club-fight-detai
     MapComponent,
     MarketplaceModule,
     MatStepperModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    FormsModule,
+    AdministrationModule
   ],
   exports: [
     ClubsComponent,
