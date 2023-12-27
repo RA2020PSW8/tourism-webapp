@@ -33,13 +33,14 @@
     max-width: 12vw;
     height: 4vh;
     width: fit-content;
-    border-radius: 15px;
     display: flex;
     justify-content: space-around;
     align-items: center;
     font-size: 1.2em;
+    font-weight: 450;
     background-color: #F7F3F3;
-    border: 2px solid #61677A;
+    border-radius: 15px;
+    border: 2px solid #262F44;
 }
 
 .circle{
@@ -65,15 +66,16 @@ color: #F7E6C4;
 }
 
 a{
-font-size: 24px;
+font-size: 26px;
+font-weight: 450;
 padding-left: 0.7em;
-color: #001524;
+color: #F2F2F2;
 text-decoration: none;
 transition: color 0.3s ease;
 }
 
 a:hover{
-color: #617A55;
+color: #fa7921;
 }
 
 .p-header{
