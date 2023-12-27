@@ -13,6 +13,11 @@
   font-weight: 700;
 }
 
+.club-heading {
+  display: flex;
+  gap: 10px;
+}
+
 @keyframes colorRotate {
   from {
     color: #6666ff;

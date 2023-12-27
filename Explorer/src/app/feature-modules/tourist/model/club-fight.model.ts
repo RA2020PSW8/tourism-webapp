@@ -1,6 +1,7 @@
 import { Club } from "./club.model";
 
 export interface ClubFight {
+  id?: number,
   winnerId?: number,
   startOfFight: Date,
   endOfFight: Date,
