@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { ClubChallengeRequest } from '../model/club-challenge-request';
 import { TouristService } from '../tourist.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-club-challenge-requests',
@@ -11,7 +12,7 @@ export class ClubChallengeRequestsComponent {
   @Input() requests: ClubChallengeRequest[] | undefined = [];
   @Input() ownerPanel: Boolean = false;
 
-  constructor(private touristService: TouristService){}
+  constructor(private touristService: TouristService, private router: Router){}
 
   acceptRequest(request: ClubChallengeRequest){
     if(window.confirm('Confirm that you want to accept challenge')){
@@ -26,7 +27,9 @@ export class ClubChallengeRequestsComponent {
       this.touristService.declineChallenge(request).subscribe({
         next: (res) => {
           window.alert('Challenge accepted. The fight has begun');
-          // TODO: Redirektovati na club fight panel
+          this.router.navigate(
+            ['/fight', res.id]
+          );
         },
 
         error: (err) => {

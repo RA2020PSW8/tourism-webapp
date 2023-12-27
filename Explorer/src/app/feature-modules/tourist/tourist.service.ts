@@ -104,6 +104,10 @@ export class TouristService {
   getFightsByClub(clubId: number): Observable<ClubFight[]> {
     return this.http.get<ClubFight[]>(`${this.apiUrl}/fight/all/${clubId}`);
   }
+  
+  createChallenge(request: ClubChallengeRequest): Observable<ClubChallengeRequest>{
+    return this.http.post<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request`, request);
+  }
 
   updateFights(): any {
     return this.http.get(`${environment.apiHost}xp/fight/update`);
