@@ -1,4 +1,4 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, ElementRef, HostListener, OnInit, ViewChild} from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { LayoutService } from '../layout.service';
@@ -12,11 +12,12 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  @ViewChild('overlayContainer',  { static: false })  overlayContainer: ElementRef | undefined;
   user: User | undefined;
   showOldToolbar: boolean = false;
   notifications: NotificationModel[] = [];
   unreadNotificationsCount: number = 0;
+  isOverlayOpen: boolean = false;
 
   constructor(private authService: AuthService, private layoutService: LayoutService, private router: Router) {}
 
@@ -25,6 +26,22 @@ export class NavbarComponent implements OnInit {
       this.user = user;
       this.getNotifications();
     });
+  }
+
+  @HostListener('document:click', ['$event'])
+  handleClick(event: Event) {
+    if (this.overlayContainer && !this.overlayContainer.nativeElement.contains(event.target)) {
+      this.closeOverlay();
+    }
+  }
+
+  toggleMenu(event: Event) {
+    event.stopPropagation();
+    this.isOverlayOpen = !this.isOverlayOpen;
+  }
+
+  closeOverlay() {
+    this.isOverlayOpen = false;
   }
 
   onLogout(): void {
@@ -75,4 +92,6 @@ export class NavbarComponent implements OnInit {
       this.router.navigate([actionURL]);
     }
   }
+
+  protected readonly localStorage = localStorage;
 }

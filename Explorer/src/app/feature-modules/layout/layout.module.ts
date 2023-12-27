@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import { MarketplaceModule } from "../marketplace/marketplace.module";
 import { MatMenuModule } from '@angular/material/menu';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MarketplaceModule,
     MatMenuModule,
     MarketplaceModule,
+    FormsModule,
   ],
   exports: [
     NavbarComponent,

@@ -18,7 +18,7 @@
         <tbody>
           <tr *ngFor="let c of clubs">
             <td>{{c.id}}</td>
-            <td>{{c.userId}}</td>
+            <td>{{c.ownerId}}</td>
             <td>{{c.name}}</td>
             <td>{{c.description}}</td>
 
@@ -28,12 +28,12 @@
               </div>
             </td>
 
-            <td>
+            <!-- <td>
               <div *ngFor="let m of c.memberIds">
                 {{m}}
                 <button color="primary" mat-raised-button class="mat-button-spacing" (click)="removeMember(c, m)">Remove member</button>
               </div>
-            </td>
+            </td> -->
 
             <td><button color="primary" mat-raised-button (click)="onAddClicked(c)">Add new member</button></td>
             <td><button color="primary" mat-raised-button (click)="showRequests(c)">Show requests</button></td>

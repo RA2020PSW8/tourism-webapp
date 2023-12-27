@@ -1,3 +1,5 @@
+import { Coupon } from "./coupon-model";
+
 export interface OrderItem {
     id: number,
     userId: number,

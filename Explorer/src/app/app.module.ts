@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { MapComponent } from './shared/map/map.component';
 import { TimePipe } from './shared/helpers/time.pipe';
 import { EncountersModule } from './feature-modules/encounters-managing/encounters.module';
+import { MatNativeDateModule, NativeDateAdapter, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
+
 
 
 @NgModule({
@@ -42,7 +44,8 @@ import { EncountersModule } from './feature-modules/encounters-managing/encounte
     TouristModule,
     MarkdownModule.forRoot({ loader: HttpClientModule }),
     FormsModule,
-    EncountersModule
+    EncountersModule,
+    MatNativeDateModule,
   ],
   providers: [
     {

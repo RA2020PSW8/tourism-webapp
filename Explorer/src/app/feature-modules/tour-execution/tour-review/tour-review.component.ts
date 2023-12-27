@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TourExecutionService } from '../tour-execution.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourReview } from '../model/tour-review.model';
+import { Tour } from '../../tour-authoring/model/tour.model';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 
 @Component({
   selector: 'xp-tour-review',
@@ -11,14 +13,18 @@ import { TourReview } from '../model/tour-review.model';
 export class TourReviewComponent implements OnInit {
 
   tourReview: TourReview[] = [];
+  tours: Tour[];
+  selectedTour : Tour;
+  selectedTourID? : number | null;
   selectedTourReview: TourReview;
   shouldEdit: boolean;
   shouldRenderTourReviewForm: boolean = false;
 
-  constructor(private service: TourExecutionService) {}
+  constructor(private service: TourExecutionService, private tourService: TourAuthoringService) {}
 
   ngOnInit(): void {
     this.getTourReviews();
+    //.getTours();
   }
 
   getTourReviews(): void {
@@ -49,4 +55,21 @@ export class TourReviewComponent implements OnInit {
       }
     })
   }
+
+  /*getTours(): void {
+    this.tourService.getTours().subscribe({
+      next: (result: PagedResults<Tour>) => {
+        this.tours = result.results;
+      },
+      error: (err: any) => {
+        console.log(err)
+      }
+    })
+  }
+
+  radioClicked(tour : Tour): number | undefined {
+    this.selectedTour = tour;
+    this.selectedTourID = this.selectedTour.id;
+    return this.selectedTourID;
+  }*/
 }

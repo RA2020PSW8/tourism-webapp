@@ -24,7 +24,7 @@
                 <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
             </div>
         </div>
-        <div *ngIf="!isLoading && tours.length === 0">
+        <div *ngIf="!isLoading && tours.length === 0 && router.url.includes('/purchased-tours')">
             <h1 class=cheapskate>Buy something, you cheapskate.</h1>
         </div>
     </div>
@@ -41,27 +41,32 @@
     <div class="container" *ngIf="!router.url.includes('/home')">
         <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
             <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of customTours">
-                <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
+                <xp-tour-card-compact [tour]="tour" [isCustom]="true"></xp-tour-card-compact>
             </div>
-        </div>
-        <div *ngIf="!isLoading && tours.length === 0">
-            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
         </div>
     </div>
 
-    <div id="otherContainer" *ngIf="router.url.includes('/home')">
-        <div class="panel">
+    <!-- Color pallette test / samples -->
+    <div id="otherContainer"*ngIf="router.url.includes('/home')">
+        <div class="panel" style="background-color: var(--color-accent-dark); color: var(--color-foreground);" >
             <p class="p-header">Discover New Experiences</p>
             <p class="p-regular">Explore breathtaking destinations, uncover hidden gems, and make memories that last a
                 lifetime.</p>
-            <a href="#" class="fancyButton">Discover your adventure</a>
+            <button class="button button-primary">Discover your adventure</button>
         </div>
 
-        <div class="panel" *ngIf="router.url.includes('/home')">
+        <div class="panel" style="background-color: var(--color-accent-light); color: var(--color-accent-contrast);" *ngIf="router.url.includes('/home')">
             <p class="p-header">Embark on Adventures through Captivating Narratives</p>
             <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
                 gems to travel tips, our blog has it all.</p>
-            <a href="#" class="fancyButton">Read Our Blog</a>
+            <button class="button button-ternary">Read Our Blog</button>
+        </div>
+
+        <div class="panel" style="background-color: var(--color-accent-contrast); color: var(--color-foreground);" *ngIf="router.url.includes('/home')">
+            <p class="p-header">Embark on Adventures through Captivating Narratives</p>
+            <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
+                gems to travel tips, our blog has it all.</p>
+            <button class="button button-secondary">Read Our Blog</button>
         </div>
     </div>
 </div>
