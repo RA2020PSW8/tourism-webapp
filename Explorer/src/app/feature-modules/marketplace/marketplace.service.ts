@@ -204,7 +204,7 @@ export class MarketplaceService {
   }
 
   getWishListItemsForUser(): Observable<PagedResults<WishListItem>> {
-    return this.http.get<PagedResults<WishListItem>>(environment.apiHost + 'tourist/itemswishlist/byUser');
+    return this.http.get<PagedResults<WishListItem>>(environment.apiHost + 'tourist/itemswishlist');
   }
 
   getWishListForUser(): Observable<WishList> {

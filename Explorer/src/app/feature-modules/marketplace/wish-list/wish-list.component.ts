@@ -25,8 +25,11 @@ export class WishListComponent implements OnInit {
 
   getWishlistItems(): void{
     this.marketplaceService.getWishListItemsForUser().subscribe({
-      next: (result: PagedResults<WishListItem>) => {
-        this.wishListItems = result.results;
+      next: (value : PagedResults<WishListItem>) => {
+        this.wishListItems = value.results;
+        console.log(this.wishListItems);
+        console.log(value.results);
+
       },
       error:(err: any) => {
         console.log(err); 
