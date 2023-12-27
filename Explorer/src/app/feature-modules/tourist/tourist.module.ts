@@ -25,6 +25,7 @@ import { ClubFightDetailsComponent } from './club-fight-details/club-fight-detai
 import { AdministrationModule } from '../administration/administration.module';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-challenge-requests.component';
+import { ClubCardComponent } from './club-card/club-card.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-c
     ClubsRankingComponent,
     ClubDetailsComponent,
     ClubMembersComponent,
-    ClubChallengeRequestsComponent
+    ClubChallengeRequestsComponent,
+    ClubCardComponent
   ],
   imports: [
     CommonModule,

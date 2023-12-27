@@ -11,5 +11,5 @@ export interface Profile{
     email: string,
     xp: number,
     level: number
-    
+    clubId?: number;
 }

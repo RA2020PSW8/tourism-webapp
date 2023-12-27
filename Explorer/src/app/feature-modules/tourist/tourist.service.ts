@@ -101,6 +101,10 @@ export class TouristService {
     return this.http.put<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request/decline`, request);
   }
 
+  createChallenge(request: ClubChallengeRequest): Observable<ClubChallengeRequest>{
+    return this.http.post<ClubChallengeRequest>(`${environment.apiHost}club-challenge-request`, request);
+  }
+
   updateFights(): any {
     return this.http.get(`${environment.apiHost}xp/fight/update`);
   }
