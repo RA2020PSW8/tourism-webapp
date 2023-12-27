@@ -1,3 +1,14 @@
+<!--div class="tour-card">
+    <h2 style="align-self: center;">{{item.tourName}}</h2>
+    <p><strong>Description:</strong> {{item.tourDescription}}</p>
+    <p><strong>Price:</strong> {{item.tourPrice}} AC</p>
+    <p><strong>Type:</strong> {{item.tourType}}</p>
+    <p><strong>Difficulty:</strong> {{item.tourDifficulty}}</p>    
+    <p><strong>Travel distance:</strong> {{item.travelDistance | number:'1.2-2'}} km</p>
+    <p><strong>Tour duration:</strong> {{item.tourDuration || 0 | time}}</p>
+    
+    <button class="button button-primary" (click)="addToCart()">Add to cart</button>
+</div-->
 <div class="tour-card">
     <h2 style="align-self: center;">{{tour.name}}</h2>
     <p><strong>Description:</strong> {{tour.description}}</p>
@@ -30,6 +41,4 @@
         </tbody>
     </table>
     <button class="button button-primary" (click)="addToCart()">Add to cart</button>
-    <button class="button button-primary" (click)="startTour(tour.id)">Start tour</button>
-    <button *ngIf="isInWishList"  class="button button-primary" (click)="removeFromWishList()">Remove from wish list</button>
 </div>

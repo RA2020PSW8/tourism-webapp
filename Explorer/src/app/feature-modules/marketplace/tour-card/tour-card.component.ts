@@ -9,6 +9,9 @@ import { TourProgress } from '../../tour-execution/model/tour-progress.model';
 import { MatDialog } from '@angular/material/dialog';
 import { CartSuccessComponent } from '../dialogs/cart-success/cart-success.component';
 import { CartWarningComponent } from '../dialogs/cart-warning/cart-warning.component';
+import { PagedResult } from '../../tour-execution/shared/model/paged-result.model';
+import { WishListItem } from '../model/wish-list-item.model';
+import { WishList } from '../model/wish-list.model';
 
 @Component({
   selector: 'xp-tour-card',
@@ -21,15 +24,24 @@ export class TourCardComponent implements OnInit, OnChanges {
   @Input() tour: Tour;
   public firstKp: Keypoint;
   private lastOrderId: number;
+  public isInWishList: boolean;
+  wishListItems: WishListItem[] = [];
+  wishList: WishList;
+  public tours: Tour[] = [];
+  public wishedTours: Tour[] = [];
+  public foundWishListItem?: WishListItem;
 
   constructor(private dialog: MatDialog, private marketplaceService: MarketplaceService, private tourExecutionService: TourExecutionService, private authService: AuthService) {
     this.lastOrderId = 0;
+    this.isInWishList = false;
   }
 
   ngOnChanges(): void {
   }
 
   ngOnInit(): void {
+    this.getWishListItem();
+
     this.tour.keypoints = this.tour.keypoints?.sort((kp1, kp2) => {
       return (kp1.position || 0) - (kp2.position || 0);
     });
@@ -92,6 +104,36 @@ export class TourCardComponent implements OnInit, OnChanges {
       },
       error: (error) => {
         alert("Error checking if the tour is purchased. Please try again later.");
+      }
+    });
+  }
+
+  removeFromWishList(): void{
+    this.marketplaceService.deleteWishListItem(this.foundWishListItem?.id || 0).subscribe({
+      next: () => {
+        window.alert("Tour removed from wishlist.");
+      },
+      error: (err: any) => {
+        console.log(err);
+        alert('An error occurred while deleting the wishlist item.');
+      }
+    })
+  }
+
+  getWishListItem(): void{
+    this.marketplaceService.getAllWishListItems().subscribe({
+      next: (result: PagedResult<WishListItem>) => {
+        this.wishListItems = result.results;
+
+        const userId = this.authService.user$.value.id;
+        // filter tours by toursId u wishListItems.TourId
+         this.foundWishListItem = this.wishListItems.find(item =>
+          item.tourId === this.tour.id && item.userId === userId
+        );
+        console.log("fount wishlist item",this.foundWishListItem);
+        if(this.foundWishListItem != null){
+          this.isInWishList = true;
+        }
       }
     });
   }

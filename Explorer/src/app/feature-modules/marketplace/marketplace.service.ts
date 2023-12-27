@@ -17,6 +17,8 @@ import { Bundle } from './model/bundle.model';
 import { BundlePrice } from './model/bundle-price.model';
 
 import { Wallet } from './model/wallet.model';
+import { WishListItem } from './model/wish-list-item.model';
+import { WishList } from './model/wish-list.model';
 import { Discount } from './model/discount.model';
 import { Tourist } from './model/tourist-model';
 import { Coupon } from './model/coupon-model';
@@ -279,6 +281,30 @@ export class MarketplaceService {
   
   calculateBundlePrice(bundleId:number) : Observable<number> {
     return this.http.get<number>(`https://localhost:44333/api/bundles/calculate?bundleId=${bundleId}`);
+  }
+
+  getWishListItemsForUser(): Observable<PagedResults<WishListItem>> {
+    return this.http.get<PagedResults<WishListItem>>(environment.apiHost + 'tourist/itemswishlist');
+  }
+
+  getWishListForUser(): Observable<WishList> {
+    return this.http.get<WishList>(environment.apiHost + 'tourist/wishlist/byUser');
+  }
+
+  getTourById(tourId: number): Observable<Tour>{
+    return this.http.get<Tour>(`https://localhost:44333/api/tourist/tours/${tourId}`);
+  }
+
+  getAllWishListItems(): Observable<PagedResult<WishListItem>> {
+    return this.http.get<PagedResult<WishListItem>>(environment.apiHost + 'tourist/itemswishlist');
+  }
+
+  addWishListItem(wishListItem: WishListItem): Observable<WishListItem> {
+    return this.http.post<WishListItem>(environment.apiHost + 'tourist/itemswishlist', wishListItem);
+  }
+
+  deleteWishListItem(wishListItemId: number): Observable<WishListItem> {
+    return this.http.delete<WishListItem>(environment.apiHost + 'tourist/itemswishlist/' + wishListItemId);
   }
 
   getToursOnDiscount(): Observable<number[]> {

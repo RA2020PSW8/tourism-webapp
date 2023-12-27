@@ -47,6 +47,7 @@ import { CustomTourFormComponent } from 'src/app/feature-modules/tourist/custom-
 import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounters-managing/encounters-tourist-view/encounters-tourist-view.component';
 import { DiscountsManagementComponent} from "../../feature-modules/marketplace/discounts-management/discounts-management.component";
 import { CampaignTourFormComponent } from 'src/app/feature-modules/tourist/campaign-tour-form/campaign-tour-form.component';
+import { WishListComponent } from 'src/app/feature-modules/marketplace/wish-list/wish-list.component';
 import { CouponCreateComponent } from 'src/app/feature-modules/marketplace/coupon-create/coupon-create.component';
 import { CouponViewComponent } from 'src/app/feature-modules/marketplace/coupon-view/coupon-view.component';
 import { NewsletterPreferenceComponent } from 'src/app/feature-modules/tourist/newsletter-preference/newsletter-preference.component';
@@ -88,6 +89,7 @@ const routes: Routes = [
   {path: 'custom-tour/:id', component: CustomTourFormComponent, canActivate: [AuthGuard]},
   {path: 'encounters-map', component: EncountersTouristViewComponent, canActivate: [AuthGuard]},
   {path: 'campaign/:id',component: CampaignTourFormComponent,canActivate: [AuthGuard]},
+  {path: 'wishlist', component: WishListComponent, canActivate: [AuthGuard]},
   {path: 'coupon-create', component: CouponCreateComponent, canActivate: [AuthGuard]},
   {path: 'coupon-view', component: CouponViewComponent, canActivate: [AuthGuard]},
   {path: 'newsletter', component: NewsletterPreferenceComponent, canActivate: [AuthGuard]},

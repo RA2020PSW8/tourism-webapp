@@ -25,6 +25,8 @@ import { BundleCardComponent } from './bundle-card/bundle-card.component';
 import { BundleOverviewComponent } from './bundle-overview/bundle-overview.component';
 import { BundleFormComponent } from './bundle-form/bundle-form.component';
 import { BundleDetailsComponent } from './bundle-details/bundle-details.component';
+import { WishListComponent } from './wish-list/wish-list.component';
+import { WishListItemsComponent } from './wish-list-items/wish-list-items.component';
 import { CouponCreateComponent } from './coupon-create/coupon-create.component';
 import { CouponViewComponent } from './coupon-view/coupon-view.component';
 import { RouterModule } from '@angular/router';
@@ -51,6 +53,8 @@ import { TourManagementComponent } from './dialogs/tour-management/tour-manageme
     BundleOverviewComponent,
     BundleFormComponent,
     BundleDetailsComponent,
+    WishListComponent,
+    WishListItemsComponent,
     TourKeypointsMapComponent,
     CouponCreateComponent,
     CouponViewComponent,
