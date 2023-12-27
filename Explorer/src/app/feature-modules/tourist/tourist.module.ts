@@ -21,10 +21,10 @@ import { MatStepperModule } from '@angular/material/stepper';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import { ClubsRankingComponent } from './clubs-ranking/clubs-ranking.component';
 import { ClubDetailsComponent } from './club-details/club-details.component';
+import { ClubFightDetailsComponent } from './club-fight-details/club-fight-details.component';
 import { AdministrationModule } from '../administration/administration.module';
 import { ClubMembersComponent } from './club-members/club-members.component';
 import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-challenge-requests.component';
-
 
 @NgModule({
   declarations: [
@@ -37,7 +37,8 @@ import { ClubChallengeRequestsComponent } from './club-challenge-requests/club-c
     ClubInvitationFormComponent,
     ClubOwnerRequestsComponent,
     CustomTourFormComponent,
-    CampaignTourFormComponent,
+    CampaignTourFormComponent
+    ClubFightDetailsComponent,
     ClubsRankingComponent,
     ClubDetailsComponent,
     ClubMembersComponent,

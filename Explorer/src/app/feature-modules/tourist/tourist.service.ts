@@ -8,6 +8,8 @@ import { ClubInvitation } from './model/club-invitation.model';
 import { environment } from '../../../env/environment';
 import { Club } from './model/club.model';
 import { ClubJoinRequest } from './model/club-join-request.model';
+import { ClubFight } from './model/club-fight.model';
+import { ClubFightXPInfo } from './model/club-fight-xp-info.model';
 import { ClubChallengeRequest } from './model/club-challenge-request';
 
 @Injectable({
@@ -79,6 +81,14 @@ export class TouristService {
     return this.http.get<Club>(`${this.apiUrl}/clubs/${id}`);
   }
 
+  getFightById(id: number): Observable<ClubFight> {
+    return this.http.get<ClubFight>(`${this.apiUrl}/fight/${id}`);
+  }
+
+  getFightXPInfo(fightId: number): Observable<ClubFightXPInfo> {
+    return this.http.get<ClubFightXPInfo>(`${environment.apiHost}xp/fight/${fightId}`);
+  }
+  
   getClubChallenges(id: number): Observable<ClubChallengeRequest[]>{
     return this.http.get<ClubChallengeRequest[]>(`${environment.apiHost}club-challenge-request/club/${id}`);
   }

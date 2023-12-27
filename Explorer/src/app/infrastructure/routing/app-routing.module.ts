@@ -45,6 +45,7 @@ import { EncountersTouristViewComponent } from 'src/app/feature-modules/encounte
 import { CampaignTourFormComponent } from 'src/app/feature-modules/tourist/campaign-tour-form/campaign-tour-form.component';
 import { ClubsRankingComponent } from 'src/app/feature-modules/tourist/clubs-ranking/clubs-ranking.component';
 import { ClubDetailsComponent } from 'src/app/feature-modules/tourist/club-details/club-details.component';
+import { ClubFightDetailsComponent } from 'src/app/feature-modules/tourist/club-fight-details/club-fight-details.component';
 
 const routes: Routes = [
 
@@ -84,6 +85,7 @@ const routes: Routes = [
   {path: 'campaign/:id',component: CampaignTourFormComponent,canActivate: [AuthGuard]},
   {path: 'clubs-ranking',component: ClubsRankingComponent,canActivate: [AuthGuard]},
   {path: 'club/:id',component: ClubDetailsComponent,canActivate: [AuthGuard]},
+  {path: 'fight/:id',component: ClubFightDetailsComponent, canActivate: [AuthGuard]},
 
   // Admin
   { path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard], },
