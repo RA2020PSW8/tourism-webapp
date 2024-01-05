@@ -2,6 +2,7 @@ import { Component, EventEmitter,Input, OnChanges, Output, SimpleChanges } from 
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { CommentService } from '../comment.service';
 import { Comment } from '../model/comment.model';
+import { Blog } from '../model/blog.model';
 
 @Component({
   selector: 'xp-comment-form',
@@ -13,7 +14,7 @@ export class CommentFormComponent implements OnChanges {
 
 @Input() comment : Comment;
 @Input() editMode: boolean = false;
-@Input() blogId: number
+@Input() blog: Blog
 @Output() commentAdded = new EventEmitter<null>();
 public userId : number
 
@@ -44,8 +45,12 @@ ngOnChanges(changes: SimpleChanges): void {
 
   createComment(): void
   {
+    if(this.blog.systemStatus === 'CLOSED'){
+      return;
+    }
+
     const newComment: Comment = {
-      blogId: this.blogId,
+      blogId: this.blog.id,
       postTime: new Date(),
       lastEditTime: new Date(),
       comment: this.commentForm.value.comment || "", 
@@ -62,8 +67,7 @@ ngOnChanges(changes: SimpleChanges): void {
 
   updateComment(): void
   {
-    if(this.userId !== this.comment.userId){
-      alert('Invalid')
+    if(this.userId !== this.comment.userId || this.blog.systemStatus === 'CLOSED'){
       return
     }
 
@@ -71,13 +75,12 @@ ngOnChanges(changes: SimpleChanges): void {
       id: this.comment.id,
       username: this.comment.username,
       comment: this.commentForm.value.comment || "",
-      blogId: this.blogId,
+      blogId: this.blog.id,
       userId: this.comment.userId,
       postTime: this.comment.postTime,
-      isDeleted: false
+      isDeleted: false,
+      lastEditTime: new Date()
     }
-    
-    com.lastEditTime = new Date();
 
     this.service.updateComment(com).subscribe({
       next: (_) => {

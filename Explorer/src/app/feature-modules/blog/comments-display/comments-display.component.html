@@ -1,5 +1,5 @@
 <div class="main">
-    <xp-comment-form (commentAdded)="getComments()" [blogId]="blogId" [comment]="comment" [editMode]="editMode"
+    <xp-comment-form *ngIf="blog.systemStatus !== 'CLOSED'" (commentAdded)="getComments()" [blog]="blog" [comment]="comment" [editMode]="editMode"
     style="padding-top: 1.5em;"></xp-comment-form>
     <table>
         <tr *ngFor="let c of comments">
@@ -12,7 +12,7 @@
                     <p>{{c.comment}}</p>
                 </div>
                 <div class="comment-footer">
-                    <button *ngIf="systemStatus !== 'CLOSED'" (click)="onUpdateClicked(c)" color="accent" mat-icon-button>
+                    <button (click)="onUpdateClicked(c)" color="accent" mat-icon-button>
                         <mat-icon [ngStyle]="{'color':'#5989DF'}">edit</mat-icon>
                     </button>
                     <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
