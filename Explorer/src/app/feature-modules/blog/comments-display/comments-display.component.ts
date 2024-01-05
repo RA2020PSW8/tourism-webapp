@@ -21,22 +21,14 @@ public comment : Comment
   constructor(private commentService: CommentService){}
 
   ngOnInit(): void{
-
-    this.commentService.getComments(0,0,this.blogId).subscribe({
-      next: (result: PagedResults<Comment>) =>{
-        this.comments = result.results;
-      },
-      error: (err: any) => {
-        console.log(err);
-      },
-      
-    })
+    this.getComments();
   }
 
   getComments(): void{
     this.commentService.getComments(0,0,this.blogId).subscribe({
       next : (response: PagedResults<Comment>)=>{
         this.comments = response.results;
+        this.comments.reverse();
         this.editMode = false;
       },
       error:(err : any)=>{
