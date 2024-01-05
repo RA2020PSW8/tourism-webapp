@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   max-width: 600px;
+  min-height: 100%;
+  height: 100%;
   margin: 10px auto;
   border: 1px solid #ccc;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -15,12 +17,17 @@
   align-items: center;
   position: relative;
   overflow: hidden;
+  width: 98%;
+  min-height: 40%;
+  height: 40%;
+  margin-top: 1.5%;
+  margin-left: 1%;
 }
 
 .carousel-content {
   display: flex;
   width: 100%;
-  height: 300px;
+  height: 100%;
   transition: transform 0.5s ease;
 }
 
@@ -44,18 +51,31 @@
 
 .card-body {
   padding: 10px;
+  min-height: 60%;
+}
+
+.card-description{
+  height: 80%;
+  gap: 3px;
+}
+
+.card-buttons{
+  display: flex; 
+  justify-content: space-between;
+  width: 90%;
+  margin-left: 5%;
 }
 
 .card-title {
   margin: 0;
   font-size: 24px;
   font-weight: bold;
-  color: #333;
+  color: #262F44;
 }
 
 .card-text {
-  margin: 5px 0;
-  color: #666;
+  margin-top: 2%;
+  font-size: 18px;
   word-wrap: break-word;
 }
 
@@ -64,13 +84,16 @@ button {
 }
 
 .add-to-cart-button {
-  background-color: green;
+  min-width: 40%;
+  width: 40%;
+  height: 2.9em;
+  background-color: #6260A6;
   color: white;
-  margin-left: 40%;
 }
 
 .add-to-wishlist-button {
-  background-color: rgb(255, 0, 98);
+  /*background-color: rgb(255, 0, 98);*/
+  background-color: #6260A6;
   color: white;
   margin-left: auto; /* da bi se dugme automatski pozicioniralo na desnoj strani */
   margin-right: auto; /* zbog razmaka prev i next */
@@ -83,4 +106,14 @@ button {
   content: "\2665"; /* unicode karakter za srce */
   font-size: 20px;
   margin-right: 5px;
+}
+
+.carousel-icons{
+  width: 2.2em;
+  height: 2.2em;
+}
+
+.icons{
+  width: 35%;
+  height: 35%;
 }
