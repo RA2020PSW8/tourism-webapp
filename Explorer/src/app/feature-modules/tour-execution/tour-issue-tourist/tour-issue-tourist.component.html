@@ -24,21 +24,21 @@
                         <td>{{t.description}}</td>
 
                         <td>
-                            <i *ngIf="t.price <= 20" class="fa-solid fa-piggy-bank fa-2xl" style="color: #5bd643;"></i>
-                            <i *ngIf="t.price < 55 && t.price > 20" class="fa-solid fa-piggy-bank fa-2xl" style="color: #d6d143;"></i>
-                            <i *ngIf="t.price >= 55" class="fa-solid fa-piggy-bank fa-2xl" style="color: #d64343;"></i>
+                            <i *ngIf="t.price <= 20" class="fa-solid fa-piggy-bank fa-2xl" style="color: #5bd643;" matTooltip="{{t.price}} €"></i>
+                            <i *ngIf="t.price < 55 && t.price > 20" class="fa-solid fa-piggy-bank fa-2xl" style="color: #d6d143;" matTooltip="{{t.price}} €"></i>
+                            <i *ngIf="t.price >= 55" class="fa-solid fa-piggy-bank fa-2xl" style="color: #d64343;" matTooltip="{{t.price}} €"></i>
                         </td>
                         <td>
-                            <i *ngIf="t.transportType == 'WALK'" class="fa-solid fa-person-walking fa-2xl" style="color: #000000;"></i>
-                            <i *ngIf="t.transportType == 'BIKE'" class="fa-solid fa-bicycle fa-2xl" style="color: #000000;"></i>
-                            <i *ngIf="t.transportType == 'CAR'" class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>
-                            <i *ngIf="t.transportType == 'BOAT'" class="fa-solid fa-sailboat fa-2xl" style="color: #000000;"></i>
+                            <i *ngIf="t.transportType == 'WALK'" class="fa-solid fa-person-walking fa-2xl" style="color: #000000;" matTooltip="{{t.transportType}}"></i>
+                            <i *ngIf="t.transportType == 'BIKE'" class="fa-solid fa-bicycle fa-2xl" style="color: #000000;" matTooltip="{{t.transportType}}"></i>
+                            <i *ngIf="t.transportType == 'CAR'" class="fa-solid fa-car-side fa-2xl" style="color: #000000;" matTooltip="{{t.transportType}}"></i>
+                            <i *ngIf="t.transportType == 'BOAT'" class="fa-solid fa-sailboat fa-2xl" style="color: #000000;" matTooltip="{{t.transportType}}"></i>
                         </td>
                         <td>
-                            <i *ngIf="t.difficulty == 'EASY'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #5bd643;"></i>
-                            <i *ngIf="t.difficulty == 'MEDIUM'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d6d143;"></i>
-                            <i *ngIf="t.difficulty == 'HARD'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #ff9500;"></i>
-                            <i *ngIf="t.difficulty == 'EXTREME'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d64343;"></i>
+                            <i *ngIf="t.difficulty == 'EASY'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #5bd643;" matTooltip="{{t.difficulty}}"></i>
+                            <i *ngIf="t.difficulty == 'MEDIUM'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d6d143;" matTooltip="{{t.difficulty}}"></i>
+                            <i *ngIf="t.difficulty == 'HARD'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #ff9500;" matTooltip="{{t.difficulty}}"></i>
+                            <i *ngIf="t.difficulty == 'EXTREME'" class="fa-solid fa-weight-hanging fa-2xl" style="color: #d64343;" matTooltip="{{t.difficulty}}"></i>
                         </td>
                     </tr>
                 </tbody>

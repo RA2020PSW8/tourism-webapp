@@ -1,45 +1,31 @@
 <div class="grid-container">
+
   <div class="menu-container">
     <div class="menu">
-      <div class="profile-image-container">
-        <img [src]="profile.profileImage" alt="Profile Image" class="circular-frame">
-      </div>
-    
-      <!-- Name -->
-      <div class="profile-name">
-        <h2>{{ profile.name }} {{ profile.surname }}</h2>
-        <p>{{ profile.username }}</p>
-        <p>Level: {{profile.level}}</p>
-        <p>XP: {{profile.xp}}</p>
-      </div>
       <section (click)="showTable('showEdit')">
-        <hr>
-        <p>Edit</p>
+        <button mat-raised-button class="custom-button" >Account settings</button>
       </section>
-      <section (click)="showTable('showFollowers')">
-        <hr>
-        <p>Followers</p>
+      <section (click)="showTable('showChat')">
+        <button mat-raised-button class="custom-button">Chats</button>
       </section>
-      <section (click)="showTable('showFollowing')">
-        <hr>
-        <p>Followings</p>
+      <section (click)="showTable('showFollowersAndFollowings')">
+        <button mat-raised-button class="custom-button">Followers&Followings</button>
       </section>
       <section (click)="showTable('showPeople')">
-        <hr>
-        <p>Others</p>
+        <button mat-raised-button class="custom-button">Find people</button>
       </section>
-      
     </div>
   </div>
-  <div class="content-container">
-    <div *ngIf="activeSection === 'showFollowers'">
+  <div>
+
+    <div *ngIf="activeSection === 'showFollowersAndFollowings'">
       <div>
         <h2>Followers</h2>
-        <table class="user-profile-table">
+        <table>
           <tbody>
             <tr *ngFor="let f of followers">
-              <td>
-                <img [src]="f.profileImage" alt="Profile Image">
+              <td >
+                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px;">
               </td>
               <td>{{f.name}}</td>
               <td>{{f.surname}}</td>
@@ -48,108 +34,148 @@
         </table>
       </div>
     </div>
-    <div *ngIf="activeSection === 'showFollowing'">
+
+    <div *ngIf="activeSection ==='showChat'">
+      <xp-chat-view></xp-chat-view>
+    </div>
+
+    <div *ngIf="activeSection === 'showFollowersAndFollowings'">  
       <div>
         <h2>Followings</h2>
-        <table class="user-profile-table">
+        <table>
           <tbody>
             <tr *ngFor="let f of following">
               <td>
-                <img [src]="f.profileImage" alt="Profile Image">
+                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px;">
               </td>
               <td>{{f.name}}</td>
               <td>{{f.surname}}</td>
               <td>
-                <button mat-raised-button (click)="unfollow(f.userId)">unfollow</button>
+                <button mat-raised-button class="custom-button" (click)="unfollow(f.userId)">Unfollow</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
+
     <div *ngIf="activeSection==='showPeople'">
       <div>
         <h2>Find People</h2>
-        <table class="user-profile-table">
+        <table>
           <tbody>
             <tr *ngFor="let f of profilesToFollow">
               <td>
-                <img [src]="f.profileImage" alt="Profile Image">
+                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px;">
               </td>
               <td>{{f.name}}</td>
               <td>{{f.surname}}</td>
               <td>
-                <button mat-raised-button (click)="follow(f.userId)">follow</button>
+                <button mat-raised-button class="custom-button" (click)="follow(f.userId)">Follow</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
-    
       
-    <form *ngIf="activeSection ==='showEdit'" [formGroup]="personUpdateForm" (ngSubmit)="onSubmit()">
-      <div>
-          <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="newName" type="text" />
-            
-          </mat-form-field>
-          
-          <mat-form-field>
-            <mat-label>Surname</mat-label>
-            <input class="inputStyle" matInput formControlName="newSurname" type="text" />
-            <br>
-          </mat-form-field>
-          <br>
-          <mat-form-field>
-            <mat-label>Profile Image</mat-label>
-            <input class="inputStyle" matInput formControlName="newProfileImage" type="text" />
-            <br>
-          </mat-form-field>
-          
-          <mat-form-field>
-            <mat-label>Biography</mat-label>
-            <input class="inputStyle" matInput formControlName="newBiography" type="text" />
-            <br>
-          </mat-form-field>
-          <br>
-          <mat-form-field>
-            <mat-label>Quote</mat-label>
-            <input class="inputStyle" matInput formControlName="newQuote" type="text" />
-            
-          </mat-form-field>
-          
-          <mat-form-field>
-            <mat-label>Username</mat-label>
-            <input class="inputStyle" matInput formControlName="username" type="text" />
-            <br>
-          </mat-form-field>
-          <br>
-          <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input  class="inputStyle" matInput formControlName="email" type="text" />
-            
-          </mat-form-field>
-          
-          <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input class="inputStyle" matInput formControlName="password" type="password" />
-            <br>
-          </mat-form-field>
-          <br>
-          <mat-form-field>
-            <mat-label>UserId</mat-label>
-            <input class="inputStyle" matInput formControlName="userId" type="number" />
-            <br>
-          </mat-form-field>
-          
-          <button mat-raised-button type="submit">Update Profile</button>
-        </div>
-      </form>
+          <div class="profile-image-container">
+            <img [src]="profile.profileImage" alt="Profile Image">
+          </div>
+          <div class="profile-details">
+            <div class="detail">
+              <span><strong>{{ profile.name }} {{ profile.surname }}</strong></span>
+            </div>
+            <button class="custom-button" mat-raised-button (click)="showUpdateForm()">Change Profile Info</button>
+          </div>
+      
+        <div class="profile-details">
+          <div class="profile-header">
+            <h1>Hi, {{ profile.name }}!</h1>
+          </div>
+          <div class="detail">
+            <span><strong>Your current level: </strong></span>
+            <span class="emphasized-number">{{ profile.level }}</span>
+          </div>
+          <div class="detail">
+            <span><strong>Your XP in total: </strong></span>
+            <span class="emphasized-number">{{ profile.xp }}</span>
+          </div>
     
-      <div *ngIf="activeSection ==='showFollowers'">
-        <xp-chat-view></xp-chat-view>
-    </div>
+          <div class="detail">
+            <p><strong>Biography: </strong></p>
+            <span>{{ profile.biography }}</span>
+          </div>
+          <div class="detail">
+            <p><strong>Quote: </strong></p>
+            <span>{{ profile.quote }}</span>
+          </div>
+        </div>
+
+      <!-- ADD Modal window for update -->
+      <div class="form-container">
+        <div *ngIf="updateProfile">
+          <form [formGroup]="personUpdateForm" (ngSubmit)="onSubmit()">
+              <div>
+                <mat-form-field class="form-field">
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="newName" type="text" />    
+                </mat-form-field>
+                
+                <mat-form-field class="form-field">
+                  <mat-label>Surname</mat-label>
+                  <input class="inputStyle" matInput formControlName="newSurname" type="text" />
+                </mat-form-field>
+              </div>
+              
+              <div>
+                <mat-form-field class="form-field">
+                  <mat-label>Profile Image</mat-label>
+                  <input class="inputStyle" matInput formControlName="newProfileImage" type="text" />
+                  <br>
+                </mat-form-field>
+                
+                <mat-form-field class="form-field">
+                  <mat-label>Biography</mat-label>
+                  <input class="inputStyle" matInput formControlName="newBiography" type="text" />
+                  <br>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field class="form-field">
+                  <mat-label>Quote</mat-label>
+                  <input class="inputStyle" matInput formControlName="newQuote" type="text" />
+                  
+                </mat-form-field>
+                
+                <mat-form-field class="form-field">
+                  <mat-label>Username</mat-label>
+                  <input class="inputStyle" matInput formControlName="username" type="text" />
+                  <br>
+                </mat-form-field>
+              </div>
+
+              <div>
+                <mat-form-field class="form-field">
+                  <mat-label>Email</mat-label>
+                  <input  class="inputStyle" matInput formControlName="email" type="text" />                 
+                </mat-form-field>
+                
+                <mat-form-field class="form-field">
+                  <mat-label>Password</mat-label>
+                  <input class="inputStyle" matInput formControlName="password" type="password" />
+                  <br>
+                </mat-form-field>
+              </div>
+              
+              <div>
+                <button class="custom-button" mat-raised-button (click)="cancelUpdate()">Cancel</button>
+                <button class="custom-button" mat-raised-button type="submit">Update Profile</button>
+              </div>
+            
+            </form>
+        </div>
+      </div>
   </div>
 </div>

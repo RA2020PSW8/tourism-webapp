@@ -10,10 +10,10 @@
               </mat-option>
             </mat-select>
           </mat-form-field>
-        <xp-chat-card *ngFor="let preview of chatPreviews" [chatPreviewMessage]="preview" style="card" (chatSelected)="chatSelected($event)"></xp-chat-card>
+        <xp-chat-card *ngFor="let preview of chatPreviews" [chatPreviewMessage]="preview" class="card" (chatSelected)="chatSelected($event)"></xp-chat-card>
     </div>
     <div class="chatMessages">
-        <h2 *ngIf="selectedChatId === -1" style="text-align: center; vertical-align: middle;">Select chat</h2>
+        <h2 *ngIf="selectedChatId === -1">Select chat</h2>
         <xp-chat-messages-view *ngIf="selectedChatId !== -1" [followerId]="selectedChatId" (messageSent)="getChatPreviews()"></xp-chat-messages-view>
     </div>
 </div>

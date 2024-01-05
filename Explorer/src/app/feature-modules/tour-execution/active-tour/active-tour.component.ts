@@ -5,7 +5,7 @@ import { RouteQuery } from 'src/app/shared/model/routeQuery.model';
 import { MarkerPosition } from 'src/app/shared/model/markerPosition.model';
 import { Subscription, interval, Subject, Observable, of } from 'rxjs';
 import { Keypoint } from '../../tour-authoring/model/keypoint.model';
-import { Encounter, EncounterStatus, KeypointEncounter } from '../../tour-authoring/model/keypointEncounter.model';
+import { Encounter, EncounterStatus, EncounterType, KeypointEncounter } from '../../tour-authoring/model/keypointEncounter.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { switchMap, takeUntil } from 'rxjs/operators';
 import { EncountersService } from '../../encounters-managing/encounters.service';
@@ -94,16 +94,16 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
             next: (result: EncounterCompletion[]) => {
               encountersResult.results.forEach(encounter => {
                 var encounterCompletion = result ? result.filter(ec => ec.encounterId === encounter.id)[0] : null;
-                var encounterColor = 'yellow', encounterRange = 0;
+                var encounterColor = encounter.type.toString().toLowerCase(), encounterRange = 0;
                 if(encounterCompletion != null) {
                   switch(encounterCompletion.status){
                     case EncounterCompletionStatus.PROGRESSING:
                     case EncounterCompletionStatus.STARTED:
-                      encounterColor = 'blue';
+                      encounterColor = encounterColor + "-started";
                       encounterRange = encounter.range;
                       break;
                     case EncounterCompletionStatus.COMPLETED:
-                      encounterColor = 'green';
+                      encounterColor = encounterColor + "-completed";
                       break;
                   }
                 }
@@ -153,6 +153,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           next: (result: TouristPosition) =>{
             if(this.currentPosition?.longitude !== result.longitude || this.currentPosition.latitude !== result.latitude){
               this.currentPosition = result;
+              this.currentPosition.color = "walking";
               this.triggerMapRefresh();
             }
           }
@@ -162,7 +163,9 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
 
     this.service.updateActiveTour((this.requiredEncounters.length === 0)).pipe(
       switchMap((result: TourProgress) => {
+        if(!result.touristPosition) return of(null);
         this.currentPosition = result.touristPosition;
+        this.currentPosition.color = "walking";
         let previousSecret = this.currentKeyPoint?.secret;
         let previousKeypoint = this.currentKeyPoint;
 
@@ -232,6 +235,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         this.currentPosition = {
           longitude: this.activeTour.touristPosition?.longitude || 0,
           latitude: this.activeTour.touristPosition?.latitude || 0,
+          color: 'walking'
         }
 
         if (this.activeTour && this.activeTour.status === 'IN_PROGRESS') {

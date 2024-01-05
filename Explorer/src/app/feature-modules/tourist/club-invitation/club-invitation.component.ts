@@ -57,12 +57,12 @@ export class ClubInvitationComponent implements OnInit {
   }
 
   removeMember(club: Club, memberId: number): void {
-    const startIndex = club.memberIds.indexOf(memberId);
+    // const startIndex = club.memberIds.indexOf(memberId);
     const deleteCount = 1;
 
-    if (startIndex !== -1) {
-      club.memberIds.splice(startIndex, deleteCount);
-    }
+    // if (startIndex !== -1) {
+    //   // club.memberIds.splice(startIndex, deleteCount);
+    // }
 
     this.service.updateClub(club).subscribe({});
   }

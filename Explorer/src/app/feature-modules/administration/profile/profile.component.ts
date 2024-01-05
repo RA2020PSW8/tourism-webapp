@@ -13,6 +13,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 })
 export class ProfileComponent implements OnInit {
   showContent = 'showProfile';
+  updateProfile = false;
   profilesToFollow: Profile[] = [];
   personUpdateForm: FormGroup;
   //showProfileSection: boolean = true;  // Initially show profile section
@@ -184,5 +185,13 @@ export class ProfileComponent implements OnInit {
         }
       });
     }
+  }
+
+  showUpdateForm() : void {
+    this.updateProfile = true;
+  }
+
+  cancelUpdate() : void {
+    this.updateProfile = false;
   }
 }
