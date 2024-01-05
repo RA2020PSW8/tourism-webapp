@@ -15,6 +15,7 @@ export class CommentFormComponent implements OnChanges {
 @Input() editMode: boolean = false;
 @Input() blogId: number
 @Output() commentAdded = new EventEmitter<null>();
+public userId : number
 
 constructor(private service: CommentService) {}
  
@@ -29,7 +30,9 @@ ngOnChanges(changes: SimpleChanges): void {
     comment: new FormControl('',[Validators.required]),
   })
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.userId = parseInt(localStorage.getItem('loggedId')??'1');
+  }
 
   onSubmit():void{
     if(this.commentForm.valid){
@@ -46,7 +49,8 @@ ngOnChanges(changes: SimpleChanges): void {
       postTime: new Date(),
       lastEditTime: new Date(),
       comment: this.commentForm.value.comment || "", 
-      isDeleted: false
+      isDeleted: false,
+      userId: this.userId
     }
     this.service.createComment(newComment).subscribe({
       next: (_) => {
@@ -58,18 +62,22 @@ ngOnChanges(changes: SimpleChanges): void {
 
   updateComment(): void
   {
+    if(this.userId !== this.comment.userId){
+      alert('Invalid')
+      return
+    }
+
     const com : Comment = {
+      id: this.comment.id,
+      username: this.comment.username,
       comment: this.commentForm.value.comment || "",
       blogId: this.blogId,
-      postTime: new Date(),
+      userId: this.comment.userId,
+      postTime: this.comment.postTime,
       isDeleted: false
     }
-    com.id = this.comment.id;
-    com.blogId = this.comment.blogId;
-    com.username = this.comment.username;
-    com.lastEditTime = this.comment.lastEditTime;
-    com.postTime = this.comment.postTime;
-    com.isDeleted = this.comment.isDeleted;
+    
+    com.lastEditTime = new Date();
 
     this.service.updateComment(com).subscribe({
       next: (_) => {

@@ -12,7 +12,7 @@
                     <p>{{c.comment}}</p>
                 </div>
                 <div class="comment-footer">
-                    <button *ngIf="systemStatus !== 'CLOSED'" (click)="onUpdateClicked(c)"  color="accent" mat-icon-button>
+                    <button *ngIf="systemStatus !== 'CLOSED'" (click)="onUpdateClicked(c)" color="accent" mat-icon-button>
                         <mat-icon [ngStyle]="{'color':'#5989DF'}">edit</mat-icon>
                     </button>
                     <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>

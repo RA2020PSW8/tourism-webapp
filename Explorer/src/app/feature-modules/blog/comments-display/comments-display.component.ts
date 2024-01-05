@@ -15,6 +15,7 @@ export class CommentsDisplayComponent implements OnInit {
   
 public editMode : boolean
 public comment : Comment
+public userId : number
 
   public comments: Comment[] = []
 
@@ -22,6 +23,7 @@ public comment : Comment
 
   ngOnInit(): void{
     this.getComments();
+    this.userId = parseInt(localStorage.getItem('loggedId')??'1');
   }
 
   getComments(): void{
@@ -39,18 +41,22 @@ public comment : Comment
 
 onUpdateClicked(comment: Comment): void
 {
+  if(this.userId !== comment.userId){
+    return
+  }
   this.editMode = true;
   this.comment = comment;
 }
 
 onDeleteClicked(comment: Comment): void
 {
+  if(this.userId !== comment.userId){
+    return
+  }
   this.commentService.deleteComment(comment).subscribe({
     next: (_) => {
       this.getComments();
     }
   });
 }
-
-
 }
