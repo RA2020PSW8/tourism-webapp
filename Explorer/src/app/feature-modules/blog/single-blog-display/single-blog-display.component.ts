@@ -22,6 +22,7 @@ export class SingleBlogDisplayComponent implements OnInit{
     creationTime:new Date().toISOString().split('T')[0],
     rating: 'a'
   }
+  public images : string[]
 
   constructor(private service: BlogService, private router: Router, private route: ActivatedRoute) {}
 
@@ -32,6 +33,12 @@ ngOnInit(): void {
     if(this.blogId !== 0){
       this.service.getBlog(this.blogId).subscribe((res: Blog) => {
         this.selectedBlog = res;
+        this.images = this.selectedBlog.imageLinks[0].split(',');
+        this.images.forEach((value, index, array) => {
+          if (value.includes('(') || value.includes(')')) {
+            array[index] = value.replace(/[()]/g, '');
+          }
+        });       
       });
     }
   });
@@ -58,5 +65,4 @@ rate(x:number): void{
       }
   });
 }
-  
 }
