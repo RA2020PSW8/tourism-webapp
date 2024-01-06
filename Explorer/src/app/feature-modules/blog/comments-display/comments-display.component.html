@@ -1,26 +1,21 @@
 <div class="main">
     <xp-comment-form *ngIf="blog.systemStatus !== 'CLOSED'" (commentAdded)="getComments()" [blog]="blog" [comment]="comment" [editMode]="editMode"
-    style="padding-top: 1.5em;"></xp-comment-form>
-    <table>
-        <tr *ngFor="let c of comments">
-            <td style="height: 125px;">
-            <div class="comment">
-                <div class="comment-header">
-                    <p class="p-comment-header">{{c.username}}</p>
-                </div>
-                <div class="comment-body">
-                    <p>{{c.comment}}</p>
-                </div>
-                <div class="comment-footer">
-                    <button (click)="onUpdateClicked(c)" color="accent" mat-icon-button>
-                        <mat-icon [ngStyle]="{'color':'#5989DF'}">edit</mat-icon>
-                    </button>
-                    <button (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
-                        <mat-icon [ngStyle]="{'color':'#5989DF'}">delete</mat-icon>
-                    </button>
-                </div>
-            </div>
-            </td>
-        </tr>
-    </table>
+    style="padding-top: 1em;"></xp-comment-form>
+    <div *ngFor="let c of comments" class="comment">
+        <div class="comment-header">
+            <p class="p-comment-header">{{c.username}}</p>
+            <p style="margin: 1% 3% 0% auto;" *ngIf="c.lastEditTime !== c.postTime">edited</p>
+        </div>
+        <div class="comment-body">
+            <p>{{c.comment}}</p>
+        </div>
+        <div class="comment-footer">
+            <button [ngStyle]="{'margin-top':'-1%','margin-left':'1%'}" *ngIf="userId === c.userId" (click)="onUpdateClicked(c)" color="accent" mat-icon-button>
+                <mat-icon [ngStyle]="{'color':'#5989DF'}">edit</mat-icon>
+            </button>
+            <button [ngStyle]="{'margin-top':'-1%'}" *ngIf="userId === c.userId" (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
+                <mat-icon [ngStyle]="{'color':'#5989DF'}">delete</mat-icon>
+            </button>
+        </div>
+    </div>
 </div>

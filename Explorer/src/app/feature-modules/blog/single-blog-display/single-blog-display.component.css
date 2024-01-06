@@ -104,8 +104,9 @@
 }
 
 .rating-button{
-    width: 45%;
+    width: 40%;
     margin: 5%;
+    align-content: center;
 }
 
 .rating{
