@@ -36,7 +36,6 @@
     justify-content: center;
     align-items: center;
     background-color: #F3EEEA;
-    font-size: 20px;
     border-bottom: 1px solid #5989DF;
     border-radius: 0px 0px 10px 10px;
 }
@@ -46,4 +45,9 @@
     padding-top: 1%;
     font-size: 1.5vw;
     font-weight: 500;
+}
+
+.p-comment-body{
+    padding: 2.5%;
+    font-size: 20px;
 }
