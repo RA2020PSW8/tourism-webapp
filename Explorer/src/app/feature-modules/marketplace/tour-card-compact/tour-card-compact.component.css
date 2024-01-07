@@ -7,8 +7,9 @@
   margin: 10px auto;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
-  background-color: #FFFBF5;
-  border-bottom: 2px solid #fa7921;
+  background-color: var(--color-foreground);
+  border-bottom: 2px solid #5989DF;
+  /*5989DF fa7921*/
 }
 
 .carousel {
