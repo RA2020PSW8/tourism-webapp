@@ -29,25 +29,15 @@
 }
 
 .comment-body{
-    min-height: 50%;
-    height: 50%;
+    min-height: 75%;
+    height: 75%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #F3EEEA;
-    font-size: 22px;
-}
-
-.comment-footer{
-    min-height: 25%;
-    height: 25%;
-    border-radius: 0px 0px 10px 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-content: space-between;
-    background-color: #F3EEEA;
+    font-size: 20px;
     border-bottom: 1px solid #87C4FF;
+    border-radius: 0px 0px 10px 10px;
 }
 
 .p-comment-header{

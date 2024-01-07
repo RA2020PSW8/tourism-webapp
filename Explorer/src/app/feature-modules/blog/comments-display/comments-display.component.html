@@ -4,18 +4,23 @@
     <div *ngFor="let c of comments" class="comment">
         <div class="comment-header">
             <p class="p-comment-header">{{c.username}}</p>
-            <p style="margin: 1% 3% 0% auto;" *ngIf="c.lastEditTime !== c.postTime">edited</p>
+            <p style="margin: 1% 0% 0% 75%; font-style: italic;" *ngIf="c.lastEditTime !== c.postTime">edited</p>
+            <button *ngIf="userId === c.userId" mat-icon-button [matMenuTriggerFor]="menu" style="margin-top: -1%; margin-left: auto;">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onUpdateClicked(c)" color="accent">
+                  <mat-icon [ngStyle]="{'color':'#5989DF'}">edit</mat-icon>
+                  <span>Edit</span>
+                </button>
+                <button mat-menu-item (click)="onDeleteClicked(c)">
+                  <mat-icon [ngStyle]="{'color':'#5989DF'}">delete</mat-icon>
+                  <span>Delete</span>
+                </button>
+              </mat-menu>
         </div>
         <div class="comment-body">
             <p>{{c.comment}}</p>
-        </div>
-        <div class="comment-footer">
-            <button [ngStyle]="{'margin-top':'-1%','margin-left':'1%'}" *ngIf="userId === c.userId" (click)="onUpdateClicked(c)" color="accent" mat-icon-button>
-                <mat-icon [ngStyle]="{'color':'#5989DF'}">edit</mat-icon>
-            </button>
-            <button [ngStyle]="{'margin-top':'-1%'}" *ngIf="userId === c.userId" (click)="onDeleteClicked(c)" color="accent" mat-icon-button>
-                <mat-icon [ngStyle]="{'color':'#5989DF'}">delete</mat-icon>
-            </button>
         </div>
     </div>
 </div>

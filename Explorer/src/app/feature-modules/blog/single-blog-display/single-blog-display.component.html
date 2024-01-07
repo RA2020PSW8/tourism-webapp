@@ -7,8 +7,8 @@
               <p style="margin-left: 35%; font-size: 20px; color: red;" *ngIf="selectedBlog.systemStatus === 'CLOSED'">{{selectedBlog.systemStatus}}</p>
           </div>
           <div class="rating-buttons">
-              <button (click)="rate(1)" mat-flat-button color="primary" [ngStyle]="{'background-color':'#74C69D'}" class="rating-button"><mat-icon>thumb_up_alt</mat-icon></button>
-              <button (click)="rate(2)" mat-flat-button color="primary" [ngStyle]="{'background-color':'#6260A6'}" class="rating-button"><mat-icon>thumb_down_alt</mat-icon></button>
+              <button (click)="rate(1)" mat-flat-button color="primary" [ngStyle]="{'background-color':'#74C69D'}" class="rating-button"><mat-icon style="margin-left: 5%;">thumb_up_alt</mat-icon></button>
+              <button (click)="rate(2)" mat-flat-button color="primary" [ngStyle]="{'background-color':'#6260A6'}" class="rating-button"><mat-icon style="margin-left: 5%;">thumb_down_alt</mat-icon></button>
           </div>
       </div>
         <div class="blog-info">
@@ -22,18 +22,18 @@
 
     <div class="images-container">
       <div class="image-container">
-        <img style="height: 100%; object-fit: cover;" src="{{images[0]}}">
+        <img style="height: 100%; object-fit: cover;" src="{{images[0]}}" alt="Can't load image at the moment">
       </div>
       <div class="image-container">
-        <img style="max-height: 50%; object-fit: cover;" src="{{images[1]}}">
-        <img style="max-height: 50%; object-fit: cover;" src="{{images[2]}}">
+        <img style="max-height: 50%; object-fit: cover;" src="{{images[1]}}" alt="Android user">
+        <img style="max-height: 50%; object-fit: cover;" src="{{images[2]}}" alt="White power">
       </div>
     </div>
 
     <div class="content-container">
         <div class="comments-container">
             <p class="p-header">Comments</p>
-            <xp-comments-display [blog]="selectedBlog" style="flex-direction: column; width: 70%; min-height: 60%;height: auto;margin-left: 5%; margin-top: 1.7em; padding-bottom: 1em;"></xp-comments-display>
+            <xp-comments-display [blog]="selectedBlog" style="flex-direction: column; width: 65%; min-height: 60%;height: auto;margin-left: 10%; margin-top: 1.7em; padding-bottom: 1em;"></xp-comments-display>
         </div>
         <div class="rating-container">
           <p class="p-rating">Ratings</p>
