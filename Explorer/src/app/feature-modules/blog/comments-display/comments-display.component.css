@@ -25,7 +25,8 @@
     min-height: 25%;
     height: 25%;
     border-radius: 10px 10px 0px 0px;
-    background-color: #A7CDE3;
+    background-color: #F3EEEA;
+    border-top: 2px solid #5989DF;
 }
 
 .comment-body{
@@ -36,7 +37,7 @@
     align-items: center;
     background-color: #F3EEEA;
     font-size: 20px;
-    border-bottom: 1px solid #87C4FF;
+    border-bottom: 1px solid #5989DF;
     border-radius: 0px 0px 10px 10px;
 }
 

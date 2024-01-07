@@ -37,7 +37,7 @@
                                     <tbody>
                                         <tr>
                                             <td style="min-width: 20%; width: 20% ;max-width: 20%;background-color: #5989DF;"><a href="/blog/{{bl.id}}">{{bl.title}}</a></td>
-                                            <td style="min-width: 12%;max-width: 12%; background-color: #A7CDE3;"><p class="p-header" style="font-size: 1.5em;">{{bl.systemStatus}}</p></td>
+                                            <td style="min-width: 12%;width: 14%;max-width: 14%; background-color: #A7CDE3;"><p class="p-header" style="font-size: 1.5em;">{{bl.systemStatus}}</p></td>
                                             <td *ngFor="let st of bl.blogStatuses" style="background-color: #F2F2F2;">
                                                 <div class="status">
                                                     <div class="circle" [ngStyle]="{'background-color':getColor(st.name)}"></div> 
