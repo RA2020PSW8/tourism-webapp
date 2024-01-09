@@ -3,6 +3,7 @@ import { Blog, BlogSystemStatus } from '../model/blog.model';
 import { BlogService } from '../blog.service';
 import { PagedResult } from '../shared/model/paged-result.model';
 import { BlogStatus } from '../model/blogstatus-model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-blog-list-display',
@@ -10,7 +11,7 @@ import { BlogStatus } from '../model/blogstatus-model';
   styleUrls: ['./blog-list-display.component.css']
 })
 export class BlogListDisplayComponent implements OnInit {
-  constructor(private service: BlogService) { }
+  constructor(private service: BlogService,public authService: AuthService) { }
 
   blogs: Blog[] = [];
   allBlogs: Blog[] = [];
