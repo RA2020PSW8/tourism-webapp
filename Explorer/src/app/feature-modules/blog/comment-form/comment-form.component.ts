@@ -2,6 +2,7 @@ import { Component, EventEmitter,Input, OnChanges, Output, SimpleChanges } from 
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { CommentService } from '../comment.service';
 import { Comment } from '../model/comment.model';
+import { Blog } from '../model/blog.model';
 
 @Component({
   selector: 'xp-comment-form',
@@ -13,8 +14,9 @@ export class CommentFormComponent implements OnChanges {
 
 @Input() comment : Comment;
 @Input() editMode: boolean = false;
-@Input() blogId: number
+@Input() blog: Blog
 @Output() commentAdded = new EventEmitter<null>();
+public userId : number
 
 constructor(private service: CommentService) {}
  
@@ -29,7 +31,9 @@ ngOnChanges(changes: SimpleChanges): void {
     comment: new FormControl('',[Validators.required]),
   })
 
-  ngOnInit(){}
+  ngOnInit(){
+    this.userId = parseInt(localStorage.getItem('loggedId')??'1');
+  }
 
   onSubmit():void{
     if(this.commentForm.valid){
@@ -41,12 +45,17 @@ ngOnChanges(changes: SimpleChanges): void {
 
   createComment(): void
   {
+    if(this.blog.systemStatus === 'CLOSED'){
+      return;
+    }
+
     const newComment: Comment = {
-      blogId: this.blogId,
+      blogId: this.blog.id,
       postTime: new Date(),
       lastEditTime: new Date(),
       comment: this.commentForm.value.comment || "", 
-      isDeleted: false
+      isDeleted: false,
+      userId: this.userId
     }
     this.service.createComment(newComment).subscribe({
       next: (_) => {
@@ -58,18 +67,20 @@ ngOnChanges(changes: SimpleChanges): void {
 
   updateComment(): void
   {
-    const com : Comment = {
-      comment: this.commentForm.value.comment || "",
-      blogId: this.blogId,
-      postTime: new Date(),
-      isDeleted: false
+    if(this.userId !== this.comment.userId || this.blog.systemStatus === 'CLOSED'){
+      return
     }
-    com.id = this.comment.id;
-    com.blogId = this.comment.blogId;
-    com.username = this.comment.username;
-    com.lastEditTime = this.comment.lastEditTime;
-    com.postTime = this.comment.postTime;
-    com.isDeleted = this.comment.isDeleted;
+
+    const com : Comment = {
+      id: this.comment.id,
+      username: this.comment.username,
+      comment: this.commentForm.value.comment || "",
+      blogId: this.blog.id,
+      userId: this.comment.userId,
+      postTime: this.comment.postTime,
+      isDeleted: false,
+      lastEditTime: new Date()
+    }
 
     this.service.updateComment(com).subscribe({
       next: (_) => {

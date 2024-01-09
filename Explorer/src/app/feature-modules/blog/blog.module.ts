@@ -14,6 +14,7 @@ import { BlogListDisplayComponent } from './blog-list-display/blog-list-display.
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatStepperModule} from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatStepperModule,
     MatTableModule,
     MatCheckboxModule,
+    MatMenuModule
   ],
   exports: [
     CommentFormComponent,

@@ -7,8 +7,12 @@
               <p style="margin-left: 35%; font-size: 20px; color: red;" *ngIf="selectedBlog.systemStatus === 'CLOSED'">{{selectedBlog.systemStatus}}</p>
           </div>
           <div class="rating-buttons">
-              <button (click)="rate(1)" mat-flat-button type="submit" color="primary" [ngStyle]="{'background-color':'#74C69D'}" class="rating-button">U</button>
-              <button (click)="rate(2)" mat-flat-button type="submit" color="primary" [ngStyle]="{'background-color':'#6260A6'}" class="rating-button">D</button>
+              <button (click)="rate(1)" mat-flat-button color="primary" [ngStyle]="{'background-color':'#74C69D'}" class="rating-button">
+                <mat-icon [ngStyle]="{'color':'white','margin-left': '10%'}">thumb_up_alt</mat-icon>
+              </button>
+              <button (click)="rate(2)" mat-flat-button color="primary" [ngStyle]="{'background-color':'#6260A6'}" class="rating-button">
+                <mat-icon [ngStyle]="{'color':'white','margin-left': '10%'}">thumb_down_alt</mat-icon>
+              </button>
           </div>
       </div>
         <div class="blog-info">
@@ -20,31 +24,20 @@
         </div>
     </div>
 
-    <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img *ngFor="let i of selectedBlog.imageLinks" src="{{i}}">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+    <div class="images-container">
+      <div class="image-container">
+        <img style="height: 100%; object-fit: cover;" src="{{images[0]}}" alt="Can't load image at the moment">
       </div>
+      <div class="image-container">
+        <img style="max-height: 50%; object-fit: cover;" src="{{images[1]}}" alt="Android user">
+        <img style="max-height: 50%; object-fit: cover;" src="{{images[2]}}" alt="White power">
+      </div>
+    </div>
 
     <div class="content-container">
         <div class="comments-container">
             <p class="p-header">Comments</p>
-            <xp-comments-display [blogId]="blogId" style="display: flex; flex-direction: column; width: 70%; height: auto;margin-left: 5%; margin-top: 1.7em; padding-bottom: 1em;"></xp-comments-display>
+            <xp-comments-display [blog]="selectedBlog" style="flex-direction: column; width: 65%; min-height: 60%;height: auto;margin-left: 10%; margin-top: 1.7em; padding-bottom: 1em;"></xp-comments-display>
         </div>
         <div class="rating-container">
           <p class="p-rating">Ratings</p>
@@ -58,4 +51,6 @@
                     <p class="p-rating-body">{{ r.rating === 'UPVOTE' ? 'UP' : 'DOWN' }}</p>
                 </div>
             </div>
+        </div>
     </div>
+</div>
