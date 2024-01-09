@@ -54,8 +54,13 @@
   transform: scale(1.05);
 }
 
+.carousel-icons{
+  width: 2.2em;
+  height: 2.2em;
+}
+
 .card-body {
-  padding: 10px;
+  padding: 3.5%;
   min-height: 60%;
   max-width: 100%;
 }
@@ -71,6 +76,7 @@
   justify-content: space-between;
   width: 90%;
   margin-left: 5%;
+  margin-bottom: auto;
 }
 
 .card-title {
@@ -119,11 +125,6 @@ button {
   content: "\2665"; /* unicode karakter za srce */
   font-size: 20px;
   margin-right: 5px;
-}
-
-.carousel-icons{
-  width: 2.2em;
-  height: 2.2em;
 }
 
 .icons{
