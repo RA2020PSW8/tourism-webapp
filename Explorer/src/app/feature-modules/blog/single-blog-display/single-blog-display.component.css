@@ -54,7 +54,7 @@
     border-radius: 10px;
     font-size: 1.6vw;
     margin-bottom: 0.4em;
-    background-color: #DAEAF1;
+    background-color: rgba(218, 234, 241,0.5);
 }
 
 .images-container{
@@ -83,7 +83,7 @@
     border-radius: 10px;
     display: flex;
     justify-content: flex-start;
-    background-color: #DAEAF1;
+    background-color: rgba(218, 234, 241,0.4);
 }
 
 .comments-container{
