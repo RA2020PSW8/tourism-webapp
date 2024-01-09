@@ -54,13 +54,13 @@
     border-radius: 10px;
     font-size: 1.6vw;
     margin-bottom: 0.4em;
-    background-color: #F2F2F2;
+    background-color: #DAEAF1;
 }
 
 .images-container{
     display: flex;
-    width: 90%;
-    margin-right: 5%;
+    width: 95%;
+    margin-right: 0%;
     min-height: 72vh;
     height: 72vh;
     gap: 0.5%;
@@ -69,19 +69,21 @@
 .image-container{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    width: 52%;
     height: 100%;
     gap: 0.5%;
     overflow: hidden;
 }
 
 .content-container{
-    width: 100%;
+    width: 95%;
     min-height: 80vh;
     margin-top: 2%;
+    margin-bottom: 2%;
     border-radius: 10px;
     display: flex;
     justify-content: flex-start;
+    background-color: #DAEAF1;
 }
 
 .comments-container{
@@ -139,7 +141,7 @@
     min-width: 35%;
     height: 2.4vw;
     border-radius: 45px;
-    background-color:#F2F2F2;
+    background-color:#F8FFFF;
     justify-content: center;
     align-content: center;
     border: 2px solid #fa7921;
@@ -180,10 +182,11 @@
     font-weight: 450;
     color: #262F44;;
     font-size: 2.5vw;
-    padding: 0.5em 0em 0em 2.7em;
+    padding: 0.7em 0em 0em 2.7em;
 }
 
 .p-rating{
+    padding-top: 0.3em;
     font-weight: 450;
     color: #262F44;
     font-size: 2.5vw;

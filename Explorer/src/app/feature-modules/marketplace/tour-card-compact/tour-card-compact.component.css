@@ -106,13 +106,13 @@ button {
   min-width: 40%;
   width: 40%;
   height: 2.9em;
-  background-color: #6260A6;
+  background-color: #6e64b1;
   color: white;
 }
 
 .add-to-wishlist-button {
   /*background-color: rgb(255, 0, 98);*/
-  background-color: #6260A6;
+  background-color: #6e64b1;
   color: white;
   margin-left: auto; /* da bi se dugme automatski pozicioniralo na desnoj strani */
   margin-right: auto; /* zbog razmaka prev i next */

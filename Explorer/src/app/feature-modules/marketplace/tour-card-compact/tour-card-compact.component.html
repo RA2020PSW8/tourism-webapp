@@ -17,10 +17,10 @@
       </div>
     </div>
   </div>
-  <!-- Card body for other information 262F44  -->
+  <!-- Card body for other information-->
   <div class="card-body">
     <div class="card-description">
-      <h5 style="background-color: #A3C9D9;width:fit-content;padding: 0.1em 0.5em 0.5em 0.5em;height: 1.2em; color: #262F44; border-radius: 3%;" class="card-title">{{tour.name}}</h5>
+      <h5 style="background-color: #DAEAF1;width:fit-content;padding: 0.1em 0.5em 0.5em 0.5em;height: 1.2em; color: #262F44; border-radius: 3%;" class="card-title">{{tour.name}}</h5>
       <div style="width: 100%; height: 18%;">
         <button *ngIf="router.url.includes('/home') && tour.status == 'PUBLISHED' && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'" mat-raised-button class="add-to-wishlist-button" (click)="addToWishList()">Add to Wishlist</button>
         <p style="padding: 4%; font-size: 1.2em;font-style: italic;"  *ngIf="router.url.includes('/home') && tour.status != 'PUBLISHED' && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'">This tour isn't published</p>
