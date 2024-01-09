@@ -14,12 +14,14 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { EncounterCompletion, EncounterCompletionStatus } from '../../encounters-managing/model/encounterCompletion.model';
 import { Blog, BlogSystemStatus } from '../../blog/model/blog.model';
 import { TouristPosition } from '../model/tourist-position.model';
+import { MarketplaceService } from '../../marketplace/marketplace.service';
+import { Category, Object } from '../../tour-authoring/model/object.model';
 
 enum PointOfInterestType {
-  objects = 1,
+  publicObjects = 1,
   activeEncounters,
   completedEncounters,
-  notCompletedEncounters,
+  notStartedEncounters,
   publicKeypoints,
   position,
   activeTour,
@@ -36,6 +38,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   currentPosition: MarkerPosition | undefined;
   refreshMap: boolean = false;
   currentKeyPoint: Keypoint | undefined;
+
   public keypointEncounters: KeypointEncounter[];
   public requiredEncounters: KeypointEncounter[] = [];
 
@@ -48,24 +51,34 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     creationDate: Date.now().toString(),
     systemStatus: BlogSystemStatus.DRAFT
   };
+
+  public positionSetMode: boolean;
+
   public pointsOfInterest: MarkerPosition[];
   public nearbyEncounters: Encounter[];
+  // saving all points of interest separately so they can easily be hidden from the map
+  private completedEncounters: MarkerPosition[];
+  private activeEncounters: MarkerPosition[];
+  private notStartedEncounters: MarkerPosition[];
+  private publicObjects: MarkerPosition[];
+  private publicKeypoints: MarkerPosition[];
+
   private temporary: MarkerPosition[];
 
   private updateSubscription: Subscription | undefined;
   private destroy$ = new Subject<void>();
 
   public nearbyObjectsToShow: PointOfInterestType[];
-
   public get PointOfInterestType() {
     return PointOfInterestType; 
   }
 
-  constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService, private encounterService: EncountersService) { }
+  constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService, private encounterService: EncountersService, private marketplaceService: MarketplaceService) { }
 
   ngOnInit(): void {
     this.getActiveTour();
     this.refreshMap = true;
+    this.positionSetMode = false;
     this.checkNearbyEncounters();
     this.getNearbyEncounters();
     this.updateSubscription = interval(10000).pipe(
@@ -76,14 +89,21 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         this.updatePosition();
         this.checkNearbyEncounters();
         this.getNearbyEncounters();
+        this.getNearbyObjects();
+        this.getNearbyKeypoints();
+
+        // temporary, will be changed after currentPosition update:
+        setTimeout(() => {
+          this.loadPointsOfInterest(); 
+        }, 1000);
       }
     });
 
     this.nearbyObjectsToShow = [ 
-      PointOfInterestType.objects ,
+      PointOfInterestType.publicObjects ,
       PointOfInterestType.activeEncounters,
       PointOfInterestType.completedEncounters,
-      PointOfInterestType.notCompletedEncounters,
+      PointOfInterestType.notStartedEncounters,
       PointOfInterestType.publicKeypoints,
       PointOfInterestType.position,
       PointOfInterestType.activeTour
@@ -106,10 +126,72 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         alert("Cannot start encounter");
       }
     });
-}
+  }
 
-  getNearbyEncounters(): void {
+  loadPointsOfInterest() {
     this.temporary = [];
+
+    this.nearbyObjectsToShow.forEach(pointsOfInterestType => {
+      switch(pointsOfInterestType){
+        case PointOfInterestType.activeEncounters:
+          this.temporary.push(...this.activeEncounters);
+          break;
+        case PointOfInterestType.completedEncounters:
+          this.temporary.push(...this.completedEncounters);
+          break;
+        case PointOfInterestType.notStartedEncounters:
+          this.temporary.push(...this.notStartedEncounters);
+          break;
+        case PointOfInterestType.publicObjects:
+          this.temporary.push(...this.publicObjects);
+          break;
+        case PointOfInterestType.publicKeypoints:
+          this.temporary.push(...this.publicKeypoints);
+          break;
+      }
+    });
+
+    this.pointsOfInterest = this.temporary; // map refresh
+  }
+
+  getNearbyObjects() {
+    this.publicObjects = [];
+
+    this.marketplaceService.getPublicObjects(0, 0, this.currentPosition?.latitude || 0, this.currentPosition?.longitude || 0, 1).subscribe({
+      next: (result: PagedResult<Object>) => {
+        result.results.forEach((obj) => {
+          this.publicObjects.push({
+            longitude: obj.longitude,
+            latitude: obj.latitude,
+            color: obj.category == Category.OTHER ? 'object' : obj.category.toString().toLowerCase(),
+            title: obj.name
+          })
+        });
+      }
+    })
+  }
+
+  getNearbyKeypoints() {
+    this.publicKeypoints = [];
+
+    this.marketplaceService.getPublicKeyPoints(0, 0, this.currentPosition?.latitude || 0, this.currentPosition?.longitude || 0, 1).subscribe({
+      next: (result: PagedResult<Keypoint>) => {
+        result.results.forEach((kp) => {
+          this.publicKeypoints.push({
+            longitude: kp.longitude,
+            latitude: kp.latitude,
+            color: 'red',
+            title: kp.name
+          })
+        });
+      }
+    })
+  }
+
+  getNearbyEncounters(): void{
+    this.activeEncounters = [];
+    this.completedEncounters = [];
+    this.notStartedEncounters = [];
 
     this.encounterService.getNearbyEncounters().subscribe({
       next: (encountersResult: PagedResults<Encounter>) => {
@@ -119,7 +201,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           this.encounterService.getEncounterCompletionsByIds(encounterIds).subscribe({
             next: (result: EncounterCompletion[]) => {
               encountersResult.results.forEach(encounter => {
-                var encounterCompletion = result ? result.filter(ec => ec.encounterId === encounter.id)[0] : null;
+                var encounterCompletion = (result && result.length > 0 && result[0] != null) ? result.filter(ec => ec.encounterId === encounter.id)[0] : null;
                 var encounterColor = encounter.type.toString().toLowerCase(), encounterRange = 0;
                 if(encounterCompletion != null) {
                   switch(encounterCompletion.status){
@@ -127,23 +209,36 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
                     case EncounterCompletionStatus.STARTED:
                       encounterColor = encounterColor + "-started";
                       encounterRange = encounter.range;
+                      this.activeEncounters.push({
+                        longitude: encounter.longitude,
+                        latitude: encounter.latitude,
+                        color: encounterColor,
+                        title: encounter.name,
+                        radiusSize: encounterRange
+                      })
                       break;
                     case EncounterCompletionStatus.COMPLETED:
                       encounterColor = encounterColor + "-completed";
+                      this.completedEncounters.push({
+                        longitude: encounter.longitude,
+                        latitude: encounter.latitude,
+                        color: encounterColor,
+                        title: encounter.name,
+                        radiusSize: encounterRange
+                      })
                       break;
                   }
                 }
-
-                this.temporary.push({
-                  longitude: encounter.longitude,
-                  latitude: encounter.latitude,
-                  color: encounterColor,
-                  title: encounter.name,
-                  radiusSize: encounterRange
-                })
+                else {
+                  this.notStartedEncounters.push({
+                    longitude: encounter.longitude,
+                    latitude: encounter.latitude,
+                    color: encounterColor,
+                    title: encounter.name,
+                    radiusSize: encounterRange
+                  })
+                }
               });
-
-              this.pointsOfInterest = this.temporary;
             }
           })
         }
@@ -285,6 +380,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
       }
     })
   }
+
   showBlogForm(status: TourExecutionStatus): void{
     if(status === 'COMPLETED')
     {            
@@ -293,15 +389,20 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   }
  
   toggleSetting(setting: PointOfInterestType) {
-    console.log(this.nearbyObjectsToShow);
     const settingIndex = this.nearbyObjectsToShow.indexOf(setting);
-    console.log("index: ", settingIndex);
     if(settingIndex > -1) {
       this.nearbyObjectsToShow.splice(settingIndex, 1);
     }
     else {
       this.nearbyObjectsToShow.push(setting);
     }
-    console.log(this.nearbyObjectsToShow);
+  }
+
+  changePosition() {
+    // TODO
+
+    // this.positionSetMode = true;
+    // this.temporary = this.pointsOfInterest;
+    // this.pointsOfInterest = [];
   }
 }

@@ -61,8 +61,8 @@
                     <p class="settings__title">Show objects</p>
                     <div class="toggle-container">
                         <span>Off</span>
-                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.objects)">
-                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.objects) > -1)}"></div>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.publicObjects)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.publicObjects) > -1)}"></div>
                         </div>
                         <span>On</span>
                     </div>
@@ -101,8 +101,8 @@
                     <p class="settings__title">Show new encounters</p>
                     <div class="toggle-container">
                         <span>Off</span>
-                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.notCompletedEncounters)">
-                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.notCompletedEncounters) > -1)}"></div>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.notStartedEncounters)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.notStartedEncounters) > -1)}"></div>
                         </div>
                         <span>On</span>
                     </div>
@@ -126,6 +126,9 @@
                         </div>
                         <span>On</span>
                     </div>
+                </div>
+                <div class="settings-container">
+                    <button class="button button-primary" (click)="changePosition()">Change position</button>
                 </div>
             </div>
         </div>
