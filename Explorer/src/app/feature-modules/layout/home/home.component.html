@@ -17,16 +17,13 @@
             </div>
         </nav>
     </header> -->
-
-    <div class="container">
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-            <div style="flex: 0 0 30%; max-width: 30%; margin: 1em;" *ngFor="let tour of tours">
-                <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
-            </div>
+    <div style="width: 100%;display: flex; flex-wrap: wrap; justify-content: center;">
+        <div style="flex: 0 0 22%;max-width: 30%; margin: 0.8em;" *ngFor="let tour of tours">
+            <xp-tour-card-compact [tour]="tour"></xp-tour-card-compact>
         </div>
-        <div *ngIf="!isLoading && tours.length === 0 && router.url.includes('/purchased-tours')">
-            <h1 class=cheapskate>Buy something, you cheapskate.</h1>
-        </div>
+    </div>
+    <div *ngIf="!isLoading && tours.length === 0 && router.url.includes('/purchased-tours')">
+        <h1 class=cheapskate>Buy something, you cheapskate.</h1>
     </div>
 
     <h2 *ngIf="!router.url.includes('/home')" style="margin-left: 1rem; color:green;">Your custom tours:</h2>
@@ -62,7 +59,7 @@
             <button class="button button-ternary">Read Our Blog</button>
         </div>
 
-        <div class="panel" style="background-color: var(--color-accent-contrast); color: var(--color-foreground);" *ngIf="router.url.includes('/home')">
+        <div class="panel" style="margin-bottom: 2%;background-color: var(--color-accent-contrast); color: var(--color-foreground);" *ngIf="router.url.includes('/home')">
             <p class="p-header">Embark on Adventures through Captivating Narratives</p>
             <p class="p-regular">Explore our blog for a world of travel inspiration and exciting stories. From hidden
                 gems to travel tips, our blog has it all.</p>

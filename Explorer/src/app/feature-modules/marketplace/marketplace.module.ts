@@ -33,6 +33,8 @@ import { RouterModule } from '@angular/router';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { TourManagementComponent } from './dialogs/tour-management/tour-management.component';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -75,6 +77,8 @@ import { TourManagementComponent } from './dialogs/tour-management/tour-manageme
     MatMenuModule,
     RouterModule,
     FormsModule,
+    MatIconModule,
+    MatButtonModule
   ],
 })
 export class MarketplaceModule {}
