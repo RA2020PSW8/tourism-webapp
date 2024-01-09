@@ -1,18 +1,16 @@
-<h1>Tour issues</h1>
-<hr>
 <div id="page">
     <div id="createTourIssue">
         <div id="tourslist">
-            <p>In the table below are your tours. You can choose the one tour to report an issue.</p>
-            <table>
+            <p class="description">Choose a tour for report an issue</p>
+            <table class="tourtable">
                 <thead>
                     <tr>
                         <th style="width: 50px;">Choose</th>
                         <th style="width: 100px;">Name</th>
                         <th style="width: 100px;">Description</th>
-                        <th style="width: 107px;">Price</th>
-                        <th style="width: 107px;">Transport type</th>
-                        <th style="width: 107px;">Difficulty</th>
+                        <th style="width: 80px;">Price</th>
+                        <th style="width: 80px;">Transport type</th>
+                        <th style="width: 80px;">Difficulty</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -46,6 +44,7 @@
         </div>
 
         <div id="formcontainer">
+            <p class="titleReport">Report an issue</p>
             <form [formGroup]="tourIssueForm" id="tourissueform">
                 <mat-form-field>
                     <mat-label>Category:</mat-label>
@@ -63,15 +62,16 @@
                     cdkAutosizeMaxRows="5"></textarea>
                 </mat-form-field>
                 <div id="buttonsPrimary">
-                    <button class="buttonPrimary" color="primary" mat-raised-button (click)="addTourIssue()">Create</button>
-                    <button class="buttonPrimary" color="primary" mat-raised-button (click)="updateTourIssue()">Update</button>
+                    <button style="width: 200px;" color="primary" mat-raised-button (click)="addTourIssue()">Report</button>
+                    <button style="width: 200px;" color="primary" mat-raised-button (click)="updateTourIssue()">Update</button>
                 </div>
             </form>
         </div>
     </div>
     
     <div id="tourissueslist">
-        <table>
+        <p class="description">Your reported issues</p>
+        <table class="tourissuetable">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -80,19 +80,19 @@
                     <th style="width: 20px;">Priority</th>
                     <th style="width: 180px;">Description</th>
                     <th>Creation date and time</th>
-                    <th colspan="2">Action</th>
+                    <th colspan="3">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor = "let ti of tourIssues">
-                    <td><a href="tourissue/{{ti.id}}">{{ti.id}}</a></td>
+                    <td>{{ti.id}}</td>
                     <td>{{ti.tourId}}</td>
                     <td>{{ti.category}}</td>
                     <td>{{ti.priority}}</td>
                     <td>{{ti.description}}</td>
                     <td>{{ti.creationDateTime | date:'short'}}</td>
                     <td>
-                        <button id="buttonsAction" style="color: #d0b8ac;" (click)="onUpdateClicked(ti)" mat-icon-button>
+                        <button id="buttonsAction" color="primary" (click)="onUpdateClicked(ti)" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
                     </td>
@@ -100,6 +100,9 @@
                         <button id="buttonsAction" color="accent" (click)="onDeleteClicked(ti)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
+                    </td>
+                    <td>
+                        <button id="buttonsAction" color="primary" (click)="onViewClicked(ti)" mat-raised-button>View</button>
                     </td>
                 </tr>
             </tbody>
