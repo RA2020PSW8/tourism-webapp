@@ -28,11 +28,11 @@
                     <td>
                         <form>
                             <input matInput type="date" style="font-size: 16px;" (change)="onChange($event, i)" />
-                            <button style="margin-left: 10px;" color="primary" mat-raised-button (click)="setResolveDateTime(ti)">Set</button>
+                            <button style="margin-left: 10px;" class="button button-secondary" (click)="setResolveDateTime(ti)">Set</button>
                         </form>
                     </td>
-                    <td><button mat-raised-button color="accent" (click)="disableTour(ti)" [disabled]="resolveButtonDisabled(ti)">Disable</button></td>
-                    <td><button mat-raised-button color="primary" (click)="onViewClicked(ti)">View</button></td>
+                    <td><button class="buttondesign" color="accent" mat-raised-button (click)="disableTour(ti)" [disabled]="resolveButtonDisabled(ti)">Disable</button></td>
+                    <td><button class="button button-secondary" (click)="onViewClicked(ti)">View</button></td>
                 </tr>
             </tbody>
         </table>

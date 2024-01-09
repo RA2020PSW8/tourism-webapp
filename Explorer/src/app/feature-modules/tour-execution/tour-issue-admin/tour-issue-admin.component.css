@@ -65,15 +65,22 @@ tbody tr.active-row {
     color: #3f51b5;
 }
 
-button {
-    width: 90px;
-    height: 35px;
-    border-style: hidden;
-    border-radius: 3px;
-    font-size: 16px;
+.buttondesign {
+    border-radius: var(--border-radius);
+    border-width: 0;
+    text-transform: uppercase;
+    transition: 0.25s all ease-in-out;
+    font-family: 'Helvetica', 'Arial', sans-serif !important;
+    font-weight: 700;
+    cursor: pointer;
+    min-height: 35px !important;
 }
 
 .past-5-days {
     background-color: #e3d5ca !important; 
     color: black !important; 
+}
+
+.nopadding {
+    padding: 0px !important;
 }

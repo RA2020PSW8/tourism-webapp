@@ -62,8 +62,8 @@
                     cdkAutosizeMaxRows="5"></textarea>
                 </mat-form-field>
                 <div id="buttonsPrimary">
-                    <button style="width: 200px;" color="primary" mat-raised-button (click)="addTourIssue()">Report</button>
-                    <button style="width: 200px;" color="primary" mat-raised-button (click)="updateTourIssue()">Update</button>
+                    <button style="width: 200px;" class="button button-secondary" (click)="addTourIssue()">Report</button>
+                    <button style="width: 200px;" class="button button-secondary" (click)="updateTourIssue()">Update</button>
                 </div>
             </form>
         </div>
@@ -102,7 +102,7 @@
                         </button>
                     </td>
                     <td>
-                        <button id="buttonsAction" color="primary" (click)="onViewClicked(ti)" mat-raised-button>View</button>
+                        <button id="buttonsAction" class="button button-secondary" (click)="onViewClicked(ti)">View</button>
                     </td>
                 </tr>
             </tbody>

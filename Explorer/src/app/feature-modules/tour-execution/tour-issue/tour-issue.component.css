@@ -187,3 +187,7 @@ button {
     cursor: pointer;
     float: right;
 }
+
+.nopadding {
+    padding: 0px !important;
+}
