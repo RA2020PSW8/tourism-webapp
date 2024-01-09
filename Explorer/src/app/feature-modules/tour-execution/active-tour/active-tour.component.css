@@ -57,3 +57,55 @@ tbody tr.active-row {
     right: 0;
     bottom: 0;
 }
+
+.active-tour__content {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+}
+
+.active-tour__settings {
+    padding: 1rem 2rem;
+    box-sizing: border-box;
+}
+
+.toggle-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toggle {
+    background-color: var(--color-accent-light);
+    border: 1px solid var(--color-accent-dark);
+    border-radius: 26px;
+    width: 50px;
+    height: 50%;
+    position: relative;
+    padding: 0 10px;
+}
+
+.toggle__slider {
+    position: absolute;
+    height: 100%;
+    width: 20px;
+    bottom: 0;
+    background: #fff;
+    transition: all .4s ease;
+    border-radius: 50%;
+    left: 0;
+}
+
+.toggle__slider.on {
+    left: calc(100% - 20px);
+}
+
+.setting-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.settings__title {
+    font-weight: 700;
+    margin: 0;
+}

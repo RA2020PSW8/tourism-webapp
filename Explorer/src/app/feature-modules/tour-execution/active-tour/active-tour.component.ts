@@ -15,6 +15,16 @@ import { EncounterCompletion, EncounterCompletionStatus } from '../../encounters
 import { Blog, BlogSystemStatus } from '../../blog/model/blog.model';
 import { TouristPosition } from '../model/tourist-position.model';
 
+enum PointOfInterestType {
+  objects = 1,
+  activeEncounters,
+  completedEncounters,
+  notCompletedEncounters,
+  publicKeypoints,
+  position,
+  activeTour,
+}
+
 @Component({
   selector: 'xp-active-tour',
   templateUrl: './active-tour.component.html',
@@ -45,6 +55,12 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   private updateSubscription: Subscription | undefined;
   private destroy$ = new Subject<void>();
 
+  public nearbyObjectsToShow: PointOfInterestType[];
+
+  public get PointOfInterestType() {
+    return PointOfInterestType; 
+  }
+
   constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService, private encounterService: EncountersService) { }
 
   ngOnInit(): void {
@@ -62,6 +78,16 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         this.getNearbyEncounters();
       }
     });
+
+    this.nearbyObjectsToShow = [ 
+      PointOfInterestType.objects ,
+      PointOfInterestType.activeEncounters,
+      PointOfInterestType.completedEncounters,
+      PointOfInterestType.notCompletedEncounters,
+      PointOfInterestType.publicKeypoints,
+      PointOfInterestType.position,
+      PointOfInterestType.activeTour
+    ];
   }
 
   triggerMapRefresh(): void {
@@ -266,4 +292,16 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     }
   }
  
+  toggleSetting(setting: PointOfInterestType) {
+    console.log(this.nearbyObjectsToShow);
+    const settingIndex = this.nearbyObjectsToShow.indexOf(setting);
+    console.log("index: ", settingIndex);
+    if(settingIndex > -1) {
+      this.nearbyObjectsToShow.splice(settingIndex, 1);
+    }
+    else {
+      this.nearbyObjectsToShow.push(setting);
+    }
+    console.log(this.nearbyObjectsToShow);
+  }
 }

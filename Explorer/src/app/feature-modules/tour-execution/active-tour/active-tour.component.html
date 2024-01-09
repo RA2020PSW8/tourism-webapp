@@ -52,8 +52,82 @@
                 <button color="primary" (click)="abandonTour()" mat-raised-button>Abandon Tour</button>
             </div>
         </div>
-        <div class="active-tour__map-container" *ngIf="activeTour">
-            <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" [fitSelectedRoutes]="false" *ngIf="refreshMap"></app-map>
+        <div class="active-tour__content">
+            <div class="active-tour__map-container">
+                <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" [fitSelectedRoutes]="false" *ngIf="refreshMap"></app-map>
+            </div>
+            <div class="active-tour__settings">
+                <div class="setting-container">
+                    <p class="settings__title">Show objects</p>
+                    <div class="toggle-container">
+                        <span>Off</span>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.objects)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.objects) > -1)}"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+                <div class="setting-container">
+                    <p class="settings__title">Show active tour</p>
+                    <div class="toggle-container">
+                        <span>Off</span>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.activeTour)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.activeTour) > -1)}"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+                <div class="setting-container">
+                    <p class="settings__title">Show active encounters</p>
+                    <div class="toggle-container">
+                        <span>Off</span>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.activeEncounters)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.activeEncounters) > -1)}"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+                <div class="setting-container">
+                    <p class="settings__title">Show completed encounters</p>
+                    <div class="toggle-container">
+                        <span>Off</span>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.completedEncounters)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.completedEncounters) > -1)}"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+                <div class="setting-container">
+                    <p class="settings__title">Show new encounters</p>
+                    <div class="toggle-container">
+                        <span>Off</span>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.notCompletedEncounters)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.notCompletedEncounters) > -1)}"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+                <div class="setting-container">
+                    <p class="settings__title">Show current position</p>
+                    <div class="toggle-container">
+                        <span>Off</span>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.position)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.position) > -1)}"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+                <div class="setting-container">
+                    <p class="settings__title">Show public keypoints</p>
+                    <div class="toggle-container">
+                        <span>Off</span>
+                        <div class="toggle" (click)="toggleSetting(PointOfInterestType.publicKeypoints)">
+                            <div class="toggle__slider" [ngClass]="{'on':(nearbyObjectsToShow.indexOf(PointOfInterestType.publicKeypoints) > -1)}"></div>
+                        </div>
+                        <span>On</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div *ngIf="activeTour">
             <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters" [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview>
