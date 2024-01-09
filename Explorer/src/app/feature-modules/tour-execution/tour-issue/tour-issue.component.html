@@ -67,7 +67,7 @@
                     </tr>
                 </table>
             </div>
-            <button class="button button-secondary nopadding" (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button>
+            <button style="width: 150px;" class="button button-secondary nopadding" (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button>
         </div>
     </div>
 
@@ -91,7 +91,7 @@
         <form [formGroup]="tourIssueCommentForm" class="add-new-comment">
             <h1><b>Add new comment</b></h1>
             <textarea formControlName="comment"></textarea>
-            <button class="button button-secondary nopaddnig" (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
+            <button class="button button-secondary nopadding" (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
         </form>
     </div>
 </div>
