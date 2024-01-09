@@ -49,7 +49,7 @@
 
 .blog-description{
     display: flex;
-    width: 80%;
+    width: 85%;
     height: 92%;
     border-radius: 10px;
     font-size: 1.6vw;
@@ -57,9 +57,27 @@
     background-color: #F2F2F2;
 }
 
+.images-container{
+    display: flex;
+    width: 90%;
+    margin-right: 5%;
+    min-height: 72vh;
+    height: 72vh;
+    gap: 0.5%;
+}
+
+.image-container{
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    height: 100%;
+    gap: 0.5%;
+    overflow: hidden;
+}
+
 .content-container{
     width: 100%;
-    min-height: 85vh;
+    min-height: 80vh;
     margin-top: 2%;
     border-radius: 10px;
     display: flex;
@@ -67,7 +85,7 @@
 }
 
 .comments-container{
-    width: 80%;
+    width: 75%;
     min-height: 50%;
     border-radius: 10px;
     display: flex;
@@ -81,12 +99,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: red;
 }
 
 .rating-container{
     width: 17%;
     margin-top: 1%;
-    margin-left: 4%;
     padding-bottom: 1em;
     display: flex;
     flex-direction: column;
@@ -104,8 +122,9 @@
 }
 
 .rating-button{
-    width: 45%;
+    width: 40%;
     margin: 5%;
+    align-content: center;
 }
 
 .rating{
@@ -161,7 +180,7 @@
     font-weight: 450;
     color: #262F44;;
     font-size: 2.5vw;
-    padding: 0.5em 0em 0em 1.5em;
+    padding: 0.5em 0em 0em 2.7em;
 }
 
 .p-rating{
