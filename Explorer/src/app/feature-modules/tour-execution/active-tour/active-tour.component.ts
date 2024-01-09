@@ -73,12 +73,15 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     return PointOfInterestType; 
   }
 
+  public activeTab: string;
+
   constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService, private encounterService: EncountersService, private marketplaceService: MarketplaceService) { }
 
   ngOnInit(): void {
     this.getActiveTour();
     this.refreshMap = true;
     this.positionSetMode = false;
+    this.activeTab = 'activeTour';
     this.checkNearbyEncounters();
     this.getNearbyEncounters();
     this.updateSubscription = interval(10000).pipe(
