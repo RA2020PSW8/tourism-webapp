@@ -87,9 +87,8 @@
   font-family: var(--prvi-font);
   font-weight: 700;
   border-radius: 3%;
-  color: #262F44;
-  /*background-color: #72efdd;*/
-  background-color: rgba(114, 239, 221, 0.4);
+  color: #fa7921;
+  /*background-color: rgba(114, 239, 221, 0.4);*/
   width: fit-content;
   height: 1.2em;
   padding-top: 2%;
