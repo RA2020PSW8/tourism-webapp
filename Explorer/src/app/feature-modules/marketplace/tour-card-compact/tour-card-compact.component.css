@@ -9,6 +9,8 @@
   border-radius: 20px;
   background-color: var(--color-foreground);
   border-bottom: 2px solid #5989DF;
+  font-family: var(--prvi-font);
+  font-weight: 700;
 }
 
 .carousel {
@@ -69,6 +71,7 @@
   height: 80%;
   min-height: 80%;
   gap: 3px;
+  padding-left: 4%;
 }
 
 .card-buttons{
@@ -79,11 +82,17 @@
   margin-bottom: auto;
 }
 
-.card-title {
-  margin: 0;
-  font-size: 24px;
-  font-weight: bold;
+.p-card-title {
+  font-size: 1.7em;
+  font-family: var(--prvi-font);
+  font-weight: 700;
+  border-radius: 3%;
   color: #262F44;
+  /*background-color: #72efdd;*/
+  background-color: rgba(114, 239, 221, 0.4);
+  width: fit-content;
+  height: 1.2em;
+  padding-top: 2%;
 }
 
 .p-card-description { 
@@ -96,6 +105,7 @@
   margin-top: 2%;
   font-size: 2.5vmin;
   white-space: break-word;
+  color: #262F44;
 }
 
 button {
@@ -117,7 +127,7 @@ button {
   margin-left: auto; /* da bi se dugme automatski pozicioniralo na desnoj strani */
   margin-right: auto; /* zbog razmaka prev i next */
   border: none;
-  padding: 10px;
+  padding: 3%;
   cursor: pointer;
 }
 
