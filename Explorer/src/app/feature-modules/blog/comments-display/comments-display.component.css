@@ -5,7 +5,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: column;
-    background-color: #DAEAF1;
+    background-color: rgba(218, 234, 241,0.0);
 }
 
 .comment{
@@ -25,7 +25,7 @@
     min-height: 25%;
     height: 25%;
     border-radius: 10px 10px 0px 0px;
-    background-color: #F3EEEA;
+    background-color: #F8FFFF;
     border-top: 2px solid #5989DF;
 }
 
@@ -35,7 +35,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #F3EEEA;
+    background-color: #F8FFFF;
     border-bottom: 1px solid #5989DF;
     border-radius: 0px 0px 10px 10px;
 }

@@ -2,10 +2,11 @@
 
 :root {
   /* blue color scheme */
-  --blue-light: #DAEAF1;
+  --blue-light: #EEFFFE;
   --blue-medium: #A7CDE3;
   --blue-dark: #5989DF;
   --blue-contrast: #262F44;
+  /*E8FFFF E8FBF4 EEFFFE DAEAF1*/
 
   /* [NOT USED YET] green shades */
   --green-not-so-green: #F5EFE7;
