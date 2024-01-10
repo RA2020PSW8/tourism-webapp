@@ -23,7 +23,7 @@
       <h5 style="background-color: #A3C9D9;width:fit-content;padding: 0.1em 0.5em 0.5em 0.5em;height: 1.2em; color: #262F44; border-radius: 3%;" class="card-title">{{tour.name}}</h5>
       <div *ngIf="(authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'" style="width: 100%; height: 18%;">
         <button *ngIf="router.url.includes('/home') && tour.status == 'PUBLISHED' && (authService.isLoggedIn$ | async) && authService.user$.value.role == 'tourist'" mat-raised-button class="add-to-wishlist-button" (click)="addToWishList()">Add to Wishlist</button>
-        <p style="padding: 4%; font-size: 1.2em;font-style: italic;"  *ngIf="router.url.includes('/home') && tour.status != 'PUBLISHED'">This tour is currently unavaliable.</p>
+        <p style="padding: 4%; font-size: 1.2em;font-style: italic;" *ngIf="router.url.includes('/home') && tour.status != 'PUBLISHED'">Tour is currently unavaliable.</p>
       </div>
       <p class="p-card-text" *ngIf="isCustom && tour.status === 'DRAFT'"><span style="color: red">This tour is unfinished. Add at least 2 keypoints to complete your custom tour.</span></p>
       <p class="p-card-description">{{tour.description}}</p>
