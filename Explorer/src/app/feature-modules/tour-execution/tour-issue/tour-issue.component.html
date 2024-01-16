@@ -1,7 +1,7 @@
 <div id="tour-issue-by-tour-container">
     <div id="infos">
         <div id="tour">
-            <h2><b>Tour info for {{selectedTour.name}}</b></h2>
+            <h1><b>Tour info for {{selectedTour.name}}</b></h1>
             <div class="table table-wrapper">   
                 <table>
                     <tr>
@@ -37,7 +37,7 @@
         </div>
 
         <div id="tour-issue">
-            <h2><b>Tour issue info</b></h2>
+            <h1><b>Tour issue info</b></h1>
             <div class="table table-wrapper">
                 <table>
                     <tr>
@@ -67,16 +67,16 @@
                     </tr>
                 </table>
             </div>
-            <button class="resolveButton" mat-raised-button (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button>
+            <button style="width: 150px;" class="button button-secondary nopadding" (click)="resolveTourIssue()" [disabled]="selectedTourIssue.isResolved === true">Resolved</button>
         </div>
     </div>
 
     <div id="comment-container">
-        <h2><b>Comments</b></h2>
+        <h1><b>Comments</b></h1>
         <div id="comments">
             <div class="comment-details" *ngFor = "let com of selectedTourIssue.comments">
                 <div class="profile-img">
-                    <img src="https://icons-for-free.com/iconfiles/png/512/female+person+user+woman+young+icon-1320196266256009072.png">
+                    <img src="https://freesvg.org/img/abstract-user-flat-4.png">
                 </div>
                 
                 <div class="comment-content">
@@ -89,9 +89,9 @@
         </div>
         <br>
         <form [formGroup]="tourIssueCommentForm" class="add-new-comment">
-            <h2><b>Add new comment</b></h2>
+            <h1><b>Add new comment</b></h1>
             <textarea formControlName="comment"></textarea>
-            <button class="addCommentButton" mat-raised-button (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
+            <button class="button button-secondary nopadding" (click)="addTourIssueComment()" [disabled]="this.selectedTourIssue.isResolved === true">Submit</button>
         </form>
     </div>
 </div>
