@@ -49,7 +49,7 @@
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['encounters-map']">Encounters</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['wishlist']">My wish list</button>
 
-            
+
 
             <!-- Admin -->
             <button *ngIf="user && user.role === 'administrator'"color="primary" mat-raised-button [routerLink]="['equipment']">Manage equipment</button>
@@ -79,7 +79,6 @@
     <div class="left-menu">
         <a class="link-underline" [routerLink]="['toursMarketplace']">Tour Marketplace</a>
         <a class="link-underline" [routerLink]="['blog']">Blog</a>
-        <button style="width: 100px;" class="button button-secondary" (click)="toggleOldToolbar()">Toggle</button>
     </div>
     <div class="logo" [routerLink]="['home']">
         <!-- <p>Tutours</p> -->
