@@ -3,29 +3,30 @@
   <div class="menu-container">
     <div class="menu">
       <section (click)="showTable('showEdit')">
-        <button mat-raised-button class="custom-button" >Account settings</button>
+        <button  class="custom-button-menu">Account settings</button>
       </section>
       <section (click)="showTable('showChat')">
-        <button mat-raised-button class="custom-button">Chats</button>
+        <button class="custom-button-menu">Chats</button>
       </section>
       <section (click)="showTable('showFollowersAndFollowings')">
-        <button mat-raised-button class="custom-button">Followers&Followings</button>
+        <button class="custom-button-menu">Followers & Followings</button>
       </section>
       <section (click)="showTable('showPeople')">
-        <button mat-raised-button class="custom-button">Find people</button>
+        <button class="custom-button-menu">Find people</button>
       </section>
     </div>
   </div>
+
   <div>
 
     <div *ngIf="activeSection === 'showFollowersAndFollowings'">
       <div>
         <h2>Followers</h2>
-        <table>
+        <table style="margin: 10px;">
           <tbody>
             <tr *ngFor="let f of followers">
               <td >
-                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px;">
+                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px; height: 100px;">
               </td>
               <td>{{f.name}}</td>
               <td>{{f.surname}}</td>
@@ -42,11 +43,11 @@
     <div *ngIf="activeSection === 'showFollowersAndFollowings'">  
       <div>
         <h2>Followings</h2>
-        <table>
+        <table style="margin: 10px;">
           <tbody>
             <tr *ngFor="let f of following">
               <td>
-                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px;">
+                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px; height: 100px;">
               </td>
               <td>{{f.name}}</td>
               <td>{{f.surname}}</td>
@@ -62,11 +63,11 @@
     <div *ngIf="activeSection==='showPeople'">
       <div>
         <h2>Find People</h2>
-        <table>
+        <table style="margin: 10px;">
           <tbody>
             <tr *ngFor="let f of profilesToFollow">
               <td>
-                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px;">
+                <img [src]="f.profileImage" alt="Profile Image" style="width: 100px; height: 100px;">
               </td>
               <td>{{f.name}}</td>
               <td>{{f.surname}}</td>
