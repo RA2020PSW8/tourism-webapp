@@ -5,6 +5,6 @@
         <h2 *ngIf="userId === chatPreviewMessage.sender.id">{{chatPreviewMessage.receiver.name}} {{chatPreviewMessage.receiver.surname}}</h2>
         <h2 *ngIf="userId !== chatPreviewMessage.sender.id">{{chatPreviewMessage.sender.name}} {{chatPreviewMessage.sender.surname}}<span class="read-indicator" *ngIf="!chatPreviewMessage.isRead"></span></h2>
         <p style="font-size: smaller; color: gray;">{{chatPreviewMessage.creationDateTime | date:'short'}}</p>
-        <p><strong *ngIf="userId === chatPreviewMessage.sender.id">You: </strong>{{chatPreviewMessage.content}}</p>
+        <p style="width: 50%;"><strong *ngIf="userId === chatPreviewMessage.sender.id">You: </strong>{{chatPreviewMessage.content}}</p>
     </div>
 </div>

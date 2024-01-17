@@ -139,8 +139,28 @@
     transition: background-color 0.3s ease;
 }
 
+
 .custom-button:hover {
     background-color: #4f7ea8;
+}
+
+.custom-button-menu {
+  margin: 1px;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--color-accent-dark);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 230px;
+  text-align: left;
+  font-weight:normal;
+}
+
+.custom-button-menu:hover {
+  background-color: #4f7ea8;
 }
 
 .form-container {

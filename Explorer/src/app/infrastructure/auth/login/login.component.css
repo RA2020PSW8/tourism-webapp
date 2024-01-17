@@ -23,43 +23,6 @@ body {
   }
 }
 
-form {
-  width: 300px;
-  padding: 30px;
-  background-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0px 0px 8px #aaa;
-  border-radius: 15px;
-
-}
-
-mat-form-field {
-  display: block;
-  margin-bottom: 20px;
-}
-
-input {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0 0 15px 4px rgba(0,0,0,0.06);
-}
-
-button {
-  width: 100%;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  background: linear-gradient(to right, #ff105f, #ffad06);
-  color: #fff;
-  cursor: pointer;
-  transition: 0.5s;
-}
-
-button:hover {
-  background: linear-gradient(to right, #ffad06, #ff105f);
-}
-
 .form-container {
   display: flex;
   justify-content: center;
@@ -68,7 +31,7 @@ button:hover {
 }
 
 form {
-  width: 300px;
+  width: 350px;
   padding: 30px;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 8px #aaa;
@@ -94,11 +57,10 @@ input {
   font-size: 16px;
   border: none;
   border-radius: 5px;
-  background-color: var(--color-accent-dark);
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  width: 100%;
+  width: 100%; 
+  background-color: var(--color-accent-dark);
 }
 
 .custom-button:hover {
@@ -115,4 +77,8 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.fields {
+  margin: 10px;
 }
