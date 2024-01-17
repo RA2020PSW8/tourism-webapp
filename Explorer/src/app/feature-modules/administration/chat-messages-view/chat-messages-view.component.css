@@ -29,7 +29,7 @@ textarea {
 }
 
 .message-bubble{
-    border: 2px solid #DAEAF1;
+    border: 2px solid #FFF;
     background-color: #DAEAF1;
     border-radius: 10px;
     margin: 5px;
@@ -55,3 +55,4 @@ textarea {
     font-size: medium; 
     padding: 0.7rem;
 }
+
