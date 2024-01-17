@@ -15,7 +15,7 @@
                 <p><b>Tour difficulty:</b> {{ activeTour.tour.difficulty }}</p>
                 <p><b>Tour duration:</b> {{ activeTour.tour.duration || 0 | time}}</p>
                 <div class="button-container">
-                    <button class="button button-primary" (click)="abandonTour()">Abandon Tour</button>
+                    <button class="button button-secondary" (click)="abandonTour()">Abandon Tour</button>
                 </div>
             </div>
             <div class="tab" *ngIf="activeTour && currentKeyPoint && activeTab === 'currentKeypoint'">
@@ -31,7 +31,7 @@
                     <table>
                         <thead>
                             <th>Name</th>
-                            <th>Xp</th>
+                            <th>XP</th>
                             <th>Type</th>
                             <th></th>
                         </thead>
@@ -49,7 +49,7 @@
                         </tbody>
                     </table>
                 </div>
-                <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters" [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview>
+                <!-- <xp-keypoint-encounters-preview [keypointEncounters]="keypointEncounters" [requiredEncounters]="requiredEncounters"></xp-keypoint-encounters-preview> -->
             </div>
         </div>
         <div class="active-tour__content">
@@ -58,7 +58,7 @@
             </div>
             <div class="active-tour__settings">
                 <div class="setting-container">
-                    <p class="settings__title">Show objects</p>
+                    <p class="settings__title">Objects</p>
                     <div class="toggle-container">
                         <span>Off</span>
                         <div class="toggle" (click)="toggleSetting(PointOfInterestType.publicObjects)">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="setting-container">
-                    <p class="settings__title">Show active tour</p>
+                    <p class="settings__title">Active tour</p>
                     <div class="toggle-container">
                         <span>Off</span>
                         <div class="toggle" (click)="toggleSetting(PointOfInterestType.activeTour)">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
                 <div class="setting-container">
-                    <p class="settings__title">Show active encounters</p>
+                    <p class="settings__title">Active encounters</p>
                     <div class="toggle-container">
                         <span>Off</span>
                         <div class="toggle" (click)="toggleSetting(PointOfInterestType.activeEncounters)">
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="setting-container">
-                    <p class="settings__title">Show completed encounters</p>
+                    <p class="settings__title">Completed encounters</p>
                     <div class="toggle-container">
                         <span>Off</span>
                         <div class="toggle" (click)="toggleSetting(PointOfInterestType.completedEncounters)">
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="setting-container">
-                    <p class="settings__title">Show new encounters</p>
+                    <p class="settings__title">New encounters</p>
                     <div class="toggle-container">
                         <span>Off</span>
                         <div class="toggle" (click)="toggleSetting(PointOfInterestType.notStartedEncounters)">
@@ -108,7 +108,7 @@
                     </div>
                 </div>
                 <div class="setting-container">
-                    <p class="settings__title">Show current position</p>
+                    <p class="settings__title">Current position</p>
                     <div class="toggle-container">
                         <span>Off</span>
                         <div class="toggle" (click)="toggleSetting(PointOfInterestType.position)">
@@ -118,7 +118,7 @@
                     </div>
                 </div>
                 <div class="setting-container">
-                    <p class="settings__title">Show public keypoints</p>
+                    <p class="settings__title">Public keypoints</p>
                     <div class="toggle-container">
                         <span>Off</span>
                         <div class="toggle" (click)="toggleSetting(PointOfInterestType.publicKeypoints)">
@@ -127,9 +127,9 @@
                         <span>On</span>
                     </div>
                 </div>
-                <div class="settings-container">
+                <!-- <div class="settings-container">
                     <button class="button button-primary" (click)="changePosition()">Change position</button>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

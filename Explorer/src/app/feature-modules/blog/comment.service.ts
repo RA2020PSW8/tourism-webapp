@@ -18,21 +18,21 @@ export class CommentService {
         .set('page',page.toString())
         .set('pageSize',pageSize.toString())
         .set('blogId',blogId.toString());
-      return this.http.get<PagedResults<Comment>>('https://localhost:44333/api/blog/comments',{params});
+      return this.http.get<PagedResults<Comment>>(`${environment.apiHost}blog/comments`,{params});
   }
 
   createComment(comment : Comment): Observable<Comment> 
   {
-    return this.http.post<Comment>('https://localhost:44333/api/blog/comments',comment);
+    return this.http.post<Comment>(`${environment.apiHost}blog/comments`,comment);
   }
 
   deleteComment(comment : Comment): Observable<Comment>
   {
-    return this.http.delete<Comment>('https://localhost:44333/api/blog/comments/' + comment.id);
+    return this.http.delete<Comment>(`${environment.apiHost}blog/comments` + comment.id);
   }
 
   updateComment(comment : Comment): Observable<Comment>
   {
-    return this.http.put<Comment>('https://localhost:44333/api/blog/comments/' + comment.id, comment);
+    return this.http.put<Comment>(`${environment.apiHost}blog/comments` + comment.id, comment);
   }
 }

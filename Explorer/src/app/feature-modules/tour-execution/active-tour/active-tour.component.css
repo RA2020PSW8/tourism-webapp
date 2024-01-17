@@ -11,6 +11,8 @@
     margin-bottom: 30px;
     border: 3px solid var(--color-foreground);
     border-radius: 15px;
+    background-color: var(--color-foreground);
+    min-height: 250px;
 }
 
 table {
@@ -121,9 +123,10 @@ tbody tr.active-row {
 }
 
 .tabs-header h2 {
-    padding: 5px;
+    padding: 5px 10px;
     border-radius: 15px;
-    background-color: var(--color-accent-light);
+    background-color: var(--color-accent-dark);
+    color: var(--color-foreground);
     margin: 0;
     cursor: pointer;
     border-bottom-left-radius: 0;
@@ -132,4 +135,5 @@ tbody tr.active-row {
 
 .tabs-header .active {
     background-color: var(--color-foreground);
+    color: var(--color-accent-contrast);
 }

@@ -243,9 +243,11 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           this.encounterService.getEncounterCompletionsByIds(encounterIds).subscribe({
             next: (result: EncounterCompletion[]) => {
               encountersResult.results.forEach(encounter => {
-                var encounterCompletion = (result && result.length > 0 && result[0] != null) ? result.filter(ec => ec.encounterId === encounter.id)[0] : null;
+                console.log(result);
+                var encounterCompletions = (result && result.length > 0 && result[0] != null) ? result.filter(ec => ec.encounterId === encounter.id) : null;
                 var encounterColor = encounter.type.toString().toLowerCase(), encounterRange = 0;
-                if(encounterCompletion != null) {
+                if(encounterCompletions != null) {
+                  var encounterCompletion = encounterCompletions[0];
                   switch(encounterCompletion.status){
                     case EncounterCompletionStatus.PROGRESSING:
                     case EncounterCompletionStatus.STARTED:
@@ -339,6 +341,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           this.currentKeyPoint = undefined;
           //window.confirm(previousSecret)
           //this.showBlogForm(result.status);
+          this.activeTab = 'encounters';
           window.alert('Tour completed at: ' + result.touristPosition?.updatedAt);
           return of(null); // Return an observable to continue the chain
         }
@@ -397,6 +400,9 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           this.currentKeyPoint = this.activeTour.tour.keypoints?.find((keypoint) => keypoint.position === this.activeTour?.currentKeyPoint);
         }
         this.getKeypointActiveEncounters();
+      },
+      error: () => { 
+        this.getPosition();
       }
     })
   }
