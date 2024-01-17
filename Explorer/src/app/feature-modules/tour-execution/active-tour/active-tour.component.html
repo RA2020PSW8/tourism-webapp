@@ -27,7 +27,7 @@
             </div>
             <div class="tab" *ngIf="activeTab === 'encounters'">
                 <div>
-                    <p>Nearby encounters</p>
+                    <h2>Nearby encounters</h2>
                     <table>
                         <thead>
                             <th>Name</th>
@@ -54,7 +54,7 @@
         </div>
         <div class="active-tour__content">
             <div class="active-tour__map-container">
-                <app-map [enableClicks]="false" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" [fitSelectedRoutes]="false" *ngIf="refreshMap"></app-map>
+                <app-map [enableClicks]="positionSetMode" [allowMultipleMarkers]="true" [toggleOff]="true" [routeQuery]="routeQuery" [markerPosition]="currentPosition" [markerPositions]="pointsOfInterest" [fitSelectedRoutes]="false" *ngIf="refreshMap" (clickEvent)="updateTouristPosition($event)"></app-map>
             </div>
             <div class="active-tour__settings">
                 <div class="setting-container">
