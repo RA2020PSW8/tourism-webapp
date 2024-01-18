@@ -50,7 +50,7 @@ export class EncountersService {
   }
 
   getNearbyEncounters(): Observable<PagedResults<Encounter>>{
-    return this.http.get<PagedResults<Encounter>>(`${this.apiUrl}encounter/nearbyHidden`);
+    return this.http.get<PagedResults<Encounter>>(`${this.apiUrl}encounter/nearby`);
   }
   
   getEncounterCompletionsByIds(ids: (number | undefined)[]): Observable<EncounterCompletion[]>{

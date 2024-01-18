@@ -225,47 +225,47 @@ export class MarketplaceService {
 
 
   createBundle(bundle:Bundle) : Observable<Bundle>{
-    return this.http.post<Bundle>(`https://localhost:44333/api/bundles`, bundle);
+    return this.http.post<Bundle>(`${environment.apiHost}bundles`, bundle);
   }
   getToursByAuthor(): Observable<PagedResult<Tour>>{
-    return this.http.get<PagedResult<Tour>>(`https://localhost:44333/api/author/tours/author?page=0&pageSize=0`);
+    return this.http.get<PagedResult<Tour>>(`${environment.apiHost}author/tours/author?page=0&pageSize=0`);
   }
 
   getBundle(id:number): Observable<Bundle>{
-    return this.http.get<Bundle>(`https://localhost:44333/api/bundles/${id}`);
+    return this.http.get<Bundle>(`${environment.apiHost}bundles/${id}`);
   }
 
   getAllBundles(): Observable<PagedResult<Bundle>>{
-    return this.http.get<PagedResult<Bundle>>(`https://localhost:44333/api/bundles?page=0&pageSize=0`);
+    return this.http.get<PagedResult<Bundle>>(`${environment.apiHost}bundles?page=0&pageSize=0`);
   }
 
   updateBundle(): Observable<Bundle>{
-    return this.http.put<Bundle>(`https://localhost:44333/api/bundles`,null);
+    return this.http.put<Bundle>(`${environment.apiHost}bundles`,null);
   }
 
   createPriceForBundle(price:BundlePrice) : Observable<BundlePrice>{
-    return this.http.post<BundlePrice>(`https://localhost:44333/api/bundlePrice`, price);
+    return this.http.post<BundlePrice>(`${environment.apiHost}bundlePrice`, price);
 
   }
   getPriceForBundle(bundleId:number) : Observable<BundlePrice>{
-    return this.http.get<BundlePrice>(`https://localhost:44333/api/bundlePrice/${bundleId}`);
+    return this.http.get<BundlePrice>(`${environment.apiHost}bundlePrice/${bundleId}`);
   }
   addTourToBundle(tourId:number, bundleId:number) : Observable<Bundle>{
-    return this.http.post<Bundle>(`https://localhost:44333/api/bundles/AddTourToBundle/${tourId}/${bundleId}`, null);
+    return this.http.post<Bundle>(`${environment.apiHost}bundles/AddTourToBundle/${tourId}/${bundleId}`, null);
   }
   deleteTourFromBundle(tourId:number, bundleId:number): Observable<Bundle>{
-    return this.http.delete<Bundle>(`https://localhost:44333/api/bundles/RemoveTourFromBundle?tourId=${tourId}&bundleId=${bundleId}`);
+    return this.http.delete<Bundle>(`${environment.apiHost}bundles/RemoveTourFromBundle?tourId=${tourId}&bundleId=${bundleId}`);
   }
 
   deleteBundle(id:number) :Observable<Bundle>{
-    return this.http.delete<Bundle>(`https://localhost:44333/api/bundles/${id}`);
+    return this.http.delete<Bundle>(`${environment.apiHost}bundles/${id}`);
   }
 
   publishBundle(id:number) : Observable<Bundle>{
-    return this.http.put<Bundle>(`https://localhost:44333/api/bundles/publish/${id}`, null);
+    return this.http.put<Bundle>(`${environment.apiHost}bundles/publish/${id}`, null);
   }
   archiveBundle(id:number) : Observable<Bundle>{
-    return this.http.put<Bundle>(`https://localhost:44333/api/bundles/archive/${id}`, null);
+    return this.http.put<Bundle>(`${environment.apiHost}bundles/archive/${id}`, null);
   }
 
   getCustomTours(): Observable<PagedResult<Tour>> {
@@ -280,7 +280,7 @@ export class MarketplaceService {
   }
   
   calculateBundlePrice(bundleId:number) : Observable<number> {
-    return this.http.get<number>(`https://localhost:44333/api/bundles/calculate?bundleId=${bundleId}`);
+    return this.http.get<number>(`${environment.apiHost}bundles/calculate?bundleId=${bundleId}`);
   }
 
   getWishListItemsForUser(): Observable<PagedResults<WishListItem>> {
@@ -292,7 +292,7 @@ export class MarketplaceService {
   }
 
   getTourById(tourId: number): Observable<Tour>{
-    return this.http.get<Tour>(`https://localhost:44333/api/tourist/tours/${tourId}`);
+    return this.http.get<Tour>(`${environment.apiHost}tourist/tours/${tourId}`);
   }
 
   getAllWishListItems(): Observable<PagedResult<WishListItem>> {
