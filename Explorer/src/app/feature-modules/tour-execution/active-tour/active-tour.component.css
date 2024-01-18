@@ -137,3 +137,35 @@ tbody tr.active-row {
     background-color: var(--color-foreground);
     color: var(--color-accent-contrast);
 }
+
+.popup {
+    display: none;
+    position: fixed;
+    width: 50vw;
+    height: 70vh;
+    left: 30vw;
+    top: 15vh;
+    background-color: white;
+    padding: 20px;
+    z-index: 9999;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.popup.show {
+    display: flex;
+    flex-direction: column;
+}
+
+.popup .exit {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+}
+
+.popup img {
+    margin: 0 auto;
+    height: 80%;
+    width: auto;
+}
+  

@@ -33,18 +33,26 @@
                             <th>Name</th>
                             <th>XP</th>
                             <th>Type</th>
-                            <th></th>
+                            <th>Info</th>
+                            <th>Action</th>
                         </thead>
                         <tbody>
                             <tr *ngFor="let e of nearbyEncounters">
                                 <td>{{e.name}}</td>
                                 <td>{{e.xp}}</td>
                                 <td>{{e.type}}</td>
+                                <td *ngIf="e.type == EncounterType.LOCATION"><img src="{{e.image}}" width="30" height="30" (click)="openImage()" style="cursor: pointer;"></td>
+                                <td *ngIf="e.type != EncounterType.LOCATION">{{e.description}}</td>
                                 <td>
                                     <button color="primary" mat-icon-button (click)="startEncounter(e)">
                                         <mat-icon>start</mat-icon>
                                     </button>
                                 </td>
+                                <div class="popup" *ngIf="e.type == EncounterType.LOCATION" [class]="openImagePopup ? 'show' : ''">
+                                    <h1>{{ e.description }}</h1>
+                                    <img src="{{ e.image }}" width="500" height="500">
+                                    <div class="exit" (click)="openImagePopup = false"><span>X</span></div>
+                                </div>
                             </tr>
                         </tbody>
                     </table>

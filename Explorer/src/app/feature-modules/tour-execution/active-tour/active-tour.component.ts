@@ -74,8 +74,12 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   public get PointOfInterestType() {
     return PointOfInterestType; 
   }
+  public get EncounterType() {
+    return EncounterType; 
+  }
 
   public activeTab: string;
+  public openImagePopup: boolean;
 
   public mode: string = 'edit'; // add or edit (copied from tourist-position window)
 
@@ -86,6 +90,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     this.updatePosition();
     this.refreshMap = true;
     this.positionSetMode = true;
+    this.openImagePopup = false;
     this.activeTab = 'activeTour';
     this.nearbyObjectsToShow = [ 
       PointOfInterestType.publicObjects ,
@@ -138,7 +143,14 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   startEncounter(encounter: Encounter): void {
     this.encounterService.startEncounter(encounter).subscribe({
       next: (result: EncounterCompletion) =>{
-          alert("Encounter started, go to started encounters to finish");
+        alert("Encounter started");
+        this.getNearbyEncounters(true);
+        setTimeout(() => {
+          this.checkNearbyEncounters(true);
+        }, 15000);
+        setTimeout(() => {
+          this.checkNearbyEncounters(true);
+        }, 30000);
       },
       error: (error) => {
         alert("Cannot start encounter");
@@ -230,7 +242,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     })
   }
 
-  getNearbyEncounters(): void{
+  getNearbyEncounters(loadPOI: boolean = false): void{
     this.activeEncounters = [];
     this.completedEncounters = [];
     this.notStartedEncounters = [];
@@ -246,7 +258,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
                 console.log(result);
                 var encounterCompletions = (result && result.length > 0 && result[0] != null) ? result.filter(ec => ec.encounterId === encounter.id) : null;
                 var encounterColor = encounter.type.toString().toLowerCase(), encounterRange = 0;
-                if(encounterCompletions != null) {
+                if(encounterCompletions != null && encounterCompletions.length > 0) {
                   var encounterCompletion = encounterCompletions[0];
                   switch(encounterCompletion.status){
                     case EncounterCompletionStatus.PROGRESSING:
@@ -283,6 +295,10 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
                   })
                 }
               });
+
+              if(loadPOI) {
+                this.loadPointsOfInterest();
+              }
             }
           })
         }
@@ -291,13 +307,17 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   }
 
   // dummy way for updating nearby stuff, can't bother now to do it better on backend
-  checkNearbyEncounters(): void {
+  checkNearbyEncounters(loadPOI: boolean = false): void {
     this.encounterService.checkNearbyEncounters().subscribe({
       next: (result: PagedResults<EncounterCompletion>) => {
         if(result.results){
           result.results.forEach((encounterCompletion) => {
             alert('WOOO! You completed an encounter' /*+ encounterCompletion.encounter.name*/); // nj
+            console.log(loadPOI);
           });
+        }
+        if(loadPOI) {
+          this.getNearbyEncounters(true);
         }
       }
     });
@@ -518,5 +538,9 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
         },
       });
     }
+  }
+
+  openImage(): void {
+    this.openImagePopup = true;
   }
 }
