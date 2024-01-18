@@ -251,3 +251,7 @@ body {
 .bottom-panel--newsletter button {
     height: 100%;
 }
+
+.bottom-panel--newsletter form {
+    display: flex;
+}
