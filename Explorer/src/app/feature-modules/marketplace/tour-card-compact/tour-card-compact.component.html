@@ -13,7 +13,7 @@
     </div>
     <div class="carousel-content" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
       <div class="carousel-item" *ngFor="let image of images">
-        <img src="{{image}}" alt="Tour image">
+        <img [src]="image" alt="Tour image">
       </div>
     </div>
   </div>
@@ -28,19 +28,19 @@
       <p class="p-card-text" *ngIf="isCustom && tour.status === 'DRAFT'"><span style="color: red">This tour is unfinished. Add at least 2 keypoints to complete your custom tour.</span></p>
       <p class="p-card-description">{{tour.description}}</p>
       <p class="p-card-text">
-        <mat-icon style="padding-top: 1px;">date_range</mat-icon><strong style="font-size: 2.2vmin;padding-left: 3px;">Date:</strong>
+        <mat-icon style="padding-top: 1px;">date_range</mat-icon><strong style="font-size: medium; padding-left: 3px;">Date:</strong>
         {{tour.statusUpdateTime| date:'dd.MM.yyyy'}}
       </p>
       <p class="p-card-text">
-        <mat-icon style="padding-top: 1px;">timer</mat-icon><strong style="font-size: 2.2vmin;padding-left: 3px;">Duration:</strong>
+        <mat-icon style="padding-top: 1px;">timer</mat-icon><strong style="font-size: medium;padding-left: 3px;">Duration:</strong>
         {{tour.duration}} minutes
       </p>
       <p class="p-card-text">
-        <mat-icon style="padding-top: 1px;">location_on</mat-icon><strong style="font-size: 2.2vmin;padding-left: 3px;">Start:</strong>
+        <mat-icon style="padding-top: 1px;">location_on</mat-icon><strong style="font-size: medium;padding-left: 3px;">Start:</strong>
         {{startingKeypoint.name}}
       </p>
       <p class="p-card-text">
-        <mat-icon style="padding-top: 1px;">attach_money</mat-icon><strong style="font-size: 2.2vmin;padding-left: 3px;">Price:</strong>
+        <mat-icon style="padding-top: 1px;">attach_money</mat-icon><strong style="font-size: medium;padding-left: 3px;">Price:</strong>
         {{tour.price}} AC
       </p>
     </div>
