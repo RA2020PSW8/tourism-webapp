@@ -105,11 +105,11 @@
 }
 
 .rating-container{
-    width: 17%;
+    width: 100%;
     margin-top: 1%;
     padding-bottom: 1em;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
     border-radius: 10px;
@@ -217,4 +217,9 @@
     flex-direction: row;
     gap: 50px;
     align-items: flex-start;
+}
+
+.endmysuffering{
+    display: flex;
+    flex-direction: column;
 }
