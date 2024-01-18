@@ -67,12 +67,14 @@
 }
 
 .image-container{
-    display: flex;
-    flex-direction: column;
     width: 50%;
     height: 100%;
-    gap: 0.5%;
     overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.7em;
 }
 
 .content-container{
@@ -85,7 +87,7 @@
 }
 
 .comments-container{
-    width: 75%;
+    width: 100%;
     min-height: 50%;
     border-radius: 10px;
     display: flex;
