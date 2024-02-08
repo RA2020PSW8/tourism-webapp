@@ -16,6 +16,8 @@ import { Blog, BlogSystemStatus } from '../../blog/model/blog.model';
 import { TouristPosition } from '../model/tourist-position.model';
 import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { Category, Object } from '../../tour-authoring/model/object.model';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 enum PointOfInterestType {
   publicObjects = 1,
@@ -30,7 +32,8 @@ enum PointOfInterestType {
 @Component({
   selector: 'xp-active-tour',
   templateUrl: './active-tour.component.html',
-  styleUrls: ['./active-tour.component.css']
+  styleUrls: ['./active-tour.component.css'],
+  providers: [MessageService]
 })
 export class ActiveTourComponent implements OnInit, OnDestroy {
   activeTour: TourProgress | undefined;
@@ -83,7 +86,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
 
   public mode: string = 'edit'; // add or edit (copied from tourist-position window)
 
-  constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService, private encounterService: EncountersService, private marketplaceService: MarketplaceService) { }
+  constructor(private service: TourExecutionService, private tourAuthoringService: TourAuthoringService, private encounterService: EncountersService, private marketplaceService: MarketplaceService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.getActiveTour();
@@ -143,7 +146,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
   startEncounter(encounter: Encounter): void {
     this.encounterService.startEncounter(encounter).subscribe({
       next: (result: EncounterCompletion) =>{
-        alert("Encounter started");
+        this.messageService.add({severity: 'success', summary: 'Success', detail: 'Encounter started.'});
         this.getNearbyEncounters(true);
         setTimeout(() => {
           this.checkNearbyEncounters(true);
@@ -362,7 +365,7 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
           //window.confirm(previousSecret)
           //this.showBlogForm(result.status);
           this.activeTab = 'encounters';
-          window.alert('Tour completed at: ' + result.touristPosition?.updatedAt);
+          this.messageService.add({severity:'success', summary:'Success', detail:'Tour completed.'})
           return of(null); // Return an observable to continue the chain
         }
 
@@ -503,7 +506,6 @@ export class ActiveTourComponent implements OnInit, OnDestroy {
     if (this.mode === 'edit' ) {
       this.service.updateTouristPosition(this.touristPosition).subscribe({
         next: () => {
-          window.alert("Position successfully updated");  
 
           this.checkNearbyEncounters();
           this.getNearbyEncounters();

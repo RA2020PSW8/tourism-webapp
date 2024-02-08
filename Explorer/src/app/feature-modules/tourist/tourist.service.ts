@@ -123,4 +123,8 @@ export class TouristService {
   updateNewsletterPrefence(np: NewsletterPreference): Observable<NewsletterPreference>{
     return this.http.post<NewsletterPreference>(`${environment.apiHost}tourist/newsletterpreference`, np); 
   }
+
+  endFight(fightId: number): any {
+    return this.http.get(`${environment.apiHost}tourist/fight/end/${fightId}`);
+  }
 }

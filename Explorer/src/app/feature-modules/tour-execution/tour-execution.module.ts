@@ -15,6 +15,7 @@ import { KeypointEncountersPreviewComponent } from './keypoint-encounters-previe
 import { BlogModule } from '../blog/blog.module';
 import { BlogFormComponent } from '../blog/blog-form/blog-form.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ToastModule } from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MapComponent,
     BlogModule,
     TimePipe,
-    MatTooltipModule
+    MatTooltipModule,
+    ToastModule
   ],
   exports: [
     TourReviewComponent
