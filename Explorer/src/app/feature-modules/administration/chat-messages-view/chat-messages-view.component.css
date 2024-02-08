@@ -29,7 +29,7 @@ textarea {
 }
 
 .message-bubble{
-    border: 2px solid #DAEAF1;
+    border: 2px solid #FFF;
     background-color: #DAEAF1;
     border-radius: 10px;
     margin: 5px;
@@ -38,7 +38,6 @@ textarea {
 
 .custom-button {
     margin: 10px;
-    margin-bottom: 20px;
     padding: 10px 20px;
     font-size: 16px;
     border: none;
@@ -48,3 +47,12 @@ textarea {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+.textarea{
+    margin: 10px;
+    width: 85%; 
+    height: 80%; 
+    font-size: medium; 
+    padding: 0.7rem;
+}
+

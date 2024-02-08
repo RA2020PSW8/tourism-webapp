@@ -1,6 +1,6 @@
 <div class="main">
     <form [formGroup]="commentForm" class="form-container">
-            <mat-form-field style="width: 70%; font-size: 22px;">
+            <mat-form-field style="width: 75%; font-size: 22px;">
                 <mat-label>{{ editMode ? 'Edit a comment' : 'Leave a comment' }}</mat-label>
                 <textarea matInput
                 cdkTextareaAutosize
@@ -8,7 +8,7 @@
                 formControlName="comment"
                 cdkAutosizeMaxRows="5"></textarea>
             </mat-form-field>  
-            <button [ngStyle]="{'background-color':'#74C69D'}" style="width: 18%;height: 2.7em;margin-left: 2em;margin-top: 0.5em;" mat-flat-button color="primary" (click)="editMode ? updateComment() : createComment()">
+            <button [ngStyle]="{'background-color':'#74C69D'}" style="width: 14%;height: 2.7em;margin-left: 2em;margin-top: 0.5em;" mat-flat-button color="primary" (click)="editMode ? updateComment() : createComment()">
                 {{ editMode ? 'Edit' : 'Post' }}
                 <mat-icon>send</mat-icon>
             </button>              

@@ -292,7 +292,8 @@ export class MapComponent implements AfterViewInit, OnChanges {
         this.clickMarker = L.marker([lat, lng], { icon: customIcon }).addTo(this.markerLayer);
         alert(this.clickMarker.getLatLng());
       } else {
-        this.clickMarker = new L.Marker([lat, lng]).addTo(this.markerLayer);
+        //this.clickMarker = new L.Marker([lat, lng]).addTo(this.markerLayer);
+        this.setMarker(lat, lng, 'walking');
         this.clickEvent.emit([lat, lng]);
       }
 

@@ -1,34 +1,42 @@
 #page {
     display:flex;
-    gap: 10px;
+    margin-top: 50px;
+    gap: 60px;
     flex-direction: column;
     justify-content: center;
-}
-
-hr {
-    width: 96.3%;
+    align-items: center;
+    justify-items: center;
 }
 
 #createTourIssue {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    gap: 50px;
 }
 
 #tourslist {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    width: 70%;
-    margin-top: 20px;
+    width: 950px;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 450px;
+    background-color: white;
+    border-radius: 5px;
 }
 
 #formcontainer {
+    background-color: white;
+    border-radius: 5px;
     display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    flex-direction: column;
+    gap: 40px;
+    align-items: center;
+
     width: 30%;
-    margin-top: 20px;
+    height: 450px;
 }
 
 #tourissueform {
@@ -39,13 +47,28 @@ hr {
 
 #tourissueslist {
     display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: 5px;
     align-items: center;
-    justify-content: center;
-    margin-top: 80px;
+    overflow: scroll;
+    overflow-x: hidden;
+    height: 300px;
+    width: 1000px;
 }
 
-table {
-    width: 1000px;
+.tourtable {
+    width: 900px;
+    border-collapse: collapse;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+}
+
+.tourissuetable {
+    width: 950px;
+    border-collapse: collapse;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
 }
 
 label {
@@ -81,52 +104,22 @@ input {
     gap: 20px;
 }
 
-.buttonPrimary {
-    width: 200px;
-    background-color: #d0b8ac;
-    color: black;
-}
-
 .mat-icon {
     vertical-align: middle;
 }
 
-hr {
-    
-    margin-bottom: 15px;
-}
-
-p {
-    font-size: 20px;
-    font-family: sans-serif;
-    font-style: oblique;
+.description {
+    font-size: 22px;
     color: black;
     margin-bottom: 25px;
-    margin-left: 35px;
-}
-
-h1 {
-    font-size: 25px;
-    font-family: sans-serif;
-    font-style: oblique;
-    color: #d0b8ac;
-    font-weight: bold;
     margin-top: 25px;
-    margin-left: 27px;
-}
-
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-    font-family: sans-serif;
-    font-size: 16px;
+    text-align: center;
+    font-weight: bold;
 }
 
 thead tr {
-    background-color: #d0b8ac;
-    color: black;
+    background-color: #5989DF;
+    color: white;
     text-align: center;
 }
 
@@ -140,16 +133,23 @@ tbody tr {
 }
 
 tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
+    background-color: #DAEAF1;
 }
 
 tbody tr:last-of-type {
-    border-bottom: 2px solid #d0b8ac;
+    border-bottom: 2px solid #5989DF;
 }
 
 tbody tr.active-row {
     font-weight: bold;
     color: #d0b8ac;
+}
+
+.titleReport {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    margin-top: 25px;
 }
 
 button {

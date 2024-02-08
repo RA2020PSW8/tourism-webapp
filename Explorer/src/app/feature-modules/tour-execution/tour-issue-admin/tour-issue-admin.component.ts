@@ -103,4 +103,8 @@ export class TourIssueAdminComponent implements OnInit {
   
     return true;
   }
+
+  onViewClicked(tourIssue: TourIssue): void {
+    window.location.href = `tourissue/${tourIssue.id}`;
+  }
 }

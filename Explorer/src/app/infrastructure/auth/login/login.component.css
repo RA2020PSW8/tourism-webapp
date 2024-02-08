@@ -23,13 +23,19 @@ body {
   }
 }
 
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5%;
+}
+
 form {
-  width: 300px;
+  width: 350px;
   padding: 30px;
   background-color: rgba(255, 255, 255, 0.8);
   box-shadow: 0px 0px 8px #aaa;
   border-radius: 15px;
-
 }
 
 mat-form-field {
@@ -45,21 +51,21 @@ input {
   box-shadow: 0 0 15px 4px rgba(0,0,0,0.06);
 }
 
-button {
-  width: 100%;
-  padding: 10px;
+.custom-button {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
   border: none;
   border-radius: 5px;
-  background: linear-gradient(to right, #ff105f, #ffad06);
-  color: #fff;
+  color: white;
   cursor: pointer;
-  transition: 0.5s;
+  width: 100%; 
+  background-color: var(--color-accent-dark);
 }
 
-button:hover {
-  background: linear-gradient(to right, #ffad06, #ff105f);
+.custom-button:hover {
+  background-color: #4f7ea8;
 }
-
 p {
   text-align: center;
 }
@@ -71,4 +77,8 @@ a {
 
 a:hover {
   text-decoration: underline;
+}
+
+.fields {
+  margin: 10px;
 }

@@ -190,6 +190,7 @@
   border-radius:10px;
   z-index: 9999;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  overflow: auto;
 }
 
 .overlay-content {
@@ -214,14 +215,14 @@
 .user-profile {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  font-family: Ubuntu, serif;
   align-self: flex-start;
+  margin-bottom: 20px;
 }
 
 .user-info {
   margin-left: 10px;
 }
+
 .user-info p {
   margin: 0;
   padding: 0;
@@ -233,11 +234,7 @@
   margin-bottom: 5px;
   background-color: white!important;
   text-align:left;
-  font-family: Ubuntu, serif
-}
-
-.btn-option:hover {
-  background-color: #f19292 !important;
+  font-size: 13px;
 }
 
 .navbar-icon{
@@ -255,15 +252,6 @@
   margin-left:20px;
 }
 
-.app-name{
-  width:100%;
-  font-family: Ubuntu, serif
-}
-
-.app-name:hover{
-  color: #e599c2;
-  cursor: default;
-}
 
 .navbar-picture{
   border-radius: 50%;
@@ -273,6 +261,7 @@
 
 .options {
   width: 300px;
+  overflow: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -281,4 +270,35 @@
 .option {
   width: 100%;
   text-align: center;
+  padding: 2px;
+  font-size: 13px;
 }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.section-title {
+  font-weight: bold;
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.section-line {
+  flex-grow: 2;
+  border: none;
+  border-top: 1px solid black;
+}
+
+.close-icon {
+  position: absolute;
+  top: 3%;
+  right: 3%;
+}
+
+.close-icon:hover {
+  cursor: pointer;
+}
+

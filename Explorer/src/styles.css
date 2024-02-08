@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
 :root {
   /* blue color scheme */
   --blue-light: #DAEAF1;
@@ -57,9 +58,7 @@ body {
 
 body {
     margin: 0;
-  
     font-family: Roboto, "Helvetica Neue", sans-serif;
-
     background-color: var(--color-background);
     color: var(--color-text);
 }
@@ -91,6 +90,7 @@ body {
 .map-container {
   width: 100%;
   height: 90%;
+  z-index: 1;
 }
 
 .main-content {
@@ -109,7 +109,7 @@ body {
     cursor: pointer;
 }
 
-.link-underline:hover { 
+.link-underline:hover {
     color: var(--color-accent-contrast);
     opacity: 0.7;
 }
@@ -138,7 +138,7 @@ body {
     background-color: var(--color-foreground);
 }
 
-.link-underline--light:hover { 
+.link-underline--light:hover {
     color: var(--color-accent-foreground);
 }
 
@@ -251,4 +251,8 @@ body {
 
 .bottom-panel--newsletter button {
     height: 100%;
+}
+
+.bottom-panel--newsletter form {
+    display: flex;
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { ProfileService } from '../profile.service';
 import { ChatMessage } from '../model/chat-preview.model';
 import { MessageInput } from '../model/message-input.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-chat-messages-view',
@@ -15,8 +16,12 @@ export class ChatMessagesViewComponent implements OnChanges {
 
   public messages: ChatMessage[] = [];
   public messageContent: string;
+  public userId: number;
 
-  constructor(private profileService: ProfileService){}
+  constructor(private profileService: ProfileService, private authService: AuthService){
+    this.userId = authService.user$.value.id;
+    console.log("Korisnik id: " , this.userId);
+  }
 
   ngOnChanges(): void {
     if(this.followerId > 0){

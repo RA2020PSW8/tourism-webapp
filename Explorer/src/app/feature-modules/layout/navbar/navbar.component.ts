@@ -5,6 +5,8 @@ import { LayoutService } from '../layout.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { NotificationModel } from '../model/notification.model';
 import { Router } from '@angular/router';
+import {ProfileService} from "../../administration/profile.service";
+import {Profile} from "../../administration/model/profile.model";
 
 @Component({
   selector: 'xp-navbar',
@@ -19,12 +21,15 @@ export class NavbarComponent implements OnInit {
   unreadNotificationsCount: number = 0;
   isOverlayOpen: boolean = false;
 
-  constructor(private authService: AuthService, private layoutService: LayoutService, private router: Router) {}
+  profile: Profile = {} as Profile;
+
+  constructor(private authService: AuthService, private layoutService: LayoutService, private router: Router, private service: ProfileService) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       this.user = user;
       this.getNotifications();
+      this.loadProfileData();
     });
   }
 
@@ -91,6 +96,22 @@ export class NavbarComponent implements OnInit {
     if(actionURL){
       this.router.navigate([actionURL]);
     }
+  }
+
+  loadProfileData() {
+    this.authService.user$.subscribe((user) => {
+      if (user.username) {
+        const userId = user.id;
+        this.service.getProfile(userId).subscribe({
+          next: (data: Profile) => {
+            this.profile = data;
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        });
+      }
+    });
   }
 
   protected readonly localStorage = localStorage;

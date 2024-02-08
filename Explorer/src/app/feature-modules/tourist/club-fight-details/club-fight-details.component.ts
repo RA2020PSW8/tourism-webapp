@@ -33,17 +33,17 @@ export class ClubFightDetailsComponent implements OnInit {
       let fightId = Number(params.get('id'));
 
       if(fightId !== 0){
-        this.touristService.getFightById(fightId).subscribe({ 
-          next: (result: ClubFight) => { 
-            this.clubFight = result;
-            this.tillFightEnd = this.getDuration((new Date(this.clubFight.endOfFight)).valueOf() - (new Date()).valueOf()); // aaaaaaaaaaaaaaaaaaaa
-            setInterval(() => {
-              this.tillFightEnd = this.getDuration((new Date(this.clubFight.endOfFight)).valueOf() - (new Date()).valueOf()); 
-            }, 5 * 1000); 
-            this.getFightXPInfo(fightId);
-          },
-          error: () => { }
-      });
+          this.touristService.getFightById(fightId).subscribe({ 
+            next: (result: ClubFight) => { 
+              this.clubFight = result;
+              this.tillFightEnd = this.getDuration((new Date(this.clubFight.endOfFight)).valueOf() - (new Date()).valueOf()); // aaaaaaaaaaaaaaaaaaaa
+              setInterval(() => {
+                this.tillFightEnd = this.getDuration((new Date(this.clubFight.endOfFight)).valueOf() - (new Date()).valueOf()); 
+              }, 5 * 1000); 
+              this.getFightXPInfo(fightId);
+            },
+            error: () => { }
+        });
       }
     });
   }
@@ -66,4 +66,13 @@ export class ClubFightDetailsComponent implements OnInit {
   
     return ({'days': days, "hours": hours, "minutes": minutes})
   };
+
+  endFight(): void{
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      let fightId = Number(params.get('id'));
+      this.touristService.endFight(fightId).subscribe(() => {
+        console.log('end my suffering');
+      });
+    });
+  }
 }

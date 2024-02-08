@@ -20,7 +20,7 @@ import { MapComponent } from './shared/map/map.component';
 import { TimePipe } from './shared/helpers/time.pipe';
 import { EncountersModule } from './feature-modules/encounters-managing/encounters.module';
 import { MatNativeDateModule, NativeDateAdapter, MAT_DATE_FORMATS, DateAdapter } from '@angular/material/core';
-
+import { ToastModule} from 'primeng/toast'
 
 
 @NgModule({
@@ -46,6 +46,7 @@ import { MatNativeDateModule, NativeDateAdapter, MAT_DATE_FORMATS, DateAdapter }
     FormsModule,
     EncountersModule,
     MatNativeDateModule,
+    ToastModule
   ],
   providers: [
     {

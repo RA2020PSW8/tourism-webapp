@@ -104,6 +104,10 @@ export class TourIssueTouristComponent implements OnChanges {
     })
   }
 
+  onViewClicked(tourIssue: TourIssue): void {
+    window.location.href = `tourissue/${tourIssue.id}`;
+  }
+
   updateTourIssue(): void {
     const tourIssue : TourIssue = {
       id: this.selectedTourIssue.id,
